@@ -26,7 +26,7 @@ class MyDiary(models.Model):
     people = models.ManyToManyField(People, null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
-    emotion_score = 
+    emotion_score = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.content
