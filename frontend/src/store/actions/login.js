@@ -1,10 +1,14 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
+axios.defaults.xsrfCookieName = "csrftoken"; 
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.withCredentials = true
+
 export const loginRequest = (user) => {
     return dispatch => {
-        return axios.post('/signin', user)
-        .then( response => {loginSuccess(id)})
+        return axios.post('/api/signin', user)
+        .then( response => {loginSuccess(user.username)})
         .catch(error => {
             dispatch(loginFailure(error.response.data.code))
         })
@@ -17,10 +21,10 @@ export function login() {
     };
 }
  
-export function loginSuccess(id) {
+export function loginSuccess(username) {
     return {
         type: actionTypes.LOGIN_SUCCESS,
-        ID : id
+        username : username
     };
 }
  
