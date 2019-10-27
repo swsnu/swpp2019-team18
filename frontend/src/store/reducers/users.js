@@ -15,8 +15,8 @@ const initialState = {
     }
 };
 
-export default function authentication(state = initialState, action) {
-    switch(action.actionTypes) {
+const reducer = (state = initialState, action) => {
+    switch(action.type) {
     /* sing-up */
       case actionTypes.SIGN_UP:
         return {
@@ -51,6 +51,7 @@ export default function authentication(state = initialState, action) {
           }
         }
     case actionTypes.LOGIN_SUCCESS:
+       console.log('login success')
         return {
           ...state,
           login: {
@@ -70,9 +71,13 @@ export default function authentication(state = initialState, action) {
           }
         }
       default:
-        return state;
+        break;
     }
+    return state
+    
   };
+
+  export default reducer;
   
 
 

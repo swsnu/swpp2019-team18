@@ -12,6 +12,8 @@ import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
+import { CookiesProvider } from 'react-cookie';
+import axios from 'axios';
 
 import * as actionCreators from './store/actions/index';
 
@@ -38,7 +40,11 @@ const logger = store => {
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk, routerMiddleware(history))));
 
-ReactDOM.render(<Provider store={store}><App history = {history} /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <CookiesProvider>
+    <Provider store={store}><App history = {history} /></Provider>
+  </CookiesProvider>
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

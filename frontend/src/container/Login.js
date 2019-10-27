@@ -10,11 +10,13 @@ class Login extends Component {
     }
     onClickLogInButton = () => {
         const data = {username: this.state.username , password: this.state.password};
-        this.props.login(data);
-        if(this.props.status.isLoggedIn){
-            //go to the main page
-            console.log('log in success')
-        }
+        this.props.login(data).then( () => {
+            if(this.props.loginState.isLoggedIn){
+                console.log('log in success');
+                //this.props.history.push('/diary)
+            }
+          }
+        )
 
     }
 
@@ -31,7 +33,7 @@ class Login extends Component {
                 <label>password</label>
                 <input  value={this.state.password} id = "password-input" type= 'password'
                         onChange={(event) => this.setState({ password : event.target.value })} />
-                <button id = 'login-button' onClick = {() => this.onClickLogInButton}>Sign In</button>
+                <button id = 'login-button' onClick = {() => this.onClickLogInButton()}>Sign In</button>
 
                 <a onClick = {() => this.onClickSignUpButton() }>Sign Up</a>
             </div>
