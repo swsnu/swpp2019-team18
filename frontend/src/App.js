@@ -1,11 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Login from './container/Login'
 import SignUp from './container/SingUp'
 import {  Route, Redirect, Switch} from 'react-router-dom'
-import {connect} from 'react-redux'
-import { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import {PrivateRoute} from './PrivateRoute'
 

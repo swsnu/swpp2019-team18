@@ -12,7 +12,6 @@ import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import { CookiesProvider } from 'react-cookie';
 import axios from 'axios';
 
 import * as actionCreators from './store/actions/index';
