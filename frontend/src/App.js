@@ -7,33 +7,21 @@ import {  Route, Redirect, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
-
-const mapStateToProps = state => {
-  return {
-    currentUser : state.user.status.isLoggedIn
-  };
-};
-
-
+//import {PrivateRoute} from './PrivateRoute'
 
 function App(props) {
-
     return (
       <ConnectedRouter history={props.history}>
         <div>
         <Switch>
             <Route path='/login' exact component={Login}/>
             <Route path='/signup' exact component={SignUp}/>
+            {/* <PrivateRoute path = '/diary exact component= {Diary} */}
+            {/* Need to check whether PrivateRoute works as expected*/}
           </Switch>
         </div>    
       </ConnectedRouter>
-    
     )
-  
-  
 }
-
-
-
 
 export default App

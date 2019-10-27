@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as actionCreators from '../store/actions/signUp'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
+import { Button, Form, Grid, Header,  Segment } from 'semantic-ui-react'
 
 class SignUp extends Component {
     state = {
@@ -20,7 +21,7 @@ class SignUp extends Component {
         }
         const data = {username: this.state.username , password: this.state.password, email : this.state.email, nickname : this.state.nickname};
         this.props.signUp(data).then( () => {
-                if(this.props.registerState == 'SUCCESS'){
+                if(this.props.registerState === 'SUCCESS'){
                     this.props.history.push('/login');
                 }
                 else{
@@ -31,27 +32,38 @@ class SignUp extends Component {
     }
 
     render() {
-        
-        
         return (
-            <div>
-                <label>username</label>
-                <input  value={this.state.username} id = "signup-id-input"
-                        onChange={(event) => this.setState({ username : event.target.value })} />
-
-                <label>password</label>
-                <input  value={this.state.password} id = "signup-password-input" type = 'password'
-                        onChange={(event) => this.setState({ password : event.target.value })} />
-
-                <label>email</label>
-                <input  value={this.state.email} id = "signup-email-input" type = 'text'
-                        onChange={(event) => this.setState({ email : event.target.value })} />
-
-                <label>nickname</label>
-                <input  value={this.state.nickname} id = "signup-nickname-input" type = 'text'
-                        onChange={(event) => this.setState({ nickname : event.target.value })} />
-                <button id = 'signup-button' onClick = {() => this.onClickSignUpButton()}>REGISTER</button>
-            </div>
+            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+                <Grid.Column style={{ maxWidth: 450 }}>
+                <Header as='h2' color='black' textAlign='center'>
+                    Sign up for S.DA
+                </Header>
+                    <Form size='large'>
+                        <Segment stacked>
+                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' 
+                                value={this.state.username} id = "signup-id-input"
+                                onChange={(event) => this.setState({ username : event.target.value })}/>
+                            <Form.Input 
+                                fluid icon='lock'
+                                iconPosition='left'
+                                placeholder='Password'
+                                type='password'
+                                value={this.state.password} id = "signup-password-input" 
+                                onChange={(event) => this.setState({ password : event.target.value })}/>
+                            <Form.Input  placeholder='email' 
+                                value={this.state.email} id = "signup-email-input" type = 'text'
+                                onChange={(event) => this.setState({ email : event.target.value })}/>
+                            <Form.Input  placeholder='Nickname' 
+                                value={this.state.nickname} id = "signup-nickname-input" type = 'text'
+                                onChange={(event) => this.setState({ nickname : event.target.value })}/>
+                            <Button color='blue' fluid size='large' onClick = {() => this.onClickSignUpButton()}>
+                                REGISTER
+                            </Button>
+                        </Segment>
+                    </Form>
+                </Grid.Column>
+            </Grid>
+            
         )
     }
 }
