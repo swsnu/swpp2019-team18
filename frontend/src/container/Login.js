@@ -2,24 +2,19 @@ import React, {Component} from 'react'
 import * as actionCreators from '../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import Logout from '../component/Logout'
 
 class Login extends Component {
     state = {
         username : '',
         password : ''
     }
+
+    
     onClickLogInButton = () => {
         const data = {username: this.state.username , password: this.state.password};
-        this.props.login(data).then( () => {
-            if(this.props.loginState.isLoggedIn){
-                console.log('log in success');
-                //this.props.history.push('/diary)
-            }
-          }
-        )
-
+        this.props.login(data)
     }
 
     onClickSignUpButton = (at) => {

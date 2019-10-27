@@ -51,7 +51,6 @@ const reducer = (state = initialState, action) => {
           }
         }
     case actionTypes.LOGIN_SUCCESS:
-       console.log('login success')
         return {
           ...state,
           login: {
@@ -68,6 +67,17 @@ const reducer = (state = initialState, action) => {
           ...state,
           login:{
             status: 'FAILURE'
+          }
+        }
+      /* log out */
+      case actionTypes.LOGOUT:
+        return {
+          ...state,
+          login : { status : 'INIT'},
+          status : {
+            ...state.status,
+            isLoggedIn : false,
+            currentUser : ''
           }
         }
       default:

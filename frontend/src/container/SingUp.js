@@ -8,6 +8,7 @@ class SignUp extends Component {
     state = {
         username : '',
         password : '',
+        password_check : '',
         email : '',
         nickname : '',
         email_valid : false,
@@ -17,6 +18,10 @@ class SignUp extends Component {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         if(!regExp.test(this.state.email)){
             alert('email form is incorrect - check email');
+            return;
+        }
+        else if(this.state.password !== this.state.password_check){
+            alert('check password again');
             return;
         }
         const data = {username: this.state.username , password: this.state.password, email : this.state.email, nickname : this.state.nickname};
@@ -50,6 +55,13 @@ class SignUp extends Component {
                                 type='password'
                                 value={this.state.password} id = "signup-password-input" 
                                 onChange={(event) => this.setState({ password : event.target.value })}/>
+                            <Form.Input 
+                                fluid icon='lock'
+                                iconPosition='left'
+                                placeholder='Password Check'
+                                type='password'
+                                value={this.state.password_check} id = "signup-password-input" 
+                                onChange={(event) => this.setState({ password_check : event.target.value })}/>
                             <Form.Input  placeholder='email' 
                                 value={this.state.email} id = "signup-email-input" type = 'text'
                                 onChange={(event) => this.setState({ email : event.target.value })}/>

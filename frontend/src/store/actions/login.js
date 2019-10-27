@@ -1,19 +1,37 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
+import { push } from 'connected-react-router';
+
 
 export const loginRequest = (user) => {
     return dispatch => {
         return axios.post('/api/signin', user)
         .then( response => {
-            console.log(response.headers)
-            console.log(typeof response.headers)
-            
-            dispatch(loginSuccess(user.username))})
+            dispatch(loginSuccess(user.username))
+            //dispatch(push('./diary))
+        })
         .catch(error => {
             dispatch(loginFailure(error.response.data.code))
+            alert('login fail')
         })
     }
 }
+
+export const logoutRequest = () => {
+    return dispatch => {
+        return axios.get('/api/signout')
+        .then( response => {
+            dispatch({
+                type : actionTypes.LOGOUT
+            })
+        })
+        .catch(error => {
+            alert('login fail')
+        })
+    }
+}
+
+
 
 export function login() {
     return {
@@ -22,7 +40,7 @@ export function login() {
 }
  
 export function loginSuccess(username){
-    console.log('loginsuccess')
+    
     return {
         type: actionTypes.LOGIN_SUCCESS,
         username : username

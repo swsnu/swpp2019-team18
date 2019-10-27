@@ -45,9 +45,7 @@ const logger = store => {
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk, routerMiddleware(history))));
 
 ReactDOM.render(
-  <CookiesProvider>
     <Provider store={store}><App history = {history} /></Provider>
-  </CookiesProvider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
