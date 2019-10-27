@@ -1,12 +1,10 @@
 import React from 'react';
 import Login from './Login';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { connectRouter, ConnectedRouter } from 'connected-react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import {withRouter} from 'react-router'
+import { ConnectedRouter } from 'connected-react-router';
+import { Route, Switch } from 'react-router-dom';
 import { getMockStore } from '../../test_utils/mocks'
-import { createBrowserHistory } from 'history';
 import { history } from '../../store/store';
 import * as actionCreators from '../../store/actions/login';
 
@@ -18,7 +16,7 @@ const mockStore = getMockStore(stubInitialState);
 
 
 describe('Login', ()=> {
-    let login, spyUserLogin, spyAlert
+    let login, spyUserLogin
     beforeEach(() => {
         history.replace('/login')
         login = (
@@ -34,7 +32,6 @@ describe('Login', ()=> {
         );
 
         spyUserLogin = jest.spyOn(actionCreators, 'loginRequest').mockImplementation(() => { return dispatch => {}; });
-        spyAlert = jest.spyOn(window, 'alert').mockImplementation(() => { return () => {}; });
     }
     )
     afterEach(() => { jest.clearAllMocks() });

@@ -1,12 +1,9 @@
 import React from 'react';
 import Logout from './Logout';
-import { shallow, mount } from 'enzyme';
+import {  mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { connectRouter, ConnectedRouter } from 'connected-react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import {withRouter} from 'react-router'
+import {  ConnectedRouter } from 'connected-react-router';
 import { getMockStore } from '../test_utils/mocks'
-import { createBrowserHistory } from 'history';
 import { history } from '../store/store';
 import * as actionCreators from '../store/actions/login';
 

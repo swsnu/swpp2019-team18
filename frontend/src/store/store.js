@@ -7,7 +7,7 @@ import authentication from './reducers/users'
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
-   user : authentication,
+  user : authentication,
   router : connectRouter(history)
  
 });
