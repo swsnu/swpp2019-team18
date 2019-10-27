@@ -17,6 +17,10 @@ import axios from 'axios';
 
 import * as actionCreators from './store/actions/index';
 
+axios.defaults.xsrfCookieName = "csrftoken"; 
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.withCredentials = true
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const history = createBrowserHistory();

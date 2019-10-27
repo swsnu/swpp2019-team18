@@ -1,10 +1,6 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
-axios.defaults.xsrfCookieName = "csrftoken"; 
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.withCredentials = true
-
 export const loginRequest = (user) => {
     return dispatch => {
         return axios.post('/api/signin', user)
