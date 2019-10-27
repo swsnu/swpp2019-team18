@@ -7,7 +7,7 @@ import {  Route, Redirect, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 import { Component } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
-//import {PrivateRoute} from './PrivateRoute'
+import {PrivateRoute} from './PrivateRoute'
 
 function App(props) {
     return (
@@ -16,7 +16,7 @@ function App(props) {
         <Switch>
             <Route path='/login' exact component={Login}/>
             <Route path='/signup' exact component={SignUp}/>
-            {/* <PrivateRoute path = '/diary exact component= {Diary} */}
+            {/* <PrivateRoute path = '/diary' exact component= {Diary} */}
             {/* Need to check whether PrivateRoute works as expected*/}
           </Switch>
         </div>    
