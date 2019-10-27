@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Login from './container/Login'
-import SignUp from './container/SingUp'
+import Login from './container/authentication/Login'
+import SignUp from './container/authentication/SignUp'
 import {  Route, Redirect, Switch} from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
 import {PrivateRoute} from './PrivateRoute'

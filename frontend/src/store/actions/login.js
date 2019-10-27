@@ -5,13 +5,14 @@ import { push } from 'connected-react-router';
 
 export const loginRequest = (user) => {
     return dispatch => {
+        dispatch(login());
         return axios.post('/api/signin', user)
         .then( response => {
             dispatch(loginSuccess(user.username))
-            //dispatch(push('./diary'))
+            //dispatch(push('./diary))
         })
         .catch(error => {
-            dispatch(loginFailure(error.response.data.code))
+            dispatch(loginFailure())
             alert('login fail')
         })
     }
@@ -26,7 +27,7 @@ export const logoutRequest = () => {
             })
         })
         .catch(error => {
-            alert('login fail')
+            alert('logout fail')
         })
     }
 }
@@ -50,6 +51,5 @@ export function loginSuccess(username){
 export function loginFailure(error) {
     return {
         type: actionTypes.LOGIN_FAILURE,
-        error
     };
 }

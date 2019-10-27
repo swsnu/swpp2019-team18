@@ -1,13 +1,18 @@
 import * as actionTypes from './actionTypes'
-import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios'
+import { push } from 'connected-react-router';
 
 export const signUpRequest = (newUser) => {
     return dispatch => {
+        dispatch(register())
         return axios.post('/api/signup', newUser)
-        .then( response => {dispatch(signUpSuccess())})
+        .then( response => {
+            dispatch(signUpSuccess());
+            dispatch(push('/login'));
+        })
         .catch(error => {
-            dispatch(signUpFailure(error.response.data.code))
+            dispatch(signUpFailure(error.response.data.code));
+            alert('Sign Up Fail')
         })
     }
 }

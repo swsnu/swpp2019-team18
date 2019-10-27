@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as actionCreators from '../store/actions/signUp'
+import * as actionCreators from '../../store/actions/signUp'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
 import { Button, Form, Grid, Header,  Segment } from 'semantic-ui-react'
@@ -16,7 +16,11 @@ class SignUp extends Component {
 
     onClickSignUpButton = () => {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if(!regExp.test(this.state.email)){
+        if(!this.state.username || !this.state.password || !this.state.email || !this.state.nickname){
+            alert('Fill all the forms.');
+            return;
+        }
+        else if(!regExp.test(this.state.email)){
             alert('email form is incorrect - check email');
             return;
         }
@@ -24,16 +28,15 @@ class SignUp extends Component {
             alert('check password again');
             return;
         }
-        const data = {username: this.state.username , password: this.state.password, email : this.state.email, nickname : this.state.nickname};
-        this.props.signUp(data).then( () => {
-                if(this.props.registerState === 'SUCCESS'){
-                    this.props.history.push('/login');
-                }
-                else{
-                    alert('Sign Up error : code ' + this.props.registerErrorCode)
-                }
-            }
-        ) 
+        
+        const data = {
+            username: this.state.username , 
+            password: this.state.password, 
+            email : this.state.email, 
+            nickname : this.state.nickname
+        };
+        this.props.signUp(data)
+        
     }
 
     render() {
@@ -46,7 +49,7 @@ class SignUp extends Component {
                     <Form size='large'>
                         <Segment stacked>
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' 
-                                value={this.state.username} id = "signup-id-input"
+                                value={this.state.username} id = "signup-username-input"
                                 onChange={(event) => this.setState({ username : event.target.value })}/>
                             <Form.Input 
                                 fluid icon='lock'
@@ -60,7 +63,7 @@ class SignUp extends Component {
                                 iconPosition='left'
                                 placeholder='Password Check'
                                 type='password'
-                                value={this.state.password_check} id = "signup-password-input" 
+                                value={this.state.password_check} id = "signup-password-check-input" 
                                 onChange={(event) => this.setState({ password_check : event.target.value })}/>
                             <Form.Input  placeholder='email' 
                                 value={this.state.email} id = "signup-email-input" type = 'text'
@@ -68,7 +71,7 @@ class SignUp extends Component {
                             <Form.Input  placeholder='Nickname' 
                                 value={this.state.nickname} id = "signup-nickname-input" type = 'text'
                                 onChange={(event) => this.setState({ nickname : event.target.value })}/>
-                            <Button color='blue' fluid size='large' onClick = {() => this.onClickSignUpButton()}>
+                            <Button color='blue' fluid size='large' id = "signup" onClick = {() => this.onClickSignUpButton()}>
                                 REGISTER
                             </Button>
                         </Segment>

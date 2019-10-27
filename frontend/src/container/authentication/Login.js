@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import * as actionCreators from '../store/actions/login'
+import * as actionCreators from '../../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-import Logout from '../component/Logout'
+import Logout from '../../component/Logout'
 
 class Login extends Component {
     state = {
@@ -34,7 +34,7 @@ class Login extends Component {
                 <Form size='large'>
                     <Segment stacked>
                     <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' 
-                    value={this.state.username} id = "id-input"
+                    value={this.state.username} id = "login-username-input"
                     onChange={(event) => this.setState({ username: event.target.value })}/>
                     <Form.Input
                         fluid
@@ -42,17 +42,17 @@ class Login extends Component {
                         iconPosition='left'
                         placeholder='Password'
                         type='password'
-                        value={this.state.password} id = "password-input" 
+                        value={this.state.password} id = "login-password-input" 
                                     onChange={(event) => this.setState({ password : event.target.value })}
                     />
 
-                    <Button color='blue' fluid size='large' onClick = {() => this.onClickLogInButton()}>
+                    <Button color='blue' fluid size='large' id = 'login' onClick = {() => this.onClickLogInButton()}>
                         Login 
                     </Button>
                     </Segment>
                 </Form>
                 <Message>
-                    New to us? <a href='#' onClick = {() => this.onClickSignUpButton() }>Sign Up</a>
+                    New to us? <a href='#' id = 'sign-up' onClick = {() => this.onClickSignUpButton() }>Sign Up</a>
                 </Message>
                 </Grid.Column>
             </Grid>
