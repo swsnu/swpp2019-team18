@@ -19,8 +19,9 @@ def diary(request):
         people = req_data['people']
         rating = req_data['rating']
         
-        # author = request.user
+        #TODO author = request.user
         author = User.objects.get(id=1)
+
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         print(category)
         diary = MyDiary.objects.create(

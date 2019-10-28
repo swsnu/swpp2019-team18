@@ -1,7 +1,7 @@
 
 def diary_serializer(diary):
     diary_dict = {
-        'author' : diary.author.username,
+        'author' : diary.author.id,
         'content' : diary.content,
         'categoryName' : diary.category.name,
         'categoryTitle': diary.category.category_title,

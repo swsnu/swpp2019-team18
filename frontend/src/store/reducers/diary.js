@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     diary_list : [],
     diary : {
-        'author': 'Yoda',
+        'author': 1,
         'content': 'Do. Or do not. There is no try.',
         'categoryName': 'MOVIE', 
         'categoryTitle': 'Star Wars',
