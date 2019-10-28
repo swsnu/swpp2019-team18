@@ -1,16 +1,28 @@
 
+<<<<<<< HEAD
 # Created by https://www.gitignore.io/api/macos,python,django,reactnative
 # Edit at https://www.gitignore.io/?templates=macos,python,django,reactnative
+=======
+# Created by https://www.gitignore.io/api/react,linux,macos,python,django,windows,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=react,linux,macos,python,django,windows,visualstudiocode
+>>>>>>> 88dd19ea9cfa96a7301c0c0a659069cad5a87e1d
 
 ### Django ###
 *.log
 *.pot
 *.pyc
 __pycache__/
+<<<<<<< HEAD
 */migrations/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+=======
+*migrations/
+local_settings.py
+*db.sqlite3
+*db.sqlite3-journal
+>>>>>>> 88dd19ea9cfa96a7301c0c0a659069cad5a87e1d
 media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
@@ -120,6 +132,24 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+<<<<<<< HEAD
+=======
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+>>>>>>> 88dd19ea9cfa96a7301c0c0a659069cad5a87e1d
 ### macOS ###
 # General
 .DS_Store
@@ -195,6 +225,7 @@ Temporary Items
 
 # Pyre type checker
 
+<<<<<<< HEAD
 ### ReactNative ###
 # React Native Stack Base
 
@@ -456,3 +487,58 @@ buck-out/
 .fakebuckversion
 
 # End of https://www.gitignore.io/api/macos,python,django,reactnative
+=======
+### react ###
+.DS_*
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_componets
+
+*.sublime*
+
+psd
+thumb
+sketch
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# End of https://www.gitignore.io/api/react,linux,macos,python,django,windows,visualstudiocode
+>>>>>>> 88dd19ea9cfa96a7301c0c0a659069cad5a87e1d

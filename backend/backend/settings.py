@@ -28,12 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL='diary.User'
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'diary',
     'corsheaders',
+    'diary.apps.DiaryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,3 +127,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CSRF_COOKIE_NAME = "csrftoken"

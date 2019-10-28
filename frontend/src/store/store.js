@@ -3,19 +3,25 @@ import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import DiaryReducer from './reducers/diary';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';                                           
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+
+import authentication from './reducers/users'
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
-    diary : DiaryReducer, router: connectRouter(history)
+    user : authentication,
+    diary : DiaryReducer, 
+    router: connectRouter(history),
 });
 
-export const logger = store => next => action => {
-    // console.log("[MiddleWare] Dispatching", action);
-    const result = next(action);
-    // console.log("[MiddleWare] Next State", store.getState());
-    return result; 
-}
+export const middlewares = [thunk, routerMiddleware(history)]
 
-const store = createStore(rootReducer, applyMiddleware(logger, thunk, routerMiddleware(history)));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer,
+  composeEnhancers(
+    applyMiddleware(...middlewares)));
 
 export default store; 
