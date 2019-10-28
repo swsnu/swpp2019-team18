@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 export const loginRequest = (user) => {
     return dispatch => {
         dispatch(login());
-        return axios.post('/api/signin', user)
+        return axios.post('/api/signin/', user)
         .then( response => {
             dispatch(loginSuccess(user.username))
             //dispatch(push('./diary))
@@ -20,7 +20,7 @@ export const loginRequest = (user) => {
 
 export const logoutRequest = () => {
     return dispatch => {
-        return axios.get('/api/signout')
+        return axios.get('/api/signout/')
         .then( response => {
             dispatch({
                 type : actionTypes.LOGOUT

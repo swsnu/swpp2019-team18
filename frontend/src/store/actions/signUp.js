@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 export const signUpRequest = (newUser) => {
     return dispatch => {
         dispatch(register())
-        return axios.post('/api/signup', newUser)
+        return axios.post('/api/signup/', newUser)
         .then( response => {
             dispatch(signUpSuccess());
             dispatch(push('/login'));
