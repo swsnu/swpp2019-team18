@@ -12,22 +12,19 @@ User = get_user_model()
 def diary(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
-        print(req_data)
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
         emtion_score = req_data['emotionScore']
         people = req_data['people']
         rating = req_data['rating']
-
-        # TODO : use request.user
-        author_id = 1  
         
-        user = User.objects.get(id=author_id)
+        # author = request.user
+        author = User.objects.get(id=1)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         print(category)
         diary = MyDiary.objects.create(
-                author=user, 
+                author=author, 
                 content=content,
                 category=category,
                 emotion_score=emtion_score,
