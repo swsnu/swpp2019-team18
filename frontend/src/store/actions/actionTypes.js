@@ -1,0 +1,5 @@
+export const GET_DIARY_BY_DATE = 'GET_DIARY_BY_DATE'
+export const GET_DIARY_BY_PERSON = 'GET_DIARY_BY_PERSON'
+
+export const DELETE_DIARY = 'DELETE_DIARY'
+export const SHARE_DIARY = 'SHARE_DIARY'

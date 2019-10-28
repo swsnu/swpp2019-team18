@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 
-function App() {
+
+import MyDiaryList from './container/MyDiaryList/MyDairyList';
+import MyDiaryByPerson from './container/MyDiaryList/MyDiaryByPerson/MyDiaryByPerson';
+
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ConnectedRouter history={props.history}>
+    <div className="App" >
+      <Switch>
+        <Route path='/diary/date/:id' exact component={MyDiaryList}  />
+        <Route path='/diary/person/:id' exact component={MyDiaryByPerson} />
+
+        {/* <Redirect exact from='/' to='todos' /> */}
+        <Route render={() => <h1>Not Found</h1>} />
+      </Switch>
     </div>
+  </ConnectedRouter>
   );
 }
 
