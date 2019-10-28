@@ -3,17 +3,6 @@ import { connect } from 'react-redux';
 import { editDiary, getDiary } from '../../store/actions/diary';
 
 class EditDiary extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         content : props.content, 
-    //         categoryId : props.category_id,
-    //         categoryTitle : props.categoryTitle,
-    //         friends : props.friends,
-    //         rating : props.rating,
-    //     }
-    // }
-
     state = {
         content : "",
         categoryName: "",

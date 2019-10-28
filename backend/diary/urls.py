@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views as DiaryView
+from .view import edit_diary
+from .view import write_diary
 
 urlpatterns = [
-    path('diary/', DiaryView.diary, name='diary'),
-    path('diary/<int:diary_id>/', DiaryView.diary_detail, name='diary'),
+    path('diary/', write_diary.diary, name='diary'),
+    path('diary/<int:diary_id>/', edit_diary.diary_detail, name='diary'),
 ]

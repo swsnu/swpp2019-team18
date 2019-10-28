@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 
@@ -23,8 +24,8 @@ class newArticle extends Component {
         return (
         <div className="NewDiary">
         <h1>Add New Diary</h1>
-        <button id='diary-category-button' onClick={e => this.setState({category_id: 1})}>MOVIE</button>
-        <button id='diary-category-button' onClick={e => this.setState({category_id: 2})}>FRIEND</button>
+        <Button id='diary-category-button' onClick={e => this.setState({category_id: 1})}>MOVIE</Button>
+        <Button id='diary-category-button' onClick={e => this.setState({category_id: 2})}>FRIEND</Button>
         <input 
         type='text'
         id='diary-category-title-input'
