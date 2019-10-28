@@ -25,17 +25,19 @@ class People(models.Model):
     def __str__(self):
         return self.name
 
+
 class MyDiary(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    people = models.ManyToManyField(People, null=True, blank=True)
+    people = models.ManyToManyField(People, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     emotion_score = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.content
+
 
 class GardenDiary(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -47,8 +49,12 @@ class GardenDiary(models.Model):
 
     def __str__(self):
         return self.content
+    
+    @property
+    def flower_count(self):
+        return self.flower_users.count()
+
 
 class DiaryFlower(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     garden = models.ForeignKey(GardenDiary, on_delete=models.CASCADE)
-
