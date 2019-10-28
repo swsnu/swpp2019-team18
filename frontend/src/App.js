@@ -5,7 +5,7 @@ import Login from './container/authentication/Login'
 import SignUp from './container/authentication/SignUp'
 import NewDiary from './container/diaryWrite/newDiary'
 import EditDiary from './container/diaryEdit/editDiary';
-import {  Route, Redirect, Switch } from 'react-router-dom'
+import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
 
 function App(props) {
