@@ -1,10 +1,12 @@
 import React from 'react';
+
 import './App.css';
 import Login from './container/authentication/Login'
 import SignUp from './container/authentication/SignUp'
-import {  Route, Redirect, Switch} from 'react-router-dom'
+import NewDiary from './container/diaryWrite/newDiary'
+import EditDiary from './container/diaryEdit/editDiary';
+import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
-import {PrivateRoute} from './PrivateRoute'
 
 function App(props) {
     return (
@@ -13,12 +15,13 @@ function App(props) {
         <Switch>
             <Route path='/login' exact component={Login}/>
             <Route path='/signup' exact component={SignUp}/>
-            {/* <PrivateRoute path = '/diary' exact component= {Diary} */}
-            {/* Need to check whether PrivateRoute works as expected*/}
+            <Route path='/' exact render={() => <p>Home Page</p>}/> 
+            <Route path='/diary/create' exact component={NewDiary}/>
+            <Route path='/diary/:id/edit' exact component={EditDiary}/>
           </Switch>
         </div>    
       </ConnectedRouter>
     )
 }
 
-export default App
+export default App;

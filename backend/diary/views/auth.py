@@ -8,7 +8,6 @@ from ..models import User
 import json
 
 
-
 def signup(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())

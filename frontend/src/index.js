@@ -3,30 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
 import { createStore, combineReducers } from 'redux';
 import authentication from './store/reducers/users';
-import * as actionTypes from './store/actions/actionTypes';
 import { Provider } from 'react-redux';
 import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import axios from 'axios';
-
+import DiaryReducer from './store/reducers/diary';
 
 axios.defaults.xsrfCookieName = "csrftoken"; 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.withCredentials = true
 
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
-  /* in this case, we have only single reducer,
-   * but we can merge reducers by using combineReducers for bigger project */
+  diary : DiaryReducer,
   user : authentication,
-  router : connectRouter(history)
+  router : connectRouter(history),
 });
 
 const logger = store => {

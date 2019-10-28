@@ -7,3 +7,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 export const LOGOUT = 'LOGOUT'
+
+export const ADD_DIARY = "ADD_DIARY";
+export const GET_DIARY = "GET_DIARY";
+export const EDIT_DIARY = "EDIT_DIARY";
