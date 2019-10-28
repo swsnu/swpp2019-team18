@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
-from .models import User
+from ..models import User
 import json
+
 
 
 def signup(request):
@@ -50,5 +51,3 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
-
-# Create your views here.
