@@ -1,12 +1,8 @@
 import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
-import { combineReducers, applyMiddleware, createStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import DiaryReducer from './reducers/diary';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';                                           
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';                   
 
 import authentication from './reducers/users'
 
