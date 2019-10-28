@@ -1,3 +1,6 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+import json
+from django.contrib.auth.models import User
+from .models import MyDiary, People
 
-# Create your tests here.
+

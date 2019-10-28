@@ -8,13 +8,13 @@ import ShareButton from './ShareButton/ShareButton';
 const mapDispatchToProps = dispatch => {
     return {
         onDeleteDiary : (id) => dispatch(actionCreators.deleteDiary(id)),
-        onShareDiary : (id, content) => dispatch(actionCreators.shareDiary(id, content))
+        onShareDiary : (diary, content) => dispatch(actionCreators.shareDiary(diary, content))
     }
 }
 class Diary extends Component {
     state = {
         showMenu : false,
-        sharediary : '',
+        changedContent : '',
     }
    
     onShowMenu = (event)=> {
@@ -35,9 +35,9 @@ class Diary extends Component {
     }
 
     onClickMenuShareButton = (diary) => {
-        this.state.sharediary = prompt('edit content before sharing', diary.content);
+        this.state.changedContent = prompt('edit content before sharing', diary.content);
         if(this.state.sharediary !== '' && this.state.sharediary !== null){
-            this.props.onShareDiary();
+            this.props.onShareDiary(diary, this.state.changedContent);
         }
     }
 

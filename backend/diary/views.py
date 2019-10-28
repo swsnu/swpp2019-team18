@@ -8,17 +8,23 @@ import json
 
 # Create your views here.
 @csrf_exempt
-def getDiaryByDate(request, id= None) : 
+def getDiaryByDate(request, year = None, month = None, day = None) : 
     if request.method == 'GET' : 
         # if not request.user.is_authenticated:
         #     return HttpResponse(status=401)
-        
         try:
-            selectedDiary = MyDiary.objects.get(author = request.user and id == id)
+            selectedDiary = MyDiary.objects.filter(created_date = datetime(year,month,day))
         except MyDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
-        response_dict = [{'id' : diary.id, 'author' : diary.author.id, 'content' : diary.content, 'category_name' : diary.category.name, 'person_tag' : diary.people.all(),
-                            'category_title':diary.category.category_title, 'rating':diary.category.rating, 'emotion_score' : diary.emotion_score } for diary in selectedDiary.objects.all().value()]
+        response_dict = list(map(lambda diary : {'id' : diary.id, 
+                                                'author' : diary.author.id, 
+                                                'content' : diary.content, 
+                                                'created_date' : dairy.created_date, 
+                                                'category_name' : diary.category.name, 
+                                                'person_tag' : diary.people.all().values(),
+                                                'category_title':diary.category.category_title, 
+                                                'rating':diary.category.rating, 
+                                                'emotion_score' : diary.emotion_score } , selectedDiary ))
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
@@ -29,22 +35,72 @@ def getDiaryByPerson(request, id = None) :
         #     return HttpResponse(status=401)
         try : 
             person = People.objects.get(id = id)
-            selectedDiary = person.tagged_diary.all()
+            selectedDiary = [diary for diary in person.tagged_diary.all()]
         except People.DoesNotExist:
             return HttpResponse(status = 404)
-        
-        response_dict = selectedDiary.objects.map((diary) => {'id' : diary.id, 'author' : diary.author.id, 'content' : diary.content, 'category_name' : diary.category.name, 'person_tag' : diary.people.all(),
-                            'category_title':diary.category.category_title, 'rating':diary.category.rating, 'emotion_score' : diary.emotion_score } 
+        response_dict = list(map(lambda diary : {'id' : diary.id, 
+                                                'author' : diary.author.id, 
+                                                'content' : diary.content, 
+                                                'created_date' : dairy.created_date, 
+                                                'category_name' : diary.category.name, 
+                                                'person_tag' : diary.people.all().values(),
+                                                'category_title':diary.category.category_title, 
+                                                'rating': diary.category.rating, 
+                                                'emotion_score' : diary.emotion_score } , selectedDiary ))  
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
+
+def getDiaryByCategory(request, name = None) :
+    if request.method == 'GET' : 
+        # if not request.user.is_authenticated:
+        #     return HttpResponse(status=401)
+        try:
+            selectedDiary = MyDiary.objects.filter(category.name = name)
+        except MyDiary.DoesNotExist : 
+                return HttpResponse(status = 404)
+
+        response_dict = list(map(lambda diary : {'id' : diary.id, 
+                                                'author' : diary.author.id, 
+                                                'content' : diary.content, 
+                                                'created_date' : dairy.created_date, 
+                                                'category_name' : diary.category.name, 
+                                                'person_tag' : diary.people.all().values(),
+                                                'category_title':diary.category.category_title, 
+                                                'rating':diary.category.rating, 
+                                                'emotion_score' : diary.emotion_score } , selectedDiary ))  
+        return JsonResponse(response_dict, safe=False)
+    else :
+        return HttpResponseNotAllowed(['GET'])
+
+def shareDiary (request, id=None) : 
+    if request.method == 'POST' : 
+        # if not request.user.is_authenticated:
+        #     return HttpResponse(status=401)
+        try : 
+            body = request.body.decode()
+            diary_content = json.loads(body)['content']
+        except (KeyError) as e:
+            return HttpResponseBadRequest()
+        diary = MyDiary.objects.get(id = id)
+        gardenDairy = GardenDiary(author = diary.author, content = diary_content, category=diary.category)
+        gardenDairy.save()
+        response_dict = {
+                        'id' : gardenDiary.id, 
+                        'author' : gardenDiary.author.id, 
+                        'content' : gardenDiary.content,
+                        'category' : gardenDiary.category.id
+                        }
+        return JsonResponse(response_dict, status=201)
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 def diary(request, id = None) : 
     if request.method == 'DELETE' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
         try:
-            diary = MyDiary.objects.get(author = request.user and id == id)
+            diary = MyDiary.objects.get(id = id)
         except MyDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
         diary.delete()

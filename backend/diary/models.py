@@ -25,10 +25,7 @@ class MyDiary(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     people = models.ManyToManyField(People, null=True, blank=True, related_name = 'tagged_diary') #add tagged diary
-    ################################
-    date = models.IntegerField()  ##      add diary date
-    ################################
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField()
     modified_date = models.DateTimeField(auto_now=True)
     emotion_score = models.IntegerField(null=True, blank=True)
 

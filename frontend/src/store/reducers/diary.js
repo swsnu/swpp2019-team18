@@ -3,8 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialstate={
     diaries : [],
     gardendiaries : [],
-    selectedDiary : [{'id' : 1, 'author' : diary.author.id, 'content' : diary.content, 'category_name' : diary.category.name, 'person_tag' : diary.people.all(),
-    'category_title':diary.category.category_title, 'rating':diary.category.rating, 'emotion_score' : diary.emotion_score }],
+    selectedDiary : [],
+    mode : 'CALENDAR'
 };
 
 const reducer = (state = initialstate, action) => {
@@ -14,6 +14,9 @@ const reducer = (state = initialstate, action) => {
 
         case actionTypes.GET_DIARY_BY_PERSON:
             return{...state, selectedDiary : action.diaries};
+        
+        case actionTypes.GET_DIARY_BY_CATEGORY:
+                return{...state, selectedDiary : action.diaries};
 
         case actionTypes.DELETE_DIARY:
             const deleted = state.diaries.filter((diary)=> {
@@ -21,9 +24,15 @@ const reducer = (state = initialstate, action) => {
             }); 
             return {...state, diaries : deleted};   
         case actionTypes.SHARE_DIARY : 
-        const newGardenDiary = {
-            ////////
-        }
+            const newGardenDiary = {
+                id : action.id,
+                author : action.user,
+                origin_diary : action.origin_diary,
+                content : action.content,
+                category : action.category,
+                flower_users : action.flower_users,
+                shared_date : action.shared_date
+            }
             return {...state, gardendiaries : state.gardendiaries.concat(newGardenDiary)};
     }
     return state;
