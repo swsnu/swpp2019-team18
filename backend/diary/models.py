@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-User = get_user_model()
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    nickname = models.CharField(max_length=40)
+    REQUIRED_FIELDS = ['nickname', 'email']
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -20,17 +26,19 @@ class People(models.Model):
     def __str__(self):
         return self.name
 
+
 class MyDiary(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    people = models.ManyToManyField(People, null=True, blank=True, related_name = 'tagged_diary') #add tagged diary
-    created_date = models.DateTimeField()
+    people = models.ManyToManyField(People, blank=True, related_name = 'tagged_diary')
+    created_date = models.DateTimeField(auto_now=True)  #should be changed (not auto)
     modified_date = models.DateTimeField(auto_now=True)
     emotion_score = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.content
+
 
 class GardenDiary(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -42,8 +50,12 @@ class GardenDiary(models.Model):
 
     def __str__(self):
         return self.content
+    
+    @property
+    def flower_count(self):
+        return self.flower_users.count()
+
 
 class DiaryFlower(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     garden = models.ForeignKey(GardenDiary, on_delete=models.CASCADE)
-

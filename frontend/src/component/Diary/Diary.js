@@ -1,20 +1,28 @@
 import React, {Component} from 'react';
-import * as actionCreators from '../../store/actions/index';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
-import ShareButton from './ShareButton/ShareButton';
+import {deleteDiary} from '../../store/actions/diary';
+import {shareDiary} from '../../store/actions/share';
+
+import {Button, Dropdown} from 'semantic-ui-react';
 
 const mapDispatchToProps = dispatch => {
     return {
-        onDeleteDiary : (id) => dispatch(actionCreators.deleteDiary(id)),
-        onShareDiary : (diary, content) => dispatch(actionCreators.shareDiary(diary, content))
+        onDeleteDiary : (id) => dispatch(deleteDiary(id)),
+        onShareDiary : (diary, content) => dispatch(shareDiary(diary, content))
     }
 }
 class Diary extends Component {
     state = {
         showMenu : false,
         changedContent : '',
+    }
+
+    componentDidUpdate(prevProps){
+        if(this.props.selectedDiary != prevProps.selectedDiary){
+            this.props.history.push('/diary');
+        }
     }
    
     onShowMenu = (event)=> {
@@ -26,35 +34,41 @@ class Diary extends Component {
         
     }
     onCloseMenu = (event) => {
-
-        if(!this.dropdownMenu.contains(event.target)){
+        if(this.dropdownMenu != null && !this.dropdownMenu.contains(event.target)){
             this.setState({showMenu : false}, );
             document.removeEventListener('click', this.onCloseMenu);
 
         }
     }
 
-    onClickMenuShareButton = (diary) => {
-        this.state.changedContent = prompt('edit content before sharing', diary.content);
-        if(this.state.sharediary !== '' && this.state.sharediary !== null){
-            this.props.onShareDiary(diary, this.state.changedContent);
+    onClickMenuShareButton = (id, content) => {
+
+        let changedContent = prompt('edit content before sharing', content);
+        if(changedContent !== '' && changedContent !== null){
+            this.props.onShareDiary(id, changedContent);
         }
+
+        // this.setState({changedContent : prompt('edit content before sharing', content)});
+        // if(this.state.changedContent !== '' && this.state.changedContent !== null){
+        //     this.props.onShareDiary(id, this.state.changedContent);
+        // }
     }
 
-    onClickMenuEditButton = (diary) => {
-        this.props.history.push('/diary/edit/'+diary.id); 
+    onClickMenuEditButton = (id) => {
+        this.props.history.push('/diary/'+id+'/edit'); 
     }
 
-    onClickMenuDeleteButton = (diary) => {
+    onClickMenuDeleteButton = (id) => {
         let check = window.confirm('Are you sure?') ;
             if(check){
-                this.props.onDeleteDiary(diary.id)
+                this.props.onDeleteDiary(id);
             } 
+        
     }
 
     render(){
     return (
-        <div className = 'diaryDetail'>1
+        <div className = 'diaryDetail'>
             
             <div className = 'category_name'>category_name : {this.props.category_name}</div>
             {
@@ -82,9 +96,9 @@ class Diary extends Component {
             {
                 this.state.showMenu ? (
                 <div className = 'toggleMenu' ref = {(element) => { this.dropdownMenu = element;  }}>
-                    <button id = 'share-button' onClick = {this.onClickMenuShareButton} >Share</button>
-                    <button id = 'edit-button' onClick ={this.onClickMenuEditButton}>Edit</button>
-                    <button id = 'delete-button' onClick = {this.onClickMenuDeleteButton}>Delete</button>
+                    <button id = 'share-button' onClick = { () => this.onClickMenuShareButton(this.props.id, this.props.content)} >Share</button>
+                    <button id = 'edit-button' onClick ={ () => this.onClickMenuEditButton(this.props.id)}>Edit</button>
+                    <button id = 'delete-button' onClick = { () => this.onClickMenuDeleteButton(this.props.id)}>Delete</button>
                 </div>
                 ) : null
             }

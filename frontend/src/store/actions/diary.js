@@ -1,43 +1,38 @@
-import * as actionTypes from './actionTypes';
+
 import axios from 'axios';
+import * as actionTypes from './actionTypes';
 import { push } from 'connected-react-router';
 
-export const getDiaryByDate_ = (diaries) => {
-    return {type : actionTypes.GET_DIARY_BY_DATE, diaries : diaries};
-};
 
-export const getDiaryByDate = (year,month,day) => {
-    return (dispatch) => {
-        console.log(date)
-        return axios.get('http://localhost:8000/api/diary/date/' + year+'/'+month+'/'+ day+'/')
-        .then(res => {dispatch(getDiaryByDate_(res.data));
-        });
-    };
-};
 
-export const getDiaryByPerson_ = (diaries) => {
-    return {type : actionTypes.GET_DIARY_BY_PERSON, diaries : diaries};
-};
+const getDiaryToReducer = (diaryObj) => {
+    return {type: actionTypes.GET_DIARY, diary: diaryObj};
+}
 
-export const getDiaryByPerson = (id) => {
-    return (dispatch) => {
-        return axios.get('http://localhost:8000/api/diary/person/' + id+'/')
-        .then(res => {dispatch(getDiaryByPerson_(res.data));
-        });
-    };
-};
+export const getDiary = (diaryId) => dispatch => {
+    return axios.get('http://127.0.0.1:8000/api/diary/' + diaryId + '/')
+                    .then(response => dispatch(getDiaryToReducer(response.data)));
+}
 
-export const getDiaryByCategory_ = (diaries) => {
-    return {type : actionTypes.GET_DIARY_BY_CATEGORY, diaries : diaries};
-};
+const addDiaryToReducer = (diaryObj) => {
+    return {type: actionTypes.ADD_DIARY, diary: diaryObj};
+}
 
-export const getDiaryByCategory = (name) => {
-    return (dispatch) => {
-        return axios.get('http://localhost:8000/api/diary/Category/' + name+'/')
-        .then(res => {dispatch(getDiaryByCategory_(res.data));
-        });
-    };
-};
+export const addDiary = diaryObj => dispatch => {
+    return axios.post('http://127.0.0.1:8000/api/diary/', diaryObj)
+                    .then(response => dispatch(addDiaryToReducer(response.data)));
+}
+
+const editDiaryToReducer = (diaryObj) => {
+    console.log(diaryObj);
+    return {type: actionTypes.EDIT_DIARY, diary: diaryObj};
+}
+
+export const editDiary =(diaryId, diaryObj) => dispatch => {
+
+    return axios.put('http://127.0.0.1:8000/api/diary/' + diaryId + '/', diaryObj)
+                    .then(response => dispatch(editDiaryToReducer(response.data)));
+}
 
 export const deleteDiary_ = (id) => {
     return{
@@ -48,28 +43,7 @@ export const deleteDiary_ = (id) => {
 
 export const deleteDiary = (id) => {
     return (dispatch) => {
-        return axios.delete('http://localhost:8000/api/diary/'+id)
+        return axios.delete('http://localhost:8000/api/diary/'+id+'/')
         .then(() => {dispatch(deleteDiary_(id))})
     };
 };
-
-export const shareDiary_ = (diary) => {
-    return{
-        type : actionTypes.SHARE_DIARY,
-        author : diary.user,
-        origin_diary : diary.origin_diary,
-        content : diary.content,
-        category : diary.category,
-        flower_users : diary.flower_users,
-        shared_date : diary.shared_date
-    };
-};
-
-
-export const shareDiary = (id, content) => {
-    return (dispatch) => {
-        return axios.post('http://localhost:8000/api/diary/share/'+id+'/', content)
-        .then(res => dispatch(shareDiary_(res)))
-
-    };
-}

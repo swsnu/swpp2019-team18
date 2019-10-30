@@ -7,9 +7,8 @@
 *.log
 *.pot
 *.pyc
-*__pycache__/
-*migrations/
-*/migrations/
+__pycache__/
+migrations/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
