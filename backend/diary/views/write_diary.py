@@ -23,7 +23,6 @@ def diary(request):
         author = User.objects.get(id=1)
 
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
-        print(category)
         diary = MyDiary.objects.create(
                 author=author, 
                 content=content,
