@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+<<<<<<< HEAD
 import json
 from django.contrib.auth.models import User
 from .models import MyDiary, People
@@ -8,6 +9,17 @@ import jsonclass UserTestCase(TestCase):
         User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
         User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
 
+=======
+from .models import User
+import json
+
+# Create your tests here.
+class UserTestCase(TestCase):
+    def setUp(self):
+        User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
+        User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
+
+>>>>>>> master
     def test_csrf(self):
         # By default, csrf checks are disabled in test client
         # To test csrf protection we enforce csrf checks here

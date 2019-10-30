@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE'
@@ -12,9 +15,12 @@ export const LOGOUT = 'LOGOUT'
 export const ADD_DIARY = "ADD_DIARY";
 export const GET_DIARY = "GET_DIARY";
 export const EDIT_DIARY = "EDIT_DIARY";
+<<<<<<< HEAD
 
 export const GET_DIARY_BY_DATE = 'GET_DIARY_BY_DATE'
 export const GET_DIARY_BY_PERSON = 'GET_DIARY_BY_PERSON'
 export const GET_DIARY_BY_CATEGORY = 'GET_DIARY_BY_CATEGORY'
 export const DELETE_DIARY = 'DELETE_DIARY'
 export const SHARE_DIARY = 'SHARE_DIARY'
+=======
+>>>>>>> master

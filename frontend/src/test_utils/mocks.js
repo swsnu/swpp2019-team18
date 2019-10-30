@@ -79,6 +79,7 @@ const getMockUserReducer = jest.fn(
   }
 );
 
+<<<<<<< HEAD
 const getMockDiaryReducer = jest.fn(
   initialState => (state = initialState, action) => {
     switch (action.type) {
@@ -94,6 +95,11 @@ export const getMockStore = (initialState) => {
   const mockDiaryReducer = getMockUserReducer(initialState);
   const rootReducer = combineReducers({
     diary : mockDiaryReducer,
+=======
+export const getMockStore = (initialState) => {
+  const mockUserReducer = getMockUserReducer(initialState);
+  const rootReducer = combineReducers({
+>>>>>>> master
     user : mockUserReducer,
     router: connectRouter(history),
   });

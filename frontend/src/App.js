@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import './App.css';
@@ -21,6 +20,7 @@ function App(props) {
             <Route path='/diary/create' exact component={NewDiary}/>
             <Route path='/diary/:id/edit' exact component={EditDiary}/>
             <Route path='/diary' exact component={MyDiaryList} />
+
           </Switch>
         </div>    
       </ConnectedRouter>

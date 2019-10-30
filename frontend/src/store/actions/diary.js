@@ -1,8 +1,6 @@
 
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import { push } from 'connected-react-router';
-
 
 
 const getDiaryToReducer = (diaryObj) => {
@@ -29,7 +27,6 @@ const editDiaryToReducer = (diaryObj) => {
 }
 
 export const editDiary =(diaryId, diaryObj) => dispatch => {
-
     return axios.put('http://127.0.0.1:8000/api/diary/' + diaryId + '/', diaryObj)
                     .then(response => dispatch(editDiaryToReducer(response.data)));
 }
@@ -47,3 +44,4 @@ export const deleteDiary = (id) => {
         .then(() => {dispatch(deleteDiary_(id))})
     };
 };
+

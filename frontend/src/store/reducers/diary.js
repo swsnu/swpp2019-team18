@@ -1,5 +1,5 @@
+import * as actionTypes from '../actions/actionTypes'
 
-import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     diary_list : [],
@@ -13,11 +13,13 @@ const initialState = {
         'rating': 5,
         'created_date': null,
         'modified_date': null
+
     },
     garden_list : [],
     selectedDiary : [],
     mode : 'CATEGORY'           //'CALENDAR' or 'PERSON' or 'CATEGORY' 
 }
+
 
 const reducer = (state=initialState, action) => {
     switch(action.type) {
@@ -59,4 +61,5 @@ const reducer = (state=initialState, action) => {
             return {...state};
     }
 }
+
 export default reducer;
