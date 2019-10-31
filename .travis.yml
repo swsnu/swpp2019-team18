@@ -5,6 +5,12 @@
       # Your language e.g. node_js, python
       node_js:
         - "10"
+      dist: trusty
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+          token: 
+           secure: "jjQmKMeqVD7cdqe1oC979zZ7gUH90bnun1eUSHqYGJavW5JPDPAsKdzvS2ekLZfxKyHnfDIv4fZXkRCf3dHCVW6+FitjNr4JEnOHQruq8Ca5QDvcnJ7uEqDv+7Xw8XnUg4DOcbOk2AE7v6KsolpwqZyoCH9GtrbMfYENOaoMyyC5AyKLmE0+z3OegufDNapRxPAMh/6+aOd7hJM5+9MqMLsW73d1Y/ddoMljYLN1NMe3UH9EKdMAvYbA1siv7pja+hjMI7ty4Xmgn3eKu6UavHf82kkcjeeQ67GNF489ovt8m3zgHtvtAVdugGQ/+ee89fdp3YYNfYkeEEArg/9TsSkqQT36fThbA5yoW/CBo7+wZMhf9Bz/yAkITgGA3w/VCCv1XnLRpZeY31p6fkjcHRGHpoMEO9vfCZcPDwELEMfAGDHmKzXPDz0tINRSxJX+/a8uLqIoy7lxbaqpH48li4EcxQWQVi+3SdVsy0cWMKnRs+bKkRVxomxhpBAp4Uwvxc2VR9nDWnIyiA89QtIJvB1oAIS4Fs3l6I1JqigPMauAniZ5PrD6RsxMzqEssqhFiHGg4fDZ82mjQXeWyjX3vNpkA2ZcwLCHP3gGOZIop+ObnXwWHgcKbH/1XEOmdfVt8yga6dgmvyQt3JcCDw6eGszpOvcaLPd687LAm/g7cnA="
       # node_js version
       before_install: # Script to run before install
         - cd frontend
@@ -15,3 +21,5 @@
         # Script to test your build
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
+        - cd ../
+        - sonar-scanner
