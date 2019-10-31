@@ -21,4 +21,5 @@
         # Script to test your build
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
+        - cd ../
         - sonar-scanner
