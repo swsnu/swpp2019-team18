@@ -26,7 +26,7 @@ const stubInitialState = {
                     'id' : 1,
                     'author': 1,
                     'content': 'Do. Or do not. There is no try.',
-                    'categoryName': 'MOVIE', 
+                    'categoryName': 'MOVIE',
                     'categoryTitle': 'Star Wars',
                     'emotionScore' : 0,
                     'people' : [],
@@ -73,7 +73,7 @@ describe('<MyDiaryList />', () => {
     });
       it(`mode CALENDAR should call onGetDiaryByDate`, () => {
         const mockInitialStore = getMockStore({...stubInitialState, mode: 'CALENDAR' });
-        const component = mount(
+        mount(
           <Provider store={mockInitialStore}>
             <ConnectedRouter history={history}>
             <Switch>
@@ -86,7 +86,7 @@ describe('<MyDiaryList />', () => {
     });
     it(`mode CATEGORY should call onGetDiaryByCategory`, () => {
         const mockInitialStore = getMockStore({...stubInitialState, mode : 'CATEGORY' });
-        const component = mount(
+        mount(
           <Provider store={mockInitialStore}>
             <ConnectedRouter history={history}>
             <Switch>

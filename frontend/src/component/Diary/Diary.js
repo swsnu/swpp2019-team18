@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
-import {Button, Dropdown} from 'semantic-ui-react';
+import {Dropdown} from 'semantic-ui-react';
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -21,26 +21,10 @@ class Diary extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.selectedDiary != prevProps.selectedDiary){
+        if(this.props.selectedDiary !== prevProps.selectedDiary){
             this.props.history.push('/diary');
         }
     }
-   
-    // onShowMenu = (event)=> {
-    //     event.preventDefault();
-    //     this.setState({showMenu : true}, 
-    //     );
-    //     document.addEventListener('click',this.onCloseMenu);
-
-        
-    // }
-    // onCloseMenu = (event) => {
-    //     if(this.dropdownMenu != null && !this.dropdownMenu.contains(event.target)){
-    //         this.setState({showMenu : false}, );
-    //         document.removeEventListener('click', this.onCloseMenu);
-
-    //     }
-    // }
 
     onClickMenuShareButton = (id, content) => {
 
@@ -49,10 +33,6 @@ class Diary extends Component {
             this.props.onShareDiary(id, changedContent);
         }
 
-        // this.setState({changedContent : prompt('edit content before sharing', content)});
-        // if(this.state.changedContent !== '' && this.state.changedContent !== null){
-        //     this.props.onShareDiary(id, this.state.changedContent);
-        // }
     }
 
     onClickMenuEditButton = (id) => {

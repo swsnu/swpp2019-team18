@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { getMockStore } from '../../test_utils/mocks';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -58,27 +58,6 @@ describe('<Diary/>', ()=>{
         expect(wrapper.length).toBe(1);
     })
     
-    // it('should personTag is shown', () => {
-    //     const component = mount(diaryDetail);
-    //     print(component.state.person_tag)
-    //     let wrapper = component.find('.personTag');
-    //     expect(wrapper.length).toBe(1);
-      
-    // })
-    // it('should category_title is shown', () => {
-    //     const component = mount(diaryDetail);
-    //     component.setProps({category_title : 'MOVIE'})
-    //     let wrapper = component.find('.category_title');
-    //     expect(wrapper.length).toBe(1);
-     
-    // })
-    // it('should rating is shown', () => {
-    //     const component = mount(diaryDetail);
-    //     let wrapper = component.find('.rating');
-    //     expect(wrapper.length).toBe(1);
-     
-    // })
-
     it('toggle menu', () => {
         let spyWindow = jest.spyOn(window, 'prompt')
         .mockImplementation(()=> {return "share content"});
@@ -86,12 +65,12 @@ describe('<Diary/>', ()=>{
         const component = mount(diaryDetail);
         let wrapper = component.find('.menu-button');
         wrapper.at(0).simulate('click');
-        // wrapper = component.find('.toggleMenu');
-        // expect(wrapper.length).toBe(1);
+
 
         wrapper = component.find('#share-button');
         wrapper.at(0).simulate('click');
         expect(spyShareDiary).toHaveBeenCalledTimes(1);
+        expect(spyWindow).toHaveBeenCalledTimes(1);
 
         spyWindow = jest.spyOn(window, 'confirm')
         .mockImplementation(()=> {return true});
