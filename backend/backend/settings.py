@@ -34,10 +34,7 @@ AUTH_USER_MODEL='diary.User'
 # Application definition
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
 
-=======
->>>>>>> master
     'corsheaders',
     'diary.apps.DiaryConfig',
     'django.contrib.admin',

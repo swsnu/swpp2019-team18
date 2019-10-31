@@ -60,12 +60,14 @@ describe('<Diary/>', ()=>{
     
     // it('should personTag is shown', () => {
     //     const component = mount(diaryDetail);
+    //     print(component.state.person_tag)
     //     let wrapper = component.find('.personTag');
     //     expect(wrapper.length).toBe(1);
       
     // })
     // it('should category_title is shown', () => {
     //     const component = mount(diaryDetail);
+    //     component.setProps({category_title : 'MOVIE'})
     //     let wrapper = component.find('.category_title');
     //     expect(wrapper.length).toBe(1);
      
@@ -82,27 +84,35 @@ describe('<Diary/>', ()=>{
         .mockImplementation(()=> {return "share content"});
 
         const component = mount(diaryDetail);
-        let wrapper = component.find('#menu-button');
-        wrapper.simulate('click');
-        wrapper = component.find('.toggleMenu');
-        expect(wrapper.length).toBe(1);
+        let wrapper = component.find('.menu-button');
+        wrapper.at(0).simulate('click');
+        // wrapper = component.find('.toggleMenu');
+        // expect(wrapper.length).toBe(1);
 
         wrapper = component.find('#share-button');
-        wrapper.simulate('click');
+        wrapper.at(0).simulate('click');
         expect(spyShareDiary).toHaveBeenCalledTimes(1);
 
         spyWindow = jest.spyOn(window, 'confirm')
         .mockImplementation(()=> {return true});
 
         wrapper = component.find('#delete-button');
-        wrapper.simulate('click');
+        wrapper.at(0).simulate('click');
         expect(spyDeleteDiary).toHaveBeenCalledTimes(1);
 
         const spyHistoryPush = jest.spyOn(history, 'push')
         .mockImplementation(path => {});
         wrapper = component.find('#edit-button');
-        wrapper.simulate('click');
+        wrapper.at(0).simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
-    
+    if("componentDidUpdate should update ", () => {
+        const spyHistoryPush = jest.spyOn(history, 'push')
+        .mockImplementation(path => {});
+        const component = mount(diaryDetail);
+        expect(spyHistoryPush).toHaveBeenCalledTimes(0);
+        component.setProps({selectedDiary : null})  ;      
+        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+
+    });
 })

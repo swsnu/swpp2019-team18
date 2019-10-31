@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => {
         onShareDiary : (diary, content) => dispatch(shareDiary(diary, content))
     }
 }
+
 class Diary extends Component {
     state = {
         showMenu : false,
@@ -25,21 +26,21 @@ class Diary extends Component {
         }
     }
    
-    onShowMenu = (event)=> {
-        event.preventDefault();
-        this.setState({showMenu : true}, 
-        );
-        document.addEventListener('click',this.onCloseMenu);
+    // onShowMenu = (event)=> {
+    //     event.preventDefault();
+    //     this.setState({showMenu : true}, 
+    //     );
+    //     document.addEventListener('click',this.onCloseMenu);
 
         
-    }
-    onCloseMenu = (event) => {
-        if(this.dropdownMenu != null && !this.dropdownMenu.contains(event.target)){
-            this.setState({showMenu : false}, );
-            document.removeEventListener('click', this.onCloseMenu);
+    // }
+    // onCloseMenu = (event) => {
+    //     if(this.dropdownMenu != null && !this.dropdownMenu.contains(event.target)){
+    //         this.setState({showMenu : false}, );
+    //         document.removeEventListener('click', this.onCloseMenu);
 
-        }
-    }
+    //     }
+    // }
 
     onClickMenuShareButton = (id, content) => {
 
@@ -67,6 +68,14 @@ class Diary extends Component {
     }
 
     render(){
+        const options = [
+            { id: 'share-button', icon: 'share', text: 'SHARE', value: 'share' , 
+                onClick : () => this.onClickMenuShareButton(this.props.id, this.props.content)},
+            { id: 'delete-button', icon: 'delete', text: 'DELETE', value: 'delete',
+                onClick : () => this.onClickMenuDeleteButton(this.props.id)},
+            { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
+                onClick : () => this.onClickMenuEditButton(this.props.id) },
+        ]
     return (
         <div className = 'diaryDetail'>
             
@@ -90,18 +99,17 @@ class Diary extends Component {
             }
             <div className = 'content'>content : {this.props.content} </div>
             <div className = 'emotion_score'>emotion_score : {this.props.emotion_score}</div>
-            <div className = 'menuButton'  >
-                <button id = 'menu-button' onClick = {this.onShowMenu}>...</button>
+            <div >
+
+            <Dropdown
+                className='menu-button'
+                button
+                floating
+                options={options}
+                trigger={<React.Fragment />}
+            />
             </div>
-            {
-                this.state.showMenu ? (
-                <div className = 'toggleMenu' ref = {(element) => { this.dropdownMenu = element;  }}>
-                    <button id = 'share-button' onClick = { () => this.onClickMenuShareButton(this.props.id, this.props.content)} >Share</button>
-                    <button id = 'edit-button' onClick ={ () => this.onClickMenuEditButton(this.props.id)}>Edit</button>
-                    <button id = 'delete-button' onClick = { () => this.onClickMenuDeleteButton(this.props.id)}>Delete</button>
-                </div>
-                ) : null
-            }
+            
         </div>
         );
     }

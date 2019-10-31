@@ -31,13 +31,8 @@ class MyDiary(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-<<<<<<< HEAD
     people = models.ManyToManyField(People, blank=True, related_name = 'tagged_diary')
-    created_date = models.DateTimeField(auto_now=True)  #should be changed (not auto)
-=======
-    people = models.ManyToManyField(People, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
->>>>>>> master
     modified_date = models.DateTimeField(auto_now=True)
     emotion_score = models.IntegerField(null=True, blank=True)
 
