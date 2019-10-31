@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
+import { push } from 'connected-react-router';
 
 
 export const loginRequest = (user) => {
@@ -8,7 +9,7 @@ export const loginRequest = (user) => {
         return axios.post('/api/signin/', user)
         .then( response => {
             dispatch(loginSuccess(user.username))
-            //dispatch(push('./diary))
+            //dispatch(push('./diary'))
         })
         .catch(error => {
             dispatch(loginFailure())

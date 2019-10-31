@@ -12,13 +12,12 @@ User = get_user_model()
 # Create your views here.
 def getDiaryByDate(request, year , month , day ) : 
     if request.method == 'GET' : 
-        # if not request.user.is_authenticated:
-        #     return HttpResponse(status=401)
-        print('[date] : '+str(year)+' '+str(month)+' '+str(day))
-        
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         selectedDiary = MyDiary.objects.filter(created_date__year = year, 
                                                    created_date__month = month,
-                                                   created_date__day = day)
+                                                   created_date__day = day,
+                                                   author = request.user)
         
         response_dict = list(map(lambda diary : {'id' : diary.id, 
                                                 'author' : diary.author.id, 
@@ -35,8 +34,8 @@ def getDiaryByDate(request, year , month , day ) :
 
 def getDiaryByPerson(request, id = None) : 
     if request.method == 'GET' : 
-        # if not request.user.is_authenticated:
-        #     return HttpResponse(status=401)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         try : 
             person = People.objects.get(id = id)
             selectedDiary = [diary for diary in person.tagged_diary.all()]
@@ -57,12 +56,10 @@ def getDiaryByPerson(request, id = None) :
 
 def getDiaryByCategory(request, name = None) :
     if request.method == 'GET' : 
-        # if not request.user.is_authenticated:
-        #     return HttpResponse(status=401)
-        
-        
-        
-        selectedDiary = MyDiary.objects.filter(category__name = name)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)  
+        selectedDiary = MyDiary.objects.filter(category__name = name, 
+                                                author = request.user)
         response_dict = list(map(lambda diary : {'id' : diary.id, 
                                                 'author' : diary.author.id, 
                                                 'content' : diary.content, 
