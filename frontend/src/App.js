@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, {Component} from 'react';
+import axios from 'axios'
 import './App.css';
 import Login from './container/authentication/Login'
 import SignUp from './container/authentication/SignUp'
@@ -10,7 +10,11 @@ import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
 
-function App(props) {
+class App extends Component {
+  componentDidMount(){
+    axios.get('/api/token/');
+  }
+  render () {
     return (
       <ConnectedRouter history={props.history}>
         <div>
@@ -25,6 +29,9 @@ function App(props) {
         </div>    
       </ConnectedRouter>
     )
+  }
+
 }
+
 
 export default App;
