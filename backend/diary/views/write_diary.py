@@ -16,17 +16,18 @@ def diary(request):
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
         emtion_score = req_data['emotionScore']
-        people = req_data['people']
+        people_id = req_data['people']
         rating = req_data['rating']
         
         #TODO author = request.user
         author = User.objects.get(id=1)
-
+        tagged_people = User.objects.filter(id in people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 
                 content=content,
                 category=category,
+                people=tagged_people,
                 emotion_score=emtion_score,
             )
         diary_dict = diary_serializer(diary)

@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editDiary, getDiary } from '../../store/actions/diary';
-import { Grid, Button, Form, Divider, Container, Segment } from 'semantic-ui-react';
+import { editDiary, getDiary, getPeople } from '../../store/actions/diary';
+import { Grid, Button, Form, Dropdown, Container, Segment } from 'semantic-ui-react';
 
 class EditDiary extends Component {
     state = {
         content : "",
         categoryName: "",
         categoryTitle : "", 
-        people : null,
+        people : [],
         rating : null,
         emotionScore : 0,
+        nameInput: "",
+        allPeople: [],
     }
 
     componentDidMount(){
         this.props.getDiary(this.props.match.params.id);
+        this.props.getPeople();
     }
 
     componentDidUpdate(prevProps) {
@@ -30,30 +33,50 @@ class EditDiary extends Component {
         }
       }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
+            return {...prevState, allPeople : nextProps.allPeople};
+        }
+        return prevState;
+    }
+
+    handleChange = (e, { value })=> {
+        this.setState({people : value});
+    }
+
     submitHandler = () => {
         const diaryObj = this.state;
-        console.log(diaryObj);
         this.props.editDiary(this.props.match.params.id, diaryObj);
         alert("Successfully Sended!");
     }
 
 
     render() {
+        let optionComponent;
+        if(this.state.people !== undefined && this.state.people.length >= 1){
+            let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
+            optionComponent = <Dropdown 
+                style={{margin:'0px 0px 20px 0px'}} 
+                onChange={this.handleChange}
+                placeholder='People' fluid multiple search selection options={options}
+                defaultValue={this.state.people}
+                />
+        }       
         return (
-
+            
             <Grid>
             <Grid.Row columns={2} style={{ margin: '5px' }}>
-                <Grid.Column width={2}></Grid.Column>
-                <Grid.Column width={7}>
+                <Grid.Column width={3}></Grid.Column>
+                <Grid.Column width={10}>
                 <Segment>
-                    <Container textAlign='center' style={{ margin:'0px 0px 15px 0px' }}><h2>Edit Diary</h2></Container>
+                    <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>Edit Diary</h2></Container>
                     <Form>
                         
                         <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 1})}>MOVIE</Button>
                         <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 2})}>FRIEND</Button>
                         <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 3})}>DATE</Button>
                         <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 4})}>TRAVEL</Button>
-                        {/* <Divider /> */}
+                        {optionComponent}
                         <Form.Input 
                         fluid label='Title' 
                         placeholder='Star Wars'
@@ -80,17 +103,17 @@ class EditDiary extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("This is mapStateToProps  ");
-    console.log(state.diary);
     return {
-        diary : state.diary.diary
+        diary : state.diary.diary,
+        allPeople : state.diary.allPeople,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getDiary: (diaryID) => dispatch(getDiary(diaryID)),
-        editDiary: (diaryId, diaryObj) => dispatch(editDiary(diaryId, diaryObj))
+        editDiary: (diaryId, diaryObj) => dispatch(editDiary(diaryId, diaryObj)),
+        getPeople: () => dispatch(getPeople()),
     }
 }
 

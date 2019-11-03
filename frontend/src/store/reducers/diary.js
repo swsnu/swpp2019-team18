@@ -12,20 +12,23 @@ const initialState = {
         'rating': 5,
         'created_date': null,
         'modified_date': null
-    }
+    },
+    peopleIds: [],
+    peopleNames: [],
 }
 
 const reducer = (state=initialState, action) => {
-    console.log("Reducer " + action.type);
     switch(action.type) {
-        case actionTypes.GET_DIARY :
-            console.log(action.diary)
+        case actionTypes.GET_DIARY:
             return {...state, diary: action.diary};
-        case actionTypes.ADD_DIARY :
-            return {...state, diary : action.diary};
-        case actionTypes.EDIT_DIARY : 
-            console.log(action.diary)
-            return {...state, diary : action.diary};
+        case actionTypes.ADD_DIARY:
+            return {...state, diary: action.diary};
+        case actionTypes.EDIT_DIARY: 
+            return {...state, diary: action.diary};
+        case actionTypes.SEARCH_PEOPLE:
+            return {...state, allPeople: action.allPeople};
+        case actionTypes.ADD_PEOPLE:
+            return {...state};
         default:
             return {...state};
     }

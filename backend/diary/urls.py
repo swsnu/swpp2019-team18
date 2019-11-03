@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import edit_diary
 from .views import write_diary
+from .views import get_people
 from .views import auth
 
 urlpatterns = [
@@ -9,5 +10,6 @@ urlpatterns = [
     path('signout/', auth.signout, name='signout'),
     path('token/', auth.token),
     path('diary/', write_diary.diary, name='diary'),
-    path('diary/<int:diary_id>/', edit_diary.diary_detail, name='diary'),
+    path('diary/<int:diary_id>/', edit_diary.diary_detail, name='diary_detail'),
+    path('diary/people/', get_people.people_names, name='people_names'),
 ]

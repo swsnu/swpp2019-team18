@@ -11,3 +11,5 @@ export const LOGOUT = 'LOGOUT'
 export const ADD_DIARY = "ADD_DIARY";
 export const GET_DIARY = "GET_DIARY";
 export const EDIT_DIARY = "EDIT_DIARY";
+export const SEARCH_PEOPLE = "SEARCH_PEOPLE";
+export const ADD_PEOPLE = "ADD_PEOPLE";

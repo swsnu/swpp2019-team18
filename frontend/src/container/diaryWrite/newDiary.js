@@ -1,42 +1,96 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Divider, Container, Segment } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addDiary } from '../../store/actions/diary';
+import { addDiary, getPeople } from '../../store/actions/diary';
+import AddPeoplePopUp from '../addPeople/addPeopleModal'
+import MessagePopup from '../message/message';
 
 class newArticle extends Component {
-    
     state = {
         content : "",
         categoryName: "",
         categoryTitle : "", 
-        people : null,
+        people : [],
         rating : null,
         emotionScore : 0,
+        nameInput: "",
+        allPeople: [],
+        buttons : [false, false, false, false],
+        modalOpen : false,
+        messageSuccess : false,
     }
 
     submitHandler = () => {
-        const diaryObj = this.state;
+        const diaryObj = {
+            content: this.state.content,
+            categoryName : this.state.categoryName,
+            categoryTitle : this.state.categoryTitle,
+            people : this.state.people,
+            rating : this.state.rating,
+            emotionScore : this.state.emotionScore,
+        };
         this.props.addDiary(diaryObj);
-        alert("Successfully Sended!");
+        alert("Created!");
+    }
+
+    componentDidMount(){
+        this.props.getPeople();
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
+            return {...prevState, allPeople : nextProps.allPeople};
+        }
+        return prevState;
+    }
+
+    handleChange = (e, { value })=> {
+        this.setState({people : value});
+    }
+
+    handleToggle = (e, btnId, name) => {
+        let updateButtons = this.state.buttons.slice();
+        updateButtons[btnId] = !updateButtons[btnId]
+        if(updateButtons[btnId]){
+            updateButtons = updateButtons.map(val => false);
+            updateButtons[btnId] = true;
+        }
+        this.setState({buttons : updateButtons, categoryName: name});
+    }
+
+    closeMessage = () => {
+        this.setState({messageSuccess : false});
+    }
+    
+    openMessage = () => {
+        this.setState({messageSuccess : true});
     }
 
     render() {
+        let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
+        let optionComponent = <Dropdown 
+            style={{margin:'0px 0px 20px 0px'}} 
+            onChange={this.handleChange}
+            placeholder='People' fluid multiple search selection options={options} />;
+
+        let createPeopleSuccessMessage = this.state.messageSuccess ? 
+                <MessagePopup header="New friend is successfully created" content="You can now add new people" onClose={this.closeMessage}/> :
+                 null;
+        
         return (
-
-
         <Grid>
             <Grid.Row columns={2} style={{ margin: '5px' }}>
-                <Grid.Column width={2}></Grid.Column>
-                <Grid.Column width={7}>
+                <Grid.Column width={3}></Grid.Column>
+                <Grid.Column width={10}>
                 <Segment>
-                    <Container textAlign='center' style={{ margin:'0px 0px 15px 0px' }}><h2>New Diary</h2></Container>
+                {createPeopleSuccessMessage}
+                    <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>New Diary</h2></Container>
                     <Form>
-                        
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({categoryName: "MOVIE"})}>MOVIE</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({categoryName: "FRIEND"})}>FRIEND</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({categoryName: "DATE"})}>DATE</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({categoryName: "TRAVEL"})}>TRAVEL</Button>
-                        {/* <Divider /> */}
+                        <Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
+                        <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
+                        <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
+                        <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>
+                        {optionComponent}
                         <Form.Input 
                         fluid label='Title' 
                         placeholder='Star Wars'
@@ -53,7 +107,10 @@ class newArticle extends Component {
                         onChange={e => this.setState({content : e.target.value})}
                         />
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
+
+                        <AddPeoplePopUp successHandler={this.openMessage}/>
                     </Form>
+                    
                 </Segment>
                 </Grid.Column>
             </Grid.Row>
@@ -64,8 +121,15 @@ class newArticle extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addDiary: (diaryObj) => dispatch(addDiary(diaryObj))
+        addDiary: (diaryObj) => dispatch(addDiary(diaryObj)),
+        getPeople: () => dispatch(getPeople())
     }
 }
 
-export default connect(null, mapDispatchToProps)(newArticle);
+const mapStateToProps = state => {
+    return {
+        allPeople : state.diary.allPeople,
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(newArticle);
