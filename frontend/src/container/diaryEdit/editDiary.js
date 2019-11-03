@@ -11,13 +11,48 @@ class EditDiary extends Component {
         people : [],
         rating : null,
         emotionScore : 0,
+        buttons : [false, false, false, false],
         nameInput: "",
         allPeople: [],
+    }
+
+    handleToggle = (e, btnId, name) => {
+        let updateButtons = this.state.buttons.slice();
+        updateButtons[btnId] = !updateButtons[btnId]
+        if(updateButtons[btnId]){
+            updateButtons = updateButtons.map(val => false);
+            updateButtons[btnId] = true;
+        }
+        this.setState({buttons : updateButtons, categoryName: name});
     }
 
     componentDidMount(){
         this.props.getDiary(this.props.match.params.id);
         this.props.getPeople();
+    }
+
+    setButtons(categoryName) {
+        let updatedButtons = this.state.buttons.slice();
+        switch(categoryName){
+            case "MOVIE":
+                updatedButtons[0] = true;
+                this.setState({buttons : updatedButtons});
+                break;
+            case "PEOPLE":
+                updatedButtons[1] = true;
+                this.setState({buttons : updatedButtons});
+                break;
+            case "DATE":
+                updatedButtons[2] = true;
+                this.setState({buttons : updatedButtons});
+                break;
+            case "TRAVEL":
+                updatedButtons[3] = true;
+                this.setState({buttons : updatedButtons});
+                break;
+            default:
+                return ;
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -30,6 +65,7 @@ class EditDiary extends Component {
                 rating : this.props.diary.rating,
                 emotionScore : this.props.diary.emotionScore,
             })
+            this.setButtons(this.props.diary.categoryName);
         }
       }
 
@@ -49,7 +85,6 @@ class EditDiary extends Component {
         this.props.editDiary(this.props.match.params.id, diaryObj);
         alert("Successfully Sended!");
     }
-
 
     render() {
         let optionComponent;
@@ -72,10 +107,10 @@ class EditDiary extends Component {
                     <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>Edit Diary</h2></Container>
                     <Form>
                         
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 1})}>MOVIE</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 2})}>FRIEND</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 3})}>DATE</Button>
-                        <Button id='diary-category-button' color='blue' style={{ marginBottom:'1em' }} onClick={e => this.setState({category_id: 4})}>TRAVEL</Button>
+                        <Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
+                        <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
+                        <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
+                        <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>
                         {optionComponent}
                         <Form.Input 
                         fluid label='Title' 
