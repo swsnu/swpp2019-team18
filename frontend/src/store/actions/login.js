@@ -9,7 +9,7 @@ export const loginRequest = (user) => {
         return axios.post('/api/signin/', user)
         .then( response => {
             dispatch(loginSuccess(user.username))
-            //dispatch(push('./diary'))
+            dispatch(push('./diary'))
         })
         .catch(error => {
             dispatch(loginFailure())

@@ -16,7 +16,7 @@ class App extends Component {
   }
   render () {
     return (
-      <ConnectedRouter history={props.history}>
+      <ConnectedRouter history={this.props.history}>
         <div>
         <Switch>
             <Route path='/login' exact component={Login}/>
