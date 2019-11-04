@@ -11,6 +11,11 @@ const mapStateToProps = state => {
     return {
         mode : state.diary.mode,
         selectedDiary : state.diary.selectedDiary,
+        year : state.diary.year,
+        month : state.diary.month,
+        day : state.diary.day, 
+        //person_id : state.diary.person_id,
+        //category_name : state.diary.category_name,
     }
 }
 
