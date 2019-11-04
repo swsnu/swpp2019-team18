@@ -29,11 +29,21 @@ const mapDispatchToProps = dispatch => {
 
 class MyDiaryList extends Component{
 
+
+    componentDidUpdate(prevProps){
+        if(this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day
+            || this.props.mode !== prevProps.mode){
+            this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
+        }
+    }
     componentDidMount(){
+        console.log(this.props.mode)
+
        //this.props.onGetDiaryByPerson(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
                 //this.props.onGetDiaryByDate(2019, 11, 3);
+                console.log(this.props.day);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
