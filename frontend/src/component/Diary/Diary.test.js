@@ -89,9 +89,13 @@ describe('<Diary/>', ()=>{
         const spyHistoryPush = jest.spyOn(history, 'push')
         .mockImplementation(path => {});
         const component = mount(diaryDetail);
+        const wrapper = component.find('Diary');
+        
+        const prevprops = wrapper.props();   
         expect(spyHistoryPush).toHaveBeenCalledTimes(0);
-        component.setProps({selectedDiary : null})  ;      
-        expect(spyHistoryPush).toHaveBeenCalledTimes(1);
+        wrapper.setState({selectedDiary : []});   
+        // wrapper.instance().componentDidUpdate(prevprops);   
+        // expect(spyHistoryPush).toHaveBeenCalledTimes(1);
 
     });
 })

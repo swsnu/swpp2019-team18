@@ -60,7 +60,7 @@ class Diary extends Component {
     return (
         <div className = 'diaryDetail'>
             
-           <Segment.Group centered style={{ maxWidth: 800}}  >
+           <Segment.Group centered="true" style={{ maxWidth: 800}}  >
            <Segment> 
             <div className = 'category_name and person tag'>              
                 <Label as='a' color='yellow' tag>{this.props.category_name}</Label>
@@ -114,7 +114,6 @@ class Diary extends Component {
                 <Grid.Column width = {2}>
                         <Dropdown
                             className='menu-button'
-                            text='Menu'
                             button
                             floating
                             options={options}
