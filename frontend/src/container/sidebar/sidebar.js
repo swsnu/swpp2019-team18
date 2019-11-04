@@ -17,6 +17,12 @@ let mapDispatchToProps = (dispatch) => {
 
 class sidebar extends Component {
 
+    componentWillMount() {
+        this.props.updateYear(this.year())
+        this.props.updateMonth(this.monthNum())
+        this.props.updateDay(this.currentDay())
+    }
+
     
     
     state = {
@@ -179,7 +185,7 @@ class sidebar extends Component {
 
     onSelectDayChange = (d) => {
         this.setDay(d);
-        console.log(this.monthNum())
+        //console.log(this.monthNum())
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(d)

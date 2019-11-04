@@ -17,9 +17,9 @@ const initialState = {
     garden_list : [],
     selectedDiary : [],
     mode : 'CALENDAR',
-    year : '2019',
-    month : '11',
-    day : '4'
+    year : '',
+    month : '',
+    day : ''
 }
 
 

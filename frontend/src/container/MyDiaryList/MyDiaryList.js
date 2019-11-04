@@ -37,13 +37,11 @@ class MyDiaryList extends Component{
         }
     }
     componentDidMount(){
-        console.log(this.props.mode)
-
-       //this.props.onGetDiaryByPerson(this.props.person_id);
+        //this.props.onGetDiaryByPerson(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
                 //this.props.onGetDiaryByDate(2019, 11, 3);
-                console.log(this.props.day);
+                console.log(this.props.month);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
