@@ -34,4 +34,4 @@
         - python3 manage.py makemigrations
         - python3 manage.py migrate
         - coverage run --branch --source='./diary' manage.py test
-        - coverage report --fail-under=80 -m
+        - coverage report --fail-under=70 -m
