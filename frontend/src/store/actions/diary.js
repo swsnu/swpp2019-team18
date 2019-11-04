@@ -4,7 +4,6 @@ import * as actionTypes from './actionTypes';
 import { push } from 'connected-react-router';
 
 const getDiaryToReducer = (diaryObj) => {
-    console.log("[diary] getDiaryToReducer");
     return {type: actionTypes.GET_DIARY, diary: diaryObj};
 }
 
