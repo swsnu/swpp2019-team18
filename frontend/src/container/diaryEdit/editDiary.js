@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editDiary, getDiary, getPeople } from '../../store/actions/diary';
+import { editDiary, getDiary } from '../../store/actions/diary';
+import { getPeople } from '../../store/actions/people';
 import { Grid, Button, Form, Dropdown, Container, Segment } from 'semantic-ui-react';
 
 class EditDiary extends Component {
@@ -106,7 +107,6 @@ class EditDiary extends Component {
                 <Segment>
                     <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>Edit Diary</h2></Container>
                     <Form>
-                        
                         <Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
                         <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
                         <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>

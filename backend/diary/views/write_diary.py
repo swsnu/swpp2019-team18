@@ -4,10 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from ..models import MyDiary, Category, People
 from ..serializer import diary_serializer
+from ..decorator import is_loggedin
 User = get_user_model()
 
-
-@csrf_exempt
+@is_loggedin
 def diary(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -20,7 +20,6 @@ def diary(request):
 
         #TODO author = request.user
         print(request.user)
-
         author = User.objects.get(id=1)
         tagged_people = People.objects.filter(id__in=people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
