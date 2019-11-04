@@ -21,7 +21,7 @@ class sidebar extends Component {
     
     state = {
         dateContext : moment(),
-        mode : "calendar",
+        mode : "CALENDAR",
         monthPopup: false,
         yearPopup: false
     }
@@ -40,10 +40,6 @@ class sidebar extends Component {
 
     monthFull = () => {
         return this.state.dateContext.format("MMMM")
-    }
-
-    selectedDate = () => {
-        return this.state.dateContext.format("YYYYMD")
     }
 
     currentDay = () => {
@@ -175,17 +171,14 @@ class sidebar extends Component {
         let dayNo = d;
         let dateContext = Object.assign({}, this.state.dateContext);
         dateContext = moment(dateContext).set("date", dayNo);
-        console.log(this.selectedDate())
         this.setState({
             dateContext : dateContext 
         })
-        {/*console.log(this.selectedDate())*/}
 
     }
 
     onSelectDayChange = (d) => {
         this.setDay(d);
-        console.log(this.selectedDate());
         console.log(this.monthNum())
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
