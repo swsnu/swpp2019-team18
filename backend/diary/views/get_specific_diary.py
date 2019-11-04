@@ -58,8 +58,8 @@ def getDiaryByCategory(request, name = None) :
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)  
-        selectedDiary = MyDiary.objects.filter(category__name = name, 
-                                                author = request.user)
+        selectedDiary = MyDiary.objects.filter(category__name = name, author = request.user)
+        #print(request.user)
         response_dict = list(map(lambda diary : {'id' : diary.id, 
                                                 'author' : diary.author.id, 
                                                 'content' : diary.content, 

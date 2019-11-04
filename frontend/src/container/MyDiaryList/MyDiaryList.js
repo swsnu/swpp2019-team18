@@ -6,7 +6,6 @@ import {withRouter} from 'react-router';
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
 
-import {Container} from 'semantic-ui-react';
 
 const mapStateToProps = state => {
     return {

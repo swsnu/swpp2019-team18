@@ -16,7 +16,6 @@ urlpatterns = [
     path('diary/date/<int:year>/<int:month>/<int:day>/', get_specific_diary.getDiaryByDate, name='getDiartByDate'),
     path('diary/person/<int:id>/', get_specific_diary.getDiaryByPerson, name='getDiartByPerson'),
     path('diary/category/<str:name>/', get_specific_diary.getDiaryByCategory, name='getDiartByCategory'),
-
     path('diary/share/<int:id>/', share.shareDiary, name='shareDiary')
 
 ]

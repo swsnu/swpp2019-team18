@@ -60,7 +60,7 @@ class Diary extends Component {
     return (
         <div className = 'diaryDetail'>
             
-           <Segment.Group >
+           <Segment.Group centered style={{ maxWidth: 800}}  >
            <Segment> 
             <div className = 'category_name and person tag'>              
                 <Label as='a' color='yellow' tag>{this.props.category_name}</Label>
@@ -78,7 +78,7 @@ class Diary extends Component {
             {
                 this.props.category_title ? <div className = 'category_title'>
                     <Segment>
-                    <Grid columns = {2}>
+                    <Grid columns = {2} >
                     <Grid.Row >
                     <Grid.Column textAlign='center' width = {4} color = 'blue'>category_title</Grid.Column>
                     <Grid.Column width = {12}>{this.props.category_title}</Grid.Column>
