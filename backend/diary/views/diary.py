@@ -49,7 +49,7 @@ def diary_detail(request, diary_id):
         req_data = json.loads(request.body.decode())
         try:
             diary = MyDiary.objects.get(id=diary_id)
-        except:
+        except MyDiary.DoesNotExist:
             return HttpResponse(status=404)
 
         if request.user != diary.author:
