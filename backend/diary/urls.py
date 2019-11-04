@@ -13,9 +13,9 @@ urlpatterns = [
     path('token/', auth.token),
     path('diary/', diary.write_diary, name='write_diary'),
     path('diary/<int:diary_id>/', diary.diary_detail, name='diary_detail'),
-    path('diary/date/<int:year>/<int:month>/<int:day>/', get_specific_diary.get_diary_by_date, name='getDiartByDate'),
-    path('diary/person/<int:id>/', get_specific_diary.getDiaryByPerson, name='getDiartByPerson'),
-    path('diary/category/<str:name>/', get_specific_diary.getDiaryByCategory, name='getDiartByCategory'),
+    path('diary/date/<int:year>/<int:month>/<int:day>/', get_specific_diary.get_diary_by_date, name='get_diary_by_date'),
+    path('diary/person/<int:id>/', get_specific_diary.get_diary_by_person, name='get_diary_by_person'),
+    path('diary/category/<str:name>/', get_specific_diary.get_diary_by_category, name='get_diary_by_category'),
     path('diary/share/<int:id>/', share.share_diary, name='share_diary'),
     path('diary/people/', people.people, name='people'),
 ]

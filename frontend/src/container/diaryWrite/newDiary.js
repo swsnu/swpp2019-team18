@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
-import MessagePopup from '../message/MessagePopup/';
+import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 
 class NewDiary extends Component {
@@ -32,7 +32,7 @@ class NewDiary extends Component {
             emotionScore : this.state.emotionScore,
         };
         this.props.addDiary(diaryObj);
-        alert("Created!");
+        this.props.history.push('/diary')
     }
 
     componentDidMount(){

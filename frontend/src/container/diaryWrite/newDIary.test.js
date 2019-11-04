@@ -8,17 +8,14 @@ import { Switch, Route } from 'react-router-dom';
 import { mount, shallow } from 'enzyme';
 import axios from 'axios';
 let stubInitialState = {
-
 };
 let mockStore = getMockStore(stubInitialState);
 
-global.alert = jest.fn((x) => {})
 let newDiary = (
     <Provider store={mockStore}>
         <ConnectedRouter history={history}>
         <Switch>
         <Route path='/' exact render={() => <NewDiary/>}/>    
-        <Route path='/newDiary' exact render={() => <NewDiary/>}/>
         </Switch>
         </ConnectedRouter>
     </Provider>
@@ -44,13 +41,34 @@ axios.get = jest.fn(url => {
 
 describe('<New Diary/>', ()=> {
     beforeEach(() => {
-        // history.replace('/newDiary');
     })
 
     it('should render without error', ()=> {
         const component = mount(newDiary);
         const wrapper = component.find('#diary-submit-button');
         expect(wrapper.length).toBe(2);
+    })
+
+    it('should render addPeople Message', () => {
+        const myInitialState = {
+            allPeople : [{key : 1, id : 1}],
+        };
+        const newMockStore = getMockStore(myInitialState);
+        history.push('/');
+        const myNewDiary = (
+            <Provider store={newMockStore}>
+                <ConnectedRouter history={history}>
+                <Switch>
+                <Route path='/' exact render={() => <NewDiary/>}/>    
+                </Switch>
+                </ConnectedRouter>
+            </Provider>
+        );
+        const component = mount(myNewDiary);
+        const wrapper = component.find('#add-people-trigger-button');
+        wrapper.at(0).simulate('click');
+        const submitWrapper = component.find('#add-person-submit-button');
+        submitWrapper.at(0).simulate('click');
     })
 
     it('should change title, content', () => {
@@ -96,29 +114,7 @@ describe('<New Diary/>', ()=> {
         expect(component.state().buttons).toEqual([false, false, false, true])
     })
 
-    it('should render addPeople Message', () => {
-        let stubInitialState = {
-            allPeople : [{key : 1, id : 1}],
-        };
-        let mockStore = getMockStore(stubInitialState);
-        
-        global.alert = jest.fn((x) => {})
-        let newDiary = (
-            <Provider store={mockStore}>
-                <ConnectedRouter history={history}>
-                <Switch>
-                <Route path='/' exact render={() => <NewDiary/>}/>    
-                <Route path='/newDiary' exact render={() => <NewDiary/>}/>
-                </Switch>
-                </ConnectedRouter>
-            </Provider>
-        );
-        const component = mount(newDiary);
-        const wrapper = component.find('#add-people-trigger-button');
-        wrapper.at(0).simulate('click');
-        const submitWrapper = component.find('#add-person-submit-button');
-        submitWrapper.at(0).simulate('click');
-    })
+    
 
 
 })
