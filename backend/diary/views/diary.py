@@ -76,7 +76,7 @@ def diary_detail(request, diary_id):
 
     elif request.method == 'DELETE' : 
         try:
-            diary = MyDiary.objects.get(id = diary_id)
+            diary = MyDiary.objects.get(id = diary_id, author = request.user)
         except MyDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
         if request.user != diary.author:

@@ -42,8 +42,8 @@ describe('get previousdiary', () => {
 
     it('getDiaryByPerson',(done) => {
         const spy = jest.spyOn(axios, 'get')
-        .mockImplementation(url => {
-            return new Promise((resolve, reject) => {
+        .mockImplementation(() => {
+            return new Promise((resolve) => {
                 const result = {
                     status : 200 , data : stubSelectedDiary
                 };
@@ -61,8 +61,8 @@ describe('get previousdiary', () => {
     });
     it('getDiaryByCategory',(done) => {
         const spy = jest.spyOn(axios, 'get')
-        .mockImplementation(url => {
-            return new Promise((resolve, reject) => {
+        .mockImplementation(()=> {
+            return new Promise((resolve) => {
                 const result = {
                     status : 200 , data : stubSelectedDiary
                 };
