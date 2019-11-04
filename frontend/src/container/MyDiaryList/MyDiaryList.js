@@ -11,6 +11,11 @@ const mapStateToProps = state => {
     return {
         mode : state.diary.mode,
         selectedDiary : state.diary.selectedDiary,
+        year : state.diary.year,
+        month : state.diary.month,
+        day : state.diary.day,
+        person_id : state.diary.person_id,
+        category_name : state.diary.category_name,
     }
 }
 
@@ -36,8 +41,8 @@ class MyDiaryList extends Component{
                 //this.props.onGetDiaryByPerson(1);
                 break;
             case 'CATEGORY':
-                this.props.onGetDiaryByCategory('MOVIE');
-                //this.props.onGetDiaryByCategory(this.props.category_name);
+                //this.props.onGetDiaryByCategory('MOVIE');
+                this.props.onGetDiaryByCategory(this.props.category_name);
                 break;
             
         }
