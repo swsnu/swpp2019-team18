@@ -1,4 +1,3 @@
-import React from 'react';
 import DiaryReducer from "./diary";
 import * as actionTypes from "../actions/actionTypes";
 

@@ -90,12 +90,8 @@ describe('<Diary/>', ()=>{
         .mockImplementation(path => {});
         const component = mount(diaryDetail);
         const wrapper = component.find('Diary');
-        
-        const prevprops = wrapper.props();   
         expect(spyHistoryPush).toHaveBeenCalledTimes(0);
         wrapper.setState({selectedDiary : []});   
-        // wrapper.instance().componentDidUpdate(prevprops);   
-        // expect(spyHistoryPush).toHaveBeenCalledTimes(1);
 
     });
 })

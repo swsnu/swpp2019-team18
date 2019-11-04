@@ -41,7 +41,7 @@ describe('get previousdiary', () => {
     });
 
     it('getDiaryByPerson',(done) => {
-        const spy = jest.spyOn(axios, 'get')
+        const mySpy = jest.spyOn(axios, 'get')
         .mockImplementation(() => {
             return new Promise((resolve) => {
                 const result = {
@@ -55,7 +55,7 @@ describe('get previousdiary', () => {
         .then(()=>{
             const newState = store.getState();
             expect(newState.diary.selectedDiary).toBe(stubSelectedDiary);
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(mySpy).toHaveBeenCalledTimes(1);
             done();
         });
     });

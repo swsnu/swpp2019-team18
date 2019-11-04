@@ -1,10 +1,10 @@
 import React from 'react';
-import MessagePopup from './message';
-import { mount, shallow } from 'enzyme';
+import MessagePopup from './MessagePopup';
+import { mount } from 'enzyme';
 
 describe('<message/>', ()=> {
     it('should render ', (done) => {
-        const component = mount(<MessagePopup onClose={() => {}}/>);
+        mount(<MessagePopup onClose={() => {}}/>);
         setTimeout(() => {
             done();
         }, 3000);

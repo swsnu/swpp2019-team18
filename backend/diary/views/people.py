@@ -33,7 +33,7 @@ def people(request):
         req_data = json.loads(request.body.decode())
         info = req_data['information']
         name = req_data['name']
-        person = People.objects.create(
+        People.objects.create(
             user=user,
             name=name,
             information=info

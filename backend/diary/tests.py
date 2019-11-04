@@ -133,13 +133,13 @@ class DiaryTestForcedLogin(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 404)
-        diary = MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
+        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 403)
 
     def test_delete(self):
         self.client.post('/api/diary/', json.dumps(self.diary_data), content_type='application/json')
-        diary = MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
+        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
 
         response = self.client.delete('/api/diary/1/')
         self.assertEqual(response.status_code, 200)

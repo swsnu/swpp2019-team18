@@ -1,6 +1,5 @@
 import React from 'react';
 import * as actionCreators from "./diary";
-import * as actionTypes from "./actionTypes";
 import axios from 'axios';
 
 let stubDiary = {
@@ -43,7 +42,7 @@ axios.post = jest.fn((x, y) => {
 
 axios.delete = jest.fn((id) => {
     return new Promise((resolve, reject) => {
-        resolve({data : stubDiary});
+        resolve({data : stubDiary, unused : 1});
         
     })
 });

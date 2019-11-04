@@ -11,7 +11,6 @@ import { applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import { returnPeopleToReducer, getPeople } from '../../store/actions/diary';
 import * as actionTypes from '../../store/actions/actionTypes';
 import axios from 'axios';
 
@@ -93,13 +92,13 @@ describe('<EditDiary/>', ()=> {
     })
 
     it('should render addPeople Message', () => {
-        let stubInitialState = {
+        stubInitialState = {
             allPeople : [{key : 1, id : 1, name: "민수"}],
         };
-        let mockStore = getMockStore(stubInitialState);
+        mockStore = getMockStore(stubInitialState);
         let newPeople = [{key : 1, id : 3, name : "윤수"}, {key : 2, id : 4, name : "대현"}];
         actionCreators.getDiary = jest.fn(() => dispatch => dispatch({type : actionTypes.SEARCH_PEOPLE, allPeople : newPeople}));
-        let editDiary = (
+        editDiary = (
             <Provider store={mockStore}>
                 <ConnectedRouter history={history}>
                 <Switch>
@@ -108,15 +107,13 @@ describe('<EditDiary/>', ()=> {
                 </ConnectedRouter>
             </Provider>
         );
-        const component = mount(editDiary);
-        let dropboxWrapper = component.find('#people-dropbox');
-        console.log(dropboxWrapper.debug());
+        mount(editDiary);
 
     })
 
 
     it('should get diary', () => {
-        let stubInitialState = {
+        stubInitialState = {
             diary : {
                 content: 'Do. Or do not. There is no try.',
                 categoryName: 'MOVIE', 
@@ -136,11 +133,11 @@ describe('<EditDiary/>', ()=> {
         };
 
         let diaryReducer = (state=stubInitialState, action) => {
-            switch(action.type){
-                case actionTypes.GET_DIARY :
-                    return {...state, diary: action.diary} 
-                default:
-                    return {...state};
+            if(action.type === actionTypes.GET_DIARY){
+                return {...state, diary: action.diary} 
+            }
+            else{
+                return {...state};
             }
         }
 
@@ -158,7 +155,7 @@ describe('<EditDiary/>', ()=> {
         const newMockStore = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, routerMiddleware(history))));
         actionCreators.getDiary = jest.fn(() => dispatch => dispatch({type : "None"}));
         global.alert = jest.fn((x) => {})
-        let editDiary = (
+        editDiary = (
             <Provider store={newMockStore}>
                 <ConnectedRouter history={history}>
                 <Switch>
@@ -168,7 +165,7 @@ describe('<EditDiary/>', ()=> {
                 </ConnectedRouter>
             </Provider>
         );
-        const component = mount(editDiary);
+        mount(editDiary);
         
     })
 
