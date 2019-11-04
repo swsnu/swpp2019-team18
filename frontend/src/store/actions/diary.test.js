@@ -53,7 +53,7 @@ describe("actionCreators", () => {
     const nullFun = () => {};
     it("should call actionCreators.getDiary", () => {
         fn = actionCreators.getDiary(1);
-        fn(console.log);
+        fn(nullFun);
         
     })
 
