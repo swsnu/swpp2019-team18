@@ -64,6 +64,10 @@ class DiaryTest(TestCase) :
 
     def test_get_diary_by_id(self) : 
         client = Client()
+    
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+
 
         response = client.get('/api/diary/category/MOVIE/')
         self.assertEqual(response.status_code, 200)
@@ -85,6 +89,8 @@ class DiaryTest(TestCase) :
 
     def test_share(self):
         client = Client()
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
 
         response = client.post('/api/diary/share/1/', json.dumps({'content': 'share test'}),
                                content_type='application/json')
