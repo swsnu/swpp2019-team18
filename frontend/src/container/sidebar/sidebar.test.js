@@ -6,6 +6,8 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import Sidebar from './sidebar';
 import { history } from '../../store/store'
+import moment from 'moment';
+
 
 import * as actionCreators from '../../store/actions/sidabar';
 
@@ -33,6 +35,7 @@ const stubInitialState = {
 }
 
 const mockStore = getMockStore(stubInitialState);
+const time = moment();
 
 describe('<MyDiaryList />', () => {
     let Sidebar_, spySetMode, spySetYear, spySetMonth, spySetDay
@@ -59,6 +62,14 @@ describe('<MyDiaryList />', () => {
         const component = mount(Sidebar_);
         const wrapper = component.find('.sidebar_container');
         expect(wrapper.length).toBe(1);
+        const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(newState.mode).toBe("CALENDAR")
+        expect(newState.monthFull()).toBe(time.format("MMM"))
+        expect(newState.year()).toBe(time.format("YYYY"))    
+        expect(newState.month()).toBe(time.format("MMM"))
+        expect(newState.monthNum).toBe(time.format("MM"))
+        expect(newState.currentDay).toBe(time.format("D"))
+    
     });
 
     it('mode change by click button', () => {
@@ -66,6 +77,9 @@ describe('<MyDiaryList />', () => {
         const buttons = component.find('button');
         buttons.at(1).simulate('click');
         expect(spySetMode).toBeCalledTimes(1);
+        const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(newState.state.mode).toBe("PERSON");
+        console.log(newState.monthFull())
     });
 
     it('date change by click button', () => {
@@ -75,6 +89,7 @@ describe('<MyDiaryList />', () => {
         expect(spySetYear).toBeCalledTimes(1);
         expect(spySetMonth).toBeCalledTimes(1);
         expect(spySetDay).toBeCalledTimes(1);
+        
 
     })
 
@@ -82,36 +97,15 @@ describe('<MyDiaryList />', () => {
         const component = mount(Sidebar_);
         const wrapper = component.find('.label_month');
         expect(wrapper.length).toBe(1);
-        const newState = coponent.find(Sidebar.WrappedComponent).instance();
-        
+        /*const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(newState.state.mode).toBe("CALENDAR");*/
+    })
+
+    it('year change by click', () => {
+        const component = mount(Sidebar_);
+        const wrapper = component.find('.label_year');
+        expect(wrapper.length).toBe(1);
     })
     
-    /*it(`mode CALENDAR should call onGetDiaryByDate`, () => {
-        const mockInitialStore = getMockStore({...stubInitialState, mode: 'CALENDAR' });
-        mount(
-          <Provider store={mockInitialStore}>
-            <ConnectedRouter history={history}>
-            <Switch>
-              <Route path='/' exact component={MyDiaryList} />
-            </Switch>
-            </ConnectedRouter>
-          </Provider>
-        );
-        expect(actionCreators.getDiaryByDate).toHaveBeenCalledTimes(1);
-    });
-    it(`mode CATEGORY should call onGetDiaryByCategory`, () => {
-        const mockInitialStore = getMockStore({...stubInitialState, mode : 'CATEGORY' });
-        mount(
-          <Provider store={mockInitialStore}>
-            <ConnectedRouter history={history}>
-            <Switch>
-              <Route path='/' exact component={MyDiaryList} />
-            </Switch>
-            </ConnectedRouter>
-          </Provider>
-        );
-        expect(actionCreators.getDiaryByCategory).toHaveBeenCalledTimes(1);
-    });*/
-
-
+    
 })
