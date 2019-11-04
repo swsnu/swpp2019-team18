@@ -72,7 +72,7 @@ describe('<Diary/>', ()=>{
         expect(spyShareDiary).toHaveBeenCalledTimes(1);
         expect(spyWindow).toHaveBeenCalledTimes(1);
 
-        spyWindow = jest.spyOn(window, 'confirm')
+        jest.spyOn(window, 'confirm')
         .mockImplementation(()=> {return true});
 
         wrapper = component.find('#delete-button');
@@ -85,7 +85,7 @@ describe('<Diary/>', ()=>{
         wrapper.at(0).simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
-    if("componentDidUpdate should update ", () => {
+    it("componentDidUpdate should update ", () => {
         const spyHistoryPush = jest.spyOn(history, 'push')
         .mockImplementation(path => {});
         const component = mount(diaryDetail);

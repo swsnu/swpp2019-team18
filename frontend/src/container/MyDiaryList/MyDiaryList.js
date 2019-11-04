@@ -26,7 +26,6 @@ class MyDiaryList extends Component{
 
     componentDidMount(){
        //this.props.onGetDiaryByPerson(this.props.person_id);
-       console.log(this.props.mode);
         switch(this.props.mode){
             case 'CALENDAR':
                 //this.props.onGetDiaryByDate(2019, 11, 3);

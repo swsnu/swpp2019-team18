@@ -79,10 +79,7 @@ const getMockUserReducer = jest.fn(
 
 const getMockDiaryReducer = jest.fn(
   initialState => (state = initialState, action) => {
-    switch (action.type) {
-      default:
-        break;
-    }
+    
     return state;
   }
 );

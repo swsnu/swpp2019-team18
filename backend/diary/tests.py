@@ -7,8 +7,8 @@ import json
 
 class UserTestCase(TestCase):   
     def setUp(self):
-        user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
-        user2 = User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
+        User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
+        User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
 
 
     def test_csrf(self):
@@ -56,9 +56,8 @@ class UserTestCase(TestCase):
 class DiaryTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
-        user2 = User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
+        User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
         person1 = People.objects.create(user = user1, name = 'FRIEND1')
-        person2 = People.objects.create(user = user1, name = 'FRIEND2')
         category1 = Category.objects.create(name='MOVIE', category_title = 'JOKER', rating = 5)
         diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100)
         diary1.people.add(person1)
