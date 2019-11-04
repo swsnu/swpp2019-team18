@@ -32,7 +32,7 @@ def get_diary_by_date(request, year , month , day ) :
     else :
         return HttpResponseNotAllowed(['GET'])
 
-def getDiaryByPerson(request, id = None) : 
+def get_diary_by_person(request, id = None) : 
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
@@ -54,7 +54,7 @@ def getDiaryByPerson(request, id = None) :
     else :
         return HttpResponseNotAllowed(['GET'])
 
-def getDiaryByCategory(request, name = None) :
+def get_diary_by_category(request, name = None) :
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)  
