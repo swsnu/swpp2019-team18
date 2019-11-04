@@ -5,12 +5,12 @@ import json
 from ..models import MyDiary, Category, People
 from django.contrib.auth import get_user_model
 from ..serializer import diary_serializer
+from ..decorator import is_loggedin
 User = get_user_model()
 
-@csrf_exempt
+@is_loggedin
 def diary_detail(request, diary_id):
     if request.method == 'GET':
-        # TODO : use request.user
         diary = MyDiary.objects.get(id=diary_id)
         diary_dict = diary_serializer(diary)
         return JsonResponse(diary_dict, status=201)
@@ -21,6 +21,9 @@ def diary_detail(request, diary_id):
             diary = MyDiary.objects.get(id=diary_id)
         except:
             return HttpResponse(status=404)
+
+        if request.user != diary.user:
+            return HttpResponse(status=403) # forbidden
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
@@ -40,4 +43,17 @@ def diary_detail(request, diary_id):
         diary_dict = diary_serializer(diary)
         diary.category.save()
         return JsonResponse(diary_dict, status=200)
-    return HttpResponse(status=405)
+
+    elif request.method == 'DELETE' : 
+        try:
+            diary = MyDiary.objects.get(id = diary_id)
+        except MyDiary.DoesNotExist : 
+                return HttpResponse(status = 404)
+        if request.user != diary.user:
+            return HttpResponse(status=403) # forbidden
+        diary.delete()
+        return HttpResponse(status = 200)
+        
+
+    else:
+        return HttpResponse(status=405)

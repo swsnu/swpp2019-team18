@@ -1,14 +1,16 @@
+
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-
+import { push } from 'connected-react-router';
 
 const getDiaryToReducer = (diaryObj) => {
     return {type: actionTypes.GET_DIARY, diary: diaryObj};
 }
 
 export const getDiary = (diaryId) => dispatch => {
-    return axios.get('http://127.0.0.1:8000/api/diary/' + diaryId + '/')
+    return axios.get('http://localhost:8000/api/diary/' + diaryId + '/')
                     .then(response => dispatch(getDiaryToReducer(response.data)))
+                    .catch(response => dispatch(push('/login')));
 }
 
 const addDiaryToReducer = (diaryObj) => {
@@ -16,8 +18,8 @@ const addDiaryToReducer = (diaryObj) => {
 }
 
 export const addDiary = diaryObj => dispatch => {
-    return axios.post('http://127.0.0.1:8000/api/diary/', diaryObj)
-                    .then(response => dispatch(addDiaryToReducer(response.data)));
+    return axios.post('http://localhost:8000/api/diary/', diaryObj)
+                    .then(response => dispatch(addDiaryToReducer(response.data)))
 }
 
 const editDiaryToReducer = (diaryObj) => {
@@ -25,7 +27,7 @@ const editDiaryToReducer = (diaryObj) => {
 }
 
 export const editDiary =(diaryId, diaryObj) => dispatch => {
-    return axios.put('http://127.0.0.1:8000/api/diary/' + diaryId + '/', diaryObj)
+    return axios.put('http://localhost:8000/api/diary/' + diaryId + '/', diaryObj)
                     .then(response => dispatch(editDiaryToReducer(response.data)));
 }
 
@@ -34,16 +36,22 @@ export const returnPeopleToReducer = (allPeople) => {
 }
 
 export const getPeople = () => dispatch => {
-    return axios.get('http://127.0.0.1:8000/api/diary/people/')
+    return axios.get('http://localhost:8000/api/diary/people/')
                 .then(response => dispatch(returnPeopleToReducer(response.data)));
 }
 
-const addPeopleToReducer = (res) => {
-    return {type:actionTypes.ADD_PEOPLE};
-}
 
-export const addPeople = (obj) => dispatch => {
-    return axios.post('http://127.0.0.1:8000/api/diary/people/', obj)
-                .then(response => dispatch(addPeopleToReducer(response.data)))
-                .catch(err => dispatch(addPeopleToReducer(1)));
-}
+
+export const deleteDiary_ = (id) => {
+    return{
+        type : actionTypes.DELETE_DIARY,
+        targetID : id
+    };
+};
+
+export const deleteDiary = (id) => {
+    return (dispatch) => {
+        return axios.delete('http://localhost:8000/api/diary/'+id+'/')
+        .then(() => {dispatch(deleteDiary_(id))})
+    };
+};

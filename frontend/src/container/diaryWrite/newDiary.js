@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Button, Form, Container, Segment, Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addDiary, getPeople } from '../../store/actions/diary';
+import { addDiary } from '../../store/actions/diary';
+import { getPeople } from '../../store/actions/people';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/message';
+import { withRouter } from 'react-router';
 
 class newArticle extends Component {
     state = {
@@ -78,6 +80,7 @@ class newArticle extends Component {
                  null;
         
         return (
+
         <Grid>
             <Grid.Row columns={2} style={{ margin: '5px' }}>
                 <Grid.Column width={3}></Grid.Column>
@@ -132,4 +135,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(newArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(newArticle));
