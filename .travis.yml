@@ -17,9 +17,27 @@
       install:
         # Script to install required packages
         - yarn install
+        - yarn add coveralls
       script:
         # Script to test your build
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
         - cd ../
         - sonar-scanner
+      after_success:
+        - cat ./frontend/coverage/lcov.info | ./frontend/node_modules/coveralls/bin/coveralls.js
+    - language: python
+      python:
+        - '3.7'
+      before_install:
+        - cd backend
+      install: 
+        - pip install -r requirements.txt
+        - pip install coveralls
+      script:
+        - python3 manage.py makemigrations
+        - python3 manage.py migrate
+        - coverage run --branch --source='./diary' manage.py test
+        - coverage report --fail-under=70 -m
+      after_success:
+        - coveralls
