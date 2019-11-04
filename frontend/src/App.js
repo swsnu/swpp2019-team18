@@ -12,14 +12,16 @@ import Sidebar from './container/sidebar/sidebar'
 import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
 
-/*class App extends Component {
+class App extends Component {
   componentDidMount(){
     axios.get('/api/token/');
-  }*/
+  }
+  
+  render(){
 
-function App(props) {
+
   return (
-    <ConnectedRouter history={props.history}>
+    <ConnectedRouter history={this.props.history}>
       <div>
         <Switch>
 
@@ -40,7 +42,7 @@ function App(props) {
           </Switch>
       </div>    
     </ConnectedRouter>
-  )
+  )  }
 }
 
 export default App;

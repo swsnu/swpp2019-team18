@@ -41,10 +41,10 @@ def diary_detail(request, diary_id):
         return JsonResponse(diary_dict, status=200)
    
     elif request.method == 'DELETE' : 
-        # if not request.user.is_authenticated:
-        #     return HttpResponse(status=401)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
         try:
-            diary = MyDiary.objects.get(id = diary_id)
+            diary = MyDiary.objects.get(id = diary_id, author = request.user)
         except MyDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
         diary.delete()

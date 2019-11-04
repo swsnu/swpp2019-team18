@@ -5,7 +5,8 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
-import {Dropdown} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment} from 'semantic-ui-react';
+
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -59,37 +60,73 @@ class Diary extends Component {
     return (
         <div className = 'diaryDetail'>
             
-            <div className = 'category_name'>category_name : {this.props.category_name}</div>
+           <Segment.Group centered="true" style={{ maxWidth: 800}}  >
+           <Segment> 
+            <div className = 'category_name and person tag'>              
+                <Label as='a' color='yellow' tag>{this.props.category_name}</Label>
+            
             {
-                this.props.person_tag ? <div className = 'personTag'>
-                    person_tag : {this.props.person_tag.map(person => 
+                this.props.person_tag ? 
+                    <Label as='a' color='teal' tag>{this.props.person_tag.map(person => 
                         person.name
-                    )}
-                </div> : null
+                    )}</Label>
+                 : null
             }
+            </div>
+            </Segment>
+            
             {
                 this.props.category_title ? <div className = 'category_title'>
-                    category_title : {this.props.category_title}
+                    <Segment>
+                    <Grid columns = {2} >
+                    <Grid.Row >
+                    <Grid.Column textAlign='center' width = {4} color = 'blue'>category_title</Grid.Column>
+                    <Grid.Column width = {12}>{this.props.category_title}</Grid.Column>
+                    </Grid.Row>
+                    </Grid>
+                    </Segment>
                  </div> : null
             }
-            {
-                this.props.rating ? <div className = 'rating'>
-                    rating : {this.props.rating}
-                 </div> : null
-            }
-            <div className = 'content'>content : {this.props.content} </div>
-            <div className = 'emotion_score'>emotion_score : {this.props.emotion_score}</div>
-            <div >
-
-            <Dropdown
-                className='menu-button'
-                button
-                floating
-                options={options}
-                trigger={<React.Fragment />}
-            />
-            </div>
             
+            
+            {
+                this.props.rating ? <Segment><div className = 'rating'>
+                    rating : {this.props.rating}
+                 </div></Segment> : null
+            }
+           <div className = 'content'>
+            <Segment>
+                <Grid columns = {2}>
+                    <Grid.Row >
+                        <Grid.Column textAlign='center' width = {4} color = 'blue'>content </Grid.Column>
+                        <Grid.Column width = {12}>{this.props.content} </Grid.Column>
+                    
+                </Grid.Row>
+                </Grid>
+            </Segment>
+            </div>
+            <Segment>
+                <Grid columns = {3}>
+                    <Grid.Row>
+           
+                <Grid.Column textAlign = 'center' width = {4} color = 'blue'>emotion_score</Grid.Column>
+                <Grid.Column width = {10}> {this.props.emotion_score}</Grid.Column>
+                <Grid.Column width = {2}>
+                        <Dropdown
+                            className='menu-button'
+                            button
+                            floating
+                            options={options}
+                            trigger={<React.Fragment />}
+                        />
+            </Grid.Column>
+            </Grid.Row>
+            </Grid>
+            </Segment>
+            
+            </Segment.Group> 
+
+            <Divider hidden /> 
         </div>
         );
     }

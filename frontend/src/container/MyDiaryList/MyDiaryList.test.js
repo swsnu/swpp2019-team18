@@ -40,7 +40,7 @@ const stubInitialState = {
 const mockStore = getMockStore(stubInitialState);
 
 describe('<MyDiaryList />', () => {
-    let mydiary, spyGetByDate, spyGetByPerson, spyGetByCategory;
+    let mydiary;
     beforeEach(()=> {
         mydiary = (
             <Provider store={mockStore}>
@@ -51,11 +51,11 @@ describe('<MyDiaryList />', () => {
               </ConnectedRouter>
             </Provider>
           );
-          spyGetByDate = jest.spyOn(actionCreators, 'getDiaryByDate')
+          jest.spyOn(actionCreators, 'getDiaryByDate')
           .mockImplementation(()=> {return dispatch => {}; });
-          spyGetByPerson = jest.spyOn(actionCreators, 'getDiaryByPerson')
+          jest.spyOn(actionCreators, 'getDiaryByPerson')
           .mockImplementation(()=> {return dispatch => {}; });
-          spyGetByCategory = jest.spyOn(actionCreators, 'getDiaryByCategory')
+          jest.spyOn(actionCreators, 'getDiaryByCategory')
           .mockImplementation(()=> {return dispatch => {}; });
           
     });

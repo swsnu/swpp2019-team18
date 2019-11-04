@@ -10,12 +10,12 @@ User = get_user_model()
 @csrf_exempt
 def shareDiary (request, id) : 
     if request.method == 'POST' : 
-        # if not request.user.is_authenticated:
-        #     return HttpResponse(status=401)
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
 
         content = request.body.decode()
 
-        diary = MyDiary.objects.get(id = id)
+        diary = MyDiary.objects.get(id = id, author = request.user)
         gardenDiary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
         gardenDiary.save()
         response_dict = {

@@ -6,6 +6,7 @@ import {withRouter} from 'react-router';
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
 
+
 const mapStateToProps = state => {
     return {
         mode : state.diary.mode,
@@ -25,10 +26,9 @@ class MyDiaryList extends Component{
 
     componentDidMount(){
        //this.props.onGetDiaryByPerson(this.props.person_id);
-       console.log(this.props.mode);
         switch(this.props.mode){
             case 'CALENDAR':
-                //this.props.onGetDiaryByDate(2019, 10, 29);
+                //this.props.onGetDiaryByDate(2019, 11, 3);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
@@ -36,8 +36,8 @@ class MyDiaryList extends Component{
                 //this.props.onGetDiaryByPerson(1);
                 break;
             case 'CATEGORY':
-                //this.props.onGetDiaryByCategory('MOVIE');
-                this.props.onGetDiaryByCategory(this.props.category_name);
+                this.props.onGetDiaryByCategory('MOVIE');
+                //this.props.onGetDiaryByCategory(this.props.category_name);
                 break;
             
         }
@@ -48,6 +48,7 @@ class MyDiaryList extends Component{
        
         const diaries = this.props.selectedDiary.map(diary => {
             return (
+                    
                 <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
@@ -57,6 +58,8 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
+                    
+                
             );
         });
         
