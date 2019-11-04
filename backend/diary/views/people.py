@@ -2,15 +2,16 @@
 
 func people_names
 """
+import json
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
 from django.contrib.auth import get_user_model
 from ..models import People
+from ..decorator import is_logged_in
 
 User = get_user_model()
 
-@csrf_exempt
+@is_logged_in
 def people(request):
     """Summary or Description of the Function
 
@@ -22,17 +23,13 @@ def people(request):
 
    """
     if request.method == "GET":
-        # TODO : user = request.user
-        user_id = 1
-        user = User.objects.get(id=user_id)
+        user = request.user
         my_people = People.objects.filter(user=user)
         people_objs = [{"id" : person.id, "name" : person.name} for person in my_people]
-        return JsonResponse(people_objs, status=201, safe=False)
+        return JsonResponse(people_objs, status=200, safe=False)
 
     if request.method == "POST":
-        # TODO : user = request.user
-        user_id = 1
-        user = User.objects.get(id=user_id)
+        user = request.user
         req_data = json.loads(request.body.decode())
         info = req_data['information']
         name = req_data['name']

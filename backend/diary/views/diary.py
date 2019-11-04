@@ -4,12 +4,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from ..models import MyDiary, Category, People
 from ..serializer import diary_serializer
-from ..decorator import is_loggedin
+from ..decorator import is_logged_in
 from django.shortcuts import render
 User = get_user_model()
 
-@is_loggedin
-def diary(request):
+@is_logged_in
+def write_diary(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
         content = req_data['content']
@@ -38,12 +38,12 @@ def diary(request):
         return HttpResponse(status=405)
 
 
-@is_loggedin
+@is_logged_in
 def diary_detail(request, diary_id):
     if request.method == 'GET':
         diary = MyDiary.objects.get(id=diary_id)
         diary_dict = diary_serializer(diary)
-        return JsonResponse(diary_dict, status=201)
+        return JsonResponse(diary_dict, status=200)
 
     elif request.method == 'PUT':
         req_data = json.loads(request.body.decode())
@@ -52,7 +52,7 @@ def diary_detail(request, diary_id):
         except:
             return HttpResponse(status=404)
 
-        if request.user != diary.user:
+        if request.user != diary.author:
             return HttpResponse(status=403) # forbidden
         content = req_data['content']
         category_name = req_data['categoryName']
@@ -79,11 +79,9 @@ def diary_detail(request, diary_id):
             diary = MyDiary.objects.get(id = diary_id)
         except MyDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
-        if request.user != diary.user:
+        if request.user != diary.author:
             return HttpResponse(status=403) # forbidden
         diary.delete()
         return HttpResponse(status = 200)
-        
-
     else:
         return HttpResponse(status=405)
