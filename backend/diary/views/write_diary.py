@@ -18,9 +18,7 @@ def diary(request):
         people_id = req_data['people']
         rating = req_data['rating']
 
-        #TODO author = request.user
-        print(request.user)
-        author = User.objects.get(id=1)
+        author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
