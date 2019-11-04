@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, Modal, Icon, Message } from 'semantic-ui-react';
+import { Button, Form, Modal, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addPeople } from '../../store/actions/diary';
+import { addPeople } from '../../store/actions/people';
 
 class AddPeoplePopUp extends Component {
 

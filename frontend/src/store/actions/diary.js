@@ -41,7 +41,6 @@ export const getPeople = () => dispatch => {
 }
 
 
-
 export const deleteDiary_ = (id) => {
     return{
         type : actionTypes.DELETE_DIARY,
