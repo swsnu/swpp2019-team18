@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { editDiary, getDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
 import { Grid, Button, Form, Dropdown, Container, Segment } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
 
 class EditDiary extends Component {
     state = {
@@ -25,6 +26,13 @@ class EditDiary extends Component {
             updateButtons[btnId] = true;
         }
         this.setState({buttons : updateButtons, categoryName: name});
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
+            return {...prevState, allPeople : nextProps.allPeople};
+        }
+        return prevState;
     }
 
     componentDidMount(){
@@ -70,13 +78,6 @@ class EditDiary extends Component {
         }
       }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
-            return {...prevState, allPeople : nextProps.allPeople};
-        }
-        return prevState;
-    }
-
     handleChange = (e, { value })=> {
         this.setState({people : value});
     }
@@ -91,7 +92,7 @@ class EditDiary extends Component {
         let optionComponent;
         if(this.state.people !== undefined && this.state.people.length >= 1){
             let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
-            optionComponent = <Dropdown 
+            optionComponent = <Dropdown id='people-dropbox'
                 style={{margin:'0px 0px 20px 0px'}} 
                 onChange={this.handleChange}
                 placeholder='People' fluid multiple search selection options={options}
@@ -99,7 +100,6 @@ class EditDiary extends Component {
                 />
         }       
         return (
-            
             <Grid>
             <Grid.Row columns={2} style={{ margin: '5px' }}>
                 <Grid.Column width={3}></Grid.Column>
@@ -152,4 +152,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditDiary);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditDiary));

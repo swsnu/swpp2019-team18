@@ -42,7 +42,7 @@ class AddPeoplePopUp extends Component {
           } = this.state
         return (
             <Modal open={show} onClose={this.close}
-            trigger={<Button color='teal' onClick={() => this.setState({show : true})}><Icon className='plus'/>Add People</Button>}
+            trigger={<Button id='add-people-trigger-button'color='teal' onClick={() => this.setState({show : true})}><Icon className='plus'/>Add People</Button>}
             >
                 <Modal.Content>
                     <Form>
@@ -56,8 +56,8 @@ class AddPeoplePopUp extends Component {
                         value={information} 
                         onChange={this.handleInfoChangeForm}
                         />
-                        <Button color='red' onClick={this.close}> <Icon name='remove' /> Cancel</Button>
-                        <Button color='green' onClick={evt => this.createPeopleHandler(evt)}> <Icon name='checkmark'/>Confirm</Button>
+                        <Button id="add-person-cancel-button" color='red' onClick={this.close}> <Icon name='remove' /> Cancel</Button>
+                        <Button id="add-person-submit-button" color='green' onClick={evt => this.createPeopleHandler(evt)}> <Icon name='checkmark'/>Confirm</Button>
                     </Form>
                 </Modal.Content>
             </Modal>

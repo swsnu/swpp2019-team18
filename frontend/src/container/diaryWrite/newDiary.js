@@ -7,7 +7,7 @@ import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/message';
 import { withRouter } from 'react-router';
 
-class newArticle extends Component {
+class NewDiary extends Component {
     state = {
         content : "",
         categoryName: "",
@@ -76,12 +76,12 @@ class newArticle extends Component {
             placeholder='People' fluid multiple search selection options={options} />;
 
         let createPeopleSuccessMessage = this.state.messageSuccess ? 
-                <MessagePopup header="New friend is successfully created" content="You can now add new people" onClose={this.closeMessage}/> :
+                <MessagePopup id="create-people-success-message" header="New friend is successfully created" content="You can now add new people" onClose={this.closeMessage}/> :
                  null;
         
         return (
 
-        <Grid>
+        <Grid className="Grid">
             <Grid.Row columns={2} style={{ margin: '5px' }}>
                 <Grid.Column width={3}></Grid.Column>
                 <Grid.Column width={10}>
@@ -135,4 +135,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(newArticle));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NewDiary));

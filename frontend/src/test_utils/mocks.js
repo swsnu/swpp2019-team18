@@ -83,13 +83,13 @@ const getMockDiaryReducer = jest.fn(
       default:
         break;
     }
-    return state;
+    return {...state};
   }
 );
 
 export const getMockStore = (initialState) => {
   const mockUserReducer = getMockUserReducer(initialState);
-  const mockDiaryReducer = getMockUserReducer(initialState);
+  const mockDiaryReducer = getMockDiaryReducer(initialState);
   const rootReducer = combineReducers({
     diary : mockDiaryReducer,
     user : mockUserReducer,
