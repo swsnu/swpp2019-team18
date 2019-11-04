@@ -21,7 +21,7 @@ def diary_detail(request, diary_id):
             diary = MyDiary.objects.get(id=diary_id)
         except:
             return HttpResponse(status=404)
-        print(req_data)        
+
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
@@ -37,9 +37,19 @@ def diary_detail(request, diary_id):
         diary.content = content
         diary.save()
         diary_dict = diary_serializer(diary)
-        print(diary.category.category_title)
-        print(diary.id)
         diary.category.save()
         return JsonResponse(diary_dict, status=200)
+   
+    elif request.method == 'DELETE' : 
+        # if not request.user.is_authenticated:
+        #     return HttpResponse(status=401)
+        try:
+            diary = MyDiary.objects.get(id = diary_id)
+        except MyDiary.DoesNotExist : 
+                return HttpResponse(status = 404)
+        diary.delete()
+        return HttpResponse(status = 200)
+        
+
     else:
         return HttpResponse(status=405)

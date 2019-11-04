@@ -3,7 +3,7 @@ import SignUp from './SignUp';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { getMockStore } from '../../test_utils/mocks'
 import { history } from '../../store/store';
 import * as actionCreators from '../../store/actions/signUp';

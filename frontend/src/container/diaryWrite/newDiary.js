@@ -25,8 +25,9 @@ class newArticle extends Component {
         return (
         <div className="NewDiary">
         <h1>Add New Diary</h1>
-        <Button id='diary-category-button' onClick={e => this.setState({category_id: 1})}>MOVIE</Button>
-        <Button id='diary-category-button' onClick={e => this.setState({category_id: 2})}>FRIEND</Button>
+        <Button id='diary-category-button' onClick={e => this.setState({categoryName: "MOVIE"})}>MOVIE</Button>
+        <Button id='diary-category-button' onClick={e => this.setState({categoryName: "FRIEND"})}>FRIEND</Button>
+
         <input 
         type='text'
         id='diary-category-title-input'

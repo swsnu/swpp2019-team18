@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
@@ -12,7 +13,6 @@ export const getDiary = (diaryId) => dispatch => {
 }
 
 const addDiaryToReducer = (diaryObj) => {
-    console.log(diaryObj);
     return {type: actionTypes.ADD_DIARY, diary: diaryObj};
 }
 
@@ -27,9 +27,21 @@ const editDiaryToReducer = (diaryObj) => {
 }
 
 export const editDiary =(diaryId, diaryObj) => dispatch => {
-    console.log("[editDiary] ")
-    console.log(diaryObj);
     return axios.put('http://127.0.0.1:8000/api/diary/' + diaryId + '/', diaryObj)
                     .then(response => dispatch(editDiaryToReducer(response.data)));
 }
+
+export const deleteDiary_ = (id) => {
+    return{
+        type : actionTypes.DELETE_DIARY,
+        targetID : id
+    };
+};
+
+export const deleteDiary = (id) => {
+    return (dispatch) => {
+        return axios.delete('http://localhost:8000/api/diary/'+id+'/')
+        .then(() => {dispatch(deleteDiary_(id))})
+    };
+};
 

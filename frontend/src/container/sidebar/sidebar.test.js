@@ -69,7 +69,6 @@ describe('<MyDiaryList />', () => {
         expect(newState.month()).toBe(time.format("MMM"))
         expect(newState.monthNum).toBe(time.format("MM"))
         expect(newState.currentDay).toBe(time.format("D"))
-    
     });
 
     it('mode change by click button', () => {

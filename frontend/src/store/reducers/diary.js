@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 
+
 const initialState = {
     diary_list : [],
     diary : {
@@ -21,16 +22,14 @@ const initialState = {
     day : '4'
 }
 
+
 const reducer = (state=initialState, action) => {
-    console.log("Reducer " + action.type);
     switch(action.type) {
         case actionTypes.GET_DIARY :
-            console.log(action.diary)
             return {...state, diary: action.diary};
         case actionTypes.ADD_DIARY :
             return {...state, diary : action.diary};
         case actionTypes.EDIT_DIARY : 
-            console.log(action.diary)
             return {...state, diary : action.diary};
         case actionTypes.SET_MODE :
             return {...state, mode : action.mode};
@@ -40,8 +39,37 @@ const reducer = (state=initialState, action) => {
             return {...state, month : action.month};
         case actionTypes.SET_DAY :
             return {...state, day : action.day};
+        
+        case actionTypes.GET_DIARY_BY_DATE:
+            return{...state, selectedDiary : action.diaries};
+        
+        case actionTypes.GET_DIARY_BY_PERSON:
+            return{...state, selectedDiary : action.diaries};            
+        case actionTypes.GET_DIARY_BY_CATEGORY:
+            return{...state, selectedDiary : action.diaries};
+        
+        case actionTypes.DELETE_DIARY:
+            const deleted = state.diary_list.filter((diary)=> {
+                return diary.id !== action.targetID;
+            }); 
+            const selectdeleted = state.selectedDiary.filter((diary)=> {
+                return diary.id !== action.targetID;
+            }); 
+            return {...state, diary_list : deleted, selectedDiary : selectdeleted};   
+        case actionTypes.SHARE_DIARY : 
+            const newGardenDiary = {
+                    id : action.id,
+                    author : action.user,
+                    origin_diary : action.origin_diary,
+                    content : action.content,
+                    category : action.category,
+                    flower_users : action.flower_users,
+                    shared_date : action.shared_date
+                }
+            return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
         default:
             return {...state};
     }
 }
+
 export default reducer;
