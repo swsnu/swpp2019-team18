@@ -62,6 +62,7 @@ class NewDiary extends Component {
 
     closeMessage = () => {
         this.setState({messageSuccess : false});
+        this.props.getPeople();
     }
     
     openMessage = () => {
