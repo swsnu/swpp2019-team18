@@ -86,6 +86,8 @@ def diary_detail(request, diary_id):
                 return HttpResponse(status = 404)
         if request.user != diary.author:
             return HttpResponse(status=403) # forbidden
+        category = diary.category
+        category.delete()
         diary.delete()
         return HttpResponse(status = 200)
     else:
