@@ -77,9 +77,10 @@ class Diary extends Component {
              <Divider />
              <Container fluid>
              {
+                this.props.content ? 
                 this.props.content.split('\n').map( line => {
                 return (<span>{line}<br/></span>)
-                })
+                }) : null
             }
              </Container>
              <Divider />
