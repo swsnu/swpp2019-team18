@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
-import {Dropdown, Grid, Label, Divider, Segment, Container} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
 
 
 const mapDispatchToProps = dispatch => {
@@ -19,6 +19,11 @@ class Diary extends Component {
     state = {
         showMenu : false,
         changedContent : '',
+        deletePopupActive : false,
+        sharePopupActive : false,
+        active : false,
+        popupMode : 'INIT',
+        content : '',
     }
 
     componentDidUpdate(prevProps){
@@ -28,23 +33,31 @@ class Diary extends Component {
     }
 
     onClickMenuShareButton = (id, content) => {
-
-        let changedContent = prompt('edit content before sharing', content);
+        this.setState({popupMode : 'SHARE'})
+        this.setState({ active: true })
+        this.setState({ content: content })
+        /*let changedContent = prompt('edit content before sharing', content);
         if(changedContent !== '' && changedContent !== null){
             this.props.onShareDiary(id, changedContent);
-        }
+        } */
 
     }
+    handleShow = () => this.setState({ active: true })
+    handleHide = () => this.setState({ active: false })
 
     onClickMenuEditButton = (id) => {
         this.props.history.push('/diary/'+id+'/edit'); 
     }
 
     onClickMenuDeleteButton = (id) => {
-        let check = window.confirm('Are you sure?') ;
+        this.setState({popupMode : 'DELETE'})
+        this.setState({ active: true })
+
+        /*let check = window.confirm('Are you sure?') ;
             if(check){
                 this.props.onDeleteDiary(id);
             } 
+            */
         
     }
 
@@ -57,9 +70,43 @@ class Diary extends Component {
             { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
+       const deletePopupActive = this.state.deletePopupActive
+       const sharePopupActive = this.state.sharePopupActive
+       const active = this.state.active
+       let popup = <Dimmer></Dimmer>
+       const deletePopup = 
+        <Dimmer active={active} onClickOutside={this.handleHide}>
+            <Header inverted>Are you sure to delete this diary?</Header>
+            <Button id = 'delete-confirm-button' inverted onClick = {() => this.props.onDeleteDiary(this.props.id)}>Yes</Button>
+            <Button id = 'delete-cancel-button' inverted onClick = {() => this.handleHide()}>No</Button>
+        </Dimmer>
+
+        const shareEditPopup = 
+        <Dimmer active={active} onClickOutside={this.handleHide}>
+            <Header inverted>You can edit content of diary before sharing - original text wouldn't change</Header>
+            <Form>
+            <Form.TextArea 
+                        id='diary-content-input'
+                        placeholder='Tell me more about you...'
+                        value={this.state.content}
+                        onChange={e => this.setState({content : e.target.value})}
+                        />
+            </Form>
+            <br></br>
+            <Button id = 'share-confirm-button' inverted onClick = {() => this.props.onShareDiary(this.props.id, this.state.content)}>Share</Button>
+            <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
+        </Dimmer>
+
+        if(this.state.popupMode === 'DELETE'){
+            popup = deletePopup;
+        }
+        else if(this.state.popupMode == 'SHARE'){
+            popup = shareEditPopup
+        }
+
     return (
         <div className = 'diaryDetail'>
-            <Segment >
+            <Dimmer.Dimmable as ={Segment} dimmed = {deletePopupActive}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
                     {this.props.category_name}
@@ -107,7 +154,8 @@ class Diary extends Component {
                     </Grid.Column>
               </Grid>
              </Container>
-            </Segment>
+             {popup}
+            </Dimmer.Dimmable>
 
             <Divider hidden /> 
         </div>

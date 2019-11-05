@@ -69,13 +69,31 @@ describe('<Diary/>', ()=>{
 
         wrapper = component.find('#share-button');
         wrapper.at(0).simulate('click');
+        wrapper = component.find('#share-cancel-button');
+        wrapper.at(0).simulate('click');
+        expect(spyShareDiary).toHaveBeenCalledTimes(0);
+
+        wrapper = component.find('#share-button');
+        wrapper.at(0).simulate('click');
+        const contentForm = component.find('#diary-content-input textarea')
+        contentForm.simulate('change', {target : {value : 'testedit'}})
+        wrapper = component.find('#share-confirm-button');
+        wrapper.at(0).simulate('click');
         expect(spyShareDiary).toHaveBeenCalledTimes(1);
-        expect(spyWindow).toHaveBeenCalledTimes(1);
+        expect(spyWindow).toHaveBeenCalledTimes(0);
 
         jest.spyOn(window, 'confirm')
         .mockImplementation(()=> {return true});
 
         wrapper = component.find('#delete-button');
+        wrapper.at(0).simulate('click');
+        wrapper = component.find('#delete-cancel-button')
+        wrapper.at(0).simulate('click');
+        expect(spyDeleteDiary).toHaveBeenCalledTimes(0);
+
+        wrapper = component.find('#delete-button');
+        wrapper.at(0).simulate('click');
+        wrapper = component.find('#delete-confirm-button')
         wrapper.at(0).simulate('click');
         expect(spyDeleteDiary).toHaveBeenCalledTimes(1);
 
