@@ -63,7 +63,7 @@ describe('<Diary/>', ()=>{
         .mockImplementation(()=> {return "share content"});
 
         const component = mount(diaryDetail);
-        let wrapper = component.find('.menu-button');
+        let wrapper = component.find('#menu-button');
         wrapper.at(0).simulate('click');
 
 
