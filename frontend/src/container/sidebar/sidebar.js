@@ -3,15 +3,17 @@ import moment from 'moment';
 import './sidebar.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setMode , setMonth, setYear, setDay } from '../../store/actions/sidabar';
-import {withRouter} from 'react-router';
+import { setMode , setMonth, setYear, setDay, setCategory } from '../../store/actions/sidabar';
+import { withRouter } from 'react-router';
+//import AddPeoplePopUp from 
 
 let mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),
         updateYear : (value) => dispatch(setYear(value)),
         updateMonth : (value) => dispatch(setMonth(value)),
-        updateDay : (value) => dispatch(setDay(value))
+        updateDay : (value) => dispatch(setDay(value)),
+        updateCategory : (value) => dispatch(setCategory)
     }
 }
 
@@ -29,7 +31,9 @@ class sidebar extends Component {
         dateContext : moment(),
         mode : "CALENDAR",
         monthPopup: false,
-        yearPopup: false
+        yearPopup: false,
+        categories : ['MOVIE','PEOPLE','DATE','TRAVEL'],
+        selectedCategory : 'MOVIE'
     }
 
     year = () => {
@@ -80,13 +84,14 @@ class sidebar extends Component {
         })
     }
 
-    onSelectMonthChange = (e, data) => {
+    onSelectMonthChange = (data) => {
         this.setMonth(data);
     }
 
-    onChangeMonth = (e, month) => {
+    onChangeMonth = () => {
         this.setState({
-            monthPopup: !this.state.monthPopup
+            monthPopup : !this.state.monthPopup,
+            yearPopup : this.state.yearPopup && !this.state.yearPopup
         });
     }
 
@@ -94,7 +99,7 @@ class sidebar extends Component {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
-                    <div onClick = {(e)=>this.onSelectMonthChange(e, data)}>
+                    <div onClick = {()=>this.onSelectMonthChange(data)}>
                         {data}
                     </div>                    
                 </div>
@@ -108,12 +113,10 @@ class sidebar extends Component {
         )
     }
 
-    
-
     monthNav = () => {       
         return(
             <span className = "label_month"
-                onClick = {(e) => {this.onChangeMonth(e,this.month())}}>
+                onClick = {() => {this.onChangeMonth(this.month())}}>
                 {this.monthFull()}
                 {this.state.monthPopup && 
                     <this.selectListMonth data={this.months}/>
@@ -132,13 +135,14 @@ class sidebar extends Component {
         })
     }
 
-    onSelectYearChange = (e, data) => {
+    onSelectYearChange = (data) => {
         this.setYear(data);
     }
 
-    onChangeYear = (e, year) => {
+    onChangeYear = () => {
         this.setState({
-            yearPopup: !this.state.yearPopup
+            yearPopup: !this.state.yearPopup,
+            monthPopup : this.state.monthPopup && !this.state.monthPopup 
         });
     }
 
@@ -146,7 +150,7 @@ class sidebar extends Component {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
-                    <div onClick = {(e)=>this.onSelectYearChange(e, data)}>
+                    <div onClick = {()=>this.onSelectYearChange(data)}>
                         {data}
                     </div>                    
                 </div>
@@ -164,7 +168,7 @@ class sidebar extends Component {
     yearNav = () => {
         return(
             <span className = "label_year"
-                onClick = {(e) => {this.onChangeYear(e, this.year())}}>
+                onClick = {() => {this.onChangeYear()}}>
                 {this.year()}
                 {this.state.yearPopup && 
                     <this.selectListYear data={this.years}/>
@@ -196,11 +200,24 @@ class sidebar extends Component {
         this.props.updateMode(d);
     }
 
+    onSelectCategoryChange = (category) => {
+        this.setState({selectedCategory:category});
+        this.props.updateCategory(category);
+        
+    }
+
     
 
 
     render() {
         let calendarList = [];
+        calendarList.push(
+            <div>
+                <this.monthNav/>
+                {" "}
+                <this.yearNav/>
+            </div>
+        )
         for(let d = 1; d <= this.daysInMonth(); d++){
             let className = (d==this.currentDay() ? "current_day" : "day");
             calendarList.push(
@@ -209,15 +226,31 @@ class sidebar extends Component {
                 </div></Link>
             )
         }
+        
 
         let categoryList = [];
-            categoryList.push(
-                <d>categories</d>
-            )
+            /*categoryList.push(
+                <div>
+                <Link to="/diary"><div key='MOVIE' className='category' onClick={() => {this.onSelectDayChange('MOVIE')}}>MOVIE</div></Link>
+                <Link to="/diary"><div key='PEOPLE' className='category' onClick={() => {this.onSelectDayChange('PEOPLE')}}>PEOPLE</div></Link>
+                <Link to="/diary"><div key='DATE' className='category' onClick={() => {this.onSelectDayChange('DATE')}}>DATE</div></Link>
+                <Link to="/diary"><div key='TRAVEL' className='category' onClick={() => {this.onSelectDayChange('TRAVEL')}}>TRAVEL</div></Link>
+                </div>
+            )*/
+            for(let i = 0; i<this.state.categories.length; i++){
+                let tmpCategory = this.state.categories[i];
+                let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
+                categoryList.push(
+                    <Link to="/diary"><div className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
+                        {tmpCategory}
+                    </div></Link>
+                )
+            }
         
         let peopleList = [];
             peopleList.push(
                 <d>people!</d>
+
             )
 
         return (
@@ -227,11 +260,7 @@ class sidebar extends Component {
                 <button onClick = {()=>this.modeChange("CALENDAR")}>Cal</button><button onClick = {()=>this.modeChange("PERSON")}>Peo</button><button onClick = {()=>this.modeChange("CATEGORY")}>Cat</button>
                 </div>
 
-                <div>
-                    <this.monthNav/>
-                    {" "}
-                    <this.yearNav/>
-                </div>
+                
                 
                 <div className="sidabar">
                     {

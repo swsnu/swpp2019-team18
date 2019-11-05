@@ -27,6 +27,7 @@ def get_diary_by_date(request, year , month , day ) :
                                                 'category_title':diary.category.category_title, 
                                                 'rating':diary.category.rating, 
                                                 'emotion_score' : diary.emotion_score } , selected_diary ))
+        print(response_dict)
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])

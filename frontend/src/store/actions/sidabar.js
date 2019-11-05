@@ -30,3 +30,10 @@ export function setDay(new_day) {
         day : new_day
     }
 }
+
+export function setCategory(new_category){
+    return{
+        type : actionTypes.SET_CATEGORY,
+        category_name : new_category
+    }
+}

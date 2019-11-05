@@ -67,9 +67,9 @@ class Diary extends Component {
             
             {
                 this.props.person_tag ? 
-                    <Label as='a' color='teal' tag>{this.props.person_tag.map(person => 
-                        person.name
-                    )}</Label>
+                    this.props.person_tag.map(person => 
+                        <Label as='a' color='teal' tag>{person.name}</Label>
+                    )
                  : null
             }
             </div>
