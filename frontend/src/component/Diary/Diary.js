@@ -81,7 +81,6 @@ class Diary extends Component {
                 return (<span>{line}<br/></span>)
                 })
             }
-                 {this.props.content}
              </Container>
              <Divider />
              <Container>
