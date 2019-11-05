@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+
+
+
+.main {
+  margin-left: 15%;
+  float: center;
+ }
+
+ .sidebar {
+  float : left;
+
+ }
+
+
+
+
 .App-logo {
   height: 40vmin;
 }

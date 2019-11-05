@@ -5,6 +5,7 @@ import { getPeople } from '../../store/actions/people';
 import { Grid, Button, Form, Dropdown, Container, Segment } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 
+
 class EditDiary extends Component {
     state = {
         content : "",

@@ -18,7 +18,10 @@ const initialState = {
     peopleNames: [],
     garden_list : [],
     selectedDiary : [],
-    mode : 'CATEGORY'           //'CALENDAR' or 'PERSON' or 'CATEGORY' 
+    mode : 'CALENDAR',
+    year : '',
+    month : '',
+    day : ''
 }
 
 
@@ -30,6 +33,15 @@ const reducer = (state=initialState, action) => {
             return {...state, diary : action.diary};
         case actionTypes.EDIT_DIARY : 
             return {...state, diary : action.diary};
+        case actionTypes.SET_MODE :
+            return {...state, mode : action.mode};
+        case actionTypes.SET_YEAR :
+            return {...state, year : action.year};
+        case actionTypes.SET_MONTH :
+            return {...state, month : action.month};
+        case actionTypes.SET_DAY :
+            return {...state, day : action.day};
+        
         case actionTypes.GET_DIARY_BY_DATE:
             return{...state, selectedDiary : action.diaries};
         case actionTypes.GET_DIARY_BY_PERSON:

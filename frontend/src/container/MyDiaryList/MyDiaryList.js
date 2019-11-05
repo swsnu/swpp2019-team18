@@ -11,6 +11,11 @@ const mapStateToProps = state => {
     return {
         mode : state.diary.mode,
         selectedDiary : state.diary.selectedDiary,
+        year : state.diary.year,
+        month : state.diary.month,
+        day : state.diary.day, 
+        //person_id : state.diary.person_id,
+        //category_name : state.diary.category_name,
     }
 }
 
@@ -24,11 +29,19 @@ const mapDispatchToProps = dispatch => {
 
 class MyDiaryList extends Component{
 
+
+    componentDidUpdate(prevProps){
+        if(this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day
+            || this.props.mode !== prevProps.mode){
+            this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
+        }
+    }
     componentDidMount(){
-       //this.props.onGetDiaryByPerson(this.props.person_id);
+        //this.props.onGetDiaryByPerson(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
                 //this.props.onGetDiaryByDate(2019, 11, 3);
+                console.log(this.props.month);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
@@ -36,8 +49,8 @@ class MyDiaryList extends Component{
                 //this.props.onGetDiaryByPerson(1);
                 break;
             case 'CATEGORY':
-                this.props.onGetDiaryByCategory('MOVIE');
-                //this.props.onGetDiaryByCategory(this.props.category_name);
+                //this.props.onGetDiaryByCategory('MOVIE');
+                this.props.onGetDiaryByCategory(this.props.category_name);
                 break;
             
         }

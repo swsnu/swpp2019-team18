@@ -1,0 +1,66 @@
+
+
+
+.day{
+  padding: 10px;
+  
+}
+
+.current_day{
+  padding: 10px;
+  background-color: blue;
+}
+
+.current_day:hover{
+  border-right: 5px solid dimgray;
+  background-color: skyblue;
+}
+
+.day:hover{
+  border-right: 5px solid dimgray;
+  background-color: gainsboro;
+}
+
+.sidebar_container{
+  width : 150px;
+  min-height: 100vh;
+  background-color: gold;
+}
+
+.label_month{
+  background-color: olivedrab;
+  width : 30%;
+}
+
+.nav_month{
+  position: absolute;
+  top : 0.6em;
+  font-size: 1.0em;
+  right:3px;
+}
+
+.month_popup {
+  position : absolute;
+  padding: 5px;
+  background: white;
+  border: 2px solid skyblue;
+}
+
+.label_year{
+  background-color: olivedrab;
+  width : 30%;
+}
+
+.nav_year{
+  position: absolute;
+  top : 0.6em;
+  font-size: 1.0em;
+  right:3px;
+}
+
+.year_popup {
+  position : relative;
+  padding: 5px;
+  background: white;
+  border: 2px solid skyblue;
+}
