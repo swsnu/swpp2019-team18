@@ -21,6 +21,26 @@
   background-color: gainsboro;
 }
 
+.category{
+  padding: 10px;
+  
+}
+
+.selected_category{
+  padding: 10px;
+  background-color: blue;
+}
+
+.category:hover{
+  border-right: 5px solid dimgray;
+  background-color: skyblue;
+}
+
+.selected_category:hover{
+  border-right: 5px solid dimgray;
+  background-color: gainsboro;
+}
+
 .sidebar_container{
   width : 150px;
   min-height: 100vh;
@@ -52,14 +72,16 @@
 }
 
 .nav_year{
-  position: absolute;
+  position: relative;
   top : 0.6em;
   font-size: 1.0em;
   right:3px;
 }
 
 .year_popup {
-  position : relative;
+  position : absolute;
+  left : 60px;
+  width: 50px;
   padding: 5px;
   background: white;
   border: 2px solid skyblue;

@@ -19,7 +19,8 @@ const initialState = {
     mode : 'CALENDAR',
     year : '',
     month : '',
-    day : ''
+    day : '',
+    category_name : 'MOVIE',
 }
 
 
@@ -39,6 +40,8 @@ const reducer = (state=initialState, action) => {
             return {...state, month : action.month};
         case actionTypes.SET_DAY :
             return {...state, day : action.day};
+        case actionTypes.SET_CATEGORY :
+            return {...state, category_name : action.category_name}
         
         case actionTypes.GET_DIARY_BY_DATE:
             return{...state, selectedDiary : action.diaries};
