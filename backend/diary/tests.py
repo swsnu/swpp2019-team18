@@ -58,7 +58,7 @@ class DiaryTest(TestCase) :
         User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
         person1 = People.objects.create(user = user1, name = 'FRIEND1')
         category1 = Category.objects.create(name='MOVIE', category_title = 'JOKER', rating = 5)
-        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100)
+        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100, created_date='2019-11-03')
         diary1.people.add(person1)
 
     def test_get_diary_by_id(self) : 
@@ -105,6 +105,7 @@ class DiaryTestForcedLogin(TestCase):
             'emotionScore' : 100, 
             'people' : [1, 2, 3],
             'rating' : 5,
+            'date' : {'year' : 2019, 'month' : 11, 'day' : 3}
         }
     
     def setUp(self):
@@ -133,13 +134,13 @@ class DiaryTestForcedLogin(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 404)
-        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
+        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100, created_date='2019-11-03')
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 403)
 
     def test_delete(self):
         self.client.post('/api/diary/', json.dumps(self.diary_data), content_type='application/json')
-        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
+        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100, created_date='2019-11-03')
 
         response = self.client.delete('/api/diary/1/')
         self.assertEqual(response.status_code, 200)
