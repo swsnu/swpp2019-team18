@@ -8,9 +8,11 @@ from ..decorator import is_logged_in
 from django.shortcuts import render
 User = get_user_model()
 
+
 @is_logged_in
 def write_diary(request):
     if request.method == 'POST':
+        print("POST")
         req_data = json.loads(request.body.decode())
         content = req_data['content']
         category_name = req_data['categoryName']
@@ -18,7 +20,9 @@ def write_diary(request):
         emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
-
+        raw_date = req_data['date']
+        date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
+        
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
@@ -27,6 +31,7 @@ def write_diary(request):
                 content=content,
                 category=category,
                 emotion_score=emtion_score,
+                created_date=date,
             )
         for person in tagged_people:
             diary.people.add(person)
