@@ -41,6 +41,7 @@
         - cd ../backend
         - coverage run --branch --source='./diary' manage.py test
         - coverage report --fail-under=70 -m
+        - coverage xml
         - cd ..
         - sonar-scanner
       after_success:
