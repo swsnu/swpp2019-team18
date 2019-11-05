@@ -8,7 +8,6 @@ from ..serializer import diary_serializer
 User = get_user_model()
 
 
-@csrf_exempt
 def diary(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -18,9 +17,7 @@ def diary(request):
         emtion_score = req_data['emotionScore']
         people = req_data['people']
         rating = req_data['rating']
-        
-        #author = request.user
-        author = User.objects.get(id=1)
+        author = request.user
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 

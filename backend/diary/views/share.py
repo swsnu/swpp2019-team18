@@ -8,7 +8,7 @@ from ..serializer import diary_serializer
 User = get_user_model()
 
 @csrf_exempt
-def shareDiary (request, id) : 
+def share_diary (request, id) : 
     if request.method == 'POST' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
@@ -16,14 +16,14 @@ def shareDiary (request, id) :
         content = request.body.decode()
 
         diary = MyDiary.objects.get(id = id, author = request.user)
-        gardenDiary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
-        gardenDiary.save()
+        garden_diary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
+        garden_diary.save()
         response_dict = {
-                        'id' : gardenDiary.id, 
-                        'origin_diary' : gardenDiary.origin_diary.id,
-                        'author' : gardenDiary.author.id, 
-                        'content' : gardenDiary.content,
-                        'category' : gardenDiary.category.id
+                        'id' : garden_diary.id, 
+                        'origin_diary' : garden_diary.origin_diary.id,
+                        'author' : garden_diary.author.id, 
+                        'content' : garden_diary.content,
+                        'category' : garden_diary.category.id
                         }
         return JsonResponse(response_dict, status=201)
     else:

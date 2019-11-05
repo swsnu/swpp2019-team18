@@ -18,7 +18,7 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.withCredentials = true
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   diary : DiaryReducer,
   user : authentication,

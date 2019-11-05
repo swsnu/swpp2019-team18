@@ -8,13 +8,12 @@ from ..serializer import diary_serializer
 User = get_user_model()
 
 
-
 # Create your views here.
-def getDiaryByDate(request, year , month , day ) : 
+def get_diary_by_date(request, year , month , day ) : 
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
-        selectedDiary = MyDiary.objects.filter(created_date__year = year, 
+        selected_diary = MyDiary.objects.filter(created_date__year = year, 
                                                    created_date__month = month,
                                                    created_date__day = day,
                                                    author = request.user)
@@ -27,18 +26,18 @@ def getDiaryByDate(request, year , month , day ) :
                                                 'person_tag' : [person for person in diary.people.all().values()],
                                                 'category_title':diary.category.category_title, 
                                                 'rating':diary.category.rating, 
-                                                'emotion_score' : diary.emotion_score } , selectedDiary ))
+                                                'emotion_score' : diary.emotion_score } , selected_diary ))
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
 
-def getDiaryByPerson(request, id = None) : 
+def get_diary_by_person(request, id = None) : 
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)
         try : 
             person = People.objects.get(id = id)
-            selectedDiary = [diary for diary in person.tagged_diary.all()]
+            selected_diary = [diary for diary in person.tagged_diary.all()]
         except People.DoesNotExist:
             return HttpResponse(status = 404)
         response_dict = list(map(lambda diary : {'id' : diary.id, 
@@ -49,16 +48,16 @@ def getDiaryByPerson(request, id = None) :
                                                 'person_tag' : [person for person in diary.people.all().values()],
                                                 'category_title':diary.category.category_title, 
                                                 'rating': diary.category.rating, 
-                                                'emotion_score' : diary.emotion_score } , selectedDiary ))  
+                                                'emotion_score' : diary.emotion_score } , selected_diary ))  
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
 
-def getDiaryByCategory(request, name = None) :
+def get_diary_by_category(request, name = None) :
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)  
-        selectedDiary = MyDiary.objects.filter(category__name = name, author = request.user)
+        selected_diary = MyDiary.objects.filter(category__name = name, author = request.user)
         #print(request.user)
         response_dict = list(map(lambda diary : {'id' : diary.id, 
                                                 'author' : diary.author.id, 
@@ -68,14 +67,7 @@ def getDiaryByCategory(request, name = None) :
                                                 'person_tag' : [person for person in diary.people.all().values()],
                                                 'category_title':diary.category.category_title, 
                                                 'rating':diary.category.rating, 
-                                                'emotion_score' : diary.emotion_score } , selectedDiary ))  
+                                                'emotion_score' : diary.emotion_score } , selected_diary ))  
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
-
-
-
-
-    
-
-        

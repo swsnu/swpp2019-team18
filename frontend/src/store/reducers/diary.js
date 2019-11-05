@@ -14,6 +14,8 @@ const initialState = {
         'created_date': null,
         'modified_date': null
     },
+    peopleIds: [],
+    peopleNames: [],
     garden_list : [],
     selectedDiary : [],
     mode : 'CALENDAR',
@@ -21,6 +23,7 @@ const initialState = {
     month : '',
     day : '',
     category_name : 'MOVIE',
+    person_id : '',
 }
 
 
@@ -45,12 +48,10 @@ const reducer = (state=initialState, action) => {
         
         case actionTypes.GET_DIARY_BY_DATE:
             return{...state, selectedDiary : action.diaries};
-        
         case actionTypes.GET_DIARY_BY_PERSON:
             return{...state, selectedDiary : action.diaries};            
         case actionTypes.GET_DIARY_BY_CATEGORY:
             return{...state, selectedDiary : action.diaries};
-        
         case actionTypes.DELETE_DIARY:
             const deleted = state.diary_list.filter((diary)=> {
                 return diary.id !== action.targetID;
@@ -70,6 +71,10 @@ const reducer = (state=initialState, action) => {
                     shared_date : action.shared_date
                 }
             return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
+        case actionTypes.SEARCH_PEOPLE:
+                return {...state, allPeople: action.allPeople};
+        case actionTypes.ADD_PEOPLE:
+            return {...state};
         default:
             return {...state};
     }
