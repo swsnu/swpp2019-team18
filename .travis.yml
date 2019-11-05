@@ -1,11 +1,17 @@
 # project_root/.travis.yml
  matrix:
   include:
-    - language: node_js
+    - language: 
+      - python
+      cache:
+        yarn : true
+        pip : true
       # Your language e.g. node_js, python
       node_js:
         - "10"
-      dist: trusty
+      python :
+        - '3.6.8'
+      dist: xenial
       addons:
         sonarcloud:
           organization: "swsnu"
@@ -13,31 +19,31 @@
            secure: "jjQmKMeqVD7cdqe1oC979zZ7gUH90bnun1eUSHqYGJavW5JPDPAsKdzvS2ekLZfxKyHnfDIv4fZXkRCf3dHCVW6+FitjNr4JEnOHQruq8Ca5QDvcnJ7uEqDv+7Xw8XnUg4DOcbOk2AE7v6KsolpwqZyoCH9GtrbMfYENOaoMyyC5AyKLmE0+z3OegufDNapRxPAMh/6+aOd7hJM5+9MqMLsW73d1Y/ddoMljYLN1NMe3UH9EKdMAvYbA1siv7pja+hjMI7ty4Xmgn3eKu6UavHf82kkcjeeQ67GNF489ovt8m3zgHtvtAVdugGQ/+ee89fdp3YYNfYkeEEArg/9TsSkqQT36fThbA5yoW/CBo7+wZMhf9Bz/yAkITgGA3w/VCCv1XnLRpZeY31p6fkjcHRGHpoMEO9vfCZcPDwELEMfAGDHmKzXPDz0tINRSxJX+/a8uLqIoy7lxbaqpH48li4EcxQWQVi+3SdVsy0cWMKnRs+bKkRVxomxhpBAp4Uwvxc2VR9nDWnIyiA89QtIJvB1oAIS4Fs3l6I1JqigPMauAniZ5PrD6RsxMzqEssqhFiHGg4fDZ82mjQXeWyjX3vNpkA2ZcwLCHP3gGOZIop+ObnXwWHgcKbH/1XEOmdfVt8yga6dgmvyQt3JcCDw6eGszpOvcaLPd687LAm/g7cnA="
       # node_js version
       before_install: # Script to run before install
-        - cd frontend
       install:
-        # Script to install required packages
+        - cd frontend
         - yarn install
         - yarn add coveralls
+        - cd ..
+        - cd backend
+        - pip install -r requirements.txt
+        - pip install coveralls
+        - cd ..
+      before_script:
+        - cd backend
+        - python3 manage.py makemigrations
+        - python3 manage.py migrate
+        - cd ..
       script:
         # Script to test your build
+        - cd frontend
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
-        - cd ../
+        - cd ../backend
+        - coverage run --branch --source='./diary' manage.py test
+        - coverage report --fail-under=70 -m
+        - coverage xml
+        - cd ..
         - sonar-scanner
       after_success:
         - cat ./frontend/coverage/lcov.info | ./frontend/node_modules/coveralls/bin/coveralls.js
-    - language: python
-      python:
-        - '3.7'
-      before_install:
-        - cd backend
-      install: 
-        - pip install -r requirements.txt
-        - pip install coveralls
-      script:
-        - python3 manage.py makemigrations
-        - python3 manage.py migrate
-        - coverage run --branch --source='./diary' manage.py test
-        - coverage report --fail-under=70 -m
-      after_success:
-        - coveralls
+        - coveralls --merge=./frontend/coverage.json

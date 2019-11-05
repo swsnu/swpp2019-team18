@@ -34,7 +34,6 @@ const reducer = (state=initialState, action) => {
             return {...state, diary : action.diary};
         case actionTypes.EDIT_DIARY : 
             return {...state, diary : action.diary};
-
         case actionTypes.SET_MODE :
             return {...state, mode : action.mode};
         case actionTypes.SET_YEAR :
