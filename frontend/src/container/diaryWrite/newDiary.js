@@ -8,6 +8,8 @@ import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 
 class NewDiary extends Component {
+
+
     state = {
         content : "",
         categoryName: "",
