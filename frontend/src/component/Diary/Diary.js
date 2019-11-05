@@ -19,8 +19,6 @@ class Diary extends Component {
     state = {
         showMenu : false,
         changedContent : '',
-        deletePopupActive : false,
-        sharePopupActive : false,
         active : false,
         popupMode : 'INIT',
         content : '',
@@ -76,18 +74,19 @@ class Diary extends Component {
        let popup = <Dimmer></Dimmer>
        const deletePopup = 
         <Dimmer active={active} onClickOutside={this.handleHide}>
-            <Header inverted>Are you sure to delete this diary?</Header>
+            <Header inverted>Are you sure?</Header>
             <Button id = 'delete-confirm-button' inverted onClick = {() => this.props.onDeleteDiary(this.props.id)}>Yes</Button>
             <Button id = 'delete-cancel-button' inverted onClick = {() => this.handleHide()}>No</Button>
         </Dimmer>
 
         const shareEditPopup = 
         <Dimmer active={active} onClickOutside={this.handleHide}>
-            <Header inverted>You can edit content of diary before sharing - original text wouldn't change</Header>
+            <Header inverted>You can edit content before sharing - original article wouldn't be changed</Header>
             <Form>
             <Form.TextArea 
                         id='diary-content-input'
                         placeholder='Tell me more about you...'
+                        fluid
                         value={this.state.content}
                         onChange={e => this.setState({content : e.target.value})}
                         />
@@ -100,13 +99,13 @@ class Diary extends Component {
         if(this.state.popupMode === 'DELETE'){
             popup = deletePopup;
         }
-        else if(this.state.popupMode == 'SHARE'){
+        else if(this.state.popupMode === 'SHARE'){
             popup = shareEditPopup
         }
 
     return (
         <div className = 'diaryDetail'>
-            <Dimmer.Dimmable as ={Segment} dimmed = {deletePopupActive}>
+            <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
                     {this.props.category_name}
