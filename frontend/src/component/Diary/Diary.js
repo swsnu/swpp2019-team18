@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
-import {Dropdown, Grid, Label, Divider, Segment} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment, Container} from 'semantic-ui-react';
 
 
 const mapDispatchToProps = dispatch => {
@@ -59,72 +59,55 @@ class Diary extends Component {
         ]
     return (
         <div className = 'diaryDetail'>
-            
-           <Segment.Group centered="true" style={{ maxWidth: 800}}  >
-           <Segment> 
-            <div className = 'category_name and person tag'>              
-                <Label as='a' color='yellow' tag>{this.props.category_name}</Label>
-            
-            {
+            <Segment >
+            <Container textAlign = 'left'>
+            <Label as='a' color='olive' tag>
+                    {this.props.category_name}
+                    {this.props.category_title ? <Label.Detail >{this.props.category_title}</Label.Detail>  : null}
+                    {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null}
+                </Label>
+                {
                 this.props.person_tag ? 
                     this.props.person_tag.map(person => 
                         <Label as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
             }
-            </div>
-            </Segment>
-            
-            {
-                this.props.category_title ? <div className = 'category_title'>
-                    <Segment>
-                    <Grid columns = {2} >
-                    <Grid.Row >
-                    <Grid.Column textAlign='center' width = {4} color = 'blue'>category_title</Grid.Column>
-                    <Grid.Column width = {12}>{this.props.category_title}</Grid.Column>
-                    </Grid.Row>
-                    </Grid>
-                    </Segment>
-                 </div> : null
+             </Container>
+             <Divider />
+             <Container fluid>
+             {
+                this.props.content.split('\n').map( line => {
+                return (<span>{line}<br/></span>)
+                })
             }
-            
-            
-            {
-                this.props.rating ? <Segment><div className = 'rating'>
-                    rating : {this.props.rating}
-                 </div></Segment> : null
-            }
-           <div className = 'content'>
-            <Segment>
-                <Grid columns = {2}>
-                    <Grid.Row >
-                        <Grid.Column textAlign='center' width = {4} color = 'blue'>content </Grid.Column>
-                        <Grid.Column width = {12}>{this.props.content} </Grid.Column>
-                    
-                </Grid.Row>
-                </Grid>
-            </Segment>
-            </div>
-            <Segment>
-                <Grid columns = {3}>
-                    <Grid.Row>
-           
-                <Grid.Column textAlign = 'center' width = {4} color = 'blue'>emotion_score</Grid.Column>
-                <Grid.Column width = {10}> {this.props.emotion_score}</Grid.Column>
-                <Grid.Column width = {2}>
-                        <Dropdown
-                            className='menu-button'
+                 {this.props.content}
+             </Container>
+             <Divider />
+             <Container>
+              <Grid>
+                    <Grid.Column>
+                      <Dropdown
+                            className = 'icon'
+                            id='menu-button'
                             button
                             floating
+                            icon = 'bars'
                             options={options}
                             trigger={<React.Fragment />}
                         />
-            </Grid.Column>
-            </Grid.Row>
-            </Grid>
+                    </Grid.Column>
+                    <Grid.Column width = {3} floated = 'right'>
+                    <Label color = 'black'>
+                    Emotion Score
+                    <Label.Detail>
+                        {this.props.emotion_score}
+                    </Label.Detail>
+                    </Label>
+                    </Grid.Column>
+              </Grid>
+             </Container>
             </Segment>
-            
-            </Segment.Group> 
 
             <Divider hidden /> 
         </div>
