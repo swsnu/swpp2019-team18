@@ -31,12 +31,34 @@
   background-color: blue;
 }
 
+
 .category:hover{
   border-right: 5px solid dimgray;
   background-color: skyblue;
 }
 
 .selected_category:hover{
+  border-right: 5px solid dimgray;
+  background-color: gainsboro;
+}
+
+.person{
+  padding: 10px;
+  
+}
+
+.selected_person{
+  padding: 10px;
+  background-color: blue;
+}
+
+
+.person:hover{
+  border-right: 5px solid dimgray;
+  background-color: skyblue;
+}
+
+.selected_person:hover{
   border-right: 5px solid dimgray;
   background-color: gainsboro;
 }

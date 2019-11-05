@@ -71,8 +71,6 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
-                    
-                
             );
         });
         

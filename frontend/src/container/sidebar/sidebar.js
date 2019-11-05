@@ -33,14 +33,17 @@ const mapStateToProps = state => {
 
 class sidebar extends Component {
 
-    componentWillMount() {
+    /*componentWillMount() {
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
-    }
+    }*/
 
     componentDidMount(){
         this.props.getPeople();
+        this.props.updateYear(this.year());
+        this.props.updateMonth(this.monthNum());
+        this.props.updateDay(this.currentDay());
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -231,7 +234,7 @@ class sidebar extends Component {
         
     }
 
-    onSelectCategoryChange = (personId) => {
+    onSelectPersonChange = (personId) => {
         this.setState({selectedPersonId : personId});
         this.props.updatePersonId(personId);
     }
@@ -265,7 +268,7 @@ class sidebar extends Component {
             let tmpPersonId = this.state.allPeople[i].id;
             let tmpPerson = this.state.allPeople[i].name;
             let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
-            categoryList.push(
+            peopleList.push(
                 <Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
                     {tmpPerson}
                 </div></Link>
@@ -299,52 +302,6 @@ class sidebar extends Component {
 
 
     render() {
-        //console.log(this.state.mode)
-        /*const calendarList = [];
-        calendarList.push(
-            <div>
-                <this.monthNav/>
-                {" "}
-                <this.yearNav/>
-            </div>
-        )
-        for(let d = 1; d <= this.daysInMonth(); d++){
-            let className = (d==this.currentDay() ? "current_day" : "day");
-            calendarList.push(
-                <Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
-                    {this.month()}  {d} <div align = "right"><Link to="/diary/create" align="right">+</Link></div>
-                </div></Link>
-            )
-        }*/
-        
-
-        /*const categoryList = [];
-            categoryList.push(
-                <div>
-                <Link to="/diary"><div key='MOVIE' className='category' onClick={() => {this.onSelectDayChange('MOVIE')}}>MOVIE</div></Link>
-                <Link to="/diary"><div key='PEOPLE' className='category' onClick={() => {this.onSelectDayChange('PEOPLE')}}>PEOPLE</div></Link>
-                <Link to="/diary"><div key='DATE' className='category' onClick={() => {this.onSelectDayChange('DATE')}}>DATE</div></Link>
-                <Link to="/diary"><div key='TRAVEL' className='category' onClick={() => {this.onSelectDayChange('TRAVEL')}}>TRAVEL</div></Link>
-                </div>
-            )
-            for(let i = 0; i<this.state.categories.length; i++){
-                let tmpCategory = this.state.categories[i];
-                let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
-                categoryList.push(
-                    <Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
-                        {tmpCategory}
-                    </div></Link>
-                )
-            }*/
-        
-        /*const peopleList = [];
-            peopleList.push(
-                <div>
-                <d>people!</d>
-                <AddPeoplePopUp successHandler={this.successHandler} cancelHandler={this.cancelHandler}/>
-                </div>
-            )*/
-
         return (
             <div className="sidebar_container">
                 
@@ -356,12 +313,12 @@ class sidebar extends Component {
                 
                 <div className="sidabar">
                     {
-                        this.state.mode === "PERSON" ? <this.personIten/>
+                        this.state.mode === "PERSON" ? <this.personItem/>
                         : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
                         : <this.calendarItem/>
                     }
                 </div>
-                
+
             </div>
         );
     }

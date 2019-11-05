@@ -63,8 +63,7 @@ describe('<MyDiaryList />', () => {
         const wrapper = component.find('.sidebar_container');
         expect(wrapper.length).toBe(1);
         const newState = component.find(Sidebar.WrappedComponent).instance();
-        expect(newState.mode).toBe("CALENDAR")
-        expect(newState.monthFull()).toBe(time.format("MMM"))
+        expect(newState.monthFull()).toBe(time.format("MMMM"))
         expect(newState.year()).toBe(time.format("YYYY"))    
         expect(newState.month()).toBe(time.format("MMM"))
         expect(newState.monthNum).toBe(time.format("MM"))
@@ -75,8 +74,8 @@ describe('<MyDiaryList />', () => {
         const component = mount(Sidebar_);
         const buttons = component.find('button');
         buttons.at(1).simulate('click');
-        expect(spySetMode).toBeCalledTimes(1);
         const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(spySetMode).toBeCalledTimes(1);
         expect(newState.state.mode).toBe("PERSON");
         console.log(newState.monthFull())
     });
