@@ -20,6 +20,7 @@ class NewDiary extends Component {
         buttons : [false, false, false, false],
         modalOpen : false,
         messageSuccess : false,
+        date : {},
     }
 
     submitHandler = () => {
@@ -30,9 +31,9 @@ class NewDiary extends Component {
             people : this.state.people,
             rating : this.state.rating,
             emotionScore : this.state.emotionScore,
+            date : this.state.date,
         };
         this.props.addDiary(diaryObj);
-        this.props.history.push('/diary')
     }
 
     componentDidMount(){
@@ -42,6 +43,10 @@ class NewDiary extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
             return {...prevState, allPeople : nextProps.allPeople};
+        }
+        const newDate = {year : nextProps.year, month : nextProps.month, day : nextProps.day};
+        if(newDate.year !== undefined && newDate.month !== undefined && newDate.day !== undefined && newDate !== prevState.date){
+            return {...prevState, date : newDate};
         }
         return prevState;
     }
@@ -133,6 +138,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         allPeople : state.diary.allPeople,
+        year : state.diary.year,
+        month : state.diary.month,
+        day : state.diary.day, 
     };
 }
 

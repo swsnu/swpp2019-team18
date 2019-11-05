@@ -32,8 +32,6 @@ export const logoutRequest = () => {
     }
 }
 
-
-
 export function login() {
     return {
         type: actionTypes.LOGIN
