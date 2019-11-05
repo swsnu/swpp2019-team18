@@ -9,13 +9,14 @@ import './MyDiaryList.css'
 
 
 const mapStateToProps = state => {
-
     return {
         mode : state.diary.mode,
         selectedDiary : state.diary.selectedDiary,
         year : state.diary.year,
         month : state.diary.month,
         day : state.diary.day, 
+        person_id : state.diary.person_id,
+        category_name : state.diary.category_name,
     }
 }
 
@@ -30,22 +31,30 @@ const mapDispatchToProps = dispatch => {
 class MyDiaryList extends Component{
 
     componentDidUpdate(prevProps){
+        console.log('===============================');
+        console.log(this.props.mode);
+        console.log(this.props.person_id);        
         if(this.props.mode === 'CALENDAR' && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
         }
         else if(this.props.mode === 'PERSON' && (this.props.person_id !== prevProps.person_id)){
             this.props.onGetDiaryByPerson(this.props.person_id);
         }
-        else if (this.props.mode === 'PERSON' && (this.props.category_name !== prevProps.category_name)){
+        else if (this.props.mode === 'CATEGORY' && (this.props.category_name !== prevProps.category_name)){
             this.props.onGetDiaryByCategory(this.props.category_name);
         }
     }
+
     componentDidMount(){
+        console.log('===============================');
+        console.log(this.props.mode);
+        console.log(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
+                
                 this.props.onGetDiaryByPerson(this.props.person_id);
                 break;
             case 'CATEGORY':

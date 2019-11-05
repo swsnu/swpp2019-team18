@@ -19,6 +19,7 @@ export const SET_YEAR = "SET_YEAR"
 export const SET_MONTH = "SET_MONTH"
 export const SET_DAY = "SET_DAY"
 export const SET_CATEGORY = "SET_CATEGORY"
+export const SET_PERSONID = "SET_PERSONID"
 
 export const GET_DIARY_BY_DATE = 'GET_DIARY_BY_DATE'
 export const GET_DIARY_BY_PERSON = 'GET_DIARY_BY_PERSON'

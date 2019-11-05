@@ -18,6 +18,7 @@ export const getDiaryByPerson_ = (diaries) => {
 };
 
 export const getDiaryByPerson = (id) => {
+    console.log(id);
     return (dispatch) => {
         return axios.get('http://localhost:8000/api/diary/person/' + id+'/')
         .then(res => {dispatch(getDiaryByPerson_(res.data));

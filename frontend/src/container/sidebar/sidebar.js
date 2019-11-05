@@ -3,36 +3,69 @@ import moment from 'moment';
 import './sidebar.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setMode , setMonth, setYear, setDay, setCategory } from '../../store/actions/sidabar';
+import { setMode , setMonth, setYear, setDay, setCategory, setPersonId } from '../../store/actions/sidabar';
 import { withRouter } from 'react-router';
+import AddPeoplePopUp from '../addPeople/addPeopleModal'
+import { getPeople } from '../../store/actions/people'
+import { thisTypeAnnotation } from '@babel/types';
 //import AddPeoplePopUp from 
 
-let mapDispatchToProps = (dispatch) => {
+
+
+const mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),
         updateYear : (value) => dispatch(setYear(value)),
         updateMonth : (value) => dispatch(setMonth(value)),
         updateDay : (value) => dispatch(setDay(value)),
-        updateCategory : (value) => dispatch(setCategory)
+        updateCategory : (value) => dispatch(setCategory(value)),
+        updatePersonId : (value) => dispatch(setPersonId(value)),
+        getPeople : () => dispatch(getPeople())
     }
 }
 
+const mapStateToProps = state => {
+    return{
+        allPeople : state.diary.allPeople,
+    }
+}
+
+ 
+
 class sidebar extends Component {
 
-    componentWillMount() {
+    /*shouldComponentUpdate(){
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
+        console.log("********************************")
+        console.log(this.year(), this.month());
+    }*/
+
+    componentDidMount(){
+        this.props.getPeople();
+        this.props.updateYear(this.year())
+        this.props.updateMonth(this.monthNum())
+        this.props.updateDay(this.currentDay())
+
     }
 
-    
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
+            return {...prevState, allPeople : nextProps.allPeople};
+        }
+        return prevState;
+    }
+
     state = {
         dateContext : moment(),
         mode : "CALENDAR",
         monthPopup: false,
         yearPopup: false,
         categories : ['MOVIE','PEOPLE','DATE','TRAVEL'],
-        selectedCategory : 'MOVIE'
+        selectedCategory : 'MOVIE',
+        allPeople : [],
+        selectedPersonId : '',
     }
 
     year = () => {
@@ -198,13 +231,17 @@ class sidebar extends Component {
     }
 
     onSelectCategoryChange = (category) => {
-        this.setState({selectedCategory:category});
+        this.setState({selectedCategory : category});
         this.props.updateCategory(category);
-        
     }
 
-    render() {
-        let calendarList = [];
+    onSelectPersonChange = (personId) => {
+        this.setState({selectedPersonId : personId});
+        this.props.updatePersonId(personId);
+    }
+
+    calendarItem = () => {
+        const calendarList = [];
         calendarList.push(
             <div>
                 <this.monthNav/>
@@ -220,32 +257,48 @@ class sidebar extends Component {
                 </div></Link>
             )
         }
-        
 
-        let categoryList = [];
-            /*categoryList.push(
-                <div>
-                <Link to="/diary"><div key='MOVIE' className='category' onClick={() => {this.onSelectDayChange('MOVIE')}}>MOVIE</div></Link>
-                <Link to="/diary"><div key='PEOPLE' className='category' onClick={() => {this.onSelectDayChange('PEOPLE')}}>PEOPLE</div></Link>
-                <Link to="/diary"><div key='DATE' className='category' onClick={() => {this.onSelectDayChange('DATE')}}>DATE</div></Link>
-                <Link to="/diary"><div key='TRAVEL' className='category' onClick={() => {this.onSelectDayChange('TRAVEL')}}>TRAVEL</div></Link>
-                </div>
-            )*/
-            for(let i = 0; i<this.state.categories.length; i++){
-                let tmpCategory = this.state.categories[i];
-                let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
-                categoryList.push(
-                    <Link to="/diary"><div className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
-                        {tmpCategory}
-                    </div></Link>
-                )
-            }
-        
-        let peopleList = [];
+        return calendarList;
+
+    }
+
+    personItem = () => {
+        const peopleList = [];
+        for(let i=0; i < this.state.allPeople.length; i++){
+            let tmpPersonId = this.state.allPeople[i].id;
+            let tmpPerson = this.state.allPeople[i].name;
+            let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
             peopleList.push(
-                <d>people!</d>
-
+                <Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
+                    {tmpPerson}
+                </div></Link>
             )
+        }
+        peopleList.push(
+            <div>
+            <AddPeoplePopUp/>
+            </div>
+        )
+        
+        return peopleList;
+    }
+
+    categoryItem = () => {
+        const categoryList = [];
+        for(let i = 0; i<this.state.categories.length; i++){
+            let tmpCategory = this.state.categories[i];
+            let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
+            categoryList.push(
+                <Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
+                    {tmpCategory}
+                </div></Link>
+            )
+        }
+
+        return categoryList;
+    }
+
+    render() {
 
         return (
             <div className="sidebar_container">
@@ -256,15 +309,15 @@ class sidebar extends Component {
 
                 <div className="sidabar">
                     {
-                        this.state.mode === "PERSON" ? <div>{peopleList}</div>
-                        : this.state.mode === "CATEGORY" ? <div>{categoryList}</div> : <div>{calendarList}</div>
+                        this.state.mode === "PERSON" ? <this.personItem/>
+                        : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
+                        : <this.calendarItem/>
                     }
                 </div>
                 
             </div>
-
         );
     }
 }
 
-export default connect(null,mapDispatchToProps)(withRouter(sidebar));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(sidebar));

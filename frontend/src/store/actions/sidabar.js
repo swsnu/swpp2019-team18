@@ -32,8 +32,15 @@ export function setDay(new_day) {
 }
 
 export function setCategory(new_category){
-    return{
+    return {
         type : actionTypes.SET_CATEGORY,
         category_name : new_category
+    }
+}
+
+export function setPersonId(new_personId){
+    return {
+        type : actionTypes.SET_PERSONID,
+        person_id : new_personId
     }
 }
