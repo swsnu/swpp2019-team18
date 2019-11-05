@@ -32,9 +32,14 @@ class MyDiaryList extends Component{
 
 
     componentDidUpdate(prevProps){
-        if(this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day
-            || this.props.mode !== prevProps.mode){
+        if(this.props.mode === 'CALENDAR' && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
+        }
+        else if(this.props.mode === 'PERSON' && (this.props.person_id !== prevProps.person_id)){
+            this.props.onGetDiaryByPerson(this.props.person_id);
+        }
+        else if (this.props.mode === 'PERSON' && (this.props.category_name !== prevProps.category_name)){
+            this.props.onGetDiaryByCategory(this.props.category_name);
         }
     }
     componentDidMount(){
@@ -42,7 +47,6 @@ class MyDiaryList extends Component{
         switch(this.props.mode){
             case 'CALENDAR':
                 //this.props.onGetDiaryByDate(2019, 11, 3);
-                console.log(this.props.month);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
