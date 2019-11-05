@@ -22,7 +22,7 @@ def write_diary(request):
         rating = req_data['rating']
         raw_date = req_data['date']
         date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
-        
+        print(content)
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)

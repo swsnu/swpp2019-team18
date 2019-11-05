@@ -17,7 +17,6 @@ class tempdiary extends Component {
     };
 
     componentDidMount(){
-        console.log(this.props.mode);
     }
 
   render() {

@@ -20,7 +20,7 @@ const addDiaryToReducer = (diaryObj) => {
 export const addDiary = diaryObj => dispatch => {
     return axios.post('http://localhost:8000/api/diary/', diaryObj)
                     .then(response => dispatch(addDiaryToReducer(response.data)))
-                    .then(response => dispatch(push('diary')));
+                    .then(() => dispatch(push('diary')));
 }
 
 const editDiaryToReducer = (diaryObj) => {

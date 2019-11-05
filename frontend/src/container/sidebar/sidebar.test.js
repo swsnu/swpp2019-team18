@@ -78,7 +78,6 @@ describe('<MyDiaryList />', () => {
         expect(spySetMode).toBeCalledTimes(1);
         const newState = component.find(Sidebar.WrappedComponent).instance();
         expect(newState.state.mode).toBe("PERSON");
-        console.log(newState.monthFull())
     });
 
     it('date change by click button', () => {

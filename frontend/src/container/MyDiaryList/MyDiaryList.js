@@ -40,16 +40,12 @@ class MyDiaryList extends Component{
         //this.props.onGetDiaryByPerson(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
-                //this.props.onGetDiaryByDate(2019, 11, 3);
-                console.log(this.props.month);
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
                 break;
             case 'PERSON' : 
                 this.props.onGetDiaryByPerson(this.props.person_id);
-                //this.props.onGetDiaryByPerson(1);
                 break;
             case 'CATEGORY':
-                //this.props.onGetDiaryByCategory('MOVIE');
                 this.props.onGetDiaryByCategory(this.props.category_name);
                 break;
             default:
@@ -58,8 +54,7 @@ class MyDiaryList extends Component{
     }
  
     render(){
-       
-        const diaries = this.props.selectedDiary.map(diary => {
+               const diaries = this.props.selectedDiary.map(diary => {
             return (
                     
                 <Diary key = {diary.id}

@@ -26,7 +26,6 @@ class sidebar extends Component {
     }
 
     
-    
     state = {
         dateContext : moment(),
         mode : "CALENDAR",
@@ -188,7 +187,6 @@ class sidebar extends Component {
 
     onSelectDayChange = (d) => {
         this.setDay(d);
-        //console.log(this.monthNum())
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(d)
@@ -256,8 +254,6 @@ class sidebar extends Component {
                 <button onClick = {()=>this.modeChange("CALENDAR")}>Cal</button><button onClick = {()=>this.modeChange("PERSON")}>Peo</button><button onClick = {()=>this.modeChange("CATEGORY")}>Cat</button>
                 </div>
 
-                
-                
                 <div className="sidabar">
                     {
                         this.state.mode === "PERSON" ? <div>{peopleList}</div>

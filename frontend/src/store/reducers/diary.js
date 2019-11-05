@@ -29,6 +29,7 @@ const initialState = {
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.GET_DIARY :
+            console.log(action.diary.content);
             return {...state, diary: action.diary};
         case actionTypes.ADD_DIARY :
             return {...state, diary : action.diary};
