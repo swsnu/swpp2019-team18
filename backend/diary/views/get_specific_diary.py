@@ -8,7 +8,6 @@ from ..serializer import diary_serializer
 User = get_user_model()
 
 
-
 # Create your views here.
 def get_diary_by_date(request, year , month , day ) : 
     if request.method == 'GET' : 
@@ -72,10 +71,3 @@ def get_diary_by_category(request, name = None) :
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
-
-
-
-
-    
-
-        
