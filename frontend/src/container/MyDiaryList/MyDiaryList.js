@@ -58,8 +58,8 @@ class MyDiaryList extends Component{
     }
  
     render(){
-       
-        const diaries = this.props.selectedDiary.map(diary => {
+       console.log(this.props.selectedDiary);
+               const diaries = this.props.selectedDiary.map(diary => {
             return (
                     
                 <Diary key = {diary.id}

@@ -34,7 +34,7 @@ class NewDiary extends Component {
             emotionScore : this.state.emotionScore,
         };
         this.props.addDiary(diaryObj);
-        this.props.history.push('/diary')
+       
     }
 
     componentDidMount(){
