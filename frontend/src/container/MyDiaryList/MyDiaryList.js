@@ -9,14 +9,13 @@ import './MyDiaryList.css'
 
 
 const mapStateToProps = state => {
+
     return {
         mode : state.diary.mode,
         selectedDiary : state.diary.selectedDiary,
         year : state.diary.year,
         month : state.diary.month,
         day : state.diary.day, 
-        //person_id : state.diary.person_id,
-        //category_name : state.diary.category_name,
     }
 }
 
@@ -30,7 +29,6 @@ const mapDispatchToProps = dispatch => {
 
 class MyDiaryList extends Component{
 
-
     componentDidUpdate(prevProps){
         if(this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day
             || this.props.mode !== prevProps.mode){
@@ -38,7 +36,6 @@ class MyDiaryList extends Component{
         }
     }
     componentDidMount(){
-        //this.props.onGetDiaryByPerson(this.props.person_id);
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);

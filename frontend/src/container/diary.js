@@ -16,9 +16,6 @@ class tempdiary extends Component {
         a : '19'
     };
 
-    componentDidMount(){
-    }
-
   render() {
     return <div className="content-container">
         
