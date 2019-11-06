@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 
+
 const initialState = {
     diary_list : [],
     diary : {
@@ -12,22 +13,73 @@ const initialState = {
         'rating': 5,
         'created_date': null,
         'modified_date': null
-    }
+    },
+    peopleIds: [],
+    peopleNames: [],
+    garden_list : [],
+    selectedDiary : [],
+    mode : 'CALENDAR',
+    year : '',
+    month : '',
+    day : '',
+    category_name : 'MOVIE',
+    person_id : '',
 }
 
+
 const reducer = (state=initialState, action) => {
-    console.log("Reducer " + action.type);
     switch(action.type) {
         case actionTypes.GET_DIARY :
-            console.log(action.diary)
+            console.log(action.diary.content);
             return {...state, diary: action.diary};
         case actionTypes.ADD_DIARY :
             return {...state, diary : action.diary};
         case actionTypes.EDIT_DIARY : 
-            console.log(action.diary)
             return {...state, diary : action.diary};
+        case actionTypes.SET_MODE :
+            return {...state, mode : action.mode};
+        case actionTypes.SET_YEAR :
+            return {...state, year : action.year};
+        case actionTypes.SET_MONTH :
+            return {...state, month : action.month};
+        case actionTypes.SET_DAY :
+            return {...state, day : action.day};
+        case actionTypes.SET_CATEGORY :
+            return {...state, category_name : action.category_name}
+        case actionTypes.SET_PERSONID :
+            return {...state, person_id : action.person_id};
+        case actionTypes.GET_DIARY_BY_DATE:
+            return{...state, selectedDiary : action.diaries};
+        case actionTypes.GET_DIARY_BY_PERSON:
+            return{...state, selectedDiary : action.diaries};            
+        case actionTypes.GET_DIARY_BY_CATEGORY:
+            return{...state, selectedDiary : action.diaries};
+        case actionTypes.DELETE_DIARY:
+            const deleted = state.diary_list.filter((diary)=> {
+                return diary.id !== action.targetID;
+            }); 
+            const selectdeleted = state.selectedDiary.filter((diary)=> {
+                return diary.id !== action.targetID;
+            }); 
+            return {...state, diary_list : deleted, selectedDiary : selectdeleted};   
+        case actionTypes.SHARE_DIARY : 
+            const newGardenDiary = {
+                    id : action.id,
+                    author : action.user,
+                    origin_diary : action.origin_diary,
+                    content : action.content,
+                    category : action.category,
+                    flower_users : action.flower_users,
+                    shared_date : action.shared_date
+                }
+            return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
+        case actionTypes.SEARCH_PEOPLE:
+                return {...state, allPeople: action.allPeople};
+        case actionTypes.ADD_PEOPLE:
+            return {...state};
         default:
             return {...state};
     }
 }
+
 export default reducer;

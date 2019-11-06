@@ -10,7 +10,6 @@ class Login extends Component {
         username : '',
         password : ''
     }
-
     
     onClickLogInButton = () => {
         const data = {username: this.state.username , password: this.state.password};
