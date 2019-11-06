@@ -24,7 +24,7 @@ class App extends Component {
     <ConnectedRouter history={this.props.history}>
       <div>
         <Switch>
-
+          <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
           

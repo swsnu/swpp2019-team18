@@ -34,7 +34,7 @@ class MyDiaryList extends Component{
         console.log('===============================');
         console.log(this.props.mode);
         console.log(this.props.person_id);        
-        if(this.props.mode === 'CALENDAR' && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
+        if(this.props.mode === 'CALENDAR'  && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
         }
         else if(this.props.mode === 'PERSON' && (this.props.person_id !== prevProps.person_id)){
