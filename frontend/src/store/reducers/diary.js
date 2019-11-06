@@ -45,6 +45,8 @@ const reducer = (state=initialState, action) => {
             return {...state, day : action.day};
         case actionTypes.SET_CATEGORY :
             return {...state, category_name : action.category_name}
+        case actionTypes.SET_PERSONID :
+            return {...state, person_id : action.person_id}
         
         case actionTypes.GET_DIARY_BY_DATE:
             return{...state, selectedDiary : action.diaries};

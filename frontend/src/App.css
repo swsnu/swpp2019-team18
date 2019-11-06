@@ -8,6 +8,7 @@
 .main {
   margin-left: 15%;
   float: center;
+  border: 4px solid transparent;
  }
 
  .sidebar {
