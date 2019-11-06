@@ -13,7 +13,7 @@ export const loginRequest = (user) => {
         })
         .catch(error => {
             dispatch(loginFailure())
-            alert('login fail')
+            //alert('login fail')
         })
     }
 }
@@ -27,7 +27,7 @@ export const logoutRequest = () => {
             })
         })
         .catch(error => {
-            alert('logout fail')
+            //alert('logout fail')
         })
     }
 }
