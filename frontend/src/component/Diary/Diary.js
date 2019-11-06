@@ -92,7 +92,11 @@ class Diary extends Component {
                         />
             </Form>
             <br></br>
-            <Button id = 'share-confirm-button' inverted onClick = {() => this.props.onShareDiary(this.props.id, this.state.content)}>Share</Button>
+            <Button id = 'share-confirm-button' inverted onClick = {() => 
+            {
+                this.props.onShareDiary(this.props.id, this.state.content)
+                this.handleHide()
+            }}>Share</Button>
             <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
         </Dimmer>
 

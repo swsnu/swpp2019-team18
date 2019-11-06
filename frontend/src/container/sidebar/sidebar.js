@@ -63,7 +63,7 @@ class sidebar extends Component {
         monthPopup: false,
         yearPopup: false,
         categories : ['MOVIE','PEOPLE','DATE','TRAVEL'],
-        selectedCategory : 'MOVIE',
+        selectedCategory : '',
         allPeople : [],
         selectedPersonId : '',
     }
@@ -91,7 +91,9 @@ class sidebar extends Component {
     daysInMonth = () => {
         return this.state.dateContext.daysInMonth();
     }
-
+    successHandler = () => {
+        this.props.getPeople();
+    }
     months = moment.months();
 
     years = [this.year(),
@@ -228,6 +230,8 @@ class sidebar extends Component {
     modeChange = (d) => {
         this.setState({mode : d});
         this.props.updateMode(d);
+        this.props.updatePersonId('');
+        this.props.updateCategory('');
     }
 
     onSelectCategoryChange = (category) => {
@@ -276,7 +280,7 @@ class sidebar extends Component {
         }
         peopleList.push(
             <div>
-            <AddPeoplePopUp/>
+            <AddPeoplePopUp successHandler={this.successHandler}/>
             </div>
         )
         
