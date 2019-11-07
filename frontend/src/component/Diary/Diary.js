@@ -109,7 +109,7 @@ class Diary extends Component {
         }
 
     return (
-        <div className = 'diaryDetail' style = {{flex : 1}}>
+        <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
@@ -126,7 +126,7 @@ class Diary extends Component {
             }
              </Container>
              <Divider />
-             <Container fluid>
+             <Container textAlign = 'justified'>
              {
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {

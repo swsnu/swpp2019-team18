@@ -19,29 +19,29 @@ class App extends Component {
   }
   
   render(){
-
-
   return (
     <ConnectedRouter history={this.props.history}>
-       <div className = 'sidebar'  >
-              <Sidebar/>
-      </div >
-      <div style={{clear:"both"}}></div>
-
-        <Switch>
+       
+      <div>
+       <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-         
-
-            
-      <div className = 'main' style={{ marginLeft: 265}}>
-            <Route path='/diary' exact component={MyDiaryList}/>
-            <Route path='/diary/create' exact component={NewDiary}/>
-            <Route path='/diary/:id/edit' exact component={EditDiary}/>
+          <div>
+            <div className = 'sidebar'  >
+              <Sidebar/>
+            </div >
+            <div style={{clear:"both"}}></div>
+            <div className = 'main' style={{ marginLeft: 265}}>
+              <Route path='/diary' exact component={MyDiaryList}/>
+              <Route path='/diary/create' exact component={NewDiary}/>
+              <Route path='/diary/:id/edit' exact component={EditDiary}/>
+            </div>
+          </div>
+        </Switch>    
       </div>
- 
-          </Switch>    
+
+        
     </ConnectedRouter>
   )  }
 }

@@ -273,13 +273,10 @@ class sidebar extends Component {
     calendarItem = () => {
         const calendarList = [];
         calendarList.push(
-            <Menu.Item align = 'center'>
-                <Grid columns = 'equal'>
-                    <Grid.Row>
-                        <Grid.Column> <this.monthNav/></Grid.Column>
-                        <Grid.Column> <this.yearNav/></Grid.Column>
-                    </Grid.Row>
-
+            <Menu.Item  align = 'center'>
+                <Grid columns = 'equal' >
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}>  <this.yearNav/></Grid.Column>
                 </Grid>
             </Menu.Item>
       
@@ -287,22 +284,34 @@ class sidebar extends Component {
         for(let d = 1; d <= this.daysInMonth(); d++){
             let className = (d==this.currentDay() ? "current_day" : "day");
             calendarList.push(
-                <Menu.Item 
+                <Menu.Item style = {{padding :'10'}}
                 name = {this.month() + '' + String(d) }
                 active = {className === 'current_day'}
-                onClick={() => {
-                    this.onSelectDayChange(d)
-                    console.log(this.props.history.location)
-                    if(this.props.history.location.pathname === '/diary/create'){
-                        //this.props.history.push('/diary')
-                    }
-                    
-                }}
                 >
-                    <div style={{verticalAlign: 'middle'}}>
-                    <div align = "left" > {this.month()}  {d}</div>
-                    <div align = "right"><button onClick = {() => this.props.history.push("/diary/create")} align="right">+</button></div>
-                    </div>   
+                    <Grid fluid columns = 'equal'  >
+                        <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
+                        <Menu.Item fitted='horizontally'
+                        onClick={() => {
+                            
+                            this.onSelectDayChange(d)
+                            console.log(this.props.history.location)
+                            if(this.props.history.location.pathname === '/diary/create'){
+                                this.props.history.push('/diary')
+                            }}}>
+                          {this.month()}  {d}
+                        
+                        </Menu.Item>
+                        </Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                        <Button fluid align = 'right' id = 'tag'  size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
+                        </Grid.Column>
+
+                    </Grid>
+                       
+         
+                    
+                    
+        
                     {/*<Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
                     {this.month()}  {d} <div align = "right"><Link to="/diary/create" align="right">+</Link></div>
             </div></Link> */}
@@ -335,7 +344,13 @@ class sidebar extends Component {
                     this.props.history.push('/diary')
                 }}
                 >
-                    {tmpPerson}
+                    <Grid fluid columns = 'equal'>
+                        <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                        {tmpPerson}
+                        </Grid.Column>
+
+                    </Grid>
+                    
                     
                     {/*<Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
                     {tmpPerson}
@@ -396,7 +411,7 @@ class sidebar extends Component {
           >
               
               <div style={{ flex: 1, overflowY: "scroll" }}>
-              <Menu vertical compact fluid>
+              <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item>
                 <Grid columns = 'equal' divided >
                         <Grid.Row >

@@ -84,7 +84,7 @@ class MyDiaryList extends Component{
         });
         
         return(
-            <div className = 'MyDiaryList'>
+            <div className = 'MyDiaryList' align = 'center'>
                 {diaries}
             </div>
         );
