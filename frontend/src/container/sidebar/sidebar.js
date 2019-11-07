@@ -41,9 +41,6 @@ class sidebar extends Component {
         console.log("********************************")
         console.log(this.year(), this.month());
     }*/
-
-    years = [ ]
-
     componentDidMount(){
         this.props.getPeople();
         this.props.updateYear(this.year())
