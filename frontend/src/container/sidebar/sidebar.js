@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
 import { thisTypeAnnotation, thisExpression } from '@babel/types';
-import {Menu, Grid, Dropdown, Label, Button} from 'semantic-ui-react'
+import {Menu, Grid, Dropdown, Label, Button, Container} from 'semantic-ui-react'
 //import AddPeoplePopUp from 
 
 
@@ -273,7 +273,7 @@ class sidebar extends Component {
     calendarItem = () => {
         const calendarList = [];
         calendarList.push(
-            <Menu.Item  align = 'center'>
+            <Menu.Item  align = 'center' key= 'navigation'>
                 <Grid columns = 'equal' >
                         <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
                         <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}>  <this.yearNav/></Grid.Column>
@@ -284,11 +284,11 @@ class sidebar extends Component {
         for(let d = 1; d <= this.daysInMonth(); d++){
             let className = (d==this.currentDay() ? "current_day" : "day");
             calendarList.push(
-                <Menu.Item style = {{padding :'10'}}
+                <Menu.Item style = {{padding :'10'}} key = {this.month() + '_' + String(d) }
                 name = {this.month() + '' + String(d) }
                 active = {className === 'current_day'}
                 >
-                    <Grid fluid columns = 'equal'  >
+                    <Grid columns = 'equal'  >
                         <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
                         <Menu.Item fitted='horizontally'
                         id = {'day_' + String(d)}
@@ -304,7 +304,7 @@ class sidebar extends Component {
                         </Menu.Item>
                         </Grid.Column>
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        <Button fluid align = 'right' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
+                        <Button align = 'right' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
                         </Grid.Column>
 
                     </Grid>
@@ -323,7 +323,7 @@ class sidebar extends Component {
     personItem = () => {
         const peopleList = [];
         peopleList.push(
-            <Menu.Item align = 'center'>
+            <Menu.Item align = 'center' key = 'addPeople'>
                 <AddPeoplePopUp successHandler={this.successHandler}/>
             </Menu.Item>
         )
@@ -333,6 +333,7 @@ class sidebar extends Component {
             let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
             peopleList.push(
                 <Menu.Item 
+                key = {tmpPersonId}
                 id = {tmpPerson}
                 name = {tmpPerson}
                 active = {className === 'selected_person'}
@@ -343,7 +344,7 @@ class sidebar extends Component {
                     //}
                 }}
                 >
-                    <Grid fluid columns = 'equal'>
+                    <Grid  columns = 'equal'>
                         <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
                         {tmpPerson}
                         </Grid.Column>
@@ -367,6 +368,7 @@ class sidebar extends Component {
             let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
             categoryList.push(
                 <Menu.Item 
+                key = {tmpCategory}
                 id = {tmpCategory}
                 name = {tmpCategory} 
                 onClick={() => {
@@ -392,7 +394,7 @@ class sidebar extends Component {
 
         return (
            
-            <div
+            <Container
             style={{
               position: "fixed",
               display: "flex",
@@ -406,7 +408,7 @@ class sidebar extends Component {
               flex: 1
             }}
           >
-              <div style={{ flex: 1, overflowY: "scroll" }}>
+              <Container style={{ flex: 1, overflowY: "scroll" }}>
               <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item>
                 <Grid columns = 'equal' divided >
@@ -420,18 +422,18 @@ class sidebar extends Component {
               </Grid>
                 </Menu.Item>
                 <Menu.Item>
-                    <div className="sidabar">
+                    <Container className="sidabar">
                     {
                         this.state.mode === "PERSON" ? <this.personItem/>
                         : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
                         : <this.calendarItem/>
                     }
-                </div>
+                </Container>
                 </Menu.Item>
 
-            </Menu></div>;
+            </Menu></Container>;
               
-          </div>
+          </Container>
             
 
             

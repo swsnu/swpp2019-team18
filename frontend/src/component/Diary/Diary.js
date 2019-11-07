@@ -87,7 +87,6 @@ class Diary extends Component {
             <Form.TextArea 
                         id='diary-content-input'
                         placeholder='Tell me more about you...'
-                        fluid
                         value={this.state.content}
                         onChange={e => this.setState({content : e.target.value})}
                         />
