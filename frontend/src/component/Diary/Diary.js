@@ -6,6 +6,7 @@ import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
 import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
+import './Diary.css'
 
 
 const mapDispatchToProps = dispatch => {
@@ -108,7 +109,7 @@ class Diary extends Component {
         }
 
     return (
-        <div className = 'diaryDetail'>
+        <div className = 'diaryDetail' style = {{flex : 1}}>
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>

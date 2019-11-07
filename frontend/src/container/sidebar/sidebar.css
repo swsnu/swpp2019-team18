@@ -3,7 +3,11 @@
   padding: 10px;
   
 }
-
+#tag {
+  padding: 0;
+border: none;
+background: none;
+}
 .selected_person{
   padding: 10px;
   background-color: blue;

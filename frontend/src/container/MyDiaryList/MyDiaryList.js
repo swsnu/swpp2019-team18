@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
-import './MyDiaryList.css'
+//import './MyDiaryList.css'
 
 
 const mapStateToProps = state => {
@@ -68,8 +68,8 @@ class MyDiaryList extends Component{
     render(){
                const diaries = this.props.selectedDiary.map(diary => {
             return (
-                    
-                <Diary key = {diary.id}
+                    <div>
+                        <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
                             category_title = {diary.category_title}
@@ -78,6 +78,8 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
+                    </div>
+                
             );
         });
         

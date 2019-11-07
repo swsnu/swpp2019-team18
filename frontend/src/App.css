@@ -6,13 +6,13 @@
 
 
 .main {
-  margin-left: 15%;
-  float: center;
+  margin-left: 265px;
+  float: right;
   border : 4px solid transparent;
  }
 
  .sidebar {
-  float : left;
+  float: right;
  }
 
 

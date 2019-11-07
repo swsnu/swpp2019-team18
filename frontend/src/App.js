@@ -11,6 +11,7 @@ import Sidebar from './container/sidebar/sidebar'
 
 import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
+import {Grid} from 'semantic-ui-react'
 
 class App extends Component {
   componentDidMount(){
@@ -22,25 +23,25 @@ class App extends Component {
 
   return (
     <ConnectedRouter history={this.props.history}>
-      <div>
+       <div className = 'sidebar'  >
+              <Sidebar/>
+      </div >
+      <div style={{clear:"both"}}></div>
+
         <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-          
+         
 
-          <div>
-            <div className = 'sidebar'>
-              <Sidebar/>
-            </div>
-            <div className = 'main'>
+            
+      <div className = 'main' style={{ marginLeft: 265}}>
             <Route path='/diary' exact component={MyDiaryList}/>
             <Route path='/diary/create' exact component={NewDiary}/>
             <Route path='/diary/:id/edit' exact component={EditDiary}/>
-            </div>
-          </div>
-          </Switch>
-      </div>    
+      </div>
+ 
+          </Switch>    
     </ConnectedRouter>
   )  }
 }
