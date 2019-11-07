@@ -68,7 +68,7 @@ class MyDiaryList extends Component{
     render(){
                const diaries = this.props.selectedDiary.map(diary => {
             return (
-                    <div>
+        
                         <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
@@ -78,7 +78,7 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
-                    </div>
+       
                 
             );
         });
