@@ -42,12 +42,13 @@ class sidebar extends Component {
         console.log(this.year(), this.month());
     }*/
 
+    years = [ ]
+
     componentDidMount(){
         this.props.getPeople();
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
-
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -66,6 +67,7 @@ class sidebar extends Component {
         selectedCategory : '',
         allPeople : [],
         selectedPersonId : '',
+    
     }
 
     year = () => {
@@ -94,40 +96,26 @@ class sidebar extends Component {
     successHandler = () => {
         this.props.getPeople();
     }
+
+    moveToDiaryPage = () => {
+        if(this.props.history.location.pathname === '/diary/create'){
+            this.props.history.push('/diary')
+        }
+    }
+
+    //mapping months to the list for dropdown optionso
     i = 0;
     months = moment.months().map(mon => {return {key : this.i++, value : mon, text : mon, onClick : ()=>this.onSelectMonthChange(mon)}});
-    //months = moment.months();
+    currYear = this.year()
 
-    
-    
-
-    years = [ 
-        { key : '-0' , value : this.year(), text : this.year(), onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-1', value : this.year()-1, text : this.year()-1, onClick : () => this.onSelectYearChange(this.year()-1)},
-        { key : '-2', value : this.year()-2, text : this.year()-2, onClick : () => this.onSelectYearChange(this.year()-2)},
-        { key : '-3', value : this.year()-3, text : this.year()-3, onClick : () => this.onSelectYearChange(this.year()-3)},
-        { key : '-4', value : this.year()-4, text : this.year()-4, onClick : () => this.onSelectYearChange(this.year()-4)},
-        { key : '-5', value : this.year()-5, text : this.year()-5, onClick : () => this.onSelectYearChange(this.year()-5)},
-        { key : '-6', value : this.year()-6, text : this.year()-6, onClick : () => this.onSelectYearChange(this.year()-6)},
-        { key : '-7', value : this.year()-7, text : this.year()-7, onClick : () => this.onSelectYearChange(this.year()-7)},
-        { key : '-8', value : this.year()-8, text : this.year()-8, onClick : () => this.onSelectYearChange(this.year()-8)},
-        { key : '-9', value : this.year()-9, text : this.year()-9, onClick : () => this.onSelectYearChange(this.year()-9)},
-        { key : '-10', value : this.year()-10, text : this.year()-10, onClick : () => this.onSelectYearChange(this.year()-10)}
-    ]
-    
-
-    /*years = [this.year(),
-            this.year()-1,
-            this.year()-2,
-            this.year()-3,
-            this.year()-4,
-            this.year()-5,
-            this.year()-6,
-            this.year()-7,
-            this.year()-8,
-            this.year()-9,
-            this.year()-10] */
-
+    //mapping years to the list for dropdown options
+    nums = [0,1,2,3,4,5,6,7,8,9,10]
+    years = this.nums.map(i => {return {
+        key : i, 
+        value : String(this.year() - i ), 
+        text : String(this.year() - i),
+        onClick : () => this.onSelectYearChange(this.currYear - i)}
+    })
 
     setMonth = (month) => {
         let monthNo = this.months.indexOf(month);
@@ -144,14 +132,14 @@ class sidebar extends Component {
         this.setMonth(data);
     }
 
-    onChangeMonth = () => {
+   /* onChangeMonth = () => {
         this.setState({
             monthPopup : !this.state.monthPopup,
             yearPopup : this.state.yearPopup && !this.state.yearPopup
         });
     }
 
-    /* selectListMonth = (props) => {
+     selectListMonth = (props) => {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
@@ -191,18 +179,19 @@ class sidebar extends Component {
         this.setState({
             dateContext : dateContext 
         })
+
     }
 
     onSelectYearChange = (data) => {
         this.setYear(data);
     }
 
-    onChangeYear = () => {
+    /*onChangeYear = () => {
         this.setState({
             yearPopup: !this.state.yearPopup,
             monthPopup : this.state.monthPopup && !this.state.monthPopup 
         });
-    }
+    } */
 
     /*selectListYear = (props) => {
         let popup = props.data.map((data) => {
@@ -292,11 +281,9 @@ class sidebar extends Component {
                         <Menu.Item fitted='horizontally'
                         id = {'day_' + String(d)}
                         onClick={() => {
-                            
                             this.onSelectDayChange(d)
                             console.log(this.props.history.location)
-        
-                                this.props.history.push('/diary')
+                            this.moveToDiaryPage()
                             }}>
                           {this.month()}  {d}
                         
@@ -338,9 +325,7 @@ class sidebar extends Component {
                 active = {className === 'selected_person'}
                 onClick={() => {
                     this.onSelectPersonChange(tmpPersonId)
-                    //if(this.props.history.location === '/diary/create'){
-                        this.props.history.push('/diary')
-                    //}
+                    this.moveToDiaryPage()
                 }}
                 >
                     <Grid  columns = 'equal'>
@@ -372,9 +357,7 @@ class sidebar extends Component {
                 name = {tmpCategory} 
                 onClick={() => {
                     this.onSelectCategoryChange(tmpCategory)
-                    //if(this.props.history.location == '/diary/create'){
-                    this.props.history.push('/diary')
-                    //}
+                    this.moveToDiaryPage()
                 }} 
                 active = {className === 'selected_category'}>
                     { /*<Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
@@ -389,8 +372,6 @@ class sidebar extends Component {
     }
 
     render() {
-
-
         return (
            
             <Container

@@ -1,13 +1,14 @@
 .App {
   text-align: center;
+  
 }
-
 
 
 
 .main {
   float: center;
   border : 4px solid transparent;
+  
  }
 
  .sidebar {

@@ -31,9 +31,9 @@ const mapDispatchToProps = dispatch => {
 class MyDiaryList extends Component{
 
     componentDidUpdate(prevProps){
-        console.log('===============================');
+        /*console.log('===============================');
         console.log(this.props.mode);
-        console.log(this.props.person_id);        
+        console.log(this.props.person_id); */       
         if(this.props.mode === 'CALENDAR'  && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
         }

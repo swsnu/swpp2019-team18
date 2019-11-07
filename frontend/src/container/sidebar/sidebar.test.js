@@ -138,12 +138,11 @@ describe('<MyDiaryList />', () => {
         const component = mount(Sidebar_);
         const button = component.find('#tag_create');
         button.at(0).simulate('click')
+        history.replace('/diary/create')
         expect(spyHistoryPush).toBeCalledTimes(1)
         const buttons = component.find('#day_1 a');
         buttons.simulate('click');
         expect(spyHistoryPush).toBeCalledTimes(2)
-
-    
     })
     
 })
