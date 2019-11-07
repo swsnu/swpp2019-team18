@@ -9,7 +9,6 @@ import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
 import { thisTypeAnnotation, thisExpression } from '@babel/types';
 import {Menu, Grid, Dropdown, Label, Button, Container} from 'semantic-ui-react'
-//import AddPeoplePopUp from 
 
 
 
@@ -104,16 +103,16 @@ class sidebar extends Component {
 
     years = [ 
         { key : '-0' , value : this.year(), text : this.year(), onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-1', value : this.year()-1, text : this.year()-1, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-2', value : this.year()-2, text : this.year()-2, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-3', value : this.year()-3, text : this.year()-3, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-4', value : this.year()-4, text : this.year()-4, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-5', value : this.year()-5, text : this.year()-5, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-6', value : this.year()-6, text : this.year()-6, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-7', value : this.year()-7, text : this.year()-7, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-8', value : this.year()-8, text : this.year()-8, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-9', value : this.year()-9, text : this.year()-9, onClick : () => this.onSelectYearChange(this.year())},
-        { key : '-10', value : this.year()-10, text : this.year()-10, onClick : () => this.onSelectYearChange(this.year())}
+        { key : '-1', value : this.year()-1, text : this.year()-1, onClick : () => this.onSelectYearChange(this.year()-1)},
+        { key : '-2', value : this.year()-2, text : this.year()-2, onClick : () => this.onSelectYearChange(this.year()-2)},
+        { key : '-3', value : this.year()-3, text : this.year()-3, onClick : () => this.onSelectYearChange(this.year()-3)},
+        { key : '-4', value : this.year()-4, text : this.year()-4, onClick : () => this.onSelectYearChange(this.year()-4)},
+        { key : '-5', value : this.year()-5, text : this.year()-5, onClick : () => this.onSelectYearChange(this.year()-5)},
+        { key : '-6', value : this.year()-6, text : this.year()-6, onClick : () => this.onSelectYearChange(this.year()-6)},
+        { key : '-7', value : this.year()-7, text : this.year()-7, onClick : () => this.onSelectYearChange(this.year()-7)},
+        { key : '-8', value : this.year()-8, text : this.year()-8, onClick : () => this.onSelectYearChange(this.year()-8)},
+        { key : '-9', value : this.year()-9, text : this.year()-9, onClick : () => this.onSelectYearChange(this.year()-9)},
+        { key : '-10', value : this.year()-10, text : this.year()-10, onClick : () => this.onSelectYearChange(this.year()-10)}
     ]
     
 
