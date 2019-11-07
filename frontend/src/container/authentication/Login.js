@@ -22,7 +22,7 @@ class Login extends Component {
 
     render() {
         const loginFailMessage = 
-        <Message negative>
+        <Message id = 'loginfail' negative>
             <Message.Header>Login Failed</Message.Header>
             <p>Please check your username and password</p>
         </Message>

@@ -152,7 +152,7 @@ class sidebar extends Component {
         });
     }
 
-    selectListMonth = (props) => {
+    /* selectListMonth = (props) => {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
@@ -168,11 +168,11 @@ class sidebar extends Component {
                 {popup}
             </div>
         )
-    }
+    } */
 
     monthNav = () => {       
         return(
-        <Dropdown inline options = {this.months} value = {this.monthFull()}/>
+        <Dropdown id = 'label_month' inline options = {this.months} value = {this.monthFull()}/>
             
           /*  <span className = "label_month"
                 onClick = {() => {this.onChangeMonth(this.month())}}>
@@ -205,7 +205,7 @@ class sidebar extends Component {
         });
     }
 
-    selectListYear = (props) => {
+    /*selectListYear = (props) => {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
@@ -221,12 +221,12 @@ class sidebar extends Component {
                 {popup}
             </div>
         )
-    }
+    } */
 
     
     yearNav = () => {
         return(
-            <Dropdown inline options = {this.years} value = {this.year()} />
+            <Dropdown id = 'label_year' inline options = {this.years} value = {this.year()} />
             /* <span className = "label_year"
                 onClick = {() => {this.onChangeYear()}}>
                 {this.year()}
@@ -291,27 +291,23 @@ class sidebar extends Component {
                     <Grid fluid columns = 'equal'  >
                         <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
                         <Menu.Item fitted='horizontally'
+                        id = {'day_' + String(d)}
                         onClick={() => {
                             
                             this.onSelectDayChange(d)
                             console.log(this.props.history.location)
-                            if(this.props.history.location.pathname === '/diary/create'){
+        
                                 this.props.history.push('/diary')
-                            }}}>
+                            }}>
                           {this.month()}  {d}
                         
                         </Menu.Item>
                         </Grid.Column>
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        <Button fluid align = 'right' id = 'tag'  size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
+                        <Button fluid align = 'right' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
                         </Grid.Column>
 
                     </Grid>
-                       
-         
-                    
-                    
-        
                     {/*<Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
                     {this.month()}  {d} <div align = "right"><Link to="/diary/create" align="right">+</Link></div>
             </div></Link> */}
@@ -337,21 +333,21 @@ class sidebar extends Component {
             let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
             peopleList.push(
                 <Menu.Item 
+                id = {tmpPerson}
                 name = {tmpPerson}
                 active = {className === 'selected_person'}
                 onClick={() => {
                     this.onSelectPersonChange(tmpPersonId)
-                    this.props.history.push('/diary')
+                    //if(this.props.history.location === '/diary/create'){
+                        this.props.history.push('/diary')
+                    //}
                 }}
                 >
                     <Grid fluid columns = 'equal'>
                         <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
                         {tmpPerson}
                         </Grid.Column>
-
                     </Grid>
-                    
-                    
                     {/*<Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
                     {tmpPerson}
             </div></Link>*/}
@@ -371,10 +367,13 @@ class sidebar extends Component {
             let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
             categoryList.push(
                 <Menu.Item 
+                id = {tmpCategory}
                 name = {tmpCategory} 
                 onClick={() => {
                     this.onSelectCategoryChange(tmpCategory)
+                    //if(this.props.history.location == '/diary/create'){
                     this.props.history.push('/diary')
+                    //}
                 }} 
                 active = {className === 'selected_category'}>
                     { /*<Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
@@ -385,12 +384,11 @@ class sidebar extends Component {
                 
             )
         }
-
         return categoryList;
     }
 
     render() {
-        console.log(this.months)
+
 
         return (
            
@@ -407,19 +405,16 @@ class sidebar extends Component {
               overflowX: "hidden",
               flex: 1
             }}
-            
           >
-              
               <div style={{ flex: 1, overflowY: "scroll" }}>
               <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item>
                 <Grid columns = 'equal' divided >
                         <Grid.Row >
                             <Button.Group id = 'tag' basic widths = '3'  >
-                            <Button id= 'tag' align = 'center'onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
-                            <Button id = 'tag' align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
-                            <Button id = 'tag' align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
-
+                            <Button id= 'tag_calendar' align = 'center'onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
+                            <Button id = 'tag_person' align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
+                            <Button id = 'tag_category' align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
                             </Button.Group>
                         </Grid.Row>
               </Grid>
