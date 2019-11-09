@@ -6,6 +6,7 @@ import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
 import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
+import './Diary.css'
 
 
 const mapDispatchToProps = dispatch => {
@@ -68,8 +69,6 @@ class Diary extends Component {
             { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
-       const deletePopupActive = this.state.deletePopupActive
-       const sharePopupActive = this.state.sharePopupActive
        const active = this.state.active
        let popup = <Dimmer></Dimmer>
        const deletePopup = 
@@ -108,7 +107,7 @@ class Diary extends Component {
         }
 
     return (
-        <div className = 'diaryDetail'>
+        <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
@@ -125,7 +124,7 @@ class Diary extends Component {
             }
              </Container>
              <Divider />
-             <Container fluid>
+             <Container textAlign = 'justified'>
              {
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {
