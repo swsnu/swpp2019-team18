@@ -69,8 +69,6 @@ class Diary extends Component {
             { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
-       const deletePopupActive = this.state.deletePopupActive
-       const sharePopupActive = this.state.sharePopupActive
        const active = this.state.active
        let popup = <Dimmer></Dimmer>
        const deletePopup = 

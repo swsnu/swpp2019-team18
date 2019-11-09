@@ -7,35 +7,55 @@ import NewDiary from './container/diaryWrite/newDiary'
 import EditDiary from './container/diaryEdit/editDiary';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
-
+import {withRouter} from 'react-router';
+import Header from './component/Header/Header'
 
 import {  Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router';
-import {Grid} from 'semantic-ui-react'
+import PrivateRoute from './PrivateRoute'
+import {connect} from 'react-redux'
+import * as actionCreators from './store/actions/login'
+
+const mapDispatchToProps = dispatch => {
+  return {
+      loginCheck : (user) => dispatch (actionCreators.loginCheckRequest())
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    currentUser : state.user.status.isLoggedIn
+  }
+}
 
 class App extends Component {
   componentDidMount(){
     axios.get('/api/token/');
+    this.props.loginCheck();
   }
   
   render(){
+    console.log(this.props.currentUser)
   return (
     <ConnectedRouter history={this.props.history}>
        
       <div>
+        {this.props.currentUser ? <Header /> : null}
+      <div style={{clear:"both"}}></div>
        <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-          <div>
+            
+          <div style={{ float : 'left'}}>
             <div className = 'sidebar'  >
-              <Sidebar/>
+              {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
             <div className = 'main' style={{ marginLeft: 265}}>
-              <Route path='/diary' exact component={MyDiaryList}/>
-              <Route path='/diary/create' exact component={NewDiary}/>
-              <Route path='/diary/:id/edit' exact component={EditDiary}/>
+              <PrivateRoute path='/diary' exact component={MyDiaryList}/>
+              <PrivateRoute path='/diary/create' exact component={NewDiary}/>
+              <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
             </div>
           </div>
         </Switch>    
@@ -46,5 +66,5 @@ class App extends Component {
   )  }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

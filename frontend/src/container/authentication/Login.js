@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import * as actionCreators from '../../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import { Button, Form, Grid, Header, Message, Segment, Messsage } from 'semantic-ui-react'
-import Logout from '../../component/Logout'
+import { Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react'
 
 class Login extends Component {
     state = {

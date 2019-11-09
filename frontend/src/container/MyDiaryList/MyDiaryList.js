@@ -46,9 +46,10 @@ class MyDiaryList extends Component{
     }
 
     componentDidMount(){
+        /*
         console.log('===============================');
         console.log(this.props.mode);
-        console.log(this.props.person_id);
+        console.log(this.props.person_id);*/
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
@@ -78,8 +79,6 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
-       
-                
             );
         });
         

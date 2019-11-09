@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import './sidebar.css';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setMode , setMonth, setYear, setDay, setCategory, setPersonId } from '../../store/actions/sidabar';
 import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
-import { thisTypeAnnotation, thisExpression } from '@babel/types';
-import {Menu, Grid, Dropdown, Label, Button, Container} from 'semantic-ui-react'
+import {Menu, Grid, Dropdown, Button, Container} from 'semantic-ui-react'
 
 
 
@@ -103,9 +101,9 @@ class sidebar extends Component {
     //mapping months to the list for dropdown optionso
     i = 0;
     months = moment.months().map(mon => {return {key : this.i++, value : mon, text : mon, onClick : ()=>this.onSelectMonthChange(mon)}});
-    currYear = this.year()
 
     //mapping years to the list for dropdown options
+    currYear = this.year()
     nums = [0,1,2,3,4,5,6,7,8,9,10]
     years = this.nums.map(i => {return {
         key : i, 
@@ -275,6 +273,7 @@ class sidebar extends Component {
                 >
                     <Grid columns = 'equal'  >
                         <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
+                        {/* select day */}
                         <Menu.Item fitted='horizontally'
                         id = {'day_' + String(d)}
                         onClick={() => {
@@ -283,9 +282,9 @@ class sidebar extends Component {
                             this.moveToDiaryPage()
                             }}>
                           {this.month()}  {d}
-                        
                         </Menu.Item>
                         </Grid.Column>
+                        {/* move to create */}
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
                         <Button align = 'right' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
                         </Grid.Column>
@@ -376,9 +375,8 @@ class sidebar extends Component {
               position: "fixed",
               display: "flex",
               flexDirection: "column",
-              top: 0,
+              top: 50, //it should be height of header
               bottom: 0,
-              left: 0,
               width: 265,
               background: "#FFFFFF",
               overflowX: "hidden",

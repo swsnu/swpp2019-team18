@@ -9,11 +9,28 @@ export const loginRequest = (user) => {
         return axios.post('/api/signin/', user)
         .then( response => {
             dispatch(loginSuccess(user.username))
-            dispatch(push('./diary'))
+            dispatch(push('/diary'))
         })
         .catch(error => {
             dispatch(loginFailure())
             //alert('login fail')
+        })
+    }
+}
+
+export const loginCheckRequest = (user) => {
+    return dispatch => {
+        dispatch(login());
+        
+        return axios.get('/api/getuser/').then(
+            response => {
+                dispatch(loginSuccess(response.username))
+                console.log('login success')
+            }
+        )
+        .catch(error => {
+            dispatch(push('/login'))
+            //dispatch(loginFailure())
         })
     }
 }

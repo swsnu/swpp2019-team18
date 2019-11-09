@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse,HttpResponseBadRequest, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse,HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
@@ -39,6 +39,16 @@ def signout(request):
         if request.user.is_authenticated:
             logout(request)
             return HttpResponse(status = 204)
+        else:
+            return HttpResponse(status = 401)
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+def get_user_info(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            username_dic = { 'username' : request.user.username}
+            return JsonResponse(username_dic,status = 200)
         else:
             return HttpResponse(status = 401)
     else:
