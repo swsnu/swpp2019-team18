@@ -103,13 +103,13 @@ describe('<Diary/>', ()=>{
         wrapper.at(0).simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
-    it("componentDidUpdate should update ", () => {
-        const spyHistoryPush = jest.spyOn(history, 'push')
-        .mockImplementation(path => {});
-        const component = mount(diaryDetail);
-        const wrapper = component.find('Diary');
-        expect(spyHistoryPush).toHaveBeenCalledTimes(0);
-        wrapper.setState({selectedDiary : []});   
+    // it("componentDidUpdate should update ", () => {
+    //     const spyHistoryPush = jest.spyOn(history, 'push')
+    //     .mockImplementation(path => {});
+    //     const component = mount(diaryDetail);
+    //     const wrapper = component.find('Diary');
+    //     expect(spyHistoryPush).toHaveBeenCalledTimes(0);
+    //     wrapper.setState({selectedDiary : []});   
 
-    });
+    // });
 })
