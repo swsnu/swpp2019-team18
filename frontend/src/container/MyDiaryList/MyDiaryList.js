@@ -56,8 +56,7 @@ class MyDiaryList extends Component{
             case 'CATEGORY':
                 this.props.onGetDiaryByCategory(this.props.category_name);
                 break;
-            default:
-                return ;
+            
         }
     }
  

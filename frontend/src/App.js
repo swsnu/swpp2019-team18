@@ -7,6 +7,7 @@ import NewDiary from './container/diaryWrite/newDiary'
 import EditDiary from './container/diaryEdit/editDiary';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
+import gardenDiary from './container/gardenDiary/gardenDiary';
 import {withRouter} from 'react-router';
 import Header from './component/Header/Header'
 
@@ -56,6 +57,8 @@ class App extends Component {
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
+              <PrivateRoute path='/garden' exact component={gardenDiary}/>
+
             </div>
           </div>
         </Switch>    
