@@ -16,11 +16,11 @@ export const getAllGardenDiary = () => {
     };
 };
 
-export const giveFlower_ = (id, flower_count) => {
+export const giveFlower_ = (id, change) => {
     return{
         type : actionTypes.GIVE_FLOWER,
         target : id,
-        flower_count : flower_count
+        change : change
     };
 };
 

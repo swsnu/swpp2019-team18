@@ -15,10 +15,11 @@ def get_all_garden_diary(request) :
         response_dict = list(map(lambda garden : {'id' : garden.id, 
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
-                                                'category_title': garden.category.category_title, 
+                                                'category_title': garden.category.category_title,
+                                                'flower_users' : [user for user in garden.flower_users.all().values_list('id', flat = True)],
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , garden_all_list ))  
-
+        print(response_dict)
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
@@ -33,9 +34,14 @@ def give_flower(request, id = None) :
         else : 
             garden_diary.flower_users.add(request.user)
         garden_diary.save()
-        print(garden_diary.flower_count)
-        response_dict = garden_diary.flower_count
-        return JsonResponse(response_dict, safe=False, status=201)
+        response_dict = {'id' : garden_diary.id, 
+                        'content' : garden_diary.content, 
+                        'category_name' : garden_diary.category.name, 
+                        'category_title': garden_diary.category.category_title,
+                        'flower_users' : [user for user in garden_diary.flower_users.all().values_list('id', flat = True)],
+                        'flower_count': garden_diary.flower_count, 
+                        'shared_date' : garden_diary.shared_date }
+        return JsonResponse(response_dict, status=201)
     else :
         return HttpResponseNotAllowed(['POST'])
 

@@ -8,7 +8,7 @@ export const loginRequest = (user) => {
         dispatch(login());
         return axios.post('/api/signin/', user)
         .then( response => {
-            dispatch(loginSuccess(user.username))
+            dispatch(loginSuccess(response.id))
             dispatch(push('/diary'))
         })
         .catch(error => {
@@ -24,7 +24,7 @@ export const loginCheckRequest = (user) => {
         
         return axios.get('/api/getuser/').then(
             response => {
-                dispatch(loginSuccess(response.username))
+                dispatch(loginSuccess(response.data.userID))
                 console.log('login success')
             }
         )
@@ -55,11 +55,11 @@ export function login() {
     };
 }
  
-export function loginSuccess(username){
+export function loginSuccess(id){
     
     return {
         type: actionTypes.LOGIN_SUCCESS,
-        username : username
+        userID : id
     };
 }
  

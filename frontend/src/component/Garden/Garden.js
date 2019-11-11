@@ -6,12 +6,21 @@ import {giveFlower} from '../../store/actions/gardendiary';
 
 import {Grid, Icon, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
 
+import * as actionCreators from '../../store/actions/login'
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGiveFlower : (id) => dispatch(giveFlower(id))
+        onGiveFlower : (id) => dispatch(giveFlower(id)),
+        loginCheck : (user) => dispatch (actionCreators.loginCheckRequest())
+
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      currentUser : state.user.status.currentUser
+    }
+  }
 
 class Garden extends Component {
     state = {
@@ -22,8 +31,9 @@ class Garden extends Component {
         content : '',
     }
 
-    componentDidUpdate(prevProps){
-       
+    componentDidMount(){
+        //this.props.loginCheck();
+
     }
 
     onClickMenuShareButton = (id, content) => {
@@ -44,18 +54,27 @@ class Garden extends Component {
     }
 
     render(){
-       
-
-        const flower = 
+       console.log(this.props.currentUser);
+        const flower = this.props.flower_users.includes(this.props.currentUser) ?
         <Button as='div' labelPosition='right' floated = 'left'>
             <Button color='red' onClick = {() => this.flowerHandler(this.props.id)}>
             <Icon name='asterisk' />
-        Flower
-         </Button>
-        <Label as='a' basic color='red' pointing='left'>
-        {this.props.flower_count}
-        </Label>
+                Flower
+            </Button>
+                <Label as='a' basic color='red' pointing='left'>
+                {this.props.flower_count}
+            </Label>
+        </Button> : 
+        <Button as='div' labelPosition='right' floated = 'left'>
+            <Button color='gray' onClick = {() => this.flowerHandler(this.props.id)}>
+            <Icon name='leaf' />
+                Flower
+            </Button>
+            <Label as='a' basic color='gray' pointing='left'>
+                {this.props.flower_count}
+            </Label>
         </Button>
+
 
 
     return (
@@ -90,4 +109,4 @@ class Garden extends Component {
     }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(Garden));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Garden));

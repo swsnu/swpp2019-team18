@@ -17,6 +17,7 @@ const mapStateToProps = state => {
         person_id : state.diary.person_id,
         garden_category_name : state.garden.category_name,
     }
+
 }
 
 const mapDispatchToProps = dispatch => {
@@ -42,31 +43,32 @@ class gardenDiary extends Component{
     }
 
     componentDidMount(){
-        console.log('[Garden Mode]: '+this.props.gardenmode);
 
         switch(this.props.gardenmode){
             case 'ALL':
                 this.props.onGetAllGardenDiary();
-                console.log('[Garden]: '+this.props.gardenDiary);
                 break;
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name); 
                 break;
         }
+
     }
  
     render(){
-               const garden = this.props.gardenDiary.map(diary => {
+
+               const garden = this.props.gardenDiary.map(garden => {
             return (
-        
-                        <Garden key = {diary.id}
-                            id = {diary.id}
-                            category_name = {diary.category_name}
-                            category_title = {diary.category_title}
-                            flower_count = {diary.flower_count}
-                            rating = {diary.rating}
-                            content = {diary.content}
-                            emotion_score = {diary.emotion_score}
+
+                        <Garden key = {garden.id}
+                            id = {garden.id}
+                            category_name = {garden.category_name}
+                            category_title = {garden.category_title}
+                            flower_count = {garden.flower_count}
+                            flower_users = {garden.flower_users}
+                            rating = {garden.rating}
+                            content = {garden.content}
+                            emotion_score = {garden.emotion_score}
                     />
             );
         });

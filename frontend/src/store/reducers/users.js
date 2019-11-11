@@ -11,7 +11,7 @@ const initialState = {
     status: {
         valid: false,
         isLoggedIn: false,
-        currentUser: ''
+        currentUser: ''   //id
     }
 };
 
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
           status: {
             ...state.status,
             isLoggedIn: true,
-            currentUser: action.username
+            currentUser: action.userID
           }
         }
     case actionTypes.LOGIN_FAILURE:

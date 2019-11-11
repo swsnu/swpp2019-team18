@@ -13,7 +13,6 @@ const initialState = {
 
     peopleIds: [],
     peopleNames: [],
-    garden_list : [],
     selectedDiary : [],
     gardenmode : 'ALL',
     year : '',
@@ -30,7 +29,7 @@ const reducer = (state=initialState, action) => {
         case actionTypes.GIVE_FLOWER:
             const modified_diary = state.garden_diary.map((diary)=> {
                 if(diary.id === action.target){
-                    return {...diary, flower_count : action.flower_count};
+                    return action.change;
                 } else{
                     return{...diary};
                 }

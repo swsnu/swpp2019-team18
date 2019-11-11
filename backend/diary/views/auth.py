@@ -28,7 +28,8 @@ def signin(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return HttpResponse(status = 204)
+            userID_dic = { 'userID' : request.user.id}
+            return JsonResponse( userID_dic,status = 204)
         else:
             return HttpResponseBadRequest(status = 401)
     else:
@@ -47,8 +48,8 @@ def signout(request):
 def get_user_info(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            username_dic = { 'username' : request.user.username}
-            return JsonResponse(username_dic,status = 200)
+            userID_dic = { 'userID' : request.user.id}
+            return JsonResponse(userID_dic,status = 200)
         else:
             return HttpResponse(status = 401)
     else:
