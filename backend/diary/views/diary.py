@@ -8,9 +8,17 @@ from ..decorator import is_logged_in
 from django.shortcuts import render
 User = get_user_model()
 
+<<<<<<< HEAD
 @is_logged_in
 def write_diary(request):
     if request.method == 'POST':
+=======
+
+@is_logged_in
+def write_diary(request):
+    if request.method == 'POST':
+        print("POST")
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         req_data = json.loads(request.body.decode())
         content = req_data['content']
         category_name = req_data['categoryName']
@@ -18,7 +26,13 @@ def write_diary(request):
         emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
+<<<<<<< HEAD
 
+=======
+        raw_date = req_data['date']
+        date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
+        print(content)
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
@@ -27,6 +41,10 @@ def write_diary(request):
                 content=content,
                 category=category,
                 emotion_score=emtion_score,
+<<<<<<< HEAD
+=======
+                created_date=date,
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
             )
         for person in tagged_people:
             diary.people.add(person)
@@ -81,6 +99,11 @@ def diary_detail(request, diary_id):
                 return HttpResponse(status = 404)
         if request.user != diary.author:
             return HttpResponse(status=403) # forbidden
+<<<<<<< HEAD
+=======
+        category = diary.category
+        category.delete()
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         diary.delete()
         return HttpResponse(status = 200)
     else:

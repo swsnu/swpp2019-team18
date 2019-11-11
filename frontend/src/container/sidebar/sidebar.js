@@ -7,6 +7,7 @@ import { setMode , setMonth, setYear, setDay, setCategory, setPersonId } from '.
 import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
+import { thisTypeAnnotation } from '@babel/types';
 //import AddPeoplePopUp from 
 
 
@@ -212,12 +213,10 @@ class sidebar extends Component {
         this.setState({
             dateContext : dateContext 
         })
-
     }
 
     onSelectDayChange = (d) => {
         this.setDay(d);
-        //console.log(this.monthNum())
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(d)
@@ -231,14 +230,12 @@ class sidebar extends Component {
     onSelectCategoryChange = (category) => {
         this.setState({selectedCategory : category});
         this.props.updateCategory(category);
-        
     }
 
     onSelectPersonChange = (personId) => {
         this.setState({selectedPersonId : personId});
         this.props.updatePersonId(personId);
     }
-    
 
     calendarItem = () => {
         const calendarList = [];
@@ -298,10 +295,8 @@ class sidebar extends Component {
         return categoryList;
     }
 
-    
-
-
     render() {
+
         return (
             <div className="sidebar_container">
                 
@@ -309,8 +304,6 @@ class sidebar extends Component {
                 <button onClick = {()=>this.modeChange("CALENDAR")}>Cal</button><button onClick = {()=>this.modeChange("PERSON")}>Peo</button><button onClick = {()=>this.modeChange("CATEGORY")}>Cat</button>
                 </div>
 
-                
-                
                 <div className="sidabar">
                     {
                         this.state.mode === "PERSON" ? <this.personItem/>
@@ -318,7 +311,7 @@ class sidebar extends Component {
                         : <this.calendarItem/>
                     }
                 </div>
-
+                
             </div>
         );
     }

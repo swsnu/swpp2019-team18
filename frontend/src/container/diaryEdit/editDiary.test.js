@@ -38,6 +38,15 @@ describe('<EditDiary/>', ()=> {
     })
 
     it('should render without error', ()=> {
+<<<<<<< HEAD
+=======
+        axios.get = jest.fn(url => {
+            return new Promise((resolve, reject) => {
+                resolve({data : {}});
+            })
+          });
+
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         const component = mount(editDiary);
         const wrapper = component.find('#diary-submit-button');
         expect(wrapper.length).toBe(2);

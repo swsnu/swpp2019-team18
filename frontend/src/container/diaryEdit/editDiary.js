@@ -86,7 +86,11 @@ class EditDiary extends Component {
     submitHandler = () => {
         const diaryObj = this.state;
         this.props.editDiary(this.props.match.params.id, diaryObj);
+<<<<<<< HEAD
         this.props.history.push('/diary');
+=======
+        //this.props.history.push('/diary');
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     }
 
     render() {

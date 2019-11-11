@@ -38,4 +38,9 @@ describe('sidebar', () => {
     });
 
     
+    it('set Day', () => {
+        store.dispatch(actionCreators.setDay('27'))
+        const newState = store.getState();
+        expect(newState.diary.day).toBe('27');
+    });
 })

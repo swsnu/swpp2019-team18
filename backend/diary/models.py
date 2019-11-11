@@ -32,7 +32,11 @@ class MyDiary(models.Model):
     content = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     people = models.ManyToManyField(People, blank=True, related_name = 'tagged_diary')
+<<<<<<< HEAD
     created_date = models.DateTimeField(auto_now_add=True)
+=======
+    created_date = models.DateTimeField(auto_now_add=False)
+>>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     modified_date = models.DateTimeField(auto_now=True)
     emotion_score = models.IntegerField(null=True, blank=True)
 
