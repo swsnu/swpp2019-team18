@@ -156,7 +156,6 @@ describe('ActionCreators : login', () => {
           })
     
         store.dispatch(actionCreators.loginCheckRequest()).then(() => {
-          const newState = store.getState();
           expect(spy).toHaveBeenCalledTimes(1);
           done();
         });
