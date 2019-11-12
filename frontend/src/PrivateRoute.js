@@ -8,14 +8,13 @@ import axios from 'axios'
 const PrivateRoute = ({component : Component, currentUser,loginCheck, ...rest  }) => (
     <Route {...rest} render = {props => 
       {
-        console.log('before check')
-        console.log(currentUser)
         if(currentUser !== 'SUCCESS') {
           loginCheck()
+          console.log(currentUser)
           //return  <Redirect to = "/login" />
         } 
         else{
-          console.log('you')
+          console.log('in success')
           return <Component {...props} />
         }
         
