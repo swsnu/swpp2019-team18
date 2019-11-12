@@ -80,7 +80,6 @@ describe('ActionCreators : login', () => {
                 data : stubUser
               };
               resolve(result);
-              reject(result_fail);
             });
           })
     
