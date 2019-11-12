@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import {Grid} from 'semantic-ui-react';
 
 import Garden from '../../component/Garden/Garden';
 import {getAllGardenDiary} from '../../store/actions/gardendiary';
@@ -56,7 +57,7 @@ class gardenDiary extends Component{
     }
  
     render(){
-
+            
                const garden = this.props.gardenDiary.map(garden => {
             return (
 
@@ -75,7 +76,11 @@ class gardenDiary extends Component{
         
         return(
             <div className = 'GardenDiaryList' align = 'center'>
-                {garden}
+                <Grid>    
+                <Grid.Row columns={3}>
+                    {garden}
+                </Grid.Row>
+                </Grid>
             </div>
         );
     }

@@ -19,6 +19,10 @@ def get_all_garden_diary(request) :
                                                 'flower_users' : [user for user in garden.flower_users.all().values_list('id', flat = True)],
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , garden_all_list ))  
+        print('[before]')
+        print(response_dict)
+        response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
+        print('[after]')
         print(response_dict)
         return JsonResponse(response_dict, safe=False)
     else :

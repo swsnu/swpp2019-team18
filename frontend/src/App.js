@@ -34,9 +34,9 @@ class App extends Component {
     axios.get('/api/token/');
     this.props.loginCheck();
   }
-  
+
+
   render(){
-    console.log(this.props.currentUser)
   return (
     <ConnectedRouter history={this.props.history}>
        
@@ -57,7 +57,9 @@ class App extends Component {
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
-              <PrivateRoute path='/garden' exact component={gardenDiary}/>
+            </div>
+            <div className = 'garden' style={{ marginLeft: 300}}>
+              <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
 
             </div>
           </div>

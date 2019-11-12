@@ -12,7 +12,7 @@ const initialState = {
         valid: false,
         isLoggedIn: false,
         currentUser: ''   //id
-    }
+    },
 };
 
 const reducer = (state = initialState, action) => {

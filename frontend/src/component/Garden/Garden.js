@@ -4,8 +4,8 @@ import {withRouter} from 'react-router';
 
 import {giveFlower} from '../../store/actions/gardendiary';
 
-import {Grid, Icon, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
-
+import {Grid, Icon, Label, Divider, Segment, Container, Dimmer, Button, Header, Image} from 'semantic-ui-react';
+//import './Garden.css';
 import * as actionCreators from '../../store/actions/login'
 
 const mapDispatchToProps = dispatch => {
@@ -24,7 +24,7 @@ const mapStateToProps = state => {
 
 class Garden extends Component {
     state = {
-        showMenu : false,
+        showDiary : false,
         changedContent : '',
         active : false,
         popupMode : 'INIT',
@@ -46,17 +46,24 @@ class Garden extends Component {
         } */
 
     }
-    handleShow = () => this.setState({ active: true })
+    handleShow = () => {
+        this.setState({ active: true });
+        
+    }
     handleHide = () => this.setState({ active: false })
    
     flowerHandler = (id) => {
         this.props.onGiveFlower(id);
     }
 
+    
+
     render(){
-       console.log(this.props.currentUser);
+        console.log(this.props.content)
+
+        const active = this.state.active;
         const flower = this.props.flower_users.includes(this.props.currentUser) ?
-        <Button as='div' labelPosition='right' floated = 'left'>
+        <Button as='div' labelPosition='right' >
             <Button color='red' onClick = {() => this.flowerHandler(this.props.id)}>
             <Icon name='asterisk' />
                 Flower
@@ -65,45 +72,57 @@ class Garden extends Component {
                 {this.props.flower_count}
             </Label>
         </Button> : 
-        <Button as='div' labelPosition='right' floated = 'left'>
-            <Button color='gray' onClick = {() => this.flowerHandler(this.props.id)}>
+        <Button as='div' labelPosition='right' >
+            <Button color='grey' onClick = {() => this.flowerHandler(this.props.id)}>
             <Icon name='leaf' />
                 Flower
             </Button>
-            <Label as='a' basic color='gray' pointing='left'>
+            <Label as='a' basic color='grey' pointing='left'>
                 {this.props.flower_count}
             </Label>
         </Button>
 
-
-
-    return (
-        <div className = 'gardenDiaryDetail' >
-            <Segment>
-            <Container textAlign = 'left'>
+        const popupDiary = 
+        <div className = 'gardenDetail' style={{ marginLeft: 265}}>
+        <Dimmer active={active} onClickOutside={this.handleHide} page>
+            <Segment.Group style = {{width : 700}} >
+            <Segment textAlign = 'center'>
             <Label as='a' color='olive' tag>
                     {this.props.category_name}
                     {this.props.category_title ? <Label.Detail >{this.props.category_title}</Label.Detail>  : null}
                     {/* {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null} */}
                 </Label>
-             </Container>
-             <Divider />
-             <Container textAlign = 'justified'>
+
+            </Segment>
+            <Segment textAlign = 'justified'>
              {
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {
                 return (<span>{line}<br/></span>)
                 }) : null
             }
-             </Container>
-             <Divider />
-             <Container>
-                 <Grid>
-             {flower}
-             </Grid>
-            </Container>
+
+             </Segment>
+            <Segment textAlign = 'center'>
+                {flower}
             </Segment>
-            <Divider hidden /> 
+            </Segment.Group>
+        </Dimmer>
+        </div>
+
+    return (
+        <div className = 'gardenDiaryDetail' >
+            
+            <Grid.Column>
+
+         <Button><Image src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4vFmT1904oOOPKxIfNITLL3rKY2dVZ6YnDgSTS8sTkFP09Hn0Kg&s'
+                        size='small' 
+                        onClick={this.handleShow} /></Button>
+            </Grid.Column>
+
+            {
+                active ? popupDiary : null
+            }
         </div>
         );
     }
