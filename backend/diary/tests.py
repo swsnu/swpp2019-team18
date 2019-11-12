@@ -54,11 +54,11 @@ class UserTestCase(TestCase):
 
     def test_getuser(self):
         client = Client()
-        response = client.get('/api/getuser')
+        response = client.get('/api/getuser/')
         self.assertEqual(response.status_code, 401)
         response = client.post('/api/signin/', json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
         self.assertEqual(response.status_code, 204)
-        response = client.get('/api/getuser')
+        response = client.get('/api/getuser/')
         self.assertEqual(response.status_code, 200)
 
 
