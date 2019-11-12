@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import './sidebar.css';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setMode , setMonth, setYear, setDay, setCategory, setPersonId } from '../../store/actions/sidabar';
 import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
-import { thisTypeAnnotation } from '@babel/types';
-//import AddPeoplePopUp from 
+import {Menu, Grid, Dropdown, Button, Container} from 'semantic-ui-react'
 
 
 
@@ -41,13 +39,11 @@ class sidebar extends Component {
         console.log("********************************")
         console.log(this.year(), this.month());
     }*/
-
     componentDidMount(){
         this.props.getPeople();
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
-
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -66,6 +62,7 @@ class sidebar extends Component {
         selectedCategory : '',
         allPeople : [],
         selectedPersonId : '',
+    
     }
 
     year = () => {
@@ -94,23 +91,31 @@ class sidebar extends Component {
     successHandler = () => {
         this.props.getPeople();
     }
-    months = moment.months();
 
-    years = [this.year(),
-            this.year()-1,
-            this.year()-2,
-            this.year()-3,
-            this.year()-4,
-            this.year()-5,
-            this.year()-6,
-            this.year()-7,
-            this.year()-8,
-            this.year()-9,
-            this.year()-10]
+    moveToDiaryPage = () => {
+        if(this.props.history.location.pathname === '/diary/create'){
+            this.props.history.push('/diary')
+        }
+    }
 
+    //mapping months to the list for dropdown optionso
+    i = 0;
+    months = moment.months().map(mon => {return {key : this.i++, value : mon, text : mon, onClick : ()=>this.onSelectMonthChange(mon)}});
+
+    //mapping years to the list for dropdown options
+    currYear = this.year()
+    nums = [0,1,2,3,4,5,6,7,8,9,10]
+    years = this.nums.map(i => {return {
+        key : i, 
+        value : String(this.year() - i ), 
+        text : String(this.year() - i),
+        onClick : () => this.onSelectYearChange(this.currYear - i)}
+    })
 
     setMonth = (month) => {
         let monthNo = this.months.indexOf(month);
+        monthNo = this.months.filter(obj => {return obj.value === month})[0].key
+        console.log(monthNo)
         let dateContext = Object.assign({}, this.state.dateContext);
         dateContext = moment(dateContext).set("month", monthNo);
         this.setState({
@@ -122,14 +127,14 @@ class sidebar extends Component {
         this.setMonth(data);
     }
 
-    onChangeMonth = () => {
+   /* onChangeMonth = () => {
         this.setState({
             monthPopup : !this.state.monthPopup,
             yearPopup : this.state.yearPopup && !this.state.yearPopup
         });
     }
 
-    selectListMonth = (props) => {
+     selectListMonth = (props) => {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
@@ -145,17 +150,19 @@ class sidebar extends Component {
                 {popup}
             </div>
         )
-    }
+    } */
 
     monthNav = () => {       
         return(
-            <span className = "label_month"
+        <Dropdown id = 'label_month' inline options = {this.months} value = {this.monthFull()}/>
+            
+          /*  <span className = "label_month"
                 onClick = {() => {this.onChangeMonth(this.month())}}>
                 {this.monthFull()}
                 {this.state.monthPopup && 
                     <this.selectListMonth data={this.months}/>
                 }                
-            </span>
+            </span> */
         )
     }
 
@@ -167,20 +174,21 @@ class sidebar extends Component {
         this.setState({
             dateContext : dateContext 
         })
+
     }
 
     onSelectYearChange = (data) => {
         this.setYear(data);
     }
 
-    onChangeYear = () => {
+    /*onChangeYear = () => {
         this.setState({
             yearPopup: !this.state.yearPopup,
             monthPopup : this.state.monthPopup && !this.state.monthPopup 
         });
-    }
+    } */
 
-    selectListYear = (props) => {
+    /*selectListYear = (props) => {
         let popup = props.data.map((data) => {
             return(
                 <div key={data}>
@@ -196,18 +204,19 @@ class sidebar extends Component {
                 {popup}
             </div>
         )
-    }
+    } */
 
     
     yearNav = () => {
         return(
-            <span className = "label_year"
+            <Dropdown id = 'label_year' inline options = {this.years} value = {this.year()} />
+            /* <span className = "label_year"
                 onClick = {() => {this.onChangeYear()}}>
                 {this.year()}
                 {this.state.yearPopup && 
                     <this.selectListYear data={this.years}/>
                 }                
-            </span>
+            </span> */
         )
     }    
 
@@ -247,18 +256,45 @@ class sidebar extends Component {
     calendarItem = () => {
         const calendarList = [];
         calendarList.push(
-            <div>
-                <this.monthNav/>
-                {" "}
-                <this.yearNav/>
-            </div>
+            <Menu.Item  align = 'center' key= 'navigation'>
+                <Grid columns = 'equal' >
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}>  <this.yearNav/></Grid.Column>
+                </Grid>
+            </Menu.Item>
+      
         )
         for(let d = 1; d <= this.daysInMonth(); d++){
             let className = (d==this.currentDay() ? "current_day" : "day");
             calendarList.push(
-                <Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
+                <Menu.Item style = {{padding :'10'}} key = {this.month() + '_' + String(d) }
+                name = {this.month() + '' + String(d) }
+                active = {className === 'current_day'}
+                >
+                    <Grid columns = 'equal'  >
+                        <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
+                        {/* select day */}
+                        <Menu.Item fitted='horizontally'
+                        id = {'day_' + String(d)}
+                        onClick={() => {
+                            this.onSelectDayChange(d)
+                            console.log(this.props.history.location)
+                            this.moveToDiaryPage()
+                            }}>
+                          {this.month()}  {d}
+                        </Menu.Item>
+                        </Grid.Column>
+                        {/* move to create */}
+                        <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                        <Button align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
+                        </Grid.Column>
+
+                    </Grid>
+                    {/*<Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
                     {this.month()}  {d} <div align = "right"><Link to="/diary/create" align="right">+</Link></div>
-                </div></Link>
+            </div></Link> */}
+                </Menu.Item>
+                
             )
         }
 
@@ -268,21 +304,39 @@ class sidebar extends Component {
 
     personItem = () => {
         const peopleList = [];
+        peopleList.push(
+            <Menu.Item align = 'center' key = 'addPeople'>
+                <AddPeoplePopUp successHandler={this.successHandler}/>
+            </Menu.Item>
+        )
         for(let i=0; i < this.state.allPeople.length; i++){
             let tmpPersonId = this.state.allPeople[i].id;
             let tmpPerson = this.state.allPeople[i].name;
             let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
             peopleList.push(
-                <Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
+                <Menu.Item 
+                key = {tmpPersonId}
+                id = {tmpPerson}
+                name = {tmpPerson}
+                active = {className === 'selected_person'}
+                onClick={() => {
+                    this.onSelectPersonChange(tmpPersonId)
+                    this.moveToDiaryPage()
+                }}
+                >
+                    <Grid  columns = 'equal'>
+                        <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                        {tmpPerson}
+                        </Grid.Column>
+                    </Grid>
+                    {/*<Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
                     {tmpPerson}
-                </div></Link>
+            </div></Link>*/}
+                </Menu.Item>
+                
             )
         }
-        peopleList.push(
-            <div>
-            <AddPeoplePopUp successHandler={this.successHandler}/>
-            </div>
-        )
+        
         
         return peopleList;
     }
@@ -293,19 +347,79 @@ class sidebar extends Component {
             let tmpCategory = this.state.categories[i];
             let className = (this.state.selectedCategory == this.state.categories[i] ? "selected_category" : "category");
             categoryList.push(
-                <Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
+                <Menu.Item 
+                key = {tmpCategory}
+                id = {tmpCategory}
+                name = {tmpCategory} 
+                onClick={() => {
+                    this.onSelectCategoryChange(tmpCategory)
+                    this.moveToDiaryPage()
+                }} 
+                active = {className === 'selected_category'}>
+                    { /*<Link to="/diary"><div key={tmpCategory} className={className} onClick={() => {this.onSelectCategoryChange(tmpCategory)}}>
                     {tmpCategory}
-                </div></Link>
+            </div></Link>*/}
+
+                </Menu.Item>
+                
             )
         }
-
         return categoryList;
     }
 
     render() {
-
         return (
-            <div className="sidebar_container">
+           
+            <Container
+            style={{
+              position: "fixed",
+              display: "flex",
+              flexDirection: "column",
+              top: 50, //it should be height of header
+              bottom: 0,
+              width: 265,
+              background: "#FFFFFF",
+              overflowX: "hidden",
+              flex: 1
+            }}
+          >
+              <Container style={{ flex: 1, overflowY: "scroll" }}>
+              <Menu vertical compact fluid size = 'huge'>
+                <Menu.Item>
+                <Grid columns = 'equal' divided >
+                        <Grid.Row >
+                            <Button.Group id = 'tag' basic widths = '3'  >
+                            <Button id= 'tag_calendar' align = 'center'onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
+                            <Button id = 'tag_person' align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
+                            <Button id = 'tag_category' align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
+                            </Button.Group>
+                        </Grid.Row>
+              </Grid>
+                </Menu.Item>
+                <Menu.Item>
+                    <Container className="sidabar">
+                    {
+                        this.state.mode === "PERSON" ? <this.personItem/>
+                        : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
+                        : <this.calendarItem/>
+                    }
+                </Container>
+                </Menu.Item>
+
+            </Menu></Container>;
+              
+          </Container>
+            
+
+            
+        );
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(sidebar));
+
+/*
+<div className="sidebar_container">
                 
                 <div className = "tab">
                 <button onClick = {()=>this.modeChange("CALENDAR")}>Cal</button><button onClick = {()=>this.modeChange("PERSON")}>Peo</button><button onClick = {()=>this.modeChange("CATEGORY")}>Cat</button>
@@ -320,8 +434,4 @@ class sidebar extends Component {
                 </div>
                 
             </div>
-        );
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(withRouter(sidebar));
+            */

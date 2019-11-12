@@ -13,7 +13,7 @@ class Logout extends Component {
     render () {
         return (
             <div>
-                <Button color = 'grey' fluid size = 'small' id = 'logout'onClick = {() => this.onClickLogoutButton()}>Log out</Button>
+                <Button color = 'grey' fluid size = 'small' id = 'logout'onClick = {() => this.onClickLogoutButton()}>Sign out</Button>
             </div>
         )
     }

@@ -52,6 +52,18 @@ class UserTestCase(TestCase):
         response = client.get('/api/signout/')
         self.assertEqual(response.status_code, 204)
 
+    def test_getuser(self):
+        client = Client()
+        response = client.get('/api/getuser/')
+        self.assertEqual(response.status_code, 401)
+        response = client.post('/api/signin/', json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+        self.assertEqual(response.status_code, 204)
+        response = client.get('/api/getuser/')
+        self.assertEqual(response.status_code, 200)
+
+
+
+
 class DiaryTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
