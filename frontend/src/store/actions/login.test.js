@@ -69,6 +69,31 @@ describe('ActionCreators : login', () => {
         });
       });
 
+      it(`'loginCheckRequest' should change login status and user status correctly`, (done) => {
+        const stubUser = {"username" : "TEST_USER"}
+    
+        const spy = jest.spyOn(axios, 'get')
+          .mockImplementation((url, user) => {
+            return new Promise((resolve, reject) => {
+              const result = {
+                status: 200,
+                data : stubUser
+              };
+              resolve(result);
+              reject(result_fail);
+            });
+          })
+    
+        store.dispatch(actionCreators.loginCheckRequest()).then(() => {
+          const newState = store.getState();
+          expect(newState.user.login).toEqual(stubLogin);
+          expect(newState.user.status).toEqual(stubStatus);
+          expect(spy).toHaveBeenCalledTimes(1);
+          done();
+        });
+      });
+
+
       it(`'logoutRequest' should change login status and user status correctly`, (done) => {
         const stubUser = {"username" : "TEST_USER", "password" : "password"}
     
@@ -113,6 +138,25 @@ describe('ActionCreators : login', () => {
           const newState = store.getState();
           expect(newState.user.login).toEqual(stubErrorLogin);
           expect(newState.user.status).toEqual(stubErrorStatus);
+          expect(spy).toHaveBeenCalledTimes(1);
+          done();
+        });
+      });
+
+      it(`'loginCheckRequest' Fail`, (done) => {
+    
+        const spy = jest.spyOn(axios, 'get')
+          .mockImplementation((url, user) => {
+            return new Promise((resolve, reject) => {
+              const result = {
+                status: 400,
+              };
+              reject(result);
+            });
+          })
+    
+        store.dispatch(actionCreators.loginCheckRequest()).then(() => {
+          const newState = store.getState();
           expect(spy).toHaveBeenCalledTimes(1);
           done();
         });
