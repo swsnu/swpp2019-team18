@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
+import CatergorySelect from '../../component/DiaryWrite/CategorySelect';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
@@ -23,6 +24,8 @@ class NewDiary extends Component {
         modalOpen : false,
         messageSuccess : false,
         date : {},
+        rating : 0,
+        writeMode : false
     }
 
     submitHandler = () => {
@@ -57,8 +60,9 @@ class NewDiary extends Component {
         this.setState({people : value});
     }
 
-    handleToggle = (e, btnId, name) => {
+    handleToggle = (name) => {
         this.setState({currentCategory : name, categoryName : name});
+        console.log(this.state.currentCategory);
         /*
         let updateButtons = this.state.buttons.slice();
         updateButtons[btnId] = !updateButtons[btnId]
@@ -68,6 +72,14 @@ class NewDiary extends Component {
         }
         this.setState({buttons : updateButtons, categoryName: name});
         */
+    }
+
+    handleSelectCategory = (name, rating, title) => {
+        this.setState({rating :rating, categoryName : name, categoryTitle : title ,writeMode : true});
+    }
+
+    handleMode = () => {
+        this.setState({writeMode : false})
     }
 
     closeMessage = () => {
@@ -80,25 +92,6 @@ class NewDiary extends Component {
     }
 
     render() {
-        const Categories = [
-            'movie', 
-            'game', 
-            'restaurant', 
-            'book', 
-            'travel', 
-            'drama', 
-            'performance', 
-            'relationship', 
-            'rest', 
-            'exercise', 
-            'shopping', 
-            'study', 
-            'food' , 
-            'work', 
-            'sports', 
-            'hobby', 
-            'etc.'
-        ]
 
         let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
         let optionComponent = <Dropdown 
@@ -109,6 +102,8 @@ class NewDiary extends Component {
         let createPeopleSuccessMessage = this.state.messageSuccess ? 
                 <MessagePopup id="create-people-success-message" header="New friend is successfully created" content="You can now add new people" onClose={this.closeMessage}/> :
                  null;
+
+                 console.log(this.state.currentCategory);
         
         return (
 
@@ -120,22 +115,28 @@ class NewDiary extends Component {
                 <Segment>
                 {createPeopleSuccessMessage}
                     <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>New Diary</h2></Container>
+                
                     <Form>
-                        {Categories.map( (name) => { return <CatergoryButton category = {name} currentButton = {this.currentCategory}
-    clicks = {() => this.handleToggle(e, 3, props.category)} /> })}
-
+                        {/*Categories.map( (name) => { return <CatergoryButton category = {name} currentButton = {this.state.currentCategory}
+    clicks = {() => this.handleToggle(name)} /> }) */}
                         {/*<Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
                         <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
                         <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
         <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>*/}
-                        {optionComponent}
-                        <Form.Input 
-                        fluid label='Title' 
-                        placeholder='Star Wars'
-                        id='diary-category-title-input'
-                        value={this.state.categoryTitle}
-                        onChange={e => this.setState({categoryTitle : e.target.value})}
-                        />
+                        
+                        {this.state.writeMode ? 
+                        <Container>
+                            <Container align = 'left'>
+                        <Button onClick = {() => this.handleMode()}>Change Category</Button>
+                    </Container>
+                    <Container>
+                        <Label as='a' color='blue' image>
+                            {this.state.categoryName}
+                            <Label.Detail>{this.state.categoryTitle}</Label.Detail>
+                        </Label>
+                        </Container>
+                    {optionComponent}
+                            
                         <Form.TextArea 
                         style={{ minHeight: 400 }}
                         id='diary-content-input'
@@ -146,7 +147,9 @@ class NewDiary extends Component {
                         />
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
 
-                        <AddPeoplePopUp successHandler={this.openMessage}/>
+                        <AddPeoplePopUp successHandler={this.openMessage}/> </Container> :
+                         <CatergorySelect handleSelectCategory = {(name, rating, title) => this.handleSelectCategory(name,rating, title)}/>}
+                        
                     </Form>
                     
                 </Segment>

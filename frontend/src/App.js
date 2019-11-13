@@ -52,7 +52,7 @@ class App extends Component {
               {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
-            <div className = 'main' style={{ marginLeft: 265}}>
+            <div className = 'main' style={{ position : 'absolute', marginLeft : 265}}>
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
