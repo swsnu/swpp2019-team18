@@ -3,6 +3,7 @@ import { Grid, Button, Form, Container, Segment, Dropdown } from 'semantic-ui-re
 import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
+import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
@@ -18,6 +19,7 @@ class NewDiary extends Component {
         nameInput: "",
         allPeople: [],
         buttons : [false, false, false, false],
+        currentCategory : '',
         modalOpen : false,
         messageSuccess : false,
         date : {},
@@ -56,6 +58,8 @@ class NewDiary extends Component {
     }
 
     handleToggle = (e, btnId, name) => {
+        this.setState({currentCategory : name, categoryName : name});
+        /*
         let updateButtons = this.state.buttons.slice();
         updateButtons[btnId] = !updateButtons[btnId]
         if(updateButtons[btnId]){
@@ -63,6 +67,7 @@ class NewDiary extends Component {
             updateButtons[btnId] = true;
         }
         this.setState({buttons : updateButtons, categoryName: name});
+        */
     }
 
     closeMessage = () => {
@@ -75,6 +80,26 @@ class NewDiary extends Component {
     }
 
     render() {
+        const Categories = [
+            'movie', 
+            'game', 
+            'restaurant', 
+            'book', 
+            'travel', 
+            'drama', 
+            'performance', 
+            'relationship', 
+            'rest', 
+            'exercise', 
+            'shopping', 
+            'study', 
+            'food' , 
+            'work', 
+            'sports', 
+            'hobby', 
+            'etc.'
+        ]
+
         let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
         let optionComponent = <Dropdown 
             style={{margin:'0px 0px 20px 0px'}} 
@@ -87,6 +112,7 @@ class NewDiary extends Component {
         
         return (
 
+
         <Grid className="Grid">
             <Grid.Row columns={2} style={{ margin: '5px' }}>
                 <Grid.Column width={3}></Grid.Column>
@@ -95,10 +121,13 @@ class NewDiary extends Component {
                 {createPeopleSuccessMessage}
                     <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>New Diary</h2></Container>
                     <Form>
-                        <Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
+                        {Categories.map( (name) => { return <CatergoryButton category = {name} currentButton = {this.currentCategory}
+    clicks = {() => this.handleToggle(e, 3, props.category)} /> })}
+
+                        {/*<Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
                         <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
                         <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
-                        <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>
+        <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>*/}
                         {optionComponent}
                         <Form.Input 
                         fluid label='Title' 
