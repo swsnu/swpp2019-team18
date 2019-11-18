@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     garden_diary : [],
 
-    gardenmode : 'MY',        //ALL or CATEGORY or MY
+    gardenmode : 'MYGARDEN',        //ALL or CATEGORY or MYGARDEN or MYFLOWER
     category_name : 'PEOPLE',
 }
 
@@ -26,6 +26,11 @@ const reducer = (state=initialState, action) => {
         case actionTypes.GET_MY_GARDEN_DIARY:
             return {...state, garden_diary : action.diaries};
 
+        case actionTypes.DELETE_GARDEN_DIARY:
+            const deleted = state.garden_diary.filter((diary)=> {
+            return diary.id !== action.targetID;
+        }); 
+            return {...state, garden_diary : deleted};   
         default:
             return {...state};
     }

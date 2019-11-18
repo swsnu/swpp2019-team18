@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
-import {giveFlower} from '../../store/actions/gardendiary';
+import {giveFlower, deleteGardenDiary} from '../../store/actions/gardendiary';
 
 import {Grid, Icon, Label, Card, Segment, Container, Dimmer, Button, Header, Image} from 'semantic-ui-react';
 import './Garden.css';
@@ -12,6 +12,7 @@ import * as actionCreators from '../../store/actions/login'
 const mapDispatchToProps = dispatch => {
     return {
         onGiveFlower : (id) => dispatch(giveFlower(id)),
+        onDeleteGardenDiary : (id) => dispatch(deleteGardenDiary(id)),
         loginCheck : (user) => dispatch (actionCreators.loginCheckRequest())
 
     }
@@ -43,6 +44,9 @@ class Garden extends Component {
    
     flowerHandler = (id) => {
         this.props.onGiveFlower(id);
+    }
+    deleteHandler = (id) => {
+        this.props.onDeleteGardenDiary(id);
     }
 
     
@@ -81,12 +85,14 @@ class Garden extends Component {
         <Dimmer.Dimmable as={Segment} blurring dimmed={active}>
         <Dimmer active={active} onClickOutside={this.handleHide} page>
             <Segment.Group style = {{width : 700}} >
-            <Segment textAlign = 'center'>
-            <Label as='a' color='olive' tag>
+            <Segment textAlign = 'left'>
+                <Label as='a' color='olive' tag>
                     {this.props.category_name}
                     {this.props.category_title ? <Label.Detail >{this.props.category_title}</Label.Detail>  : null}
                     {/* {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null} */}
                 </Label>
+                {this.props.currentUser === this.props.author ? 
+                    <Button floated = 'right' onClick = {() => this.deleteHandler(this.props.id)}>Delete</Button> : null}
 
             </Segment>
             <Segment inverted textAlign = 'justified'>
@@ -99,7 +105,7 @@ class Garden extends Component {
 
              </Segment>
             <Segment textAlign = 'center'>
-                {flower}
+                {flower}         
             </Segment>
             </Segment.Group>
         </Dimmer>

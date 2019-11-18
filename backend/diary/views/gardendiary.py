@@ -76,6 +76,7 @@ def get_my_garden_diary(request, mode = None) :
             return HttpResponse(status=401)  
         my_garden = GardenDiary.objects.filter(author = request.user)
         response_dict = list(map(lambda garden : {'id' : garden.id, 
+                                                'author' : garden.author.username,
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
                                                 'category_title': garden.category.category_title,
@@ -88,18 +89,17 @@ def get_my_garden_diary(request, mode = None) :
         else :
             response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
         return JsonResponse(response_dict, safe=False)
-    else :
-        return HttpResponseNotAllowed(['GET'])
-
-def delete_my_garden_diary(request, id = None) :
-    if request.method == 'DELETE' : 
+    elif request.method == 'DELETE' : 
         try:
-            gardendiary = GardenDiary.objects.get(id = id, author = request.user)
+            gardendiary = GardenDiary.objects.get(id = mode, author = request.user)
         except GardenDiary.DoesNotExist : 
                 return HttpResponse(status = 404)
         gardendiary.delete()
         return HttpResponse(status = 200)
+
     else :
-        return HttpResponseNotAllowed(['DELETE'])
+        return HttpResponseNotAllowed(['GET', 'DELETE'])
+
+
 
     

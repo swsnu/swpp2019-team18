@@ -13,8 +13,6 @@ const mapStateToProps = state => {
     return {
         gardenmode : state.garden.gardenmode,
         gardenDiary : state.garden.garden_diary,
-
-        person_id : state.diary.person_id,
         garden_category_name : state.garden.category_name,
     }
 
@@ -51,7 +49,7 @@ class gardenDiary extends Component{
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem); 
                 break;
-            case 'MY':
+            case 'MYGARDEN':
                 this.props.onGetMyGardenDiary(this.state.activeItem);
         }
 
@@ -78,6 +76,7 @@ class gardenDiary extends Component{
 
                         <Garden key = {garden.id}
                             id = {garden.id}
+                            author = {garden.author}
                             category_name = {garden.category_name}
                             category_title = {garden.category_title}
                             flower_count = {garden.flower_count}

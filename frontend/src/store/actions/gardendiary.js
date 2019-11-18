@@ -56,3 +56,15 @@ export const getMyGardenDiary = (mode) => {
         });
     }
 }
+
+export const deleteGardenDiary_ = (id) => {
+    return{type : actionTypes.DELETE_GARDEN_DIARY, targetID : id};
+}
+
+export const deleteGardenDiary = (id) => {
+    return(dispatch) => {
+        return axios.delete('/api/garden/mylist/'+id+'/')
+        .then( () => {dispatch(deleteGardenDiary_(id));
+        });
+    }
+}
