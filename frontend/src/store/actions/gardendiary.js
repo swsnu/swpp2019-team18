@@ -2,12 +2,6 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { push } from 'connected-react-router';
 
-export const setGardenMode2 = (mode) => {
-    return {
-    type : actionTypes.SET_GARDEN_MODE2,
-    mode : mode
-    }
-} 
 
 export const getAllGardenDiary_ = (diaries) => {
     return{
@@ -18,7 +12,7 @@ export const getAllGardenDiary_ = (diaries) => {
 
 export const getAllGardenDiary = (mode) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/garden/'+mode+'/')
+        return axios.get('/api/garden/'+mode+'/')
         .then((res) => {dispatch(getAllGardenDiary_(res.data))})
     };
 };
@@ -33,7 +27,7 @@ export const giveFlower_ = (id, change) => {
 
 export const giveFlower = (id) => {
     return (dispatch) => {
-        return axios.post('http://localhost:8000/api/garden/flower/'+id+'/')
+        return axios.post('/api/garden/flower/'+id+'/')
         .then((res) => {dispatch(giveFlower_(id, res.data))})
     };
 };
@@ -45,8 +39,20 @@ export const getGardenDiaryByCategory_ = (diaries) => {
 
 export const getGardenDiaryByCategory = (name, mode) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/garden/category/' + name+'/'+mode+'/')
+        return axios.get('/api/garden/category/' + name+'/'+mode+'/')
         .then(res => {dispatch(getGardenDiaryByCategory_(res.data));
         });
     };
+}
+
+export const getMyGardenDiary_ = (diaries) => {
+    return{type : actionTypes.GET_MY_GARDEN_DIARY, diaries : diaries};
+}
+
+export const getMyGardenDiary = (mode) => {
+    return(dispatch) => {
+        return axios.get('/api/garden/mylist/'+mode+'/')
+        .then(res => {dispatch(getMyGardenDiary_(res.data));
+        });
+    }
 }

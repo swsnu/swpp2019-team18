@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {Grid, Menu} from 'semantic-ui-react';
 
 import Garden from '../../component/Garden/Garden';
-import {getAllGardenDiary, getGardenDiaryByCategory} from '../../store/actions/gardendiary';
+import {getAllGardenDiary, getGardenDiaryByCategory, getMyGardenDiary} from '../../store/actions/gardendiary';
 //import './MyDiaryList.css'
 
 
@@ -24,6 +24,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetAllGardenDiary : (mode) => dispatch(getAllGardenDiary(mode)),
         onGetGardenDiaryByCategory : (name, mode) => dispatch(getGardenDiaryByCategory(name, mode)),
+        onGetMyGardenDiary : (mode) => dispatch(getMyGardenDiary(mode)),
     } 
 }
 
@@ -50,6 +51,8 @@ class gardenDiary extends Component{
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem); 
                 break;
+            case 'MY':
+                this.props.onGetMyGardenDiary(this.state.activeItem);
         }
 
     }
@@ -59,8 +62,11 @@ class gardenDiary extends Component{
             if(this.props.gardenmode === 'ALL'){
                 this.props.onGetAllGardenDiary(name);
             }
-            else {
+            else if(this.props.gardenmode ==='CATEGORY'){
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, name);
+            }
+            else{
+                this.props.onGetMyGardenDiary(name);
             }
         }
     }
