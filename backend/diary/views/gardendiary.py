@@ -49,6 +49,27 @@ def give_flower(request, id = None) :
     else :
         return HttpResponseNotAllowed(['POST'])
 
+def get_garden_diary_by_category(request, name = None, mode = None) : 
+    if request.method == 'GET' : 
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)  
+        selected_diary = GardenDiary.objects.filter(category__name = name)
+        response_dict = list(map(lambda garden : {'id' : garden.id, 
+                                                'content' : garden.content, 
+                                                'category_name' : garden.category.name, 
+                                                'category_title': garden.category.category_title,
+                                                'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
+                                                'flower_count': garden.flower_count, 
+                                                'shared_date' : garden.shared_date } , selected_diary ))  
+        
+        if mode == 'Latest' : 
+            response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
+        else : 
+            response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
+        return JsonResponse(response_dict, safe=False)
+    else :
+        return HttpResponseNotAllowed(['GET'])
+
 def get_my_garden_diary(request, mode = None) :
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
@@ -62,10 +83,10 @@ def get_my_garden_diary(request, mode = None) :
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , garden_all_list )) 
                                                  
-        # if mode == 'LATEST' :
-        response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
-        # else :
-        #     response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
+        if mode == 'LATEST' :
+            response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
+        else :
+            response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])

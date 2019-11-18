@@ -22,5 +22,6 @@ urlpatterns = [
 
     path('garden/<str:mode>/', gardendiary.get_all_garden_diary, name='get_all_garden_diary'),
     path('garden/flower/<int:id>/', gardendiary.give_flower, name='give_flower'),
-    path('garden/mydiary', gardendiary.get_my_garden_diary, name='get_my_Garden_diary')
+    path('garden/category/<str:name>/<str:mode>/', gardendiary.get_garden_diary_by_category, name='get_garden_diary_by_category'),
+    path('garden/mylist/<str:mode>/', gardendiary.get_my_garden_diary, name='get_my_Garden_diary'),
 ]

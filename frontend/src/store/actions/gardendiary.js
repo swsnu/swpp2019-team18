@@ -38,13 +38,14 @@ export const giveFlower = (id) => {
     };
 };
 
-export const getGardenDiaryByCategory_ = () => {
+export const getGardenDiaryByCategory_ = (diaries) => {
+    return {type : actionTypes.GET_GARDEN_DIARY_BY_CATEGORY, diaries : diaries};
 
 }
 
-export const getGardenDiaryByCategory = (name) => {
+export const getGardenDiaryByCategory = (name, mode) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/garden/category/' + name+'/')
+        return axios.get('http://localhost:8000/api/garden/category/' + name+'/'+mode+'/')
         .then(res => {dispatch(getGardenDiaryByCategory_(res.data));
         });
     };

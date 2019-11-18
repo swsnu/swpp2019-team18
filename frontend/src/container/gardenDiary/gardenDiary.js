@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onGetAllGardenDiary : (mode) => dispatch(getAllGardenDiary(mode)),
-        onGetGardenDiaryByCategory : (name) => dispatch(getGardenDiaryByCategory(name)),
+        onGetGardenDiaryByCategory : (name, mode) => dispatch(getGardenDiaryByCategory(name, mode)),
     } 
 }
 
@@ -48,7 +48,7 @@ class gardenDiary extends Component{
                 this.props.onGetAllGardenDiary(this.state.activeItem);
                 break;
             case 'CATEGORY':
-                this.props.onGetGardenDiaryByCategory(this.props.garden_category_name); 
+                this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem); 
                 break;
         }
 
@@ -56,7 +56,12 @@ class gardenDiary extends Component{
     handleItemClick = (e, { name }) => {
         if(this.state.activeItem !== name){
             this.setState({ activeItem: name })
-            this.props.onGetAllGardenDiary(name);
+            if(this.props.gardenmode === 'ALL'){
+                this.props.onGetAllGardenDiary(name);
+            }
+            else {
+                this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, name);
+            }
         }
     }
  

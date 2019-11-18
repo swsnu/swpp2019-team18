@@ -2,22 +2,10 @@ import * as actionTypes from '../actions/actionTypes'
 
 
 const initialState = {
-    garden_diary : [
-    //     {
-    //     'content' : 'test garden diary',
-    //     'category_name' : 'MOVIE',
-    //     'category_name' : 'test movie title',
-    //     'flower_count' : 5,
-    // }
-],
+    garden_diary : [],
 
-    peopleIds: [],
-    peopleNames: [],
-    selectedDiary : [],
-    gardenmode : 'ALL',        //ALL or CATEGORY
-    gardenmode2 : 'Latest',     //LATEST or POPULAR
-    category_name : 'MOVIE',
-    person_id : '',
+    gardenmode : 'CATEGORY',        //ALL or CATEGORY
+    category_name : 'PEOPLE',
 }
 
 const reducer = (state=initialState, action) => {
@@ -33,6 +21,8 @@ const reducer = (state=initialState, action) => {
                 }
             });
             return {...state, garden_diary : modified_diary };
+        case actionTypes.GET_GARDEN_DIARY_BY_CATEGORY:
+            return {...state, garden_diary : action.diaries};
         case actionTypes.SET_GARDEN_MODE2 :
             return {...state, gardenmode2 : action.mode}; 
 
