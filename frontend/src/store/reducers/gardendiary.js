@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     garden_diary : [],
 
-    gardenmode : 'MYGARDEN',        //ALL or CATEGORY or MYGARDEN or MYFLOWER
+    gardenmode : 'MYFLOWER',        //ALL or CATEGORY or MYGARDEN or MYFLOWER
     category_name : 'PEOPLE',
 }
 
@@ -24,6 +24,8 @@ const reducer = (state=initialState, action) => {
         case actionTypes.GET_GARDEN_DIARY_BY_CATEGORY:
             return {...state, garden_diary : action.diaries};
         case actionTypes.GET_MY_GARDEN_DIARY:
+            return {...state, garden_diary : action.diaries};
+        case actionTypes.GET_MY_FLOWER:
             return {...state, garden_diary : action.diaries};
 
         case actionTypes.DELETE_GARDEN_DIARY:

@@ -57,6 +57,18 @@ export const getMyGardenDiary = (mode) => {
     }
 }
 
+export const getMyFlower_ = (diaries) => {
+    return {type : actionTypes.GET_MY_FLOWER, diaries : diaries};
+}
+
+export const getMyFlower = (mode) => {
+    return (dispatch) => {
+        return axios.get('/api/garden/flower/'+mode+'/')
+        .then(res => {dispatch(getMyFlower_(res.data));
+        });
+    }
+}
+
 export const deleteGardenDiary_ = (id) => {
     return{type : actionTypes.DELETE_GARDEN_DIARY, targetID : id};
 }
@@ -68,3 +80,4 @@ export const deleteGardenDiary = (id) => {
         });
     }
 }
+
