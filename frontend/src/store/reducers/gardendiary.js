@@ -14,10 +14,8 @@ const initialState = {
     peopleIds: [],
     peopleNames: [],
     selectedDiary : [],
-    gardenmode : 'ALL',
-    year : '',
-    month : '',
-    day : '',
+    gardenmode : 'ALL',        //ALL or CATEGORY
+    gardenmode2 : 'Latest',     //LATEST or POPULAR
     category_name : 'MOVIE',
     person_id : '',
 }
@@ -35,6 +33,9 @@ const reducer = (state=initialState, action) => {
                 }
             });
             return {...state, garden_diary : modified_diary };
+        case actionTypes.SET_GARDEN_MODE2 :
+            return {...state, gardenmode2 : action.mode}; 
+
         default:
             return {...state};
     }

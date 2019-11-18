@@ -20,6 +20,7 @@ urlpatterns = [
     path('diary/share/<int:id>/', share.share_diary, name='share_diary'),
     path('diary/people/', people.people, name='people'),
 
-    path('garden/', gardendiary.get_all_garden_diary, name='get_all_garden_diary'),
-    path('garden/flower/<int:id>/', gardendiary.give_flower, name='give_flower')
+    path('garden/<str:mode>/', gardendiary.get_all_garden_diary, name='get_all_garden_diary'),
+    path('garden/flower/<int:id>/', gardendiary.give_flower, name='give_flower'),
+    path('garden/mydiary', gardendiary.get_my_garden_diary, name='get_my_Garden_diary')
 ]

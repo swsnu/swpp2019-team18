@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from ..serializer import diary_serializer
 User = get_user_model()
 
-def get_all_garden_diary(request) :
+def get_all_garden_diary(request, mode = None) :
     if request.method == 'GET' : 
         if not request.user.is_authenticated:
             return HttpResponse(status=401)  
@@ -16,14 +16,14 @@ def get_all_garden_diary(request) :
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
                                                 'category_title': garden.category.category_title,
-                                                'flower_users' : [user for user in garden.flower_users.all().values_list('id', flat = True)],
+                                                'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , garden_all_list ))  
-        print('[before]')
-        print(response_dict)
-        response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
-        print('[after]')
-        print(response_dict)
+        if mode == 'Latest' : 
+            response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
+        else : 
+            response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
+  
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
@@ -42,11 +42,32 @@ def give_flower(request, id = None) :
                         'content' : garden_diary.content, 
                         'category_name' : garden_diary.category.name, 
                         'category_title': garden_diary.category.category_title,
-                        'flower_users' : [user for user in garden_diary.flower_users.all().values_list('id', flat = True)],
+                        'flower_users' : [user for user in garden_diary.flower_users.all().values_list('username', flat = True)],
                         'flower_count': garden_diary.flower_count, 
                         'shared_date' : garden_diary.shared_date }
         return JsonResponse(response_dict, status=201)
     else :
         return HttpResponseNotAllowed(['POST'])
+
+def get_my_garden_diary(request, mode = None) :
+    if request.method == 'GET' : 
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)  
+        my_garden = Garden.objects.filter(author = request.user)
+        response_dict = list(map(lambda garden : {'id' : garden.id, 
+                                                'content' : garden.content, 
+                                                'category_name' : garden.category.name, 
+                                                'category_title': garden.category.category_title,
+                                                'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
+                                                'flower_count': garden.flower_count, 
+                                                'shared_date' : garden.shared_date } , garden_all_list )) 
+                                                 
+        # if mode == 'LATEST' :
+        response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
+        # else :
+        #     response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
+        return JsonResponse(response_dict, safe=False)
+    else :
+        return HttpResponseNotAllowed(['GET'])
 
     

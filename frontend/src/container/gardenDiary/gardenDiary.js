@@ -2,11 +2,10 @@ import React,{Component} from 'react';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {Grid} from 'semantic-ui-react';
+import {Grid, Menu} from 'semantic-ui-react';
 
 import Garden from '../../component/Garden/Garden';
-import {getAllGardenDiary} from '../../store/actions/gardendiary';
-import { relativeTimeThreshold } from 'moment';
+import {getAllGardenDiary, getGardenDiaryByCategory} from '../../store/actions/gardendiary';
 //import './MyDiaryList.css'
 
 
@@ -23,37 +22,42 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetAllGardenDiary : () => dispatch(getAllGardenDiary()),
-        //onGetGardenDiaryByCategory : (name) => dispatch(getGardenDiaryByCategory(name)),
+        onGetAllGardenDiary : (mode) => dispatch(getAllGardenDiary(mode)),
+        onGetGardenDiaryByCategory : (name) => dispatch(getGardenDiaryByCategory(name)),
     } 
 }
 
 class gardenDiary extends Component{
 
-    componentDidUpdate(prevProps){
+    state = {
+        activeItem : 'Latest'
+    }
 
+    componentDidUpdate(prevProps){
+        
         // if(this.props.mode === 'CALENDAR'  && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
         //     this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
         // }
-        // else if(this.props.mode === 'PERSON' && (this.props.person_id !== prevProps.person_id)){
-        //     this.props.onGetDiaryByPerson(this.props.person_id);
-        // } 
-        // else if (this.props.mode === 'CATEGORY' && (this.props.category_name !== prevProps.category_name)){
-        //     this.props.onGetDiaryByCategory(this.props.category_name);
-        // }
+
     }
 
     componentDidMount(){
 
         switch(this.props.gardenmode){
             case 'ALL':
-                this.props.onGetAllGardenDiary();
+                this.props.onGetAllGardenDiary(this.state.activeItem);
                 break;
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name); 
                 break;
         }
 
+    }
+    handleItemClick = (e, { name }) => {
+        if(this.state.activeItem !== name){
+            this.setState({ activeItem: name })
+            this.props.onGetAllGardenDiary(name);
+        }
     }
  
     render(){
@@ -67,6 +71,7 @@ class gardenDiary extends Component{
                             category_title = {garden.category_title}
                             flower_count = {garden.flower_count}
                             flower_users = {garden.flower_users}
+                            shared_date = {garden.shared_date}
                             rating = {garden.rating}
                             content = {garden.content}
                             emotion_score = {garden.emotion_score}
@@ -76,6 +81,18 @@ class gardenDiary extends Component{
         
         return(
             <div className = 'GardenDiaryList' align = 'center'>
+                <Menu tabular>
+                    <Menu.Item
+                        name='Latest'
+                        active={this.state.activeItem === 'Latest'}
+                        onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                        name='Popular'
+                        active={this.state.activeItem === 'Popular'}
+                        onClick={this.handleItemClick}
+                    />
+                </Menu>
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}

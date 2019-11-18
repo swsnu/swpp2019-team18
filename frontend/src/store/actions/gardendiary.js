@@ -2,6 +2,13 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { push } from 'connected-react-router';
 
+export const setGardenMode2 = (mode) => {
+    return {
+    type : actionTypes.SET_GARDEN_MODE2,
+    mode : mode
+    }
+} 
+
 export const getAllGardenDiary_ = (diaries) => {
     return{
         type : actionTypes.GET_ALL_GARDEN_DIARY,
@@ -9,9 +16,9 @@ export const getAllGardenDiary_ = (diaries) => {
     };
 };
 
-export const getAllGardenDiary = () => {
+export const getAllGardenDiary = (mode) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/garden/')
+        return axios.get('http://localhost:8000/api/garden/'+mode+'/')
         .then((res) => {dispatch(getAllGardenDiary_(res.data))})
     };
 };
@@ -31,3 +38,14 @@ export const giveFlower = (id) => {
     };
 };
 
+export const getGardenDiaryByCategory_ = () => {
+
+}
+
+export const getGardenDiaryByCategory = (name) => {
+    return (dispatch) => {
+        return axios.get('http://localhost:8000/api/garden/category/' + name+'/')
+        .then(res => {dispatch(getGardenDiaryByCategory_(res.data));
+        });
+    };
+}
