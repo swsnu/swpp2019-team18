@@ -7,9 +7,13 @@ import { Route, Switch } from 'react-router-dom';
 import { getMockStore } from '../../test_utils/mocks'
 import { history } from '../../store/store';
 import * as actionCreators from '../../store/actions/login';
+import * as actionTypes from '../../store/actions/actionTypes'
 
 
 const stubInitialState = {
+  login: {
+    status: 'INIT'
+ },
 };
   
 const mockStore = getMockStore(stubInitialState);
@@ -48,6 +52,17 @@ describe('Login', ()=> {
         button.simulate('click')
         expect(spyUserLogin).toBeCalledTimes(1)
     })
+
+    it('correct username and password - login success' , () => {
+      mockStore.dispatch({type : actionTypes.LOGIN_FAILURE})
+      const component = mount(login)
+
+
+      
+      expect(component.find('#loginfail').length).toBe(2)
+
+      
+  })
 
     it('move to signup page' , () => {
         const spyHistoryPush = jest.spyOn(history, 'push')

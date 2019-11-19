@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup/', auth.signup, name='signup'),
     path('signin/', auth.signin, name = 'signin'),
     path('signout/', auth.signout, name='signout'),
+    path('getuser/', auth.get_user_info, name = 'getuser'),
     path('token/', auth.token),
     path('diary/', diary.write_diary, name='write_diary'),
     path('diary/<int:diary_id>/', diary.diary_detail, name='diary_detail'),

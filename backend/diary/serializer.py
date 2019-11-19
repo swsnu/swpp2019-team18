@@ -1,6 +1,6 @@
 def diary_serializer(diary):
-    people = diary.people.all();
-    people_id = [person.id for person in people];
+    people = diary.people.all()
+    people_id = [person.id for person in people]
     diary_dict = {
         'author' : diary.author.id,
         'content' : diary.content,

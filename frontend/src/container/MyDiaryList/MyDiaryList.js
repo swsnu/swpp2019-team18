@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
-import './MyDiaryList.css'
+//import './MyDiaryList.css'
 
 
 const mapStateToProps = state => {
@@ -31,9 +31,9 @@ const mapDispatchToProps = dispatch => {
 class MyDiaryList extends Component{
 
     componentDidUpdate(prevProps){
-        console.log('===============================');
+        /*console.log('===============================');
         console.log(this.props.mode);
-        console.log(this.props.person_id);        
+        console.log(this.props.person_id); */       
         if(this.props.mode === 'CALENDAR'  && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
         }
@@ -46,9 +46,10 @@ class MyDiaryList extends Component{
     }
 
     componentDidMount(){
+        /*
         console.log('===============================');
         console.log(this.props.mode);
-        console.log(this.props.person_id);
+        console.log(this.props.person_id);*/
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
@@ -68,8 +69,8 @@ class MyDiaryList extends Component{
     render(){
                const diaries = this.props.selectedDiary.map(diary => {
             return (
-                    
-                <Diary key = {diary.id}
+        
+                        <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
                             category_title = {diary.category_title}
@@ -82,7 +83,7 @@ class MyDiaryList extends Component{
         });
         
         return(
-            <div className = 'MyDiaryList'>
+            <div className = 'MyDiaryList' align = 'center'>
                 {diaries}
             </div>
         );
