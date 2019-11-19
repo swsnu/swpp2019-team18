@@ -91,31 +91,8 @@ class CategorySelect extends Component {
 
         let component = null;
         if(!this.state.selected){
-            component = 
-            <div>
-            <Header as = 'h1' >What do you want to write about?</Header>
-            <Header as = 'h2'> ...maybe you want to rate something....</Header>
-                <Button.Group id = 'category_type1'>
-                    {Category_type_1.map( (name) => { return <CatergoryButton 
-                    category = {name} 
-                    currentButton = {this.state.currentCategory}
-                    clicks = {() => this.handleToggle(name ,1)} /> })}
-                </Button.Group>
-            <Header as = 'h2'> or you want to wrtie about your daily life..</Header>
-                <Button.Group id = 'category_type1'>
-                    {Category_type_2.map( (name) => { return <CatergoryButton 
-                    category = {name} 
-                    currentButton = {this.state.currentCategory}
-                    clicks = {() => this.handleToggle(name, 2)} /> })}
-            </Button.Group>
-            <Header as = 'h2'>or about relationship </Header>
-                <Button.Group id = 'category_type1'>
-                    {Category_type_3.map( (name) => { return <CatergoryButton 
-                    category = {name} 
-                    currentButton = {this.state.currentCategory}
-                    clicks = {() => this.handleToggle(name, 3)} /> })}
-            </Button.Group>
-            </div>
+    
+            
         }
         else {
             if(this.state.categoryType === 1){
@@ -173,11 +150,33 @@ class CategorySelect extends Component {
                  onClick = {() => this.onClickPrev()}>
                     Prev
                 </Button>
-                <Button className = {!this.state.selected ? 'ui disabled button' : 'ui active button'} style = {{floated : 'right'}} 
-                onClick = {() => this.props.handleSelectCategory(this.state.categoryName, this.state.rating, this.state.categoryTitle)}>
-                    Next
-                </Button>
-                {component}
+                <div>
+            <Header as = 'h1' >What do you want to write about?</Header>
+            <Header as = 'h2'> ...maybe you want to rate something....</Header>
+                <Button.Group compact id = 'category_type1'>
+                    {Category_type_1.map( (name) => { return <CatergoryButton 
+                    category = {name} 
+                    categoryis = {1}
+                    currentButton = {this.state.currentCategory}
+                    clicks = {(name, type) => this.props.handleSelectCategory(name , type)} /> })}
+                </Button.Group>
+            <Header as = 'h2'> or you want to wrtie about your daily life..</Header>
+                <Button.Group compact id = 'category_type2'>
+                    {Category_type_2.map( (name) => { return <CatergoryButton 
+                    category = {name} 
+                    categoryis = {2}
+                    currentButton = {this.state.currentCategory}
+                    clicks = {(name, type) => this.props.handleSelectCategory(name, type)} /> })}
+            </Button.Group>
+            <Header as = 'h2'>or about relationship </Header>
+                <Button.Group compact id = 'category_type3'>
+                    {Category_type_3.map( (name) => { return <CatergoryButton 
+                    category = {name} 
+                    categoryis = {3}
+                    currentButton = {this.state.currentCategory}
+                    clicks = {(name, type) => this.props.handleSelectCategory(name, type)} /> })}
+            </Button.Group>
+            </div>
             </div>
             
 

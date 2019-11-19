@@ -5,10 +5,11 @@ import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Head
 const CategoryButton = (props) => {
     return (
     <Button basic id='diary-category-travel-button' 
+            type="button"
             active={props.currentButton === props.category} 
             color={props.currentButton === props.category ? 'red' : 'blue'} 
             style={{ marginBottom:'1em' }}
-            onClick={props.clicks}>
+            onClick={() => props.clicks(props.category, props.categoryis)}>
             {props.category}
     </Button>)
     

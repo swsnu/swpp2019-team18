@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label, Header, Rating, Confirm, GridColumn } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 import CatergorySelect from '../../component/DiaryWrite/CategorySelect';
+import GetCategoryTitle from '../../component/DiaryWrite/GetCategoryTitle';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
@@ -21,11 +22,13 @@ class NewDiary extends Component {
         allPeople: [],
         buttons : [false, false, false, false],
         currentCategory : '',
+        currentCategoryType : '',
         modalOpen : false,
         messageSuccess : false,
         date : {},
         rating : 0,
-        writeMode : false
+        writeMode : false,
+        titleConfirm : false,
     }
 
     submitHandler = () => {
@@ -60,6 +63,8 @@ class NewDiary extends Component {
         this.setState({people : value});
     }
 
+    
+
     handleToggle = (name) => {
         this.setState({currentCategory : name, categoryName : name});
         console.log(this.state.currentCategory);
@@ -74,12 +79,20 @@ class NewDiary extends Component {
         */
     }
 
-    handleSelectCategory = (name, rating, title) => {
-        this.setState({rating :rating, categoryName : name, categoryTitle : title ,writeMode : true});
+    handleSelectCategory = (name, type) => {
+        this.setState({categoryName : name, selectedCategoryType : type, writeMode : true, currentCategory : name});
+        if (type === 3){
+            this.setState({titleConfirm : true})
+        }
+    }
+
+    handleTitle = (title, rating) => {
+        this.setState({titleConfirm : true, categoryTitle : title, ratinf : rating})
     }
 
     handleMode = () => {
         this.setState({writeMode : false})
+        this.setState({titleConfirm : false})
     }
 
     closeMessage = () => {
@@ -116,41 +129,60 @@ class NewDiary extends Component {
                 {createPeopleSuccessMessage}
                     <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>New Diary</h2></Container>
                 
-                    <Form>
+                    
                         {/*Categories.map( (name) => { return <CatergoryButton category = {name} currentButton = {this.state.currentCategory}
     clicks = {() => this.handleToggle(name)} /> }) */}
                         {/*<Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
                         <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
                         <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
         <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>*/}
-                        
+               
                         {this.state.writeMode ? 
+                        //if writeMode is True, show input components
                         <Container>
                             <Container align = 'left'>
-                        <Button onClick = {() => this.handleMode()}>Change Category</Button>
-                    </Container>
-                    <Container>
-                        <Label as='a' color='blue' image>
-                            {this.state.categoryName}
-                            <Label.Detail>{this.state.categoryTitle}</Label.Detail>
-                        </Label>
-                        </Container>
-                    {optionComponent}
+                                    <Button onClick = {() => this.handleMode()}>Change Category</Button>
+                                </Container>
+                                <Segment>
+                            { this.state.titleConfirm ? 
+                            //If user confirmed title, show label 
+                            <Container>
+                                <Container>
+                                    <Label as='a' color='blue' onClick = {() => this.setState({titleConfirm : false})} image>
+                                        {this.state.categoryName}
+                                        <Label.Detail >{this.state.categoryTitle}</Label.Detail>
+                                    </Label>
+                                   
+                                </Container>
+                            </Container>
+                            //if user did not confirm the title, show category title input form 
+                             :  <GetCategoryTitle 
+                             selectedCategoryType = {this.state.selectedCategoryType}
+                             categoryName = {this.state.categoryName}
+                             handleTitle = {(name, rating) => this.handleTitle(name,rating)}/>}
+                             </Segment>
+            
+                        <Form>
+                            
+                        {optionComponent /* component for tagging people */}
+                        
                             
                         <Form.TextArea 
-                        style={{ minHeight: 400 }}
-                        id='diary-content-input'
-                        label='Your story'
-                        placeholder='Tell me more about you...'
-                        value={this.state.content}
-                        onChange={e => this.setState({content : e.target.value})}
+                            style={{ minHeight: 400 }}
+                            id='diary-content-input'
+                            label='Your story'
+                            placeholder='Tell me more about you...'
+                            value={this.state.content}
+                            onChange={e => this.setState({content : e.target.value})}
                         />
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
 
-                        <AddPeoplePopUp successHandler={this.openMessage}/> </Container> :
-                         <CatergorySelect handleSelectCategory = {(name, rating, title) => this.handleSelectCategory(name,rating, title)}/>}
+                        <AddPeoplePopUp successHandler={this.openMessage}/> </Form>  </Container>
+                        :
+                        //if writeMode is False, user category selecting components should appear
+                         <CatergorySelect handleSelectCategory = {(name, type) => this.handleSelectCategory(name, type)}/>}
                         
-                    </Form>
+                    
                     
                 </Segment>
                 </Grid.Column>
