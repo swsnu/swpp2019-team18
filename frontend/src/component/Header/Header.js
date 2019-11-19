@@ -6,7 +6,7 @@ class Header extends Component {
     render () {
         return (
           
-            <Menu style = {{margin : 0 , height : 50}}>
+            <Menu id = 'header' style = {{margin : 0 , height : 50}}>
                 <Menu.Item>
                     <Logout/>
                 </Menu.Item>

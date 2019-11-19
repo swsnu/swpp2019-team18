@@ -285,7 +285,7 @@ class sidebar extends Component {
                         </Grid.Column>
                         {/* move to create */}
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        <Button align = 'right' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
+                        <Button align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
                         </Grid.Column>
 
                     </Grid>

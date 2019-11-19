@@ -18,14 +18,14 @@ export const loginRequest = (user) => {
     }
 }
 
-export const loginCheckRequest = (user) => {
+export const loginCheckRequest = () => {
     return dispatch => {
         dispatch(login());
         
         return axios.get('/api/getuser/').then(
             response => {
                 dispatch(loginSuccess(response.data.username))
-                //console.log('login success')
+
             }
         )
         .catch(error => {
