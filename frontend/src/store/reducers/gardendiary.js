@@ -4,7 +4,7 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
     garden_diary : [],
 
-    gardenmode : 'MYFLOWER',        //ALL or CATEGORY or MYGARDEN or MYFLOWER
+    gardenmode : 'ALL',        //ALL or CATEGORY or MYGARDEN or MYFLOWER
     category_name : 'PEOPLE',
 }
 

@@ -25,7 +25,7 @@ export const loginCheckRequest = (user) => {
         return axios.get('/api/getuser/').then(
             response => {
                 dispatch(loginSuccess(response.data.username))
-                console.log('login success')
+                //console.log('login success')
             }
         )
         .catch(error => {

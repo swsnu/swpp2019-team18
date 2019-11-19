@@ -78,7 +78,6 @@ class gardenDiary extends Component{
     }
  
     render(){
-            
                const garden = this.props.gardenDiary.map(garden => {
             return (
 

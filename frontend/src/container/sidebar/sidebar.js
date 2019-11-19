@@ -278,7 +278,6 @@ class sidebar extends Component {
                         id = {'day_' + String(d)}
                         onClick={() => {
                             this.onSelectDayChange(d)
-                            console.log(this.props.history.location)
                             this.moveToDiaryPage()
                             }}>
                           {this.month()}  {d}
