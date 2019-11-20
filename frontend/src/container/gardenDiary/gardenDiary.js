@@ -11,9 +11,10 @@ import {getAllGardenDiary, getGardenDiaryByCategory, getMyGardenDiary, getMyFlow
 
 const mapStateToProps = state => {
     return {
-        gardenmode : state.garden.gardenmode,
         gardenDiary : state.garden.garden_diary,
         garden_category_name : state.garden.category_name,
+        gardenmode : state.garden.gardenmode,
+
     }
 
 }
@@ -100,11 +101,13 @@ class gardenDiary extends Component{
             <div className = 'GardenDiaryList' align = 'center'>
                 <Menu tabular>
                     <Menu.Item
+                        id = 'Latest_tab'
                         name='Latest'
                         active={this.state.activeItem === 'Latest'}
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
+                        id = 'Popular_tab'
                         name='Popular'
                         active={this.state.activeItem === 'Popular'}
                         onClick={this.handleItemClick}
