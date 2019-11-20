@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Grid, Button, Form, Container, Segment, Dropdown, Label, Header, Rating, Confirm, GridColumn } from 'semantic-ui-react';
+import { Grid, Button, Form, Container,  Label, Header, Rating, GridColumn } from 'semantic-ui-react';
 
 class GetCategoryTitle extends Component{
 

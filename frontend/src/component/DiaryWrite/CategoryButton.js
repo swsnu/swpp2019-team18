@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
 const CategoryButton = (props) => {
     return (

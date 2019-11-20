@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Label, Header, Rating, Confirm, GridColumn } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -26,7 +26,6 @@ class NewDiary extends Component {
         modalOpen : false,
         messageSuccess : false,
         date : {},
-        rating : 0,
         writeMode : false,
         titleConfirm : false,
     }

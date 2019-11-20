@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Header , Rating, Label} from 'semantic-ui-react';
+import { Button,  Header } from 'semantic-ui-react';
 
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
-import { withRouter } from 'react-router';
 
 class CategorySelect extends Component {
     state = {
