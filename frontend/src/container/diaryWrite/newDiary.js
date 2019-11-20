@@ -20,10 +20,7 @@ class NewDiary extends Component {
         buttons : [false, false, false, false],
         modalOpen : false,
         messageSuccess : false,
-<<<<<<< HEAD
-=======
         date : {},
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     }
 
     submitHandler = () => {
@@ -34,15 +31,9 @@ class NewDiary extends Component {
             people : this.state.people,
             rating : this.state.rating,
             emotionScore : this.state.emotionScore,
-<<<<<<< HEAD
-        };
-        this.props.addDiary(diaryObj);
-        this.props.history.push('/diary')
-=======
             date : this.state.date,
         };
         this.props.addDiary(diaryObj);
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     }
 
     componentDidMount(){
@@ -53,13 +44,10 @@ class NewDiary extends Component {
         if(nextProps.allPeople !== undefined && nextProps.allPeople.length > 0 && prevState.allPeople !== nextProps.allPeople ){
             return {...prevState, allPeople : nextProps.allPeople};
         }
-<<<<<<< HEAD
-=======
         const newDate = {year : nextProps.year, month : nextProps.month, day : nextProps.day};
         if(newDate.year !== undefined && newDate.month !== undefined && newDate.day !== undefined && newDate !== prevState.date){
             return {...prevState, date : newDate};
         }
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         return prevState;
     }
 
@@ -150,12 +138,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         allPeople : state.diary.allPeople,
-<<<<<<< HEAD
-=======
         year : state.diary.year,
         month : state.diary.month,
         day : state.diary.day, 
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     };
 }
 

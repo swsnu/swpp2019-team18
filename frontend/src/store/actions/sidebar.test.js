@@ -43,4 +43,5 @@ describe('sidebar', () => {
         const newState = store.getState();
         expect(newState.diary.day).toBe('27');
     });
+
 })

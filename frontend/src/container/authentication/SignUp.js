@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import * as actionCreators from '../../store/actions/signUp'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import { Button, Form, Grid, Header,  Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header,  Segment , Message} from 'semantic-ui-react'
 
 class SignUp extends Component {
     state = {
@@ -12,20 +12,25 @@ class SignUp extends Component {
         email : '',
         nickname : '',
         email_valid : false,
+        failMessage : '',
+        signUpFail : false,
     }
 
     onClickSignUpButton = () => {
         var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
         if(!this.state.username || !this.state.password || !this.state.email || !this.state.nickname){
-            alert('Fill all the forms.');
-            return;
+            //alert('Fill all the forms.');
+            this.setState({failMessage : 'Fill all the forms.', signUpFail : true})
+            return ;
         }
         else if(!regExp.test(this.state.email)){
-            alert('email form is incorrect - check email');
-            return;
+            //alert('email form is incorrect - check email');
+            this.setState({failMessage : 'email form is incorrect - check email', signUpFail : true})
+            return ;
         }
         else if(this.state.password !== this.state.password_check){
-            alert('check password again');
+            //alert('check password again');
+            this.setState({failMessage : 'check password again', signUpFail : true})
             return;
         }
         
@@ -40,6 +45,11 @@ class SignUp extends Component {
     }
 
     render() {
+        const signupFailMessage = 
+        <Message negative>
+            <Message.Header>Sign-up Failed</Message.Header>
+            <p>{this.state.failMessage}</p>
+        </Message>
         return (
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
@@ -48,6 +58,7 @@ class SignUp extends Component {
                 </Header>
                     <Form size='large'>
                         <Segment stacked>
+                            {this.state.signUpFail ? signupFailMessage : null}
                             <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' 
                                 value={this.state.username} id = "signup-username-input"
                                 onChange={(event) => this.setState({ username : event.target.value })}/>

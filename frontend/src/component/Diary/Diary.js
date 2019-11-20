@@ -5,11 +5,8 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 
-<<<<<<< HEAD
-import {Dropdown, Grid, Label, Divider, Segment} from 'semantic-ui-react';
-=======
 import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
+import './Diary.css'
 
 
 const mapDispatchToProps = dispatch => {
@@ -23,12 +20,9 @@ class Diary extends Component {
     state = {
         showMenu : false,
         changedContent : '',
-<<<<<<< HEAD
-=======
         active : false,
         popupMode : 'INIT',
         content : '',
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
     }
 
     componentDidUpdate(prevProps){
@@ -38,15 +32,6 @@ class Diary extends Component {
     }
 
     onClickMenuShareButton = (id, content) => {
-<<<<<<< HEAD
-
-        let changedContent = prompt('edit content before sharing', content);
-        if(changedContent !== '' && changedContent !== null){
-            this.props.onShareDiary(id, changedContent);
-        }
-
-    }
-=======
         this.setState({popupMode : 'SHARE'})
         this.setState({ active: true })
         this.setState({ content: content })
@@ -58,19 +43,12 @@ class Diary extends Component {
     }
     handleShow = () => this.setState({ active: true })
     handleHide = () => this.setState({ active: false })
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
 
     onClickMenuEditButton = (id) => {
         this.props.history.push('/diary/'+id+'/edit'); 
     }
 
     onClickMenuDeleteButton = (id) => {
-<<<<<<< HEAD
-        let check = window.confirm('Are you sure?') ;
-            if(check){
-                this.props.onDeleteDiary(id);
-            } 
-=======
         this.setState({popupMode : 'DELETE'})
         this.setState({ active: true })
 
@@ -79,7 +57,6 @@ class Diary extends Component {
                 this.props.onDeleteDiary(id);
             } 
             */
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         
     }
 
@@ -92,78 +69,6 @@ class Diary extends Component {
             { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
-<<<<<<< HEAD
-    return (
-        <div className = 'diaryDetail'>
-            
-           <Segment.Group centered="true" style={{ maxWidth: 800}}  >
-           <Segment> 
-            <div className = 'category_name and person tag'>              
-                <Label as='a' color='yellow' tag>{this.props.category_name}</Label>
-            
-            {
-                this.props.person_tag ? 
-                    <Label as='a' color='teal' tag>{this.props.person_tag.map(person => 
-                        person.name
-                    )}</Label>
-                 : null
-            }
-            </div>
-            </Segment>
-            
-            {
-                this.props.category_title ? <div className = 'category_title'>
-                    <Segment>
-                    <Grid columns = {2} >
-                    <Grid.Row >
-                    <Grid.Column textAlign='center' width = {4} color = 'blue'>category_title</Grid.Column>
-                    <Grid.Column width = {12}>{this.props.category_title}</Grid.Column>
-                    </Grid.Row>
-                    </Grid>
-                    </Segment>
-                 </div> : null
-            }
-            
-            
-            {
-                this.props.rating ? <Segment><div className = 'rating'>
-                    rating : {this.props.rating}
-                 </div></Segment> : null
-            }
-           <div className = 'content'>
-            <Segment>
-                <Grid columns = {2}>
-                    <Grid.Row >
-                        <Grid.Column textAlign='center' width = {4} color = 'blue'>content </Grid.Column>
-                        <Grid.Column width = {12}>{this.props.content} </Grid.Column>
-                    
-                </Grid.Row>
-                </Grid>
-            </Segment>
-            </div>
-            <Segment>
-                <Grid columns = {3}>
-                    <Grid.Row>
-           
-                <Grid.Column textAlign = 'center' width = {4} color = 'blue'>emotion_score</Grid.Column>
-                <Grid.Column width = {10}> {this.props.emotion_score}</Grid.Column>
-                <Grid.Column width = {2}>
-                        <Dropdown
-                            className='menu-button'
-                            button
-                            floating
-                            options={options}
-                            trigger={<React.Fragment />}
-                        />
-            </Grid.Column>
-            </Grid.Row>
-            </Grid>
-            </Segment>
-            
-            </Segment.Group> 
-=======
-       const deletePopupActive = this.state.deletePopupActive
-       const sharePopupActive = this.state.sharePopupActive
        const active = this.state.active
        let popup = <Dimmer></Dimmer>
        const deletePopup = 
@@ -180,25 +85,26 @@ class Diary extends Component {
             <Form.TextArea 
                         id='diary-content-input'
                         placeholder='Tell me more about you...'
-                        fluid
                         value={this.state.content}
                         onChange={e => this.setState({content : e.target.value})}
                         />
             </Form>
             <br></br>
-            <Button id = 'share-confirm-button' inverted onClick = {() => this.props.onShareDiary(this.props.id, this.state.content)}>Share</Button>
+            <Button id = 'share-confirm-button' inverted onClick = {() => 
+            {
+                this.props.onShareDiary(this.props.id, this.state.content)
+                this.handleHide()
+            }}>Share</Button>
             <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
         </Dimmer>
-
         if(this.state.popupMode === 'DELETE'){
             popup = deletePopup;
         }
         else if(this.state.popupMode === 'SHARE'){
             popup = shareEditPopup
         }
-
     return (
-        <div className = 'diaryDetail'>
+        <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
@@ -215,7 +121,7 @@ class Diary extends Component {
             }
              </Container>
              <Divider />
-             <Container fluid>
+             <Container textAlign = 'justified'>
              {
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {
@@ -249,12 +155,9 @@ class Diary extends Component {
              </Container>
              {popup}
             </Dimmer.Dimmable>
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
-
             <Divider hidden /> 
         </div>
         );
     }
 }
-
 export default connect(null, mapDispatchToProps)(withRouter(Diary));

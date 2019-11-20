@@ -20,10 +20,7 @@ const addDiaryToReducer = (diaryObj) => {
 export const addDiary = diaryObj => dispatch => {
     return axios.post('http://localhost:8000/api/diary/', diaryObj)
                     .then(response => dispatch(addDiaryToReducer(response.data)))
-<<<<<<< HEAD
-=======
                     .then(() => dispatch(push('/diary')));
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
 }
 
 const editDiaryToReducer = (diaryObj) => {
@@ -32,7 +29,9 @@ const editDiaryToReducer = (diaryObj) => {
 
 export const editDiary =(diaryId, diaryObj) => dispatch => {
     return axios.put('http://localhost:8000/api/diary/' + diaryId + '/', diaryObj)
-                    .then(response => dispatch(editDiaryToReducer(response.data)));
+                    .then(response => dispatch(editDiaryToReducer(response.data)))
+                    .then(() => dispatch(push('/diary')));
+                    
 }
 
 export const returnPeopleToReducer = (allPeople) => {

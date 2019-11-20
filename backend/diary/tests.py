@@ -52,17 +52,25 @@ class UserTestCase(TestCase):
         response = client.get('/api/signout/')
         self.assertEqual(response.status_code, 204)
 
+    def test_getuser(self):
+        client = Client()
+        response = client.get('/api/getuser/')
+        self.assertEqual(response.status_code, 401)
+        response = client.post('/api/signin/', json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+        self.assertEqual(response.status_code, 204)
+        response = client.get('/api/getuser/')
+        self.assertEqual(response.status_code, 200)
+
+
+
+
 class DiaryTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
         User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
         person1 = People.objects.create(user = user1, name = 'FRIEND1')
         category1 = Category.objects.create(name='MOVIE', category_title = 'JOKER', rating = 5)
-<<<<<<< HEAD
-        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100)
-=======
         diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100, created_date='2019-11-03')
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         diary1.people.add(person1)
 
     def test_get_diary_by_id(self) : 
@@ -109,10 +117,7 @@ class DiaryTestForcedLogin(TestCase):
             'emotionScore' : 100, 
             'people' : [1, 2, 3],
             'rating' : 5,
-<<<<<<< HEAD
-=======
             'date' : {'year' : 2019, 'month' : 11, 'day' : 3}
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         }
     
     def setUp(self):
@@ -141,21 +146,13 @@ class DiaryTestForcedLogin(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 404)
-<<<<<<< HEAD
-        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
-=======
         MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100, created_date='2019-11-03')
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         response = self.client.put('/api/diary/2/', json.dumps(edit_data), content_type='application/json')
         self.assertEqual(response.status_code, 403)
 
     def test_delete(self):
         self.client.post('/api/diary/', json.dumps(self.diary_data), content_type='application/json')
-<<<<<<< HEAD
-        MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100)
-=======
         MyDiary.objects.create(author = self.another, content = 'GREAT!', category = self.category, emotion_score = 100, created_date='2019-11-03')
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
 
         response = self.client.delete('/api/diary/1/')
         self.assertEqual(response.status_code, 200)

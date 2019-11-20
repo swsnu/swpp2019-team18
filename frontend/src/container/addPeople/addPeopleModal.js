@@ -30,10 +30,7 @@ class AddPeoplePopUp extends Component {
     createPeopleHandler = (evt) => {
         const peopleObj = {name : this.state.name, information : this.state.information};
         this.props.addPeople(peopleObj);
-<<<<<<< HEAD
-=======
         this.props.successHandler();
->>>>>>> 0eca6cbc8f39ad0a3e5e8d4d20be5dab757e84f7
         this.setState({show : false});
     }
 

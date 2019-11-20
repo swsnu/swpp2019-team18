@@ -12,8 +12,8 @@ class Logout extends Component {
 
     render () {
         return (
-            <div>
-                <Button color = 'grey' fluid size = 'small' id = 'logout'onClick = {() => this.onClickLogoutButton()}>Log out</Button>
+            <div className = 'logout'>
+                <Button color = 'grey' fluid size = 'small' id = 'logout'onClick = {() => this.onClickLogoutButton()}>Sign out</Button>
             </div>
         )
     }

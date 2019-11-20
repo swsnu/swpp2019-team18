@@ -1,8 +1,0 @@
-{
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "python.pythonPath": "/Users/yunsu/anaconda3/envs/swpp/bin/python",
-    "python.linting.pylintArgs": [
-        "--load-plugins=pylint_django"
-    ],
-}
