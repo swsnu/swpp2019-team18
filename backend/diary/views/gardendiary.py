@@ -5,12 +5,14 @@ import json
 from ..models import MyDiary, Category, People, GardenDiary
 from django.contrib.auth import get_user_model
 from ..serializer import diary_serializer
+from ..decorator import is_logged_in
+
 User = get_user_model()
 
+@is_logged_in
 def get_all_garden_diary(request, mode = None) :
     if request.method == 'GET' : 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)  
+        
         garden_all_list = [garden for garden in GardenDiary.objects.all()]
         response_dict = list(map(lambda garden : {'id' : garden.id, 
                                                 'content' : garden.content, 
@@ -28,10 +30,9 @@ def get_all_garden_diary(request, mode = None) :
     else :
         return HttpResponseNotAllowed(['GET'])
 
+@is_logged_in
 def give_flower(request, id = None) :
     if request.method == 'POST' : 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)  
         garden_diary = GardenDiary.objects.get(id=id)
         if request.user in garden_diary.flower_users.all():
             garden_diary.flower_users.remove(request.user)
@@ -48,11 +49,10 @@ def give_flower(request, id = None) :
         return JsonResponse(response_dict, status=201)
     else :
         return HttpResponseNotAllowed(['POST'])
-
+@is_logged_in
 def get_garden_diary_by_category(request, name = None, mode = None) : 
     if request.method == 'GET' : 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)  
+        
         selected_diary = GardenDiary.objects.filter(category__name = name)
         response_dict = list(map(lambda garden : {'id' : garden.id, 
                                                 'content' : garden.content, 
@@ -69,11 +69,10 @@ def get_garden_diary_by_category(request, name = None, mode = None) :
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])
-
+@is_logged_in
 def get_my_garden_diary(request, mode = None) :
     if request.method == 'GET' : 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)  
+
         my_garden = GardenDiary.objects.filter(author = request.user)
         response_dict = list(map(lambda garden : {'id' : garden.id, 
                                                 'author' : garden.author.username,
@@ -100,10 +99,10 @@ def get_my_garden_diary(request, mode = None) :
     else :
         return HttpResponseNotAllowed(['GET', 'DELETE'])
 
+@is_logged_in
 def get_my_flower(request, mode = None) :
     if request.method == 'GET' : 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401)  
+        
         selected_diary = [diary for diary in request.user.flower_users_set.all()]
         response_dict = list(map(lambda garden : {'id' : garden.id, 
                                                 'content' : garden.content, 
