@@ -12,7 +12,7 @@ class GetCategoryTitle extends Component{
     this.setState({ rating, maxRating })
 
     render () {
-        let confirmTitleButton = <Button size = 'mini'onClick = {() => this.props.handleTitle(this.state.categoryTitle, this.state.rating)}>ok!</Button>
+        let confirmTitleButton = <Button size = 'mini' id = 'title-confirm-button' onClick = {() => this.props.handleTitle(this.state.categoryTitle, this.state.rating)}>ok!</Button>
         let getTitleInput = <Form.Input 
                         placeholder='Star Wars'
                         id='diary-category-title-input'
@@ -22,7 +22,7 @@ class GetCategoryTitle extends Component{
         let getTitleComponent = null;
 
         if(this.props.selectedCategoryType === 1){
-                getTitleComponent = <Container>
+                getTitleComponent = <Container id ='category-type-one'>
                     <Grid columns= 'equal'>
                         <Grid.Row>
                             <Grid.Column>
@@ -38,7 +38,7 @@ class GetCategoryTitle extends Component{
                         </Grid.Column>
                         <GridColumn>
                         <Header as ='h4'>How was that {this.props.categoryName} ?</Header>
-                    <Rating icon='star' defaultRating={3} maxRating={5} onRate={this.handleRate} />
+                    <Rating icon='star' id='category-rating' defaultRating={3} maxRating={5} onRate={this.handleRate} />
                         </GridColumn>
                         <Grid.Column>
                         {confirmTitleButton}
@@ -48,7 +48,7 @@ class GetCategoryTitle extends Component{
                 </Container>
             }
         else if (this.props.selectedCategoryType === 2){
-                getTitleComponent = <Container>
+                getTitleComponent = <Container id ='category-type-two'>
                     <Grid columns= 'equal'>
                         <Grid.Row>
                             <Grid.Column>
@@ -71,7 +71,7 @@ class GetCategoryTitle extends Component{
             }
         else if (this.state.selectedCategoryType === 3){
                 
-            }
+        }
 
 
         return getTitleComponent 

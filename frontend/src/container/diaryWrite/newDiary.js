@@ -64,11 +64,11 @@ class NewDiary extends Component {
     }
 
     
-
+   /*
     handleToggle = (name) => {
         this.setState({currentCategory : name, categoryName : name});
         console.log(this.state.currentCategory);
-        /*
+        
         let updateButtons = this.state.buttons.slice();
         updateButtons[btnId] = !updateButtons[btnId]
         if(updateButtons[btnId]){
@@ -76,8 +76,9 @@ class NewDiary extends Component {
             updateButtons[btnId] = true;
         }
         this.setState({buttons : updateButtons, categoryName: name});
-        */
+        
     }
+    */
 
     handleSelectCategory = (name, type) => {
         this.setState({categoryName : name, selectedCategoryType : type, writeMode : true, currentCategory : name});
@@ -141,14 +142,14 @@ class NewDiary extends Component {
                         //if writeMode is True, show input components
                         <Container>
                             <Container align = 'left'>
-                                    <Button onClick = {() => this.handleMode()}>Change Category</Button>
+                                    <Button id = 'change-category-button' onClick = {() => this.handleMode()}>Change Category</Button>
                                 </Container>
                                 <Segment>
                             { this.state.titleConfirm ? 
                             //If user confirmed title, show label 
                             <Container>
                                 <Container>
-                                    <Label as='a' color='blue' onClick = {() => this.setState({titleConfirm : false})} image>
+                                    <Label as='a' color='blue' id = 'category-label' onClick = {() => this.setState({titleConfirm : false})} image>
                                         {this.state.categoryName}
                                         <Label.Detail >{this.state.categoryTitle}</Label.Detail>
                                     </Label>

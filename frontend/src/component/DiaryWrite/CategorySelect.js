@@ -15,29 +15,8 @@ class CategorySelect extends Component {
 
     }
 
-    handleToggle = (name, type) => {
-        this.setState({currentCategory : name, categoryName : name, selected : true, categoryType : type});
-        console.log(this.state.currentCategory);
-        /*
-        let updateButtons = this.state.buttons.slice();
-        updateButtons[btnId] = !updateButtons[btnId]
-        if(updateButtons[btnId]){
-            updateButtons = updateButtons.map(val => false);
-            updateButtons[btnId] = true;
-        }
-        this.setState({buttons : updateButtons, categoryName: name});
-        */
-    }
-
-    onClickPrev = () => {
-        if(this.state.selected){
-            this.setState({currentCategory : '', categoryName : '', selected : false, categoryType : 0});
-        }
-    }
-
     handleRate = (e, { rating, maxRating }) =>
     this.setState({ rating, maxRating })
-
 
     render() {
         const Categories = [
@@ -89,67 +68,10 @@ class CategorySelect extends Component {
         ]
         const Message = 'What do you want to write about?'
 
-        let component = null;
-        if(!this.state.selected){
-    
-            
-        }
-        else {
-            if(this.state.categoryType === 1){
-                component = <div>
-                    <Label as='a' color='blue' image>
-                    {this.state.categoryName}
-                </Label>
-                <Header>What is the title/name of the {this.state.categoryName} ?</Header>
-                    <Form.Input 
-                        fluid
-                        placeholder='Star Wars'
-                        id='diary-category-title-input'
-                        value={this.state.categoryTitle}
-                        onChange={e => this.setState({categoryTitle : e.target.value})}
-                        />
-                <Header>How was that {this.state.categoryName} ?</Header>
-                    <Rating icon='star' defaultRating={3} maxRating={5} onRate={this.handleRate} />
-                    
-                </div>
-            }
-            else if (this.state.categoryType === 2){
-                component = <div>
-                    <Label as='a' color='blue' image>
-                    {this.state.categoryName}
-                </Label>
-                <Header>If You want, tell me brief information about things you did...</Header>
-                    <Form.Input 
-                        fluid
-                        placeholder='Star Wars'
-                        id='diary-category-title-input'
-                        value={this.state.categoryTitle}
-                        onChange={e => this.setState({categoryTitle : e.target.value})}
-                        />
-                </div>
-            }
-            else if (this.state.categoryType === 3){
-                component = <div>
-                    <Label as='a' color='blue' image>
-                    {this.state.categoryName}
-                </Label>
-                <Header>If You want, tell me brief information about things you did...</Header>
-                    <Form.Input 
-                        fluid
-                        placeholder='Star Wars'
-                        id='diary-category-title-input'
-                        value={this.state.categoryTitle}
-                        onChange={e => this.setState({categoryTitle : e.target.value})}
-                        />
-                </div>
-            }
-        }
+       
         return (<div>
             <div> 
-                <Button className = {!this.state.selected ? 'ui disabled button' : 'ui active button'} style = {{floated : 'left'}} 
-                 onClick = {() => this.onClickPrev()}>
-                    Prev
-                </Button>
+        
                 <div>
             <Header as = 'h1' >What do you want to write about?</Header>
             <Header as = 'h2'> ...maybe you want to rate something....</Header>
