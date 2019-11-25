@@ -6,8 +6,8 @@ from ..models import MyDiary, Category, People
 from ..serializer import diary_serializer
 from ..decorator import is_logged_in
 from django.shortcuts import render
+from ..functions import sentiment, key_phrase
 User = get_user_model()
-
 
 @is_logged_in
 def write_diary(request):
@@ -17,20 +17,20 @@ def write_diary(request):
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
-        emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
         raw_date = req_data['date']
         date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
-        print(content)
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
+        emotion_score = sentiment(content)
+        key_phrase = key_phrase(content)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 
                 content=content,
                 category=category,
-                emotion_score=emtion_score,
+                emotion_score=emotion_score,
                 created_date=date,
             )
         for person in tagged_people:
