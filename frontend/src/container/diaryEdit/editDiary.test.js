@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { getMockStore } from '../../test_utils/mocks'
-import EditDiary from './EditDiary';
+import EditDiary from './editDiary';
 import { Switch, Route } from 'react-router-dom';
 import { mount} from 'enzyme';
 import { createBrowserHistory } from 'history';

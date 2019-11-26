@@ -1,20 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { getMockStore } from '../../../test_utils/mocks'
-import DraftEditor from './DraftWithIMG'
-import { Switch, Route } from 'react-router-dom';
-import { mount, shallow } from 'enzyme';
-import * as actionCreators from '../../../store/actions/diary';
-import { createStore, combineReducers } from 'redux';
-import { applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import * as actionTypes from '../../../store/actions/actionTypes';
-import axios from 'axios';
-import { Item } from 'semantic-ui-react';
 
+import DraftEditor from './DraftWithIMG'
+import { mount} from 'enzyme';
 const handleContent = (content) => {
 
 }

@@ -1,12 +1,7 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-import { getMockStore } from '../../test_utils/mocks'
 import GetCategoryTitle from './GetCategoryTitle';
-import { history } from '../../store/store';
-import { Switch, Route } from 'react-router-dom';
-import { mount, shallow } from 'enzyme';
-import axios from 'axios';
+import { mount } from 'enzyme';
+
 
 const mockHandler = () => {
 

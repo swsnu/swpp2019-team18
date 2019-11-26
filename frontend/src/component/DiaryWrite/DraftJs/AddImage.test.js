@@ -1,9 +1,8 @@
 import React from 'react';
 import AddImage from './AddImage'
 import createImagePlugin from 'draft-js-image-plugin';
-import { mount, shallow } from 'enzyme';
+import { mount} from 'enzyme';
 import axios from 'axios'
-import EditDiary from '../../../container/diaryEdit/EditDiary';
 
 
 const imagePlugin = createImagePlugin();

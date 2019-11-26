@@ -1,8 +1,6 @@
 import React from 'react';
 import Content from './Content'
-import { mount, shallow } from 'enzyme';
-import axios from 'axios'
-import { Item } from 'semantic-ui-react';
+import { mount } from 'enzyme';
 
 describe('<Content/>', () => {
     afterEach(() => {
