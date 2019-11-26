@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { addDiary } from '../../store/actions/diary';
+import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 import CatergorySelect from '../../component/DiaryWrite/CategorySelect';
@@ -9,25 +9,26 @@ import GetCategoryTitle from '../../component/DiaryWrite/GetCategoryTitle';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
+import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
+import {ContentFromRaw} from '../../module/ContentFromRaw'
+import axios from 'axios'
 
 class NewDiary extends Component {
     state = {
         content : "",
         categoryName: "",
         categoryTitle : "", 
+        currentCategoryType : '',
         people : [],
         rating : null,
         emotionScore : 0,
-        nameInput: "",
         allPeople: [],
-        buttons : [false, false, false, false],
-        currentCategory : '',
-        currentCategoryType : '',
         modalOpen : false,
         messageSuccess : false,
         date : {},
         writeMode : false,
         titleConfirm : false,
+        selectedFile : null
     }
 
     submitHandler = () => {
@@ -40,11 +41,33 @@ class NewDiary extends Component {
             emotionScore : this.state.emotionScore,
             date : this.state.date,
         };
-        this.props.addDiary(diaryObj);
+        if(this.props.EditMode){
+            this.props.editDiary(this.props.match.params.id, diaryObj);
+        }
+        else {
+            this.props.addDiary(diaryObj);
+        }
     }
 
     componentDidMount(){
         this.props.getPeople();
+        if(this.props.EditMode){
+            this.props.getDiary(this.props.match.params.id);
+            this.setState({writeMode : true, titleConfirm : true})
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if ( this.props.EditMode && (this.props.diary !== prevProps.diary)) {
+            this.setState({
+                content : this.props.diary.content,
+                categoryName : this.props.diary.categoryName,
+                categoryTitle : this.props.diary.categoryTitle,
+                people : this.props.diary.people,
+                rating : this.props.diary.rating,
+                emotionScore : this.props.diary.emotionScore,
+            })
+        }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -61,23 +84,6 @@ class NewDiary extends Component {
     handleChange = (e, { value })=> {
         this.setState({people : value});
     }
-
-    
-   /*
-    handleToggle = (name) => {
-        this.setState({currentCategory : name, categoryName : name});
-        console.log(this.state.currentCategory);
-        
-        let updateButtons = this.state.buttons.slice();
-        updateButtons[btnId] = !updateButtons[btnId]
-        if(updateButtons[btnId]){
-            updateButtons = updateButtons.map(val => false);
-            updateButtons[btnId] = true;
-        }
-        this.setState({buttons : updateButtons, categoryName: name});
-        
-    }
-    */
 
     handleSelectCategory = (name, type) => {
         this.setState({categoryName : name, selectedCategoryType : type, writeMode : true, currentCategory : name});
@@ -103,39 +109,26 @@ class NewDiary extends Component {
     openMessage = () => {
         this.setState({messageSuccess : true});
     }
-
     render() {
 
         let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
         let optionComponent = <Dropdown 
-            style={{margin:'0px 0px 20px 0px'}} 
+            style={{margin:'0px 0px 20px 0px'}}
             onChange={this.handleChange}
             placeholder='People' fluid multiple search selection options={options} />;
 
         let createPeopleSuccessMessage = this.state.messageSuccess ? 
                 <MessagePopup id="create-people-success-message" header="New friend is successfully created" content="You can now add new people" onClose={this.closeMessage}/> :
                  null;
-
-                 console.log(this.state.currentCategory);
         
         return (
 
 
         <Grid className="Grid">
             <Grid.Row columns={2} style={{ margin: '5px' }}>
-                <Grid.Column width={3}></Grid.Column>
-                <Grid.Column width={10}>
                 <Segment>
                 {createPeopleSuccessMessage}
-                    <Container textAlign='center' style={{ margin:'0px 0px 3px 0px' }}><h2>New Diary</h2></Container>
-                
-                    
-                        {/*Categories.map( (name) => { return <CatergoryButton category = {name} currentButton = {this.state.currentCategory}
-    clicks = {() => this.handleToggle(name)} /> }) */}
-                        {/*<Button id='diary-category-movie-button' color={this.state.buttons[0] ? 'red' : 'blue'} active={this.state.buttons[0]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 0, "MOVIE")}>MOVIE</Button>
-                        <Button id='diary-category-people-button' color={this.state.buttons[1] ? 'red' : 'blue'} active={this.state.buttons[1]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 1, "PEOPLE")}>PEOPLE</Button>
-                        <Button id='diary-category-date-button' color={this.state.buttons[2] ? 'red' : 'blue'} active={this.state.buttons[2]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 2, "DATE")}>DATE</Button>
-        <Button id='diary-category-travel-button' color={this.state.buttons[3] ? 'red' : 'blue'} active={this.state.buttons[3]} style={{ marginBottom:'1em' }} onClick={e => this.handleToggle(e, 3, "TRAVEL")}>TRAVEL</Button>*/}
+                    <Container textAlign='center' style={{ margin:'0px 0px 3px 10px' }}><h2>New Diary</h2></Container>
                
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components
@@ -165,27 +158,20 @@ class NewDiary extends Component {
                         <Form>
                             
                         {optionComponent /* component for tagging people */}
+
+                        {/* writing components using Draft.js */}
+                        <Segment>
+                            <MyEditor handleContent = {(content) => this.handleContent(content)} EditMode = {this.props.EditMode} content = {this.state.content}/> 
+                        </Segment>
                         
-                            
-                        <Form.TextArea 
-                            style={{ minHeight: 400 }}
-                            id='diary-content-input'
-                            label='Your story'
-                            placeholder='Tell me more about you...'
-                            value={this.state.content}
-                            onChange={e => this.setState({content : e.target.value})}
-                        />
+
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
 
                         <AddPeoplePopUp successHandler={this.openMessage}/> </Form>  </Container>
                         :
                         //if writeMode is False, user category selecting components should appear
                          <CatergorySelect handleSelectCategory = {(name, type) => this.handleSelectCategory(name, type)}/>}
-                        
-                    
-                    
                 </Segment>
-                </Grid.Column>
             </Grid.Row>
         </Grid>
         )
@@ -195,7 +181,9 @@ class NewDiary extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         addDiary: (diaryObj) => dispatch(addDiary(diaryObj)),
-        getPeople: () => dispatch(getPeople())
+        getPeople: () => dispatch(getPeople()),
+        getDiary: (diaryID) => dispatch(getDiary(diaryID)),
+        editDiary: (diaryId, diaryObj) => dispatch(editDiary(diaryId, diaryObj)),
     }
 }
 
@@ -205,6 +193,7 @@ const mapStateToProps = state => {
         year : state.diary.year,
         month : state.diary.month,
         day : state.diary.day, 
+        diary : state.diary.diary,
     };
 }
 

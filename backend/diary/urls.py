@@ -4,6 +4,7 @@ from .views import people
 from .views import auth
 from .views import get_specific_diary
 from .views import share
+from .views import image
 
 
 urlpatterns = [
@@ -19,4 +20,5 @@ urlpatterns = [
     path('diary/category/<str:name>/', get_specific_diary.get_diary_by_category, name='get_diary_by_category'),
     path('diary/share/<int:id>/', share.share_diary, name='share_diary'),
     path('diary/people/', people.people, name='people'),
+    path('diary/image/',image.image)
 ]

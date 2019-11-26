@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button,  Header } from 'semantic-ui-react';
+import './honeycomb.css'
 
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 
@@ -39,12 +39,12 @@ class CategorySelect extends Component {
         ]
         const Category_type_1 = [
             //category type whose rating can be measured from 0 to 5
-            '🎬MOVIE',
-            '🎮GAME',
-            '🍽RESTAURANT',
-            '📚BOOK',
-            '📺DRAMA',
-            '💃PERFOEMANCE'
+            'MOVIE',
+            'GAME',
+            'RESTAURANT',
+            'BOOK',
+            'DRAMA',
+            'PERFOEMANCE'
         ]
 
         const Category_type_2 = [
@@ -69,37 +69,26 @@ class CategorySelect extends Component {
 
        
         return (<div>
-            <div> 
         
-                <div>
-            <Header as = 'h1' >What do you want to write about?</Header>
-            <Header as = 'h2'> ...maybe you want to rate something....</Header>
-                <Button.Group compact id = 'category_type1'>
+            <ul id="hexGrid">
                     {Category_type_1.map( (name) => { return <CatergoryButton 
                     category = {name} 
                     categoryis = {1}
                     currentButton = {this.state.currentCategory}
                     clicks = {(name, type) => this.props.handleSelectCategory(name , type)} /> })}
-                </Button.Group>
-            <Header as = 'h2'> or you want to wrtie about your daily life..</Header>
-                <Button.Group compact id = 'category_type2'>
+
                     {Category_type_2.map( (name) => { return <CatergoryButton 
                     category = {name} 
                     categoryis = {2}
                     currentButton = {this.state.currentCategory}
                     clicks = {(name, type) => this.props.handleSelectCategory(name, type)} /> })}
-            </Button.Group>
-            <Header as = 'h2'>or about relationship </Header>
-                <Button.Group compact id = 'category_type3'>
+
                     {Category_type_3.map( (name) => { return <CatergoryButton 
                     category = {name} 
                     categoryis = {3}
                     currentButton = {this.state.currentCategory}
                     clicks = {(name, type) => this.props.handleSelectCategory(name, type)} /> })}
-            </Button.Group>
-            </div>
-            </div>
-            
+            </ul>
 
         </div>)
     }

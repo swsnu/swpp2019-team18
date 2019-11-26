@@ -4,7 +4,7 @@ import './App.css';
 import Login from './container/authentication/Login'
 import SignUp from './container/authentication/SignUp'
 import NewDiary from './container/diaryWrite/newDiary'
-import EditDiary from './container/diaryEdit/editDiary';
+import EditDiary from './container/diaryEdit/EditDiaryv2';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
 import {withRouter} from 'react-router';
@@ -52,7 +52,7 @@ class App extends Component {
               {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
-            <div className = 'main' style={{ position : 'absolute', marginLeft : 265}}>
+            <div className = 'main' style={{ position : 'absolute', marginLeft : 280, marginTop : 50}}>
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>

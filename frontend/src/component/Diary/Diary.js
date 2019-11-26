@@ -4,6 +4,7 @@ import {withRouter} from 'react-router';
 
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
+import Content from './Content'
 
 import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
 import './Diary.css'
@@ -123,12 +124,16 @@ class Diary extends Component {
             }
              </Container>
              <Divider />
-             <Container textAlign = 'justified'>
+             <Container>
+    
+                {/* showing content */}
+                {this.props.content ?  <Content content = {this.props.content}/> : null}
              {
+                 /*
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {
                 return (<span>{line}<br/></span>)
-                }) : null
+                }) : null */
             }
              </Container>
              <Divider />
