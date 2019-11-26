@@ -40,7 +40,6 @@ export default class ImageAdd extends Component {
         open: false,
       });
     }
-
     this.preventNextClose = false;
   };
 
@@ -81,8 +80,9 @@ export default class ImageAdd extends Component {
     console.log(styles.addImagePopover)
 
     return (
-      <span className='RichEditor-styleButton'>
-        <label className='RichEditor-styleButton' icon 
+      <span className='RichEditor-styleButton' >
+        <label 
+                  id = 'add-image'
           onMouseUp={this.openPopover}>
             <Icon name = 'file image'/>
           </label>
@@ -90,9 +90,10 @@ export default class ImageAdd extends Component {
           className={popoverClassName}
           onClick={this.onPopoverClick}
         >
-          <input type = 'file' accept = 'image/*' onChange={e => this.handleImageUpload(e)}/>
+          <input type = 'file' id = 'upload-file-input' accept = 'image/*' onChange={e => this.handleImageUpload(e)}/>
           <input
             type="text"
+            id = "url-input"
             placeholder="Paste the image url …"
             onChange={this.changeUrl}
             value={this.state.url}
@@ -100,6 +101,7 @@ export default class ImageAdd extends Component {
           
           <button
             type="button"
+            id = 'add-button'
             onClick={this.addImage}
           >
             Add

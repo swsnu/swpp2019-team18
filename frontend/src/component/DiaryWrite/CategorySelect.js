@@ -72,18 +72,21 @@ class CategorySelect extends Component {
         
             <ul id="hexGrid">
                     {Category_type_1.map( (name) => { return <CatergoryButton 
+                    key = {name}
                     category = {name} 
                     categoryis = {1}
                     currentButton = {this.state.currentCategory}
                     clicks = {(name, type) => this.props.handleSelectCategory(name , type)} /> })}
 
-                    {Category_type_2.map( (name) => { return <CatergoryButton 
+                    {Category_type_2.map( (name) => { return <CatergoryButton
+                    key = {name}
                     category = {name} 
                     categoryis = {2}
                     currentButton = {this.state.currentCategory}
                     clicks = {(name, type) => this.props.handleSelectCategory(name, type)} /> })}
 
                     {Category_type_3.map( (name) => { return <CatergoryButton 
+                    key = {name}
                     category = {name} 
                     categoryis = {3}
                     currentButton = {this.state.currentCategory}

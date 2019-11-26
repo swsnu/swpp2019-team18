@@ -7,9 +7,8 @@ const CategoryButton = (props) => {
         <li className="hex">
                     <div className="hexIn">
                     <button className="hexLink"
+                    id = {'diary-category-button-'+String(props.categoryis)}
                     type="button"
-                    key = {props.category}
-                    active={props.currentButton === props.category} 
                     style={{ marginBottom:'1em' }}
                     onClick={() => props.clicks(props.category, props.categoryis)}>
                         {props.category}

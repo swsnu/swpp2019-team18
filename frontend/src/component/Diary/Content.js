@@ -22,7 +22,7 @@ class Content extends Component {
     
     return (
       <div id = 'diary-content'>
-        { isEditorState ? <Editor editorState={editorState} plugins={plugins} readOnly={true} /> : this.props.content}
+        { isEditorState ? <Editor id = 'editor' editorState={editorState} plugins={plugins} readOnly={true} /> : this.props.content}
       </div>
     );
   }

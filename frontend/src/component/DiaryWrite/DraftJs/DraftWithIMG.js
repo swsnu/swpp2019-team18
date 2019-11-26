@@ -1,11 +1,9 @@
 import React from 'react'
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
-import {Icon} from 'semantic-ui-react'
 import Editor from 'draft-js-plugins-editor';
 import createImagePlugin from 'draft-js-image-plugin';
 import ImageAdd from './AddImage'
 import './RichEditor.css'
-import contentFromRaw from '../../../module/ContentFromRaw'
 
 const imagePlugin = createImagePlugin();
 const plugins = [imagePlugin];
@@ -32,17 +30,13 @@ class RichEditorExample extends React.Component {
   componentDidUpdate(prevProps) {
     console.log(this.state.count)
     if ( this.props.EditMode &&  (this.props.content !== prevProps.content) && this.state.count < 2) {
-    
         this.setState({
           editorState : EditorState.push(this.state.editorState, convertFromRaw(JSON.parse(this.props.content))),
           count : this.state.count+1
         })
-        
         console.log('set')
-      
-        
     }
-}
+  }
   _handleKeyCommand(command, editorState) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -159,7 +153,7 @@ class StyleButton extends React.Component {
       className += ' RichEditor-activeButton';
     }
     return (
-      <span className={className} onMouseDown={this.onToggle}>
+      <span className={className} onClick={this.onToggle}>
         {this.props.label}
       </span>
     );
@@ -187,7 +181,7 @@ const BlockStyleControls = (props) => {
   return (
     <div className="RichEditor-controls">
       {BLOCK_TYPES.map((type) =>
-        <StyleButton
+        <StyleButton  
           key={type.label}
           active={type.style === blockType}
           label={type.label}
