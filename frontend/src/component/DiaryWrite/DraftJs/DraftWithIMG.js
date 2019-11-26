@@ -2,7 +2,7 @@ import React from 'react'
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createImagePlugin from 'draft-js-image-plugin';
-import ImageAdd from './AddImage'
+import ImageAdd from './ImageAdd'
 import './RichEditor.css'
 
 const imagePlugin = createImagePlugin();

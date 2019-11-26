@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
 import './honeycomb.css'
 
 const CategoryButton = (props) => {

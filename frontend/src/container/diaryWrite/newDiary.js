@@ -3,15 +3,12 @@ import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semanti
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
-import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 import CatergorySelect from '../../component/DiaryWrite/CategorySelect';
 import GetCategoryTitle from '../../component/DiaryWrite/GetCategoryTitle';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
-import {ContentFromRaw} from '../../module/ContentFromRaw'
-import axios from 'axios'
 
 class NewDiary extends Component {
     state = {

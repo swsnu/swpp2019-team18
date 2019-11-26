@@ -1,5 +1,5 @@
 import React from 'react';
-import AddImage from './AddImage'
+import ImageAdd from './ImageAdd'
 import createImagePlugin from 'draft-js-image-plugin';
 import { mount} from 'enzyme';
 import axios from 'axios'
@@ -13,7 +13,7 @@ const mockOnChange = (editorState) => {
 const mockModifier = (editorState) => {
 }
 
-describe('<AddImage/>', () => {
+describe('<ImageAdd/>', () => {
     afterEach(() => {
         afterEach(() => { jest.clearAllMocks() });
     })
@@ -22,7 +22,7 @@ describe('<AddImage/>', () => {
         const component = mount(
             <div>
             <span id = 'mock-click-page'></span>
-            <AddImage editorState={''}
+            <ImageAdd editorState={''}
             onChange={mockOnChange}
             modifier={mockModifier}/>
             </div>)
@@ -38,7 +38,7 @@ describe('<AddImage/>', () => {
 
     it('should past url', () => {
         const component = mount(
-            <AddImage editorState={''}
+            <ImageAdd editorState={''}
             onChange={mockOnChange}
             modifier={mockModifier}/>)
 
@@ -54,7 +54,7 @@ describe('<AddImage/>', () => {
     })
 
     it('should handle file upload', () => {
-        const component = mount(<AddImage editorState={''}
+        const component = mount(<ImageAdd editorState={''}
             onChange={mockOnChange}
             modifier={mockModifier}/>)
 

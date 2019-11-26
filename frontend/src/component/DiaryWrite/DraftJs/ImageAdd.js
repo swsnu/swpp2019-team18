@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Icon, Container} from 'semantic-ui-react'
+import { Icon} from 'semantic-ui-react'
 import styles from './buttonStyles.css';
 import axios from 'axios'
 
@@ -73,9 +73,6 @@ export default class ImageAdd extends Component {
     const popoverClassName = this.state.open ?
       'addImagePopover' :
       'addImageClosedPopover';
-    const buttonClassName = this.state.open ?
-      'addImagePressedButton' :
-      'addImageButton';
 
     console.log(styles.addImagePopover)
 
