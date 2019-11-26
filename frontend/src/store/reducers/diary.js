@@ -74,9 +74,16 @@ const reducer = (state=initialState, action) => {
                 }
             return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
         case actionTypes.SEARCH_PEOPLE:
-                return {...state, allPeople: action.allPeople};
+            const items = action.allPeople.map((data) => data.name);
+            return {...state, allPeople: action.allPeople, items : items};
         case actionTypes.ADD_PEOPLE:
             return {...state};
+        case actionTypes.GET_CATEGORY:
+            return {...state, items : action.data};
+        case actionTypes.GET_STATCAL:
+            return {...state, items : action.data};
+        case actionTypes.GET_STATISTICS:
+            return {...state, graph_data : action.graph_data};
         default:
             return {...state};
     }

@@ -13,6 +13,9 @@ export const GET_DIARY = "GET_DIARY";
 export const EDIT_DIARY = "EDIT_DIARY";
 export const SEARCH_PEOPLE = "SEARCH_PEOPLE";
 export const ADD_PEOPLE = "ADD_PEOPLE";
+export const GET_CATEGORY = "GET_CATEGORY";
+export const GET_STATCAL = "GET_STATCAL";
+export const GET_STATISTICS = "GET_STATISTICS";
 
 export const SET_MODE = "SET_MODE"
 export const SET_YEAR = "SET_YEAR"
@@ -26,3 +29,5 @@ export const GET_DIARY_BY_PERSON = 'GET_DIARY_BY_PERSON'
 export const GET_DIARY_BY_CATEGORY = 'GET_DIARY_BY_CATEGORY'
 export const DELETE_DIARY = 'DELETE_DIARY'
 export const SHARE_DIARY = 'SHARE_DIARY'
+
+

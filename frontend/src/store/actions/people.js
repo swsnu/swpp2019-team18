@@ -7,6 +7,7 @@ export const returnPeopleToReducer = (allPeople) => {
 }
 
 export const getPeople = () => dispatch => {
+    console.log("[getPeople axios call]");
     return axios.get('http://localhost:8000/api/diary/people/')
                 .then(response => dispatch(returnPeopleToReducer(response.data)));
 }

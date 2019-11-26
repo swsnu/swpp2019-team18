@@ -15,6 +15,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import PrivateRoute from './PrivateRoute'
 import {connect} from 'react-redux'
 import * as actionCreators from './store/actions/login'
+import StatDashBoard from './container/stat/StatDashBoard';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -40,12 +41,13 @@ class App extends Component {
     <ConnectedRouter history={this.props.history}>
        
       <div>
-        {this.props.currentUser ? <Header /> : null}
+        {this.props.currentUser ? <Header history={this.props.history}/> : null}
       <div style={{clear:"both"}}></div>
        <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
+          <Route path='/stat' exact component={StatDashBoard}/>
             
           <div style={{ float : 'left'}}>
             <div className = 'sidebar'  >

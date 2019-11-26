@@ -9,7 +9,6 @@ import { getPeople } from '../../store/actions/people'
 import {Menu, Grid, Dropdown, Button, Container} from 'semantic-ui-react'
 
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),

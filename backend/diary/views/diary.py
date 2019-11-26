@@ -12,7 +12,6 @@ User = get_user_model()
 @is_logged_in
 def write_diary(request):
     if request.method == 'POST':
-        print("POST")
         req_data = json.loads(request.body.decode())
         content = req_data['content']
         category_name = req_data['categoryName']
@@ -24,7 +23,7 @@ def write_diary(request):
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
         emotion_score = sentiment(content)
-        key_phrase = key_phrase(content)
+        key_phr = key_phrase(content)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 
