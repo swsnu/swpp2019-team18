@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Container, Image} from 'semantic-ui-react'
+import {Menu} from 'semantic-ui-react'
 import Logout from '../Logout'
 import './Header.css'
 import Garden from '../Garden'

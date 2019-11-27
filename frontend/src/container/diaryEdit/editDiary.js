@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import NewDiary from '../diaryWrite/newDiary'
 
 class EditDiary extends Component {
-<<<<<<< HEAD
-=======
+
     state = {
         content : "",
         categoryName: "",
@@ -88,7 +87,6 @@ class EditDiary extends Component {
         //this.props.history.push('/diary');
     }
 
->>>>>>> calendar
     render() {
         return <NewDiary EditMode = {true}/>
     }

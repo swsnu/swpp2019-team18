@@ -230,7 +230,6 @@ class PeopleTest(TestCase):
         response = self.client.put('/api/diary/people/', edit_data)
         self.assertEqual(response.status_code, 405)
 
-<<<<<<< HEAD
 class ImageTest(TestCase):
     def setUp(self):
         User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
@@ -247,7 +246,6 @@ class ImageTest(TestCase):
         tmp_file.seek(0)
 
         response = client.post('/api/diary/image/', {'image': tmp_file}, format='multipart')
-=======
 class GardenTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model

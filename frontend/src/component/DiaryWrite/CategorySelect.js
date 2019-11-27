@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import './honeycombb.css'
 import './honeycomb.css'
 
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';

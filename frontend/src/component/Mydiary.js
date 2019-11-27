@@ -3,7 +3,6 @@ import * as actionCreators from '../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
 import { Button, Image, Icon } from 'semantic-ui-react'
-import pencil from '../diary3.png'
 
 class Mydiary extends Component {
     onClickLogoutButton = () => {

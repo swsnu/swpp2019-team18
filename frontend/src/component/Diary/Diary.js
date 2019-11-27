@@ -127,17 +127,7 @@ class Diary extends Component {
     
                 {/* showing content */}
                 {this.props.content ?  <Content content = {this.props.content}/> : null}
-             {
-<<<<<<< HEAD
-                 /*
-                this.props.content ? 
-                this.props.content.split('\n').map( line => {
-                return (<span>{line}<br/></span>)
-                }) : null */
-=======
-                this.props.content 
->>>>>>> calendar
-            }
+             
              </Container>
              <Divider />
              <Container>

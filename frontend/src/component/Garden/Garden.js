@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => {
         onGiveFlower : (id) => dispatch(giveFlower(id)),
         onDeleteGardenDiary : (id) => dispatch(deleteGardenDiary(id)),
 
-        
+
     }
 }
 
@@ -128,4 +128,4 @@ class Garden extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Garden));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Garden))
