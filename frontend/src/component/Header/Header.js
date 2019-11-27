@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Menu, Container, Image} from 'semantic-ui-react'
 import Logout from '../Logout'
-import Test from '../test'
 import Garden from '../Garden'
 import Mydiary from '../Mydiary'
 import Statistic from '../Statistic'
