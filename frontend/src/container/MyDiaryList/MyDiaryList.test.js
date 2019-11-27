@@ -7,7 +7,8 @@ import { Route, Switch } from 'react-router-dom';
 import MyDiaryList from './MyDiaryList';
 import { history } from '../../store/store'
 
- import * as actionCreators from '../../store/actions/previousdiary';
+import * as actionCreators from '../../store/actions/previousdiary';
+import store from '../../store/store';
 
  jest.mock('../../component/Diary/Diary', () => {
     return jest.fn(props => {
@@ -34,14 +35,16 @@ const stubInitialState = {
                     'created_date': null,
                     'modified_date': null
                 }],
-    mode : 'PERSON'           //'PERSON' or 'CATEGORY'
+    mode : 'PERSON',           //'PERSON' or 'CATEGORY'
+    day :1
 }
 
 const mockStore = getMockStore(stubInitialState);
 
 describe('<MyDiaryList />', () => {
-    let mydiary;
+    let mydiary, spyGetByDate, spyGetByPerson, spyGetByCategory;
     beforeEach(()=> {
+     
         mydiary = (
             <Provider store={mockStore}>
               <ConnectedRouter history={history}>
@@ -51,11 +54,11 @@ describe('<MyDiaryList />', () => {
               </ConnectedRouter>
             </Provider>
           );
-          jest.spyOn(actionCreators, 'getDiaryByDate')
+          spyGetByDate = jest.spyOn(actionCreators, 'getDiaryByDate')
           .mockImplementation(()=> {return dispatch => {}; });
-          jest.spyOn(actionCreators, 'getDiaryByPerson')
+          spyGetByPerson = jest.spyOn(actionCreators, 'getDiaryByPerson')
           .mockImplementation(()=> {return dispatch => {}; });
-          jest.spyOn(actionCreators, 'getDiaryByCategory')
+          spyGetByCategory = jest.spyOn(actionCreators, 'getDiaryByCategory')
           .mockImplementation(()=> {return dispatch => {}; });
           
     });
@@ -82,7 +85,7 @@ describe('<MyDiaryList />', () => {
             </ConnectedRouter>
           </Provider>
         );
-        expect(actionCreators.getDiaryByDate).toHaveBeenCalledTimes(1);
+        expect(spyGetByDate).toHaveBeenCalledTimes(1);
     });
     it(`mode CATEGORY should call onGetDiaryByCategory`, () => {
         const mockInitialStore = getMockStore({...stubInitialState, mode : 'CATEGORY' });
@@ -95,8 +98,37 @@ describe('<MyDiaryList />', () => {
             </ConnectedRouter>
           </Provider>
         );
-        expect(actionCreators.getDiaryByCategory).toHaveBeenCalledTimes(1);
+        expect(spyGetByCategory).toHaveBeenCalledTimes(1);
     });
+    // it("componentDidUpdate should update ", () => {
+    //   let mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR' });
+    //   let component = mount(
+    //     <Provider store={mockInitialStore}>
+    //         <ConnectedRouter history={history}>
+    //         <Switch>
+    //           <Route path='/' exact component={MyDiaryList} />
+    //         </Switch>
+    //         </ConnectedRouter>
+    //       </Provider>
+    //   );
+    //   component.setProps({day : 2});
+    //   component.setProps({day : 3});
 
+    //   // mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR', day : 2 });
+    //   // component = mount(
+    //   //   <Provider store={mockInitialStore}>
+    //   //       <ConnectedRouter history={history}>
+    //   //       <Switch>
+    //   //         <Route path='/' exact component={MyDiaryList} />
+    //   //       </Switch>
+    //   //       </ConnectedRouter>
+    //   //     </Provider>
+    //   // );
+    //   expect(spyGetByDate).toHaveBeenCalledTimes(2);
+
+     
+    // });
+
+   
 
 })

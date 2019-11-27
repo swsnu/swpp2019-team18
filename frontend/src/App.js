@@ -7,6 +7,7 @@ import NewDiary from './container/diaryWrite/newDiary'
 import EditDiary from './container/diaryEdit/editDiary';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
+import gardenDiary from './container/gardenDiary/gardenDiary';
 import {withRouter} from 'react-router';
 import Header from './component/Header/Header'
 
@@ -33,29 +34,35 @@ class App extends Component {
     axios.get('/api/token/');
     this.props.loginCheck();
   }
-  
+
+
   render(){
-    console.log(this.props.currentUser)
   return (
     <ConnectedRouter history={this.props.history}>
        
       <div>
-        {this.props.currentUser ? <Header /> : null}
       <div style={{clear:"both"}}></div>
        <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-            
+          
           <div style={{ float : 'left'}}>
+            <div className = 'header_'>
+              {this.props.currentUser ? <Header /> : null}
+            </div>
             <div className = 'sidebar'  >
               {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
-            <div className = 'main' style={{ marginLeft: 265}}>
+            <div className = 'main' style={{ marginLeft: 265, marginTop : 50}}>
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
+            </div>
+            <div className = 'garden' style={{ marginLeft: 300}}>
+              <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
+
             </div>
           </div>
         </Switch>    

@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import './sidebar.css';
 import { connect } from 'react-redux';
-import { setMode , setMonth, setYear, setDay, setCategory, setPersonId } from '../../store/actions/sidabar';
+import { setMode , setMonth, setYear, setDay, setCategory, setPersonId, setGardenMode, setGardenCategory } from '../../store/actions/sidabar';
 import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
 import {Menu, Grid, Dropdown, Button, Container} from 'semantic-ui-react'
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 
 
@@ -18,6 +22,8 @@ const mapDispatchToProps = (dispatch) => {
         updateDay : (value) => dispatch(setDay(value)),
         updateCategory : (value) => dispatch(setCategory(value)),
         updatePersonId : (value) => dispatch(setPersonId(value)),
+        updateGardenMode : (value) => dispatch(setGardenMode(value)),
+        updateGardenCategory : (value) => dispatch(setGardenCategory(value)),
         getPeople : () => dispatch(getPeople())
     }
 }
@@ -32,11 +38,6 @@ const mapStateToProps = state => {
 
 class sidebar extends Component {
 
-    /*componentWillMount() {
-        this.props.updateYear(this.year())
-        this.props.updateMonth(this.monthNum())
-        this.props.updateDay(this.currentDay())
-    }*/
     componentDidMount(){
         this.props.getPeople();
         this.props.updateYear(this.year())
@@ -54,15 +55,15 @@ class sidebar extends Component {
 
     state = {
         dateContext : moment(),
+        startDayOfWeek : moment().startOf('isoWeek'),
         mode : "CALENDAR",
+        gardenMode : "ALL",
         monthPopup: false,
         yearPopup: false,
         categories : ['MOVIE','PEOPLE','DATE','TRAVEL'],
         selectedCategory : '',
         allPeople : [],
-        selectedPersonId : '',
-        pagemode : '', /*DIARY or GARDEN*/
-    
+        selectedPersonId : '',    
     }
 
     year = () => {
@@ -93,9 +94,7 @@ class sidebar extends Component {
     }
 
     moveToDiaryPage = () => {
-        /*if(this.props.history.location.pathname === '/diary/create'){*/
-            this.props.history.push('/diary')
-        /*}*/
+        this.props.history.push('/diary')
     }
 
     //mapping months to the list for dropdown optionso
@@ -127,42 +126,10 @@ class sidebar extends Component {
         this.setMonth(data);
     }
 
-   /* onChangeMonth = () => {
-        this.setState({
-            monthPopup : !this.state.monthPopup,
-            yearPopup : this.state.yearPopup && !this.state.yearPopup
-        });
-    }
-
-     selectListMonth = (props) => {
-        let popup = props.data.map((data) => {
-            return(
-                <div key={data}>
-                    <div onClick = {()=>this.onSelectMonthChange(data)}>
-                        {data}
-                    </div>                    
-                </div>
-            )
-        })
-
-        return (
-            <div className="month_popup">
-                {popup}
-            </div>
-        )
-    } */
 
     monthNav = () => {       
         return(
         <Dropdown id = 'label_month' inline options = {this.months} value = {this.monthFull()}/>
-            
-          /*  <span className = "label_month"
-                onClick = {() => {this.onChangeMonth(this.month())}}>
-                {this.monthFull()}
-                {this.state.monthPopup && 
-                    <this.selectListMonth data={this.months}/>
-                }                
-            </span> */
         )
     }
 
@@ -181,42 +148,9 @@ class sidebar extends Component {
         this.setYear(data);
     }
 
-    /*onChangeYear = () => {
-        this.setState({
-            yearPopup: !this.state.yearPopup,
-            monthPopup : this.state.monthPopup && !this.state.monthPopup 
-        });
-    } */
-
-    /*selectListYear = (props) => {
-        let popup = props.data.map((data) => {
-            return(
-                <div key={data}>
-                    <div onClick = {()=>this.onSelectYearChange(data)}>
-                        {data}
-                    </div>                    
-                </div>
-            )
-        })
-
-        return (
-            <div className="year_popup">
-                {popup}
-            </div>
-        )
-    } */
-
-    
     yearNav = () => {
         return(
             <Dropdown id = 'label_year' inline options = {this.years} value = {this.year()} />
-            /* <span className = "label_year"
-                onClick = {() => {this.onChangeYear()}}>
-                {this.year()}
-                {this.state.yearPopup && 
-                    <this.selectListYear data={this.years}/>
-                }                
-            </span> */
         )
     }    
 
@@ -230,6 +164,8 @@ class sidebar extends Component {
     }
 
     onSelectDayChange = (d) => {
+        console.log('------------------------------')
+        console.log(d)
         this.setDay(d);
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
@@ -253,13 +189,44 @@ class sidebar extends Component {
         this.props.updatePersonId(personId);
     }
 
+    onSelectGardenModeChange = (gardenMode) => {
+        this.setState({gardenMode : gardenMode});
+        this.props.updateGardenMode(gardenMode);
+    }
+
+    onSelectGardenCategory = (category) => {
+        this.props.updateGardenMode('CATEGORY');
+        this.props.updateGardenCategory(category);
+        this.setState({gardenMode : 'CATEGORY'});
+    }
+
+    handleChange = (date) => {
+        const selectedDay = moment(date)
+        const d = selectedDay.format('D')
+        let startDay = Object.assign({}, selectedDay);
+        startDay = moment(selectedDay).startOf('isoWeek')
+        this.onSelectDayChange(d)
+        this.setState({
+            dateContext : selectedDay,
+            startDayOfWeek : startDay
+        })
+    }
+
+    getStartDayOfWeek = () => {
+        let dateContext = Object.assign({}, this.state.dateContext);
+        dateContext = moment(dateContext).startOf('isoWeek')
+        return {
+            dateContext
+        }
+    }
+
     calendarItem = () => {
-        const calendarList = [];
+        /*const calendarList = [];
         calendarList.push(
             <Menu.Item  align = 'center' key= 'navigation'>
                 <Grid columns = 'equal' >
                         <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
-                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}>  <this.yearNav/></Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.yearNav/></Grid.Column>
                 </Grid>
             </Menu.Item>
       
@@ -273,30 +240,87 @@ class sidebar extends Component {
                 >
                     <Grid columns = 'equal'  >
                         <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
-                        {/* select day */}
                         <Menu.Item fitted='horizontally'
                         id = {'day_' + String(d)}
                         onClick={() => {
                             this.onSelectDayChange(d)
-                            console.log(this.props.history.location)
                             this.moveToDiaryPage()
                             }}>
                           {this.month()}  {d}
                         </Menu.Item>
                         </Grid.Column>
-                        {/* move to create */}
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
                         <Button align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
                         </Grid.Column>
 
                     </Grid>
-                    {/*<Link to="/diary"><div key={d} className={className} onClick={() => {this.onSelectDayChange(d)}}>
-                    {this.month()}  {d} <div align = "right"><Link to="/diary/create" align="right">+</Link></div>
-            </div></Link> */}
                 </Menu.Item>
                 
             )
+        }*/
+        const calendarList = [];
+        const ExampleCustomInput = ({ value, onClick }) => (
+            <Button align = 'center' color = 'blue' className="example-custom-input" onClick={onClick}>
+              {value}
+            </Button>
+          );
+        /*calendarList.push(
+            <Menu.Item  align = 'center' key= 'navigation'>
+                <Grid columns = 'equal' >
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.yearNav/></Grid.Column>
+                </Grid>
+            </Menu.Item>
+      
+        )*/
+        calendarList.push(
+
+            <div align = 'left' style = {{padding : '10', zIndex : '9999' }}>
+            <DatePicker
+            selected = {this.state.dateContext.toDate()}
+            onChange = {this.handleChange}
+            peekNextMonth
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode = 'select'
+            customInput={<ExampleCustomInput />}
+        /></div>
+        
+        )
+        var day = this.state.startDayOfWeek
+        console.log(this.state.startDayOfWeek.format('D'))
+        console.log(this.currentDay())
+        for(let d = 1; d <= 7; d++){
+            let className = (this.currentDay() == day.format('D') ? "current_day" : "day");
+            let D = day.format('D')
+            calendarList.push(
+                <Menu.Item style = {{padding :'10'}} key = {day.format("MMM") + '_' + day.format("D") }
+                name = {day.format("MM") + '' + day.format("D") }
+                active = {className === 'current_day'}
+                >
+                    <Grid columns = 'equal'  >
+                        <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
+                        <Menu.Item fitted='horizontally'
+                        style = {{color : (d == '7' ? 'red' : d == '6' ? 'blue' : 'black')}}
+                        id = {'day_' + day.format('D')}
+                        onClick={() => {
+                            this.onSelectDayChange(D)
+                            this.moveToDiaryPage()
+                            }}>
+                        {day.format("MMM")}  {day.format('D')} ({day.format("ddd")})
+                        </Menu.Item>
+                        </Grid.Column>
+                        <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                        <Button basic align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} icon='plus' />
+                        </Grid.Column>
+
+                    </Grid>
+                </Menu.Item>
+                
+            )
+            day = day.clone().add(1, 'd');
         }
+        
 
         return calendarList;
 
@@ -367,6 +391,21 @@ class sidebar extends Component {
         return categoryList;
     }
 
+    gardenCategoryItem = () => {
+        const gardenCategoryItems = [];
+        for(let i = 0; i<this.state.categories.length; i++){
+            let tmpCategory = this.state.categories[i];
+            gardenCategoryItems.push(
+                <Dropdown.Item 
+                onClick = { () => {
+                    this.onSelectGardenCategory(tmpCategory);
+                }}
+                >{tmpCategory}</Dropdown.Item>
+            )
+        }
+        return gardenCategoryItems;
+    }
+
     calendarModeItem = () => {
         const calendarMode = [];
         calendarMode.push(
@@ -383,21 +422,21 @@ class sidebar extends Component {
               flex: 1
             }}
             >
-              <Container style={{ flex: 1, overflowY: "scroll"}}>
+              <Container  style = {{overflowY : "hidden"}}>
               <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item >
                 <Grid columns = 'equal' divided >
                         <Grid.Row >
                             <Button.Group id = 'tag' basic widths = '3'  >
-                            <Button id = 'tag_calendar' align = 'center' onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
-                            <Button id = 'tag_person' align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
-                            <Button id = 'tag_category' align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
+                            <Button id = 'tag_calendar' active = {this.state.mode === 'CALENDAR'} align = 'center' onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
+                            <Button id = 'tag_person' active = {this.state.mode === 'PERSON'} align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
+                            <Button id = 'tag_category' active = {this.state.mode === 'CATEGORY'} align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
                             </Button.Group>
                         </Grid.Row>
               </Grid>
                 </Menu.Item>
                 <Menu.Item>
-                    <Container className="sidabar">
+                    <Container className="sidabar" style={{flex: 1, overflowY : "auto", height : '700px'}}>
                     {
                         this.state.mode === "PERSON" ? <this.personItem/>
                         : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
@@ -430,42 +469,41 @@ class sidebar extends Component {
               flex: 1
             }}
             >
-              <Container style={{ flex: 1, overflowY: "scroll"}}>
-              <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item>
-                    <Container className="sidabar">
-                    <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
-                        <Menu.Item fitted='horizontally'
-                        id = {'categorySort'}
-                        onClick={() => {
-                            /*this.moveToDiaryPage()*/
-                            }}>
-                          Category
-                        </Menu.Item>
-                    </Grid.Column>
-                    <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
-                        <Menu.Item fitted='horizontally'
-                        id = {'myFlowerSort'}
-                        onClick={() => {
-                            /*this.moveToDiaryPage()*/
-                            }}>
-                          My Flower
-                        </Menu.Item>
-                    </Grid.Column>
-                    <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
-                        <Menu.Item fitted='horizontally'
-                        id = {'myGardenSort'}
-                        onClick={() => {
-                            /*this.moveToDiaryPage()*/
-                            }}>
-                          My garden
-                        </Menu.Item>
-                    </Grid.Column>
-                </Container>
-                </Menu.Item>
-
-            </Menu></Container>;
-              
+                <Container className="sidabar">
+                <Menu fluid vertical size = 'huge'>
+                <Menu.Item
+                    name='ALL'
+                    active = {this.state.gardenMode === 'ALL'}
+                    onClick={ () => {
+                        this.onSelectGardenModeChange('ALL')}}
+                />
+                
+                
+                <Menu.Item
+                    name='MY FLOWER'
+                    active = {this.state.gardenMode === 'MYFLOWER'}
+                    onClick={ () => {
+                        this.onSelectGardenModeChange('MYFLOWER')}}
+                />
+                <Menu.Item
+                    name='MY GARDEN'
+                    active = {this.state.gardenMode === 'MYGARDEN'}
+                    onClick={ () => {
+                        this.onSelectGardenModeChange('MYGARDEN')}}
+                />
+                <Dropdown item text='CATEGORY' 
+                    floating 
+                    active = {this.state.gardenMode === 'CATEGORY'}
+                    style = {{position : 'fixed'}}>
+                    <Dropdown.Menu>
+                        <this.gardenCategoryItem/>
+                    </Dropdown.Menu>
+                </Dropdown>
+        
+            </Menu>
+                    </Container>
+                </Menu.Item>              
           </Container>
         )
 
@@ -480,21 +518,3 @@ class sidebar extends Component {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(withRouter(sidebar));
-
-/*
-<div className="sidebar_container">
-                
-                <div className = "tab">
-                <button onClick = {()=>this.modeChange("CALENDAR")}>Cal</button><button onClick = {()=>this.modeChange("PERSON")}>Peo</button><button onClick = {()=>this.modeChange("CATEGORY")}>Cat</button>
-                </div>
-
-                <div className="sidabar">
-                    {
-                        this.state.mode === "PERSON" ? <this.personItem/>
-                        : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
-                        : <this.calendarItem/>
-                    }
-                </div>
-                
-            </div>
-            */

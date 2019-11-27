@@ -8,14 +8,18 @@
 .main {
   float: center;
   border : 4px solid transparent;
-  
+  position : absolute;
  }
 
  .sidebar {
   float: center;
  }
 
-
+.header_ {
+  position : absolute;
+  float : top;
+  width : 100%;
+}
 
 
 .App-logo {

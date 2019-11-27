@@ -45,3 +45,17 @@ export function setPersonId(new_personId){
     }
 }
 
+export function setGardenMode(new_garden_mode){
+    return {
+        type : actionTypes.SET_GARDEN_MODE,
+        gardenmode : new_garden_mode
+    }
+}
+
+export function setGardenCategory(new_garden_category){
+    return {
+        type : actionTypes.SET_GARDEN_CATEGORY,
+        category_name : new_garden_category
+    }
+}
+
