@@ -110,7 +110,7 @@ describe('<Garden />', ()=>{
         const newInstance2 = component.find(Garden.WrappedComponent).instance();
         newInstance2.setState({active : true});
         component.update();
-        wrapper = component.find('.card');
+        wrapper = component.find('#garden_delete_button');
         expect(wrapper.length).toBe(0);
 
     })

@@ -4,14 +4,13 @@ import {withRouter} from 'react-router';
 
 import {giveFlower, deleteGardenDiary} from '../../store/actions/gardendiary';
 
-import {Grid, Icon, Label, Card, Segment, Container, Dimmer, Button, Header, Image} from 'semantic-ui-react';
+import {Grid, Icon, Label, Segment, Dimmer, Button} from 'semantic-ui-react';
 import './Garden.css';
 
 const mapDispatchToProps = dispatch => {
     return {
         onGiveFlower : (id) => dispatch(giveFlower(id)),
         onDeleteGardenDiary : (id) => dispatch(deleteGardenDiary(id)),
-        //loginCheck : (user) => dispatch (actionCreators.loginCheckRequest())
 
     }
 }
@@ -28,10 +27,6 @@ class Garden extends Component {
         active : false,
     }
 
-    componentDidMount(){
-        //this.props.loginCheck();
-
-    }
 
 
     handleShow = () => {
@@ -115,9 +110,9 @@ class Garden extends Component {
         <div>
             <h1>{this.props.category_name}{this.props.category_title ? ' - ' + this.props.category_title : null}</h1>
             <p className='preview'>{this.props.content}</p>
-            <div class="date">Shared in {year}.{month}.{day}</div>
-            <div class="tags">
-                <div class="tag">{this.props.flower_count} Flowers</div>
+            <div className="date">Shared in {year}.{month}.{day}</div>
+            <div className="tags">
+                <div className="tag">{this.props.flower_count} Flowers</div>
             </div>
         </div>
             </a>

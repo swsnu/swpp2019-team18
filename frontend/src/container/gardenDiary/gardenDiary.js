@@ -112,6 +112,7 @@ class gardenDiary extends Component{
                 <div  align = 'left' style = {{position : 'relative'}}>
                 <Button.Group size='large'>
                 <Button
+                    id = 'Latest_tab'
                     size = 'big'
                     name='Latest'
                     active={this.state.activeItem === 'Latest'}
@@ -119,6 +120,7 @@ class gardenDiary extends Component{
                     >Latest</Button>
                 <Button.Or />
                 <Button
+                    id = 'Popular_tab'
                     size = 'big'
                     name='Popular'
                     active={this.state.activeItem === 'Popular'}
