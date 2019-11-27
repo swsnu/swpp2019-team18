@@ -1,10 +1,15 @@
 import json
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from .models import MyDiary, People, Category
 from .models import User, Image
 from PIL import Image as img
 import tempfile
+=======
+from .models import MyDiary, People, Category, GardenDiary
+from .models import User
+>>>>>>> calendar
 
 class UserTestCase(TestCase):   
     def setUp(self):
@@ -225,6 +230,7 @@ class PeopleTest(TestCase):
         response = self.client.put('/api/diary/people/', edit_data)
         self.assertEqual(response.status_code, 405)
 
+<<<<<<< HEAD
 class ImageTest(TestCase):
     def setUp(self):
         User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
@@ -241,3 +247,69 @@ class ImageTest(TestCase):
         tmp_file.seek(0)
 
         response = client.post('/api/diary/image/', {'image': tmp_file}, format='multipart')
+=======
+class GardenTest(TestCase) :
+    def setUp(self):
+        user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
+        User.objects.create_user(username='test', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')
+        person1 = People.objects.create(user = user1, name = 'FRIEND1')
+        category1 = Category.objects.create(name='MOVIE', category_title = 'JOKER', rating = 5)
+        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score = 100, created_date='2019-11-03')
+        diary1.people.add(person1)
+
+    def test_get_garden_diary(self) : 
+        client = Client()
+    
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+        client.post('/api/diary/share/1/', json.dumps({'content': 'share test'}), content_type='application/json')
+
+        response = client.get('/api/garden/Latest/')
+        self.assertEqual(response.status_code, 200)
+        response = client.get('/api/garden/Popular/')
+        self.assertEqual(response.status_code, 200)
+        response = client.post('/api/garden/Latest/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.get('/api/garden/category/MOVIE/Latest/')
+        self.assertEqual(response.status_code, 200)
+        response = client.get('/api/garden/category/MOVIE/Popular/')
+        self.assertEqual(response.status_code, 200)
+        response = client.post('/api/garden/category/MOVIE/Latest/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.get('/api/garden/flower/Latest/')
+        self.assertEqual(response.status_code, 200)
+        response = client.get('/api/garden/flower/Popular/')
+        self.assertEqual(response.status_code, 200)
+        response = client.post('/api/garden/flower/Latest/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.get('/api/garden/mylist/Latest/')
+        self.assertEqual(response.status_code, 200)
+        response = client.get('/api/garden/mylist/Popular/')
+        self.assertEqual(response.status_code, 200)
+        response = client.post('/api/garden/mylist/Latest/')
+        self.assertEqual(response.status_code, 405)
+
+        response = client.delete('/api/garden/mylist/1/')
+        self.assertEqual(response.status_code, 200)
+        response = client.delete('/api/garden/mylist/3/')
+        self.assertEqual(response.status_code, 404)
+
+
+    def test_flower(self):
+        client = Client()
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+        client.post('/api/diary/share/1/', json.dumps({'content': 'share test'}), content_type='application/json')
+
+        response = client.post('/api/garden/flower/1/')
+        self.assertEqual(response.status_code, 201)
+        response = client.post('/api/garden/flower/1/')
+        self.assertEqual(response.status_code, 201)
+        response = client.get('/api/garden/flower/1/')
+        self.assertEqual(response.status_code, 405)
+
+        
+>>>>>>> calendar

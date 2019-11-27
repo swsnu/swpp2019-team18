@@ -86,6 +86,7 @@ class Diary extends Component {
             <Form.TextArea 
                         id='diary-content-input'
                         placeholder='Tell me more about you...'
+                        fluid = "true"
                         value={this.state.content}
                         onChange={e => this.setState({content : e.target.value})}
                         />
@@ -98,27 +99,25 @@ class Diary extends Component {
             }}>Share</Button>
             <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
         </Dimmer>
-
         if(this.state.popupMode === 'DELETE'){
             popup = deletePopup;
         }
         else if(this.state.popupMode === 'SHARE'){
             popup = shareEditPopup
         }
-
     return (
         <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
                     {this.props.category_name}
-                    {this.props.category_title ? <Label.Detail >{this.props.category_title}</Label.Detail>  : null}
-                    {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null}
+                    {this.props.category_title ? <Label.Detail id='diary_category_title'>{this.props.category_title}</Label.Detail>  : null}
+                    {this.props.rating ? <Label.Detail id='diary_rating'>{this.props.rating}</Label.Detail> : null}
                 </Label>
                 {
                 this.props.person_tag ? 
                     this.props.person_tag.map(person => 
-                        <Label as='a' color='teal' tag>{person.name}</Label>
+                        <Label id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
             }
@@ -129,11 +128,15 @@ class Diary extends Component {
                 {/* showing content */}
                 {this.props.content ?  <Content content = {this.props.content}/> : null}
              {
+<<<<<<< HEAD
                  /*
                 this.props.content ? 
                 this.props.content.split('\n').map( line => {
                 return (<span>{line}<br/></span>)
                 }) : null */
+=======
+                this.props.content 
+>>>>>>> calendar
             }
              </Container>
              <Divider />
@@ -162,11 +165,9 @@ class Diary extends Component {
              </Container>
              {popup}
             </Dimmer.Dimmable>
-
             <Divider hidden /> 
         </div>
         );
     }
 }
-
 export default connect(null, mapDispatchToProps)(withRouter(Diary));

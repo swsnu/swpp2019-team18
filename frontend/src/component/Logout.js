@@ -12,7 +12,7 @@ class Logout extends Component {
 
     render () {
         return (
-            <div>
+            <div className = 'logout'>
                 <Button color = 'grey' fluid size = 'small' id = 'logout'onClick = {() => this.onClickLogoutButton()}>Sign out</Button>
             </div>
         )

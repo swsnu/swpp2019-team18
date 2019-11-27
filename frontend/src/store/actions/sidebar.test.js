@@ -25,9 +25,23 @@ describe('sidebar', () => {
         expect(newState.diary.month).toBe('12');
     });
 
+    it('set Category', () => {
+        store.dispatch(actionCreators.setCategory('DATE'))
+        const newState = store.getState();
+        expect(newState.diary.category_name).toBe('DATE');
+    });
+
+    it('set Person', () => {
+        store.dispatch(actionCreators.setPersonId('7'))
+        const newState = store.getState();
+        expect(newState.diary.person_id).toBe('7');
+    });
+
+    
     it('set Day', () => {
         store.dispatch(actionCreators.setDay('27'))
         const newState = store.getState();
         expect(newState.diary.day).toBe('27');
     });
+
 })

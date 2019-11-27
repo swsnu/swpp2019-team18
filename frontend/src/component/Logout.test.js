@@ -35,7 +35,7 @@ describe('Logout', ()=> {
 
     it('correct username and password - login success' , () => {
         const spyHistoryPush = jest.spyOn(history, 'push')
-      .mockImplementation(path => {});
+        .mockImplementation(path => {});
         const component = mount(logout)
         const button = component.find('#logout button')
         button.simulate('click')

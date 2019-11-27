@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from ..serializer import diary_serializer
 User = get_user_model()
 
-@csrf_exempt
 def share_diary (request, id) : 
     if request.method == 'POST' : 
         if not request.user.is_authenticated:

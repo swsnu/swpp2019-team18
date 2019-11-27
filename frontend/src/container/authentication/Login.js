@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import * as actionCreators from '../../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import { Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment, Image} from 'semantic-ui-react'
+import sdaLogo from '../../SDA_LOGO.png'
 
 class Login extends Component {
     state = {
@@ -28,12 +29,16 @@ class Login extends Component {
         return (
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h1' color='black' textAlign='center'>
+                {/*<Header as='h1' color='black' textAlign='center'>
                     S.DA
                 </Header>
                 <Header as='h3' color='black' textAlign='center'>
                     Your Sentimental Diary Assistant
-                </Header>
+        </Header>*/}
+                
+                <Image src = {sdaLogo} size='large'/>
+                
+                
                 
                 <Form size='large'>
                     <Segment stacked>
