@@ -283,13 +283,12 @@ class sidebar extends Component {
             showMonthDropdown
             showYearDropdown
             dropdownMode = 'select'
+            todayButton = "TODAY"
             customInput={<ExampleCustomInput />}
         /></div>
         
         )
         var day = this.state.startDayOfWeek
-        console.log(this.state.startDayOfWeek.format('D'))
-        console.log(this.currentDay())
         for(let d = 1; d <= 7; d++){
             let className = (this.currentDay() == day.format('D') ? "current_day" : "day");
             let D = day.format('D')

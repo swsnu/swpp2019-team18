@@ -107,9 +107,9 @@ describe('<MyDiaryList />', () => {
     });
 
     it('date change by click button', () => {
-        
+        const today = moment.format("d");
         const component = mount(Sidebar_);
-        const buttons = component.find('#day_20 a');
+        const buttons = component.find('#day_'+today+'a');
         buttons.simulate('click');
         expect(spySetYear).toBeCalledTimes(2);
         expect(spySetMonth).toBeCalledTimes(2);
