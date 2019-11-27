@@ -11,9 +11,10 @@ import {getAllGardenDiary, getGardenDiaryByCategory, getMyGardenDiary, getMyFlow
 
 const mapStateToProps = state => {
     return {
-        gardenmode : state.garden.gardenmode,
         gardenDiary : state.garden.garden_diary,
         garden_category_name : state.garden.category_name,
+        gardenmode : state.garden.gardenmode,
+
     }
 
 }
@@ -127,6 +128,7 @@ class gardenDiary extends Component{
                     
                 </div>
                 <div style = {{position : 'relative'}}>
+
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}

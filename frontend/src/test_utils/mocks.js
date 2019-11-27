@@ -88,12 +88,26 @@ const getMockDiaryReducer = jest.fn(
   }
 );
 
+const getMockGardenReducer = jest.fn(
+  initialState => (state = initialState, action) => {
+    switch (action.type) {
+      default:
+        break;
+    }
+    return {...state};
+
+  }
+);
+
 export const getMockStore = (initialState) => {
   const mockUserReducer = getMockUserReducer(initialState);
   const mockDiaryReducer = getMockDiaryReducer(initialState);
+  const mockGardenReducer = getMockGardenReducer(initialState);
+
   const rootReducer = combineReducers({
     diary : mockDiaryReducer,
     user : mockUserReducer,
+    garden : mockGardenReducer,
     router: connectRouter(history),
   });
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

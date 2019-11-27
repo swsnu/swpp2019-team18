@@ -103,6 +103,41 @@ describe('<Diary/>', ()=>{
         wrapper.at(0).simulate('click');
         expect(spyHistoryPush).toHaveBeenCalledTimes(1);
     });
+
+    it('should show proper info', () => {
+        let component = mount(diaryDetail);
+        let wrapper1 = component.find('#diary_category_title');
+        let wrapper2 = component.find('#diary_rating');
+        let wrapper3 = component.find('#diary_person_tag');
+        expect(wrapper1.length).toBe(0);
+        expect(wrapper2.length).toBe(0);
+        expect(wrapper3.length).toBe(0);
+
+            component = mount(
+            <Provider store={mockStore}>
+                <ConnectedRouter history={history}>
+                <Switch>
+                <Route path='/' render={(props) => <Diary {...props}    id = {1}
+                                                                        author = {'user'}
+                                                                        content = {'content'}
+                                                                        category_name =  {'MOVIE'} 
+                                                                        category_title = {'Star Wars'}
+                                                                        emotionScore = {0}
+                                                                        person_tag = {[{name : 'friend1'}, {name : 'friend2'}]}
+                                                                        rating =  {'5'}
+                                                                    /> } />
+                </Switch>
+                </ConnectedRouter>
+            </Provider>
+            );
+        wrapper1 = component.find('#diary_category_title');
+        wrapper2 = component.find('#diary_rating');
+        wrapper3 = component.find('#diary_person_tag');
+        expect(wrapper1.length).toBe(2);
+        expect(wrapper2.length).toBe(2);
+        expect(wrapper3.length).toBe(4);
+   
+    })
     // it("componentDidUpdate should update ", () => {
     //     const spyHistoryPush = jest.spyOn(history, 'push')
     //     .mockImplementation(path => {});

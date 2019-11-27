@@ -5,10 +5,9 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import MyDiaryList from './MyDiaryList';
-import { history } from '../../store/store'
+import { history } from '../../store/store';
 
 import * as actionCreators from '../../store/actions/previousdiary';
-import store from '../../store/store';
 
  jest.mock('../../component/Diary/Diary', () => {
     return jest.fn(props => {

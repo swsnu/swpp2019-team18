@@ -110,13 +110,13 @@ class Diary extends Component {
             <Container textAlign = 'left'>
             <Label as='a' color='olive' tag>
                     {this.props.category_name}
-                    {this.props.category_title ? <Label.Detail >{this.props.category_title}</Label.Detail>  : null}
-                    {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null}
+                    {this.props.category_title ? <Label.Detail id='diary_category_title'>{this.props.category_title}</Label.Detail>  : null}
+                    {this.props.rating ? <Label.Detail id='diary_rating'>{this.props.rating}</Label.Detail> : null}
                 </Label>
                 {
                 this.props.person_tag ? 
                     this.props.person_tag.map(person => 
-                        <Label as='a' color='teal' tag>{person.name}</Label>
+                        <Label id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
             }
@@ -124,10 +124,7 @@ class Diary extends Component {
              <Divider />
              <Container textAlign = 'justified'>
              {
-                this.props.content ? 
-                this.props.content.split('\n').map( line => {
-                return (<span>{line}<br/></span>)
-                }) : null
+                this.props.content 
             }
              </Container>
              <Divider />
