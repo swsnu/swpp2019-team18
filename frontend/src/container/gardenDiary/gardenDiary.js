@@ -108,7 +108,7 @@ class gardenDiary extends Component{
         });
         
         return(
-            <div className = 'GardenDiaryList' >
+            <div className = 'GardenDiaryList' align = 'center' >
                 <div  align = 'left' style = {{position : 'relative'}}>
                 <Button.Group size='large'>
                 <Button

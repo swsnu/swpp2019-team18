@@ -93,10 +93,6 @@ class Garden extends Component {
                 <Content content = {this.props.content}/>
                 </div>
             </Segment>
-            
-         
-                
-           
             <Segment textAlign = 'center'>
                 {flower}         
             </Segment>
