@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BaseLineChart from '../../component/Stat/Stat';
+import BaseLineChart from '../../component/Stat/BaseLineChart';
 import StatSideBar from './StatSideBar';
 import { Menu } from 'semantic-ui-react';
 import { getCategory, getStatCal, getStatistics } from '../../store/actions/statistics';
@@ -10,7 +10,7 @@ import { withRouter } from 'react-router';
 class StatDashBoard extends Component {
 
     state = {
-        mode : "CAL",
+        mode : "CALENDAR",
         items : [],
         selectedItem : null,
         graph_data : [],
@@ -21,10 +21,10 @@ class StatDashBoard extends Component {
     }
 
     getItems = (mode) => {
-        if(mode === "CAL"){
+        if(mode === "CALENDAR"){
             this.props.getStatCal();
         }
-        else if (mode === "PER"){
+        else if (mode === "PEOPLE"){
             this.props.getPeople();
         }
         else{
@@ -33,8 +33,6 @@ class StatDashBoard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
-        console.log("getDerivedStateFromProps");
-        console.log(nextProps.graph_data);
         if(nextProps.items !== undefined && (nextProps.items !== prevState.items)){
             return {...prevState, items : nextProps.items};
         }
@@ -44,12 +42,15 @@ class StatDashBoard extends Component {
     componentDidMount(){
         document.body.style.backgroundColor = "white";
         this.getItems(this.state.mode);
-        this.props.getStatistics();
     }
 
     componentDidUpdate(prevProps, prevState){
         if(prevState.mode !== this.state.mode){
             this.getItems(this.state.mode);
+        }
+        if(prevState.selectedItem !== this.state.selectedItem){
+            const queryObj = {mode : this.state.mode}
+            this.props.getStatistics(queryObj);
         }
 
     }
@@ -113,7 +114,7 @@ const mapDispatchToProps = (dispatch) => {
         getStatCal : () => dispatch(getStatCal()),
         getPeople : () => dispatch(getPeople()),
         getCategory : () => dispatch(getCategory()), 
-        getStatistics : () => dispatch(getStatistics()),
+        getStatistics : (queryObj) => dispatch(getStatistics(queryObj)),
     }
 }
 

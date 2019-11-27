@@ -23,9 +23,9 @@ class StatSideBar extends Component {
                     <Grid columns = 'equal' divided >
                             <Grid.Row >
                                 <Button.Group id='tag' basic widths='3'  >
-                                <Button id='tag_calendar' align='center' onClick={()=>this.props.changeMode("CAL")}>CAL</Button>
-                                <Button id='tag_person' align='center' onClick={()=>this.props.changeMode("PER")}>PEO</Button>
-                                <Button id='tag_category' align='center' onClick={()=>this.props.changeMode("CAT")}>CAT</Button>
+                                <Button id='tag_calendar' align='center' onClick={()=>this.props.changeMode("CALENDAR")}>CAL</Button>
+                                <Button id='tag_person' align='center' onClick={()=>this.props.changeMode("PEOPLE")}>PEO</Button>
+                                <Button id='tag_category' align='center' onClick={()=>this.props.changeMode("CATEGORY")}>CAT</Button>
                                 </Button.Group>
                             </Grid.Row>
                     </Grid>

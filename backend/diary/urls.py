@@ -22,6 +22,6 @@ urlpatterns = [
     path('diary/share/<int:id>/', share.share_diary, name='share_diary'),
     path('diary/people/', people.people, name='people'),
     path('diary/category/', category.get_cagegory, name='get_category'),
-    path('diary/statcal/', category.get_statcal, name='get_statcal'),
+    path('diary/calendarOption/', category.get_statcal, name='get_statcal'),
     path('diary/statistics/', statistics.get_statistics, name='get_statistics'),
 ]

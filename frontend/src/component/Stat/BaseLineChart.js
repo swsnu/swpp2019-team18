@@ -1,6 +1,6 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import './Stat.css'
+import './BaseLineChart.css'
 
 function BaseLineChart(props){
     return (

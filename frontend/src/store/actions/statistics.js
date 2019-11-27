@@ -24,7 +24,7 @@ const getStatCal_ = (items) => {
 
 export const getStatCal = () => {
     return dispatch => {
-        return axios.get('/api/diary/statcal/')
+        return axios.get('/api/diary/calendarOption/')
                     .then(res => dispatch(getStatCal_(res.data)));
     }
 }
@@ -36,9 +36,9 @@ const getStatistics_ = (data) => {
     }
 }
 
-export const getStatistics = () => {
+export const getStatistics = (queryObj) => {
     return dispatch => {
-        return axios.get('/api/diary/statistics/')
+        return axios.get('/api/diary/statistics/', {params : queryObj})
                     .then(res => dispatch(getStatistics_(res.data)));
     }
 }
