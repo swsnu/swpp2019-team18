@@ -77,7 +77,7 @@ describe('<Garden />', ()=>{
         const newInstance = component.find(Garden.WrappedComponent).instance();
         newInstance.setState({active : true});
         component.update();
-        wrapper = component.find('.gardenDetail');
+        wrapper = component.find('.popup');
         expect(wrapper.length).toBe(1);
 
     });
@@ -110,7 +110,7 @@ describe('<Garden />', ()=>{
         const newInstance2 = component.find(Garden.WrappedComponent).instance();
         newInstance2.setState({active : true});
         component.update();
-        wrapper = component.find('#garden_delete_button');
+        wrapper = component.find('.card');
         expect(wrapper.length).toBe(0);
 
     })
@@ -152,7 +152,7 @@ describe('<Garden />', ()=>{
     const component = mount(garden);
     const newInstance = component.find(Garden.WrappedComponent).instance();
     expect(newInstance.state.active).toEqual(false);
-    const wrapper = component.find('#garden_detail_button');
+    const wrapper = component.find('.card');
     wrapper.at(0).simulate('click');
     expect(newInstance.state.active).toEqual(true);
    })

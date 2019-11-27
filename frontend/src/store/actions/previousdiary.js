@@ -7,7 +7,7 @@ export const getDiaryByDate_ = (diaries) => {
 
 export const getDiaryByDate = (year,month,day) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/diary/date/' + year+'/'+month+'/'+ day+'/')
+        return axios.get('/api/diary/date/' + year+'/'+month+'/'+ day+'/')
         .then(res => {dispatch(getDiaryByDate_(res.data));
         });
     };
@@ -19,7 +19,7 @@ export const getDiaryByPerson_ = (diaries) => {
 
 export const getDiaryByPerson = (id) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/diary/person/' + id+'/')
+        return axios.get('/api/diary/person/' + id+'/')
         .then(res => {dispatch(getDiaryByPerson_(res.data));
         });
     };
@@ -31,7 +31,7 @@ export const getDiaryByCategory_ = (diaries) => {
 
 export const getDiaryByCategory = (name) => {
     return (dispatch) => {
-        return axios.get('http://localhost:8000/api/diary/category/' + name+'/')
+        return axios.get('/api/diary/category/' + name+'/')
         .then(res => {dispatch(getDiaryByCategory_(res.data));
         });
     };
