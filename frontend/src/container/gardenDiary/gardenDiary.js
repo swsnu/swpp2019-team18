@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {Grid, Menu} from 'semantic-ui-react';
+import {Grid, Menu, Button} from 'semantic-ui-react';
 
 import Garden from '../../component/Garden/Garden';
 import {getAllGardenDiary, getGardenDiaryByCategory, getMyGardenDiary, getMyFlower} from '../../store/actions/gardendiary';
@@ -107,24 +107,31 @@ class gardenDiary extends Component{
         });
         
         return(
-            <div className = 'GardenDiaryList' align = 'center'>
-                <Menu tabular>
-                    <Menu.Item
-                        name='Latest'
-                        active={this.state.activeItem === 'Latest'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='Popular'
-                        active={this.state.activeItem === 'Popular'}
-                        onClick={this.handleItemClick}
-                    />
-                </Menu>
+            <div className = 'GardenDiaryList' align = 'center' >
+                <div  align = 'left' style = {{position : 'relative'}}>
+                <Button.Group size='large'>
+                <Button
+                    size = 'big'
+                    name='Latest'
+                    active={this.state.activeItem === 'Latest'}
+                    onClick={this.handleItemClick}
+                    >Latest</Button>
+                <Button.Or />
+                <Button
+                    size = 'big'
+                    name='Popular'
+                    active={this.state.activeItem === 'Popular'}
+                    onClick={this.handleItemClick}
+                    >Popular</Button>
+                </Button.Group>
+                    
+                </div>
+                <div style = {{position : 'relative'}}>
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}
                 </Grid.Row>
-                </Grid>
+                </Grid></div>
             </div>
         );
     }

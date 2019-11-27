@@ -12,9 +12,9 @@ class Header extends Component {
     render () {
         return (
           
-            <Menu id = 'header'   style = {{margin : 0 , height : 50}}>
+            <Menu  secondary id = 'header'   style = {{margin : 0 , height : 50, backgroundColor : 'white'}}>
                 
-                <Menu.Item position = 'left'>
+                <Menu.Item header>
                     <Logo/>
                 </Menu.Item>
                 <Menu.Item position = 'right'>

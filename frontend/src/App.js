@@ -60,7 +60,7 @@ class App extends Component {
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
             </div>
-            <div className = 'garden' style={{ marginLeft: 300}}>
+            <div className = 'garden' style={{ marginLeft: 300, marginTop : 50}}>
               <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
 
             </div>
