@@ -55,6 +55,9 @@ class NewDiary extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        /*
+        only activates at editmode 
+        */
         if ( this.props.EditMode && (this.props.diary !== prevProps.diary)) {
             this.setState({
                 content : this.props.diary.content,

@@ -29,6 +29,11 @@ class RichEditorExample extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log(this.state.count)
+    /*
+    There would be at least 2 updates of content while browser first render the edit page
+    따라서, 임시로 업데이트가 2번 완료되면 그 다음에는 editorstate.push가 일어나지 않도록 함.
+    It should be changed to other algorithm - still have problem when user change category
+    */
     if ( this.props.EditMode &&  (this.props.content !== prevProps.content) && this.state.count < 2) {
         this.setState({
           editorState : EditorState.push(this.state.editorState, convertFromRaw(JSON.parse(this.props.content))),

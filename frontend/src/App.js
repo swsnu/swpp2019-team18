@@ -4,7 +4,7 @@ import './App.css';
 import Login from './container/authentication/Login'
 import SignUp from './container/authentication/SignUp'
 import NewDiary from './container/diaryWrite/newDiary'
-import EditDiary from './container/diaryEdit/EditDiary';
+import EditDiary from './container/diaryEdit/editDiary';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
 import {withRouter} from 'react-router';
