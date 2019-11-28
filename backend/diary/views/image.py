@@ -12,6 +12,7 @@ User = get_user_model()
 def image(request):
     if request.method == 'POST':
         try:
+            print(request.user)
             instance = Image( photo = request.FILES['file'], user = request.user)
             instance.save()
             print(instance.photo.name)
@@ -19,7 +20,8 @@ def image(request):
             # server_name = server_domain + /files/
             link = { 'link' : server_name + instance.photo.name}
             return JsonResponse(link,status = 200)
-        except:
+        except Exception as e:
+            print(e)
             return HttpResponse(status = 400)
     return HttpResponse(status = 400)
 

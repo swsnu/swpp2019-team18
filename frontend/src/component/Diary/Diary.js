@@ -5,8 +5,9 @@ import {withRouter} from 'react-router';
 import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 import Content from './Content'
+import Share from './Share'
 
-import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header, Form} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal} from 'semantic-ui-react';
 import './Diary.css'
 
 
@@ -26,6 +27,7 @@ class Diary extends Component {
         content : '',
     }
 
+
     componentDidUpdate(prevProps){
         if(this.props.selectedDiary !== prevProps.selectedDiary){
             this.props.history.push('/diary');
@@ -44,6 +46,9 @@ class Diary extends Component {
     }
     handleShow = () => this.setState({ active: true })
     handleHide = () => this.setState({ active: false })
+    handleContent = (content) => {
+        this.setState({content : content})
+    }
 
     onClickMenuEditButton = (id) => {
         this.props.history.push('/diary/'+id+'/edit'); 
@@ -58,7 +63,6 @@ class Diary extends Component {
                 this.props.onDeleteDiary(id);
             } 
             */
-        
     }
 
     render(){
@@ -80,6 +84,27 @@ class Diary extends Component {
         </Dimmer>
 
         const shareEditPopup = 
+        <Modal open={active} centered={false} >
+            <Modal.Header>Share</Modal.Header>
+            {console.log(this.state.content)}
+            <Modal.Content>
+            
+            <Modal.Description>
+                <Header>공유 전에 내용 수정이 가능합니다</Header>
+                <p>민감한 개인정보는 수정하세요</p>
+                <Segment><Share content = {this.state.content} handleContent = {(content) => this.handleContent(content)} /></Segment>
+            </Modal.Description>
+            <p></p>
+            <Button primary id = 'share-confirm-button' onClick = {() => {
+                this.props.onShareDiary(this.props.id, this.state.content)
+                this.setState({active : false}) 
+                }} >share</Button>
+            <Button id = 'share-cancel-button' onClick = {() => this.setState({active : false})} >close</Button>
+            
+            </Modal.Content>
+
+        </Modal>
+        /*
         <Dimmer active={active} onClickOutside={this.handleHide}>
             <Header inverted>You can edit content before sharing - original article wouldn't be changed</Header>
             <Form>
@@ -98,7 +123,7 @@ class Diary extends Component {
                 this.handleHide()
             }}>Share</Button>
             <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
-        </Dimmer>
+        </Dimmer> */
         if(this.state.popupMode === 'DELETE'){
             popup = deletePopup;
         }
