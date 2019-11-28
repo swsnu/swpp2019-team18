@@ -128,16 +128,20 @@ class Share extends Component {
         />
         <div className="search-and-replace">
           <input
+            id = 'share-edit-search-input'
             value={this.state.search}
             onChange={this.onChangeSearch}
             placeholder="Search..."
           />
           <input
+            id = 'share-edit-replace-input'
             value={this.state.replace}
             onChange={this.onChangeReplace}
             placeholder="Replace..."
           />
-          <button onClick={this.onReplace}>
+          <button 
+          id = 'share-edit-replace-button'
+          onClick={this.onReplace}>
             Replace
           </button>
         </div>

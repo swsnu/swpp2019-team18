@@ -67,11 +67,11 @@ class Diary extends Component {
 
     render(){
         const options = [
-            { id: 'share-button', icon: 'share', text: 'SHARE', value: 'share' , 
+            { key : 'share-button', id: 'share-button', icon: 'share', text: 'SHARE', value: 'share' , 
                 onClick : () => this.onClickMenuShareButton(this.props.id, this.props.content)},
-            { id: 'delete-button', icon: 'delete', text: 'DELETE', value: 'delete',
+            { key : 'delete-button',id: 'delete-button', icon: 'delete', text: 'DELETE', value: 'delete',
                 onClick : () => this.onClickMenuDeleteButton(this.props.id)},
-            { id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
+            { key : 'edit-button', id: 'edit-button', icon: 'edit', text: 'EDIT', value: 'edit',
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
        const active = this.state.active
@@ -142,7 +142,7 @@ class Diary extends Component {
                 {
                 this.props.person_tag ? 
                     this.props.person_tag.map(person => 
-                        <Label id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
+                        <Label key = {person.name} id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
             }

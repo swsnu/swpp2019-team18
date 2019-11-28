@@ -19,10 +19,11 @@ class Content extends Component {
       //if 'content' is not convertable to Draft.js style format, show raw content text.
       isEditorState = false;
     }
+
     
     return (
       <div id = 'diary-content'>
-        { isEditorState ? <Editor id = 'editor' editorState={editorState} plugins={plugins} readOnly={true} /> : this.props.content}
+        { isEditorState ? <Editor id = 'editor' editorState={editorState} plugins={plugins} readOnly={true} onChange = {() => {}}/> : this.props.content}
       </div>
     );
   }
