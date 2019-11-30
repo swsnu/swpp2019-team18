@@ -15,6 +15,8 @@ def share_diary (request, id) :
         content = request.body.decode()
 
         diary = MyDiary.objects.get(id = id, author = request.user)
+        if GardenDiary.objects.filter(origin_diary = diary):
+            return HttpResponse(status = 400)
         garden_diary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
         garden_diary.save()
         response_dict = {

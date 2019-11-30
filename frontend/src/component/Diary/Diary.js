@@ -6,9 +6,11 @@ import {deleteDiary} from '../../store/actions/diary';
 import {shareDiary} from '../../store/actions/share';
 import Content from './Content'
 import Share from './Share'
+import axios from 'axios'
 
 import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal} from 'semantic-ui-react';
 import './Diary.css'
+
 
 
 const mapDispatchToProps = dispatch => {
@@ -25,6 +27,7 @@ class Diary extends Component {
         active : false,
         popupMode : 'INIT',
         content : '',
+        shareSuccess : 'INIT',
     }
 
 
@@ -65,6 +68,19 @@ class Diary extends Component {
             */
     }
 
+    _onShareDiary = (diary, content) => {
+        return axios.post('http://localhost:8000/api/diary/share/'+ diary+'/', content)
+        .then(res => this.setState({shareSuccess : 'SUCCESS'}))
+        .catch( error => {
+            if(error.response.status === 400){
+                this.setState({shareSuccess : 'DUPLICATED'})
+            }
+        } 
+     )
+    }
+
+    
+
     render(){
         const options = [
             { key : 'share-button', id: 'share-button', icon: 'share', text: 'SHARE', value: 'share' , 
@@ -75,6 +91,7 @@ class Diary extends Component {
                 onClick : () => this.onClickMenuEditButton(this.props.id) },
         ]
        const active = this.state.active
+       const shareSuccess = this.state.shareSuccess
        let popup = <Dimmer></Dimmer>
        const deletePopup = 
         <Dimmer active={active} onClickOutside={this.handleHide}>
@@ -83,8 +100,8 @@ class Diary extends Component {
             <Button id = 'delete-cancel-button' inverted onClick = {() => this.handleHide()}>No</Button>
         </Dimmer>
 
-        const shareEditPopup = 
-        <Modal open={active} centered={false} >
+        const shareEditPopup = <div>
+            <Modal open={active} centered={false} >
             <Modal.Header>Share</Modal.Header>
             {console.log(this.state.content)}
             <Modal.Content>
@@ -95,15 +112,43 @@ class Diary extends Component {
                 <Segment><Share content = {this.state.content} handleContent = {(content) => this.handleContent(content)} /></Segment>
             </Modal.Description>
             <p></p>
+            
             <Button primary id = 'share-confirm-button' onClick = {() => {
-                this.props.onShareDiary(this.props.id, this.state.content)
+                this._onShareDiary(this.props.id, this.state.content)
                 this.setState({active : false}) 
                 }} >share</Button>
+            
             <Button id = 'share-cancel-button' onClick = {() => this.setState({active : false})} >close</Button>
             
             </Modal.Content>
 
         </Modal>
+        <Modal open = {shareSuccess === 'SUCCESS'}>
+            <Modal.Header>공유 성공!</Modal.Header>
+            <Modal.Content>
+            <Modal.Description>
+            <p>공유된 일기는 'Garden -> My Garden'에서 확인 가능합니다</p>
+            </Modal.Description>
+            <p></p>
+            <Button onClick = {() => this.setState({shareSuccess : 'INIT'})}>확인</Button> 
+            </Modal.Content>
+            
+        </Modal>
+        <Modal open = {shareSuccess === 'DUPLICATED'}>
+            <Modal.Header>공유 실패</Modal.Header>
+            <Modal.Content>
+            <Modal.Description>
+            <p>이미 공유된 일기입니다.</p>
+            <p>기존에 공유된 일기를 취소하시려면 'Garden -> My Garden' 에서 해당 일기 공유를 취소하세요.  </p>
+            </Modal.Description>
+            <p></p>
+            <Button onClick = {() => this.setState({shareSuccess : 'INIT'})}>확인</Button>
+            </Modal.Content>
+            
+        </Modal>
+
+        </div>
+        
         /*
         <Dimmer active={active} onClickOutside={this.handleHide}>
             <Header inverted>You can edit content before sharing - original article wouldn't be changed</Header>

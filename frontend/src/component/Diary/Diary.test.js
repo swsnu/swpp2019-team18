@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import { history } from '../../store/store'
+import axios from 'axios'
 
 import Diary from './Diary';
 
@@ -144,6 +145,16 @@ describe('<Diary/>', ()=>{
                 </ConnectedRouter>
             </Provider>
             );
+        
+        const spyAxios = jest.spyOn(axios, 'post')
+            .mockImplementation((url, user) => {
+              return new Promise((resolve, reject) => {
+                const result = {
+                  status: 200
+                };
+                resolve(result);
+              });
+        })
             jest.spyOn(window, 'scrollTo')
         .mockImplementation(()=> {return true});
 
@@ -155,7 +166,7 @@ describe('<Diary/>', ()=>{
             wrapper.at(0).simulate('click');
             wrapper = component.find('#share-cancel-button');
             wrapper.at(0).simulate('click');
-            expect(spyShareDiary).toHaveBeenCalledTimes(0);
+            expect(spyAxios).toHaveBeenCalledTimes(0);
     
             wrapper = component.find('#share-button');
             wrapper.at(0).simulate('click');
@@ -171,7 +182,7 @@ describe('<Diary/>', ()=>{
 
             wrapper = component.find('#share-confirm-button');
             wrapper.at(0).simulate('click');
-            expect(spyShareDiary).toHaveBeenCalledTimes(1);
+            expect(spyAxios).toHaveBeenCalledTimes(1);
     
         
 
