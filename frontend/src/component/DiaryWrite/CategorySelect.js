@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import './honeycombb.css'
-import './honeycomb.css'
+import './honeycombb.css'
+// import './honeycomb.css'
 
 import CatergoryButton from '../../component/DiaryWrite/CategoryButton';
 
@@ -28,7 +28,7 @@ class CategorySelect extends Component {
             'RESTAURANT',
             'BOOK',
             'DRAMA',
-            'PERFOEMANCE'
+            'PERFORMANCE'
         ]
 
         const Category_type_2 = [
@@ -46,8 +46,7 @@ class CategorySelect extends Component {
             'FAMILY',
             'LOVE',
             'COMPANY',
-            'BOSS',
-            'ETC.'
+            'ETC'
         ]
 
        

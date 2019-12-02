@@ -2,9 +2,7 @@
     margin: 0;
     padding: 0;
 }
-body {
-    background: rgb(123, 158, 158);
-}
+
 
 
 #hexGrid {
@@ -75,20 +73,21 @@ body {
 
 .hex h1, .hex p {
   width: 100%;
-  padding: 5%;
+  padding: 1%;
   box-sizing:border-box;
   font-weight: 300;
   opacity: 0;
 }
 
 #demo1 {
-  color: #F5CE95;
+  color: rgb(0, 0, 0);
   text-transform: capitalize;
-    text-align: center;
+  text-align: center;
   bottom: 50%;
   padding-top:50%;
+  font-weight: bold;
   font-size: 1.5em;
-  z-index: 1;
+  z-index: 1000;
 }
 .hex h1:before, .hex h1:after {
   display: inline-block;
@@ -102,14 +101,9 @@ body {
   text-align:center;
 }
 
-#demo2 {
-top: 50%;
-text-align: center;
-text-transform: uppercase;
-    
-}
 
-.img .movie {
+
+.img {
   position: absolute;
   top: 0;
   right: 0;
@@ -117,7 +111,6 @@ text-transform: uppercase;
   left: 0;
   background-position: center center;
   background-size: cover;
-  
   overflow: hidden;
 -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -139,10 +132,10 @@ clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   transition: opacity 0.5s;
 }
 .img:before {
-  background: rgba(22, 103, 137, 0.3)
+  color: rgba(22, 103, 137, 0.3);
 }
 .img:after {
-  background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5), transparent);
+  background-color: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5), transparent);
 }
 
 /*** HOVER EFFECT  **********************************************************************/
@@ -152,14 +145,15 @@ clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 .hexLink:hover h1, .hexLink:focus h1,
 .hexLink:hover p, .hexLink:focus p{
 opacity:1;
-transition: 0.8s;
+transition: 0.5s;
 }
 
 
-.hexIn:hover .img:before,
-.hexIn:hover .img:after,
-.hexIn:hover .hexLink {
-  opacity: 1;
+
+.hexIn:hover .hexLink img {
+  background-color: rgba(22, 103, 137, 0.3);
+  opacity: 0.4;
+  
 }
 
 
