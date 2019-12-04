@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from ..serializer import diary_serializer
 User = get_user_model()
 
-@csrf_exempt
 def share_diary (request, id) : 
     if request.method == 'POST' : 
         if not request.user.is_authenticated:
@@ -16,6 +15,8 @@ def share_diary (request, id) :
         content = request.body.decode()
 
         diary = MyDiary.objects.get(id = id, author = request.user)
+        if GardenDiary.objects.filter(origin_diary = diary):
+            return HttpResponse(status = 403)
         garden_diary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
         garden_diary.save()
         response_dict = {

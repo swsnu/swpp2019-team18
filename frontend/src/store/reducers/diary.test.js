@@ -117,4 +117,5 @@ describe("Article Reducer", () => {
         const action = {type: "None Type"};
         DiaryReducer(undefined, action);
     })
+
 });

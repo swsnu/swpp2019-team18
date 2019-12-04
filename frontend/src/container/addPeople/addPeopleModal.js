@@ -72,4 +72,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(AddPeoplePopUp);
+export default connect(null, mapDispatchToProps)(AddPeoplePopUp)
