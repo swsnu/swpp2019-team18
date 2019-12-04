@@ -30,12 +30,12 @@ const initialState = {
 const reducer = (state=initialState, action) => {
     switch(action.type) {
         case actionTypes.GET_DIARY :
-            console.log(action.diary.content);
             return {...state, diary: action.diary};
         case actionTypes.ADD_DIARY :
             return {...state, diary : action.diary};
         case actionTypes.EDIT_DIARY : 
             return {...state, diary : action.diary};
+
         case actionTypes.SET_MODE :
             return {...state, mode : action.mode};
         case actionTypes.SET_YEAR :
@@ -48,12 +48,14 @@ const reducer = (state=initialState, action) => {
             return {...state, category_name : action.category_name}
         case actionTypes.SET_PERSONID :
             return {...state, person_id : action.person_id};
+
         case actionTypes.GET_DIARY_BY_DATE:
             return{...state, selectedDiary : action.diaries};
         case actionTypes.GET_DIARY_BY_PERSON:
             return{...state, selectedDiary : action.diaries};            
         case actionTypes.GET_DIARY_BY_CATEGORY:
             return{...state, selectedDiary : action.diaries};
+            
         case actionTypes.DELETE_DIARY:
             const deleted = state.diary_list.filter((diary)=> {
                 return diary.id !== action.targetID;

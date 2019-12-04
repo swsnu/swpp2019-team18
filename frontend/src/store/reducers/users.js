@@ -11,8 +11,8 @@ const initialState = {
     status: {
         valid: false,
         isLoggedIn: false,
-        currentUser: ''
-    }
+        currentUser: ''   //username
+    },
 };
 
 const reducer = (state = initialState, action) => {
