@@ -129,10 +129,9 @@ class NewDiary extends Component {
 
 
         <Grid className="Grid">
-            <Grid.Row columns={2}>
+            <Grid.Row columns={2} style={{ marginLeft: '15px' }}>
                 <Segment>
                 {createPeopleSuccessMessage}
-                    <Container textAlign='center'><h2>Choose category</h2></Container>
                
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components
@@ -156,7 +155,8 @@ class NewDiary extends Component {
                              :  <GetCategoryTitle 
                              selectedCategoryType = {this.state.selectedCategoryType}
                              categoryName = {this.state.categoryName}
-                             handleTitle = {(name, rating) => this.handleTitle(name,rating)}/>}
+                             handleTitle = {(name, rating) => this.handleTitle(name,rating)}/>
+                             }
                              </Segment>
             
                         <Form>
@@ -174,7 +174,10 @@ class NewDiary extends Component {
                         <AddPeoplePopUp successHandler={this.openMessage}/> </Form>  </Container>
                         :
                         //if writeMode is False, user category selecting components should appear
-                         <CatergorySelect handleSelectCategory = {(name, type) => this.handleSelectCategory(name, type)}/>}
+                        <div>
+                         <Container textAlign='center' style={{ margin:'0px 0px 0px 0px' }}><h2>Choose category</h2></Container>
+                         <CatergorySelect handleSelectCategory = {(name, type) => this.handleSelectCategory(name, type)}/>
+                         </div>}
                 </Segment>
             </Grid.Row>
         </Grid>
