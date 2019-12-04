@@ -44,4 +44,16 @@ describe('sidebar', () => {
         expect(newState.diary.day).toBe('27');
     });
 
+    it('set GardenMode', () => {
+        store.dispatch(actionCreators.setGardenMode('ALL'))
+        const newState = store.getState();
+        expect(newState.garden.gardenmode).toBe('ALL');
+    });
+
+    it('set garden category', () => {
+        store.dispatch(actionCreators.setGardenCategory('MOVIE'))
+        const newState = store.getState();
+        expect(newState.garden.category_name).toBe('MOVIE');
+    });
+
 })

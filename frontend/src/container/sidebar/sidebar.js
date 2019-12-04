@@ -127,11 +127,11 @@ class sidebar extends Component {
     }
 
 
-    monthNav = () => {       
+    /*monthNav = () => {       
         return(
         <Dropdown id = 'label_month' inline options = {this.months} value = {this.monthFull()}/>
         )
-    }
+    }*/
 
 
     setYear = (year) => {
@@ -148,11 +148,11 @@ class sidebar extends Component {
         this.setYear(data);
     }
 
-    yearNav = () => {
+    /*yearNav = () => {
         return(
             <Dropdown id = 'label_year' inline options = {this.years} value = {this.year()} />
         )
-    }    
+    }    */
 
     setDay = (d) => {
         let dayNo = d;
@@ -277,6 +277,7 @@ class sidebar extends Component {
 
             <div align = 'left' style = {{padding : '10', zIndex : '9999' }}>
             <DatePicker
+            id = "datepicker"
             selected = {this.state.dateContext.toDate()}
             onChange = {this.handleChange}
             peekNextMonth
@@ -301,7 +302,7 @@ class sidebar extends Component {
                         <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
                         <Menu.Item fitted='horizontally'
                         style = {{color : (d == '7' ? 'red' : d == '6' ? 'blue' : 'black')}}
-                        id = {'day_' + day.format('D')}
+                        id = {'day_' + String(d)}
                         onClick={() => {
                             this.onSelectDayChange(D)
                             this.moveToDiaryPage()
@@ -395,7 +396,8 @@ class sidebar extends Component {
         for(let i = 0; i<this.state.categories.length; i++){
             let tmpCategory = this.state.categories[i];
             gardenCategoryItems.push(
-                <Dropdown.Item 
+                <Dropdown.Item
+                style ={{width : '270px'}} 
                 onClick = { () => {
                     this.onSelectGardenCategory(tmpCategory);
                 }}
@@ -413,7 +415,7 @@ class sidebar extends Component {
               position: "fixed",
               display: "flex",
               flexDirection: "column",
-              top: 50, //it should be height of header
+              top: 80, //it should be height of header
               bottom: 0,
               width: 265,
               background: "#FFFFFF",
@@ -460,7 +462,7 @@ class sidebar extends Component {
               position: "fixed",
               display: "flex",
               flexDirection: "column",
-              top: 50, //it should be height of header
+              top: 80, //it should be height of header
               bottom: 0,
               width: 265,
               background: "#FFFFFF",
@@ -491,14 +493,14 @@ class sidebar extends Component {
                     onClick={ () => {
                         this.onSelectGardenModeChange('MYGARDEN')}}
                 />
-                <Dropdown item text='CATEGORY' 
-                    floating 
-                    active = {this.state.gardenMode === 'CATEGORY'}
-                    style = {{position : 'fixed'}}>
-                    <Dropdown.Menu>
+                <Menu.Item>
+                <Dropdown text='CATEGORY' align = 'left' fluid floating
+                    >
+                    <Dropdown.Menu align = 'left'>
                         <this.gardenCategoryItem/>
                     </Dropdown.Menu>
                 </Dropdown>
+                </Menu.Item>
         
             </Menu>
                     </Container>

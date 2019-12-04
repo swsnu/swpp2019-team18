@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
+import { Input, Segment, Divider } from 'semantic-ui-react'
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
 //import './MyDiaryList.css'
@@ -77,8 +78,16 @@ class MyDiaryList extends Component{
         
         return(
             <div className = 'MyDiaryList' >
+            <Segment>
+                <Input icon='search' placeholder='Search...' />
+                <Divider clearing />
                 {diaries}
+            </Segment>
             </div>
+            /*<div className = 'MyDiaryList' align = 'center'>
+            <div className = 'MyDiaryList' >
+                {diaries}
+            </div>*/
         );
     }
 }

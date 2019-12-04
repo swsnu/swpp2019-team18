@@ -25,7 +25,10 @@ const CategoryButton = (props) => {
     </Button>*/
     <li className="hex">
         <div className="hexIn">
-          <a className="hexLink" href="#" onClick={() => props.clicks(props.category, props.categoryis)}>
+          <a id = {props.categoryType === 1 ?  'diary-category-button-1' :
+                   props.categoryType === 2 ? 'diary-category-button-2' :
+                   props.categoryType === 3 ? 'diary-category-button-3' : null} 
+                   className="hexLink" href="#" onClick={() => props.clicks(props.category, props.categoryType)}>
               {props.category === 'MOVIE' ? <img src = '/icon/movie.png'></img> : 
               props.category === 'GAME' ? <img src = '/icon/game.png'></img> : 
               props.category ==  'RESTAURANT' ? <img src = '/icon/restaurant.png'></img> : 

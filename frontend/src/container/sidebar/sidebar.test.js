@@ -107,29 +107,34 @@ describe('<MyDiaryList />', () => {
     });
 
     it('date change by click button', () => {
-        const today = moment.format("d");
         const component = mount(Sidebar_);
-        const buttons = component.find('#day_'+today+'a');
+        const buttons = component.find('#day_1 a');
         buttons.simulate('click');
         expect(spySetYear).toBeCalledTimes(2);
         expect(spySetMonth).toBeCalledTimes(2);
         expect(spySetDay).toBeCalledTimes(2);
      })
 
-    it('month change by click', () =>{
+    /*it('month change by click', () =>{
         const component = mount(Sidebar_);
         const wrapper = component.find('#label_month');
         expect(wrapper.length).toBe(2);
         /*const newState = component.find(Sidebar.WrappedComponent).instance();
-        expect(newState.state.mode).toBe("CALENDAR");*/
+        expect(newState.state.mode).toBe("CALENDAR");
     })
 
     it('year change by click', () => {
         const component = mount(Sidebar_);
         const wrapper = component.find('#label_year');
         expect(wrapper.length).toBe(2);
-    })
+    })*/
     
+    it('date change by click', () => {
+        const component = mount(Sidebar_);
+        const wrapper = component.find('#datepicker');
+        expect(wrapper.length).toBe(2);
+    })
+
     it('click to create click', () => {
         const spyHistoryPush = jest.spyOn(history, 'push').mockImplementation(path => {});
         const component = mount(Sidebar_);

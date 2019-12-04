@@ -1,7 +1,46 @@
-#header {
-    position: "fixed";
-    flex: 1;
-    margin : 0;
-     height : 50;
-     width : 100%;
-}
+/*#mydiary{
+    box-sizing: border-box;
+    border : 0;
+    outline: 0;
+}*/
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
+
+.header_menu{
+    
+    background:#fff;
+    color:black;
+    font-family : 'Dancing Script', cursive;
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:2.0em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+  }
+  .header_menu:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+  .header_menu:before,.header_menu:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  .header_menu:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .header_menu:hover:before,.header_menu:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  
