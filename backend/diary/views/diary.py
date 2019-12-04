@@ -13,17 +13,18 @@ User = get_user_model()
 def write_diary(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
-        content = req_data['content']
+        content = req_data['content'] #Draft.js contentState Form
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
         people_id = req_data['people']
         rating = req_data['rating']
         raw_date = req_data['date']
+        plain_text = req_data['plainText'] #Plain text form
         date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
-        emotion_score = sentiment(content)
-        key_phr = key_phrase(content)
+        emotion_score = sentiment(plain_text)
+        key_phr = key_phrase(plain_text)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 

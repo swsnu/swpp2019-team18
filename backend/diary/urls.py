@@ -4,14 +4,11 @@ from .views import people
 from .views import auth
 from .views import get_specific_diary
 from .views import share
-<<<<<<< HEAD
 from .views import category
 from .views import statistics
 
-=======
 from .views import image
 from .views import gardendiary
->>>>>>> 9f51a78a5f84d55c0e61cf743fb327023b8b9814
 
 urlpatterns = [
     path('signup/', auth.signup, name='signup'),

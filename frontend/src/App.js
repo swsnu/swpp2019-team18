@@ -42,7 +42,6 @@ class App extends Component {
     <ConnectedRouter history={this.props.history}>
        
       <div>
-        {this.props.currentUser ? <Header history={this.props.history}/> : null}
         <div style={{clear:"both", backgroundColor : 'red'}}></div>
        <Switch>
           <Route path='/' exact component={Login}/>
