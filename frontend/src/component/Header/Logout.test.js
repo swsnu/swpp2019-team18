@@ -3,9 +3,9 @@ import Logout from './Logout';
 import {  mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import {  ConnectedRouter } from 'connected-react-router';
-import { getMockStore } from '../test_utils/mocks'
-import { history } from '../store/store';
-import * as actionCreators from '../store/actions/login';
+import { getMockStore } from '../../test_utils/mocks'
+import { history } from '../../store/store';
+import * as actionCreators from '../../store/actions/login';
 
 
 const stubInitialState = {
@@ -35,7 +35,7 @@ describe('Logout', ()=> {
 
     it('correct username and password - login success' , () => {
         const spyHistoryPush = jest.spyOn(history, 'push')
-      .mockImplementation(path => {});
+        .mockImplementation(path => {});
         const component = mount(logout)
         const button = component.find('#logout button')
         button.simulate('click')

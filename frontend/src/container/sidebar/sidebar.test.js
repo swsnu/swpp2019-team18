@@ -62,25 +62,22 @@ describe('<MyDiaryList />', () => {
     });
     afterEach(() => { jest.clearAllMocks() });
 
-    // it('should render sidebar', () => {
-    //     const component = mount(Sidebar_);
-    //     const wrapper = component.find('.sidebar_container');
-    //     expect(wrapper.length).toBe(1);
-    //     const newState = component.find(Sidebar.WrappedComponent).instance();
-    //     expect(newState.mode).toBe("CALENDAR")
-    //     expect(newState.monthFull()).toBe(time.format("MMM"))
-    //     expect(newState.year()).toBe(time.format("YYYY"))    
-    //     expect(newState.month()).toBe(time.format("MMM"))
-    //     expect(newState.monthNum).toBe(time.format("MM"))
-    //     expect(newState.currentDay).toBe(time.format("D"))
-    // });
+    it('should render sidebar', () => {
+        const component = mount(Sidebar_);
+        const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(newState.monthFull()).toBe(time.format("MMMM"))
+        expect(newState.year()).toBe(time.format("YYYY"))    
+        expect(newState.month()).toBe(time.format("MMM"))
+        expect(newState.monthNum()).toBe(time.format("MM"))
+        expect(newState.currentDay()).toBe(time.format("D"))
+    });
 
     it('peson mode change by click button', () => {
         const component = mount(Sidebar_);
         const buttons = component.find('#tag_person');
         buttons.at(1).simulate('click');
-        expect(spySetMode).toBeCalledTimes(1);
         const newState = component.find(Sidebar.WrappedComponent).instance();
+        expect(spySetMode).toBeCalledTimes(1);
         expect(newState.state.mode).toBe("PERSON");
         const button = component.find('#John a');
         button.simulate('click');
@@ -110,29 +107,34 @@ describe('<MyDiaryList />', () => {
     });
 
     it('date change by click button', () => {
-        
         const component = mount(Sidebar_);
-        const buttons = component.find('#day_20 a');
+        const buttons = component.find('#day_1 a');
         buttons.simulate('click');
         expect(spySetYear).toBeCalledTimes(2);
         expect(spySetMonth).toBeCalledTimes(2);
         expect(spySetDay).toBeCalledTimes(2);
      })
 
-    it('month change by click', () =>{
+    /*it('month change by click', () =>{
         const component = mount(Sidebar_);
         const wrapper = component.find('#label_month');
         expect(wrapper.length).toBe(2);
         /*const newState = component.find(Sidebar.WrappedComponent).instance();
-        expect(newState.state.mode).toBe("CALENDAR");*/
+        expect(newState.state.mode).toBe("CALENDAR");
     })
 
     it('year change by click', () => {
         const component = mount(Sidebar_);
         const wrapper = component.find('#label_year');
         expect(wrapper.length).toBe(2);
-    })
+    })*/
     
+    it('date change by click', () => {
+        const component = mount(Sidebar_);
+        const wrapper = component.find('#datepicker');
+        expect(wrapper.length).toBe(2);
+    })
+
     it('click to create click', () => {
         const spyHistoryPush = jest.spyOn(history, 'push').mockImplementation(path => {});
         const component = mount(Sidebar_);

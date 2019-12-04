@@ -59,6 +59,7 @@ describe('get previousdiary', () => {
             done();
         });
     });
+    
     it('getDiaryByCategory',(done) => {
         const spy = jest.spyOn(axios, 'get')
         .mockImplementation(()=> {

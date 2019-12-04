@@ -39,4 +39,27 @@ describe('share', () => {
     });
     
     });
+
+    it('post fail gardendiary',(done) => {
+        const spy = jest.spyOn(axios, 'post')
+        .mockImplementation(url => {
+            return new Promise((resolve, reject) => {
+                const result = {
+                    response : {
+                        status : 400 
+                    }
+                };
+                reject(result);
+            })
+        });
+    
+        store.dispatch(actionCreators.shareDiary())
+        .then(()=>{
+            const newState = store.getState();
+            expect(newState.diary.garden_list.length).toBe(1);
+            expect(spy).toHaveBeenCalledTimes(1);
+            done();
+        });
+        
+        });
 })
