@@ -69,7 +69,7 @@ class Diary extends Component {
     }
 
     _onShareDiary = (diary, content) => {
-        return axios.post('http://localhost:8000/api/diary/share/'+ diary+'/', content)
+        return axios.post('/api/diary/share/'+ diary+'/', content)
         .then(res => this.setState({shareSuccess : 'SUCCESS'}))
         .catch( error => {
             if(error.response.status === 403){
