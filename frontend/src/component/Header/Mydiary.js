@@ -1,25 +1,23 @@
 import React, {Component} from 'react'
-import * as actionCreators from '../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
-import { Button, Image, Icon } from 'semantic-ui-react'
-import pencil from '../diary3.png'
 
 class Mydiary extends Component {
-    onClickLogoutButton = () => {
+    onClickButton = () => {
         this.props.history.push('/diary')
     }
 
     render () {
         return (
-            <div className = 'mydiary'>
-                <Button animated basic fluid size = 'big' id = 'mydiary' onClick = {() => this.onClickLogoutButton()}>
+            <div >
+                {/*<Button animated basic fluid size = 'big' id = 'mydiary' onClick = {() => this.onClickLogoutButton()}>
                     <Button.Content visible>My Diary</Button.Content>
                     <Button.Content hidden >
-                        {/*<Image src = {pencil} style = {{height : 40}} verticalAlign='middle'/>*/}
+                        {/*<Image src = {pencil} style = {{height : 40}} verticalAlign='middle'/>
                         <Icon name = 'book'/>
                     </Button.Content>
-                </Button>
+        </Button>*/}
+            <button className = 'header_menu' onClick = {() => this.onClickButton()}>My Diary</button>
             </div>
         )
     }

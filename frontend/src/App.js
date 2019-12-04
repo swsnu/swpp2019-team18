@@ -41,7 +41,7 @@ class App extends Component {
     <ConnectedRouter history={this.props.history}>
        
       <div>
-      <div style={{clear:"both"}}></div>
+      <div style={{clear:"both", backgroundColor : 'red'}}></div>
        <Switch>
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
@@ -55,12 +55,12 @@ class App extends Component {
               {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
-            <div className = 'main' style={{ marginLeft: 265, marginTop : 50}}>
+            <div className = 'main' style={{ marginLeft: 265, marginTop : 80}}>
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
               <PrivateRoute path='/diary/create' exact component={NewDiary}/>
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
             </div>
-            <div className = 'garden' style={{ marginLeft: 300, marginTop : 50}}>
+            <div className = 'garden' style={{ marginLeft: 300, marginTop : 80}}>
               <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
 
             </div>
