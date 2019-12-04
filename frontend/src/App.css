@@ -8,7 +8,6 @@
 
 .main {
   float: center;
-  border : 4px solid transparent;
   position : absolute;
   z-index: 777;
   

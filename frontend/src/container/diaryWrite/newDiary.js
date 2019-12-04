@@ -117,7 +117,7 @@ class NewDiary extends Component {
 
         let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
         let optionComponent = <Dropdown 
-            style={{margin:'0px 0px 20px 0px'}}
+            
             onChange={this.handleChange}
             placeholder='People' fluid multiple search selection options={options} />;
 
@@ -129,10 +129,10 @@ class NewDiary extends Component {
 
 
         <Grid className="Grid">
-            <Grid.Row columns={2} style={{ margin: '0px' }}>
+            <Grid.Row columns={2}>
                 <Segment>
                 {createPeopleSuccessMessage}
-                    <Container textAlign='center' style={{ margin:'0px 0px 0px 10px' }}><h2>Choose category</h2></Container>
+                    <Container textAlign='center'><h2>Choose category</h2></Container>
                
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components

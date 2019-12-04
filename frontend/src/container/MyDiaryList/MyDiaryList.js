@@ -29,6 +29,7 @@ const mapDispatchToProps = dispatch => {
     } 
 }
 
+
 class MyDiaryList extends Component{
 
     componentDidUpdate(prevProps){
@@ -60,9 +61,21 @@ class MyDiaryList extends Component{
             
         }
     }
+
+    state = {
+        keyword : ''
+    }
+
+    _searchContact = (e) => { 
+        this.setState({
+          keyword : e.target.value
+        });
+      }
+
  
     render(){
-               const diaries = this.props.selectedDiary.map(diary => {
+        console.log(this.props.selectedDiary)
+        const diaries = this.props.selectedDiary.map(diary => {
             return (
                         <Diary key = {diary.id}
                             id = {diary.id}
@@ -74,15 +87,42 @@ class MyDiaryList extends Component{
                             emotion_score = {diary.emotion_score}
                     />
             );
+
         });
+        /* const filterItems = (query) => {
+            return diaries.content.filter((el) =>
+              el.toLowerCase().indexOf(query.toLowerCase()) > -1
+            );
+          }
+          
+          console.log(filterItems('born')); // ['apple', 'grapes']
+
+        /*const filtered_diaries = (data) => {
+            data = data.filter((diary) => {
+                return diary.content.indexOf(this.state.keyword);
+            });
+            return (
+                <Diary key = {data.id}
+                    id = {data.id}
+                    category_name = {data.category_name}
+                    category_title = {data.category_title}
+                    person_tag = {data.person_tag}
+                    rating = {data.rating}
+                    content = {data.content}
+                    emotion_score = {data.emotion_score}
+            />
+    );
+        }*/
         
         return(
             <div className = 'MyDiaryList' >
-            <Segment>
-                <Input icon='search' placeholder='Search...' />
-                <Divider clearing />
-                {diaries}
+            <Segment attached = 'top' align='right'>
+                <Input value = {this.state.keyword} onChange = {this._searchContact} icon='search' placeholder='Search...' />
             </Segment>
+                <Divider clearing />
+            
+                {/*diaries(this.props.selectedDiary)*/diaries}
+            
             </div>
             /*<div className = 'MyDiaryList' align = 'center'>
             <div className = 'MyDiaryList' >
