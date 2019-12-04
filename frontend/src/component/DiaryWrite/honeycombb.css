@@ -22,7 +22,6 @@
   transition: all 0.5s;
   backface-visibility: hidden;
   will-change: transform;
-  transition: all 0.5s;
 }
 .hex::after{
   content:'';

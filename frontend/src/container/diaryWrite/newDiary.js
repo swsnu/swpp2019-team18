@@ -129,10 +129,10 @@ class NewDiary extends Component {
 
 
         <Grid className="Grid">
-            <Grid.Row columns={2} style={{ margin: '0px' }}>
+            <Grid.Row columns={2} style={{ marginLeft: '15px' }}>
                 <Segment>
                 {createPeopleSuccessMessage}
-                    <Container textAlign='center' style={{ margin:'0px 0px 0px 10px' }}><h2>Choose category</h2></Container>
+                    <Container textAlign='center' style={{ margin:'0px 0px 0px 0px' }}><h2>Choose category</h2></Container>
                
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components

@@ -115,7 +115,7 @@ def get_my_flower(request, mode = None) :
         if mode == 'Latest' : 
             response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
         else : 
-            responcdse_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
+            response_dict.sort(key = lambda x:x['flower_count'], reverse = True) 
         return JsonResponse(response_dict, safe=False)
     else :
         return HttpResponseNotAllowed(['GET'])

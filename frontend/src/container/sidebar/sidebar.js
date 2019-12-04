@@ -513,7 +513,7 @@ class sidebar extends Component {
 
     render() {
         return (
-            this.props.history.location.pathname === ('/garden'||'/garden/my') ? <this.gardenModeItem/> : <this.calendarModeItem/>         
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : <this.calendarModeItem/>         
         );
     }
 }

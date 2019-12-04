@@ -1,15 +1,9 @@
 import json
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from .models import MyDiary, People, Category
-from .models import User, Image
 from PIL import Image as img
 import tempfile
-=======
-from .models import MyDiary, People, Category, GardenDiary
-from .models import User
->>>>>>> calendar
+from .models import MyDiary, People, Category, GardenDiary, User, Image
 
 class UserTestCase(TestCase):   
     def setUp(self):
@@ -310,4 +304,3 @@ class GardenTest(TestCase) :
         self.assertEqual(response.status_code, 405)
 
         
->>>>>>> calendar

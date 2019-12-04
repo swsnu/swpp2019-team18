@@ -3,7 +3,6 @@ import * as actionCreators from '../../store/actions/login'
 import {connect } from 'react-redux'
 import {withRouter} from 'react-router'
 import { Button, Form, Grid, Header, Message, Segment, Image} from 'semantic-ui-react'
-import sdaLogo from '../../SDA_LOGO.png'
 
 class Login extends Component {
     state = {
@@ -36,7 +35,7 @@ class Login extends Component {
                     Your Sentimental Diary Assistant
         </Header>*/}
                 
-                <Image src = {sdaLogo} size='large'/>
+                <Image src = '/logo/SDA_LOGO.png' size='large'/>
                 
                 
                 
