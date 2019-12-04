@@ -38,7 +38,7 @@ export const returnPeopleToReducer = (allPeople) => {
 }
 
 export const getPeople = () => dispatch => {
-    return axios.get('http://localhost:8000/api/diary/people/')
+    return axios.get('/api/diary/people/')
                 .then(response => dispatch(returnPeopleToReducer(response.data)));
 }
 
@@ -51,7 +51,7 @@ export const deleteDiary_ = (id) => {
 
 export const deleteDiary = (id) => {
     return (dispatch) => {
-        return axios.delete('http://localhost:8000/api/diary/'+id+'/')
+        return axios.delete('/api/diary/'+id+'/')
         .then(() => {dispatch(deleteDiary_(id))})
     };
 };

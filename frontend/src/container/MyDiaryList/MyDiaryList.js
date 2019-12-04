@@ -6,7 +6,7 @@ import {withRouter} from 'react-router';
 import { Input, Segment, Divider } from 'semantic-ui-react'
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
-//import './MyDiaryList.css'
+// import './MyDiaryList.css'
 
 
 const mapStateToProps = state => {
@@ -29,7 +29,12 @@ const mapDispatchToProps = dispatch => {
     } 
 }
 
+
 class MyDiaryList extends Component{
+
+    state = {
+        search : ""
+    }
 
     componentDidUpdate(prevProps){
 
@@ -45,7 +50,6 @@ class MyDiaryList extends Component{
     }
 
     componentDidMount(){
-
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
@@ -60,10 +64,30 @@ class MyDiaryList extends Component{
             
         }
     }
+
+    state = {
+        keyword : ''
+    }
+
+    _searchContact = (e) => { 
+        this.setState({
+          keyword : e.target.value
+        });
+      }
+
  
     render(){
-               const diaries = this.props.selectedDiary.map(diary => {
-            return (
+               const diaries = this.props.selectedDiary.length !==0 ? 
+               <Segment>
+
+                <Input icon='search' placeholder='Search...'  
+                        id='diary-search-input'
+                        value={this.state.search}
+                        onChange={e => this.setState({search : e.target.value})}
+                        />
+                <Divider clearing />
+               {this.props.selectedDiary.map(diary => {
+                    return (
                         <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
@@ -73,21 +97,22 @@ class MyDiaryList extends Component{
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
                     />
-            );
-        });
+                );
+            })} </Segment> 
+            : <Segment textAlign='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }}>
+                <div className = 'null_page' > 
+                <img src = '/null.png' align = 'center'></img>
+                <h2>You have no diary</h2>
+                <h2>Let's write!</h2>
+
+            </div>
+            </Segment>;
         
         return(
             <div className = 'MyDiaryList' >
-            <Segment page>
-                <Input icon='search' placeholder='Search...' />
-                <Divider clearing />
                 {diaries}
-            </Segment>
             </div>
-            /*<div className = 'MyDiaryList' align = 'center'>
-            <div className = 'MyDiaryList' >
-                {diaries}
-            </div>*/
+
         );
     }
 }
