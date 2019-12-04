@@ -77,11 +77,13 @@ class MyDiaryList extends Component{
         });
         
         return(
+            <div className = 'MyDiaryList' >
             <Segment>
                 <Input icon='search' placeholder='Search...' />
                 <Divider clearing />
                 {diaries}
             </Segment>
+            </div>
             /*<div className = 'MyDiaryList' align = 'center'>
             <div className = 'MyDiaryList' >
                 {diaries}
