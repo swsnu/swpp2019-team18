@@ -82,8 +82,14 @@ const reducer = (state=initialState, action) => {
             return {...state, items : action.data};
         case actionTypes.GET_STATCAL:
             return {...state, items : action.data};
-        case actionTypes.GET_STATISTICS:
-            return {...state, graph_data : action.graph_data};
+        case actionTypes.GET_CATEGORY_STATISTICS:
+            return {...state, categoryData : action.graph_data};
+        case actionTypes.GET_CALENDAR_STATISTICS:
+            return {...state, calendarData : action.graph_data};
+        case actionTypes.GET_PEOPLE_STATISTICS:
+            return {...state, friendData : action.graph_data};
+        case actionTypes.GET_CATEGORY_FREQ_STATISTICS:
+            return {...state, categoryFreqData : action.graph_data}
         default:
             return {...state};
     }

@@ -24,4 +24,5 @@ urlpatterns = [
     path('diary/category/', category.get_cagegory, name='get_category'),
     path('diary/calendarOption/', category.get_statcal, name='get_statcal'),
     path('diary/statistics/', statistics.get_statistics, name='get_statistics'),
+    path('diary/frequency/category/', statistics.by_category_frequency, name='by_category_frequency'),
 ]

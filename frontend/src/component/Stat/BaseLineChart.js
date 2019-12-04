@@ -1,20 +1,28 @@
-import React from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import './BaseLineChart.css'
+// import React from 'react';
+// import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+// import './BaseLineChart.css'
 
-function BaseLineChart(props){
-    return (
-        <div className="stat">
-        <LineChart id="lineChart" width={800} height={400} data={props.data} margin={{ top: 50, right: 20, bottom: 50, left: 100 }}>
-        <Line type="monotone" dataKey="score" stroke="#8884d8" onClick={(event) => console.log(event)}/>
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <XAxis dataKey="day" />
-        <YAxis />
-        <Tooltip stroke="#ccc"/>
-      </LineChart>
-      </div>
-    );
-};
+// function BaseLineChart(props){
 
-export default BaseLineChart; 
+//   return (
+//       <div className="lineStat">
+//       <ResponsiveContainer width="99%" minHeight={350}>
+//       <LineChart
+//           margin={{
+//             top: 5, right: 30, left: 20, bottom: 5,
+//           }}
+//         >
+//         <CartesianGrid strokeDasharray="3 3" />
+//         <XAxis dataKey="day" className="xAxis" tick={{ fontFamily : "Arial" }}/>
+//         <YAxis domain={[0, 100]}/>
+//         <Tooltip />
+//         <Legend />
+//         <Line connectNulls  data={props.data} dataKey="prev_score" name="prev_score" key="prev_score" stroke="#8884d8" />
+//         {/* <Line connectNulls  data={props.data} dataKey="cur_score" name="cur_score" key="cur_score" stroke="#233332" /> */}
+//       </LineChart>
+//       </ResponsiveContainer>
+//       </div>
+//   )
+// }
 
+// export default BaseLineChart; 

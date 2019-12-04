@@ -1,0 +1,112 @@
+@font-face {
+    font-family : "Spoqa Han Sans";
+    font-weight : 200;
+    src : url("../../css/fonts/SpoqaHanSansThin.woff2") format("woff2"),
+        url("../../css/fonts/SpoqaHanSansThin.woff") format("woff"),
+        url("../../css/fonts/SpoqaHanSansThin.ttf") format("truetype");
+}
+
+@font-face {
+    font-family : "Spoqa Han Sans";
+    font-weight : 300;
+    src : url("../../css/fonts/SpoqaHanSansLight.woff2") format("woff2"),
+        url("../../css/fonts/SpoqaHanSansLight.woff") format("woff"),
+        url("../../css/fonts/SpoqaHanSansLight.ttf") format("truetype");
+}
+
+
+@font-face {
+    font-family : "Spoqa Han Sans";
+    font-weight : 400;
+    src : url("../../css/fonts/SpoqaHanSansRegular.woff2") format("woff2"),
+          url("../../css/fonts/SpoqaHanSansRegular.woff") format("woff"),
+          url("../../css/fonts/SpoqaHanSansRegular.ttf") format("truetype");
+}
+
+.calendarChart{
+    display:  inline-block;
+    margin-left : 30px;
+    width : 70%;
+    margin-top : 20px;
+    padding : 10px 10px 5px 0px;
+    border : 2px solid #CACACA;
+}
+
+.dailyStat{
+    display: inline-block;
+    width : 20%;
+    vertical-align: top;
+    /* width : 100px; */
+    margin-left : 30px;
+    margin-top : 20px;
+    margin-right : 20px;
+}
+
+.categoryStat{
+    display: inline-block;
+    width : 20%;
+    vertical-align: top;
+    /* width : 100px; */
+    margin-left : 30px;
+    margin-top : 20px;
+    margin-right : 20px;
+}
+
+.friendChart{
+    display:  inline-block;
+    margin-top : 30px;
+    margin-left : 30px;
+    width : 70%;
+    padding : 10px 10px 5px 0px;
+    border : 2px solid #CACACA;
+}
+
+.friendStat{
+    display: inline-block;
+    width : 20%;
+    vertical-align: top;
+    /* width : 100px; */
+    margin-left : 30px;
+    margin-top : 30px;
+    margin-right : 20px;
+}
+
+
+.categoryChart{
+    display:  inline-block;
+    margin-top : 30px;
+    margin-left : 30px;
+    width : 70%;
+    padding : 10px 10px 5px 0px;
+    border : 2px solid #CACACA;
+}
+
+.categoryFrequencyChart{
+    display:  inline-block;
+    margin-top : 20px;
+    margin-left : 30px;
+    margin-bottom : 30px;
+    width : 30%;
+    padding : 10px 10px 5px 0px;
+    border : 2px solid #CACACA;
+}
+
+.categoryFrequencyStat{
+    display: inline-block;
+    width : 20%;
+    vertical-align: top;
+    text-align : right;
+    /* width : 100px; */
+    margin-left : 30px;
+    margin-top : 20px;
+    margin-right : 20px;
+}
+
+h1 {
+    /* font-family : Arial, Helvetica, sans-serif; */
+    font-family : "Spoqa Han Sans";
+}
+
+.bold {
+    font-weight : bold;
+}
