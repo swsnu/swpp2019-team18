@@ -1,8 +1,15 @@
 import json
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+<<<<<<< HEAD
+from .models import MyDiary, People, Category
+from .models import User, Image
+from PIL import Image as img
+import tempfile
+=======
 from .models import MyDiary, People, Category, GardenDiary
 from .models import User
+>>>>>>> calendar
 
 class UserTestCase(TestCase):   
     def setUp(self):
@@ -223,6 +230,22 @@ class PeopleTest(TestCase):
         response = self.client.put('/api/diary/people/', edit_data)
         self.assertEqual(response.status_code, 405)
 
+class ImageTest(TestCase):
+    def setUp(self):
+        User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
+        client = Client()
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+
+    def test_upload_file(self):
+        client = Client()
+        image = img.new('RGB', (100, 100))
+
+        tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
+        image.save(tmp_file)
+        tmp_file.seek(0)
+
+        response = client.post('/api/diary/image/', {'image': tmp_file}, format='multipart')
 class GardenTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
@@ -287,3 +310,4 @@ class GardenTest(TestCase) :
         self.assertEqual(response.status_code, 405)
 
         
+>>>>>>> calendar

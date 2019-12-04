@@ -7,7 +7,6 @@ import Statistic from './Statistic'
 import Logo from './Logo'
 import './Header.css'
 
-
 class Header extends Component {
     render () {
         return (

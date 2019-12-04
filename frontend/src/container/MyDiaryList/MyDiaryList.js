@@ -63,7 +63,7 @@ class MyDiaryList extends Component{
  
     render(){
                const diaries = this.props.selectedDiary.map(diary => {
-            return (        
+            return (
                         <Diary key = {diary.id}
                             id = {diary.id}
                             category_name = {diary.category_name}
@@ -83,6 +83,7 @@ class MyDiaryList extends Component{
                 {diaries}
             </Segment>
             /*<div className = 'MyDiaryList' align = 'center'>
+            <div className = 'MyDiaryList' >
                 {diaries}
             </div>*/
         );

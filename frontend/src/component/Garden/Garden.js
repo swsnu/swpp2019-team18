@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
 import {giveFlower, deleteGardenDiary} from '../../store/actions/gardendiary';
-
+import contentFromRaw from '../../module/ContentFromRaw';
+import Content from '../Diary/Content'
 import {Grid, Icon, Label, Segment, Dimmer, Button} from 'semantic-ui-react';
 import './Garden.css';
 
@@ -11,6 +12,7 @@ const mapDispatchToProps = dispatch => {
     return {
         onGiveFlower : (id) => dispatch(giveFlower(id)),
         onDeleteGardenDiary : (id) => dispatch(deleteGardenDiary(id)),
+
 
     }
 }
@@ -86,12 +88,11 @@ class Garden extends Component {
                     <Button id = 'garden_delete_button' floated = 'right' onClick = {() => this.deleteHandler(this.props.id)}>Delete</Button> : null}
 
             </Segment>
-            <Segment inverted >
-             {
-                this.props.content 
-            }
-
-             </Segment>
+            <Segment>
+                <div style = {{color : 'black', textAlign : 'justify'}}>
+                <Content content = {this.props.content}/>
+                </div>
+            </Segment>
             <Segment textAlign = 'center'>
                 {flower}         
             </Segment>
@@ -107,14 +108,14 @@ class Garden extends Component {
 
         <div>
             <a className="card" onClick = {this.handleShow} >        
-        <div>
-            <h1>{this.props.category_name}{this.props.category_title ? ' - ' + this.props.category_title : null}</h1>
-            <p className='preview'>{this.props.content}</p>
-            <div className="date">Shared in {year}.{month}.{day}</div>
-            <div className="tags">
-                <div className="tag">{this.props.flower_count} Flowers</div>
-            </div>
-        </div>
+                <div>
+                    <h1>{this.props.category_name}{this.props.category_title ? ' - ' + this.props.category_title : null}</h1>
+                    <p className='preview'>{contentFromRaw(this.props.content)}</p>
+                    <div className="date">Shared in {year}.{month}.{day}</div>
+                    <div className="tags">
+                        <div className="tag">{this.props.flower_count} Flowers</div>
+                    </div>
+                </div>
             </a>
         </div>
                 
@@ -127,4 +128,4 @@ class Garden extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Garden));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Garden))
