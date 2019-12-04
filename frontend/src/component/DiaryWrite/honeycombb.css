@@ -112,14 +112,10 @@
   background-position: center center;
   background-size: cover;
   overflow: hidden;
--webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
-/* .img {
-  background-image : url('/movie.jpeg');
-
-} */
 
 .img:before, .img:after {
   position: absolute;
@@ -131,12 +127,7 @@ clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   opacity: 0;
   transition: opacity 0.5s;
 }
-.img:before {
-  color: rgba(22, 103, 137, 0.3);
-}
-.img:after {
-  background-color: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5), transparent);
-}
+
 
 /*** HOVER EFFECT  **********************************************************************/
 

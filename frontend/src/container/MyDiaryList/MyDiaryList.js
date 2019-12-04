@@ -78,7 +78,7 @@ class MyDiaryList extends Component{
         
         return(
             <div className = 'MyDiaryList' >
-            <Segment>
+            <Segment page>
                 <Input icon='search' placeholder='Search...' />
                 <Divider clearing />
                 {diaries}
