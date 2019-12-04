@@ -16,7 +16,7 @@ def share_diary (request, id) :
 
         diary = MyDiary.objects.get(id = id, author = request.user)
         if GardenDiary.objects.filter(origin_diary = diary):
-            return HttpResponse(status = 400)
+            return HttpResponse(status = 403)
         garden_diary = GardenDiary(author = diary.author, origin_diary=diary, content = content, category=diary.category)
         garden_diary.save()
         response_dict = {

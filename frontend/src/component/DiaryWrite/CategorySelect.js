@@ -56,21 +56,21 @@ class CategorySelect extends Component {
                     {Category_type_1.map( (name) => { return <CatergoryButton 
                     key = {name}
                     category = {name} 
-                    categoryis = {1}
+                    categoryType = {1}
                     currentButton = {this.state.currentCategory}
                     clicks = {(categoryName, type) => this.props.handleSelectCategory(categoryName , type)} /> })}
 
                     {Category_type_2.map( (name) => { return <CatergoryButton
                     key = {name}
                     category = {name} 
-                    categoryis = {2}
+                    categoryType= {2}
                     currentButton = {this.state.currentCategory}
                     clicks = {(categoryName , type) => this.props.handleSelectCategory(categoryName , type)} /> })}
 
                     {Category_type_3.map( (name) => { return <CatergoryButton 
                     key = {name}
                     category = {name} 
-                    categoryis = {3}
+                    categoryType = {3}
                     currentButton = {this.state.currentCategory}
                     clicks = {(categoryName , type) => this.props.handleSelectCategory(categoryName , type)} /> })}
             </ul>

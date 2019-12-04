@@ -72,8 +72,12 @@ class Diary extends Component {
         return axios.post('http://localhost:8000/api/diary/share/'+ diary+'/', content)
         .then(res => this.setState({shareSuccess : 'SUCCESS'}))
         .catch( error => {
-            if(error.response.status === 400){
+            if(error.response.status === 403){
+                console.log(error.response)
                 this.setState({shareSuccess : 'DUPLICATED'})
+            }
+            else{
+                this.setState({shareSuccess : 'ERROR'})
             }
         } 
      )
@@ -115,7 +119,7 @@ class Diary extends Component {
             
             <Button primary id = 'share-confirm-button' onClick = {() => {
                 this._onShareDiary(this.props.id, this.state.content)
-                this.setState({active : false}) 
+                this.handleHide()
                 }} >share</Button>
             
             <Button id = 'share-cancel-button' onClick = {() => this.setState({active : false})} >close</Button>
@@ -149,26 +153,6 @@ class Diary extends Component {
 
         </div>
         
-        /*
-        <Dimmer active={active} onClickOutside={this.handleHide}>
-            <Header inverted>You can edit content before sharing - original article wouldn't be changed</Header>
-            <Form>
-            <Form.TextArea 
-                        id='diary-content-input'
-                        placeholder='Tell me more about you...'
-                        fluid = "true"
-                        value={this.state.content}
-                        onChange={e => this.setState({content : e.target.value})}
-                        />
-            </Form>
-            <br></br>
-            <Button id = 'share-confirm-button' inverted onClick = {() => 
-            {
-                this.props.onShareDiary(this.props.id, this.state.content)
-                this.handleHide()
-            }}>Share</Button>
-            <Button id = 'share-cancel-button' inverted onClick = {() => this.handleHide()}>Cancel</Button>
-        </Dimmer> */
         if(this.state.popupMode === 'DELETE'){
             popup = deletePopup;
         }
