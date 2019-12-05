@@ -30,8 +30,8 @@
         - cd ..
       before_script:
         - cd backend
-        - python3 manage.py makemigrations
-        - python3 manage.py migrate
+        - python3 manage.py makemigrations --settings=backend.settings.development
+        - python3 manage.py migrate --settings=backend.settings.development
         - cd ..
       script:
         # Script to test your build
