@@ -1,4 +1,4 @@
-/* @font-face {
+@font-face {
     font-family : "Spoqa Han Sans";
     font-weight : 200;
     src : url("../../css/fonts/SpoqaHanSansThin.woff2") format("woff2"),
@@ -29,4 +29,4 @@
 }
 h1 {
     font-family : "Spoqa Han Sans";;
-} */
+}

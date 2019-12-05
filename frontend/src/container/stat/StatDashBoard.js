@@ -47,17 +47,11 @@ class StatDashBoard extends Component {
 
     render(){
         let friendChart = <div className="friendChart"><BaseBarChart data={this.state.friendData } 
-            dataKey="friend_name" color="#5CC6B8" colorName="friend"
-            /></div>;
+            dataKey="friend_name" color="#5CC6B8" colorName="friend"/></div>;
+        let calendarChart = <div className="calendarChart"><BaseAreaChart data={this.state.calendarData } 
+            history={this.props.history}/></div>;
         let categoryChart = <div className="categoryChart"><BaseBarChart data={this.state.categoryData } 
             dataKey="category_name" color="#2379B3" colorName="category"/></div>;
-        let calendarChart = <div className="calendarChart"><BaseAreaChart data={this.state.calendarData } 
-            history={this.props.history}
-            /></div>;
-        // let calendarChart = <div className="calendarChart"><BaseLineChart data={this.state.calendarData } 
-        //     history={this.props.history}
-        //     /></div>;
-        console.log(this.state.calendarData);
         let categoryFrequencyChart = <div className="categoryFrequencyChart">
             <BasePieChart data={this.state.categoryFreqData}/> 
         </div>

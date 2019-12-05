@@ -7,7 +7,6 @@ import NewDiary from './container/diaryWrite/newDiary'
 import EditDiary from './container/diaryEdit/editDiary';
 import MyDiaryList from './container/MyDiaryList/MyDiaryList';
 import Sidebar from './container/sidebar/sidebar'
-import {withRouter} from 'react-router';
 import Header from './component/Header/Header'
 
 import {  Route, Switch } from 'react-router-dom'

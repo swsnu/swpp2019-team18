@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {
-  PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend, Tooltip
+  PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip
 } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
