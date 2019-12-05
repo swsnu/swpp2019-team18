@@ -24,7 +24,7 @@ function BaseAreaChart(props){
 
   return (
       <div className="areaChart">
-        <ResponsiveContainer width="99%" minHeight={350}>
+        <ResponsiveContainer width="99%" minHeight={350} minWidth={500}>
         <AreaChart 
         data={props.data} 
         margin={{ top: 0, right: 0, bottom: 0, left: 0 }} 

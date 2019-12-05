@@ -83,7 +83,7 @@
 
 .categoryFrequencyChart{
     display:  inline-block;
-    margin-top : 20px;
+    margin-top : 40px;
     margin-left : 30px;
     margin-bottom : 30px;
     width : 30%;
@@ -98,7 +98,7 @@
     text-align : right;
     /* width : 100px; */
     margin-left : 30px;
-    margin-top : 20px;
+    margin-top : 40px;
     margin-right : 20px;
 }
 
