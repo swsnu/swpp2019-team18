@@ -5,8 +5,8 @@ import nltk
 from django.http import HttpResponse, JsonResponse
 from ..decorator import is_logged_in
 from ..models import MyDiary, People, Category
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
+# nltk.download('punkt')
+# nltk.download('averaged_perceptron_tagger')
 
 @is_logged_in
 def get_statistics(request):
@@ -46,7 +46,6 @@ def anlayze_by_date_(user, diaries, start_date, days):
                         'prev_scores' : [],
                         'prev_diary_ids' : []}
         cur_data.append(initial_data)
-    print(cur_data)
     for diary in diaries:
         day_index = (diary.created_date - start_date).days
         cur_data[day_index]['cur_scores'].append(diary.emotion_score)
@@ -119,39 +118,28 @@ def analyze_by_category(user):
 
 
 def by_category_frequency(request):
-    user = request.user
-    categories = Category.objects.filter(mydiary__author=user)
-    counter = {}
-    for category in categories:
-        name = category.name 
-        if name in counter.keys():
-            counter[name] += 1
-        else:
-            counter[name] = 0
-    data = []
-    tmp = [val for key, val in counter.items()]
-    tmp.sort()
-    tmp = tmp[::-1]
-    idx = 4 if len(tmp) > 4 else len(tmp)
-    thr = max(1, tmp[idx])
-    total_cnt = sum([val if val >= thr else 0 for key, val in counter.items()])
-    for key, val in counter.items():
-        if val >= thr:
-            data.append({'name' : key, 'value' : int((val / total_cnt) * 100)})
-    return JsonResponse(data, safe=False, status=200)
-
-# def get_word_frequency(request):
-#     user = request.user 
-#     diaries = MyDiary.objects.filter(author=user)
-#     whole = ""
-#     for diary in diaries:
-#         content = diary.content
-#         whole += " " + content
-#     tokens = nltk.word_tokenize(whole)
-#     tagged = nltk.pos_tag(tokens)
-#     nouns = [word for word, pos in tagged if pos in ['NN', 'NNP']]
-#     print(nouns)
-#     return 
+    if request.method == "GET":
+        user = request.user
+        categories = Category.objects.filter(mydiary__author=user)
+        counter = {}
+        for category in categories:
+            name = category.name 
+            if name in counter.keys():
+                counter[name] += 1
+            else:
+                counter[name] = 0
+        data = []
+        tmp = [val for key, val in counter.items()]
+        tmp.sort()
+        tmp = tmp[::-1]
+        idx = 4 if len(tmp) > 4 else (len(tmp) - 1)
+        thr = max(1, tmp[idx])
+        total_cnt = sum([val if val >= thr else 0 for key, val in counter.items()])
+        for key, val in counter.items():
+            if val >= thr:
+                data.append({'name' : key, 'value' : int((val / total_cnt) * 100)})
+        return JsonResponse(data, safe=False, status=200)
+    return HttpResponse(status=405)
 
 
 def analyze_by_people(user):
@@ -176,3 +164,17 @@ def analyze_by_people(user):
             ref['friend_id'] = key
             res.append(ref)
     return res
+
+
+# def get_word_frequency(request):
+#     user = request.user 
+#     diaries = MyDiary.objects.filter(author=user)
+#     whole = ""
+#     for diary in diaries:
+#         content = diary.content
+#         whole += " " + content
+#     tokens = nltk.word_tokenize(whole)
+#     tagged = nltk.pos_tag(tokens)
+#     nouns = [word for word, pos in tagged if pos in ['NN', 'NNP']]
+#     print(nouns)
+#     return 
