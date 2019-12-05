@@ -2,10 +2,6 @@ import React from 'react';
 import { ResponsiveContainer, Legend, CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area } from 'recharts';
 import './BaseAreaChart.css'
 
-function onClickHandler(props, event){
-  props.history.push('/diary');
-}
-
 function renderLegendText(value, entry) {
   let color = "";
   let changeValue = value;
@@ -21,14 +17,12 @@ function renderLegendText(value, entry) {
 }
 
 function BaseAreaChart(props){
-
   return (
       <div className="areaChart">
-        <ResponsiveContainer width="99%" minHeight={350} minWidth={500}>
+        <ResponsiveContainer width={props.width} minHeight={props.minHeight} aspect={props.aspect}>
         <AreaChart 
         data={props.data} 
-        margin={{ top: 0, right: 0, bottom: 0, left: 0 }} 
-        onClick={(event) => onClickHandler(props, event)}>
+        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
         <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#E968B1" stopOpacity={0.6}/>

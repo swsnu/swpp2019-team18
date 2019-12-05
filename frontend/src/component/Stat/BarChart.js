@@ -7,7 +7,7 @@ import { Button } from 'semantic-ui-react';
 
 function BaseBarChart(props){
   let data = props.data;
-  if(props.data !== undefined){
+  if(props.data !== []){
     const buffer = props.data.concat().sort((a, b) => a.score < b.score ? 1 : -1);
     let top3Idx = 2;
     if(buffer.length < 3) {
@@ -32,7 +32,7 @@ function BaseBarChart(props){
   }
 
     return (
-        <ResponsiveContainer width='99%' minHeight={ 275 }>
+        <ResponsiveContainer width={props.width} minHeight={ props.minHeight }>
         <ComposedChart className={props.className}
           layout="vertical"   
           id="barChart" data={data} 

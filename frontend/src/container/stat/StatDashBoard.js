@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BaseBarChart from '../../component/Stat/BarChart';
 import BaseAreaChart from '../../component/Stat/BaseAreaChart';
-import BaseLineChart from '../../component/Stat/BaseLineChart';
+// import BaseLineChart from '../../component/Stat/BaseLineChart';
 import BasePieChart from '../../component/Stat/PieChart';
 import { getStatistics, getCategoryFrequency } from '../../store/actions/statistics';
 import { connect } from 'react-redux';
@@ -21,22 +21,20 @@ class StatDashBoard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
+        let updatedState = prevState;
         if(nextProps.friendData !== undefined && (nextProps.friendData !== prevState.friendData)){
-            return {...prevState, friendData : nextProps.friendData};
+            updatedState = {...updatedState, friendData : nextProps.friendData};
         }
         if(nextProps.calendarData !== undefined && (nextProps.calendarData !== prevState.calendarData)){
-            return {...prevState, calendarData : nextProps.calendarData};
+            updatedState = {...updatedState, calendarData: nextProps.calendarData};
         }
         if(nextProps.categoryData !== undefined && (nextProps.categoryData !== prevState.categoryData)){
-            return {...prevState, categoryData : nextProps.categoryData};
+            updatedState = {...updatedState, categoryData: nextProps.categoryData};
         }
         if(nextProps.categoryFreqData !== undefined && (nextProps.categoryFreqData !== prevState.categoryFreqData)){
-            console.log("==================================");
-            console.log(nextProps.categoryFreqData)
-            console.log("==================================");
-            return {...prevState, categoryFreqData : nextProps.categoryFreqData};
+            updatedState = {...updatedState, categoryFreqData: nextProps.categoryFreqData};
         }
-        return {...prevState};
+        return {...updatedState};
     }
 
     componentDidMount(){
@@ -48,22 +46,41 @@ class StatDashBoard extends Component {
     }
 
     render(){
-        let friendChart = <div className="friendChart"><BaseBarChart data={this.state.friendData.graph_data } 
-            dataKey="friend_name" color="#5CC6B8" colorName="friend"/></div>;
-        let calendarChart = <div className="calendarChart"><BaseAreaChart data={this.state.calendarData.graph_data } 
-            history={this.props.history}/></div>;
-        let categoryChart = <div className="categoryChart"><BaseBarChart data={this.state.categoryData.graph_data } 
-            dataKey="category_name" color="#2379B3" colorName="category"/></div>;
+        let friendChart = <div className="friendChart">
+                <BaseBarChart data={this.state.friendData.graph_data } 
+                dataKey="friend_name" 
+                width={"99%"} 
+                minHeight={250}
+                color="#5CC6B8" 
+                colorName="friend"/></div>;
+        let calendarChart = <div className="calendarChart">
+            <BaseAreaChart 
+                data={this.state.calendarData.graph_data } 
+                history={this.props.history}
+                width={"99%"}
+                minHeight={350}/></div>;
+        let categoryChart = <div className="categoryChart">
+            <BaseBarChart 
+                data={this.state.categoryData.graph_data}
+                width={"99%"} 
+                minHeight={250}
+                dataKey="category_name" 
+                color="#2379B3" 
+                colorName="category"/></div>;
         let categoryFrequencyChart = <div className="categoryFrequencyChart">
-            <BasePieChart data={this.state.categoryFreqData.graph_data}/> </div>
+            <BasePieChart 
+                data={this.state.categoryFreqData.graph_data} 
+                width={"99%"}
+                minHeight={250}
+                cx="50%"
+                cy="50%"
+                /></div>
 
         let calenderPercent = 0;
         if(this.state.calendarData.meta !== undefined){
             calenderPercent = this.state.calendarData.meta.percent;
         }
-        else{
-            calenderPercent = 0;
-        }
+
         let bestFriend = ""
         if(this.state.friendData.meta !== undefined){
             bestFriend = this.state.friendData.meta.best_friend
@@ -78,6 +95,11 @@ class StatDashBoard extends Component {
         if(this.state.categoryFreqData.meta !== undefined){
             categoryPercent = this.state.categoryFreqData.meta.percent;
             maxFrequentCategory = this.state.categoryFreqData.meta.frequent_category;
+        }
+
+        let totalCount = 0;
+        if(this.state.categoryFreqData.meta !== undefined){
+            totalCount = this.state.categoryFreqData.meta.total_count;
         }
         return (
             <div className='dashboard' >
@@ -101,9 +123,9 @@ class StatDashBoard extends Component {
                 {categoryFrequencyChart}
                 <div className="categoryFrequencyStat">
                     <h1> Activity Insights</h1>
-                    <p> You're using <span className="bold"> {categoryPercent}%</span> of time on <span className="bold">{maxFrequentCategory}</span> Category </p>
+                    <p> You have writtend total <span className="bold"> {totalCount}</span> diaries</p>
+                    <p> You have spent <span className="bold"> {categoryPercent}%</span> of time on <span className="bold">{maxFrequentCategory}</span> Category </p>
                 </div>
-                
             </div>
         )
     }

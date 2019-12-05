@@ -9,7 +9,9 @@ const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
   cx, cy, midAngle, innerRadius, outerRadius, percent, index,
 }) => {
-   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  console.log("***********************")
+  console.log(1);
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -21,13 +23,15 @@ const renderCustomizedLabel = ({
 };
 
 function BasePieChart(props) {
+    console.log(2);
+    console.log(props.data);
     return (
-      <ResponsiveContainer width='99%' minHeight={ 250 }>
+      <ResponsiveContainer width={props.width} minHeight={props.minHeight} aspect={props.aspect}>
       <PieChart>
         <Pie
           data={props.data}
-          cx="50%"
-          cy="50%"
+          cx={props.cx}
+          cy={props.cy}
           labelLine={false}
           outerRadius={100}
           label={renderCustomizedLabel}

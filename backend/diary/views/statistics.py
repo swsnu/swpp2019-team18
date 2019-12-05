@@ -21,7 +21,6 @@ def get_statistics(request):
             res = analyze_by_category(user)
         else:
             return HttpResponse(status=400)
-        print(res)
         return JsonResponse(res, status=200, safe=False)
     return HttpResponse(status=405)
 
@@ -175,20 +174,20 @@ def by_category_frequency(request):
             tmp.sort()
             tmp = tmp[::-1]
             idx = 4 if len(tmp) > 4 else (len(tmp) - 1)
-            print(tmp)
-            print(idx)
             thr = max(1, tmp[idx])
             total_cnt = sum([val if val >= thr else 0 for key, val in counter.items()])
             for key, val in counter.items():
                 if val >= thr:
-                    data.append({'name' : key, 'value' : int((val / total_cnt) * 100)})
+                    data.append({'name' : key, 'value' : int((val / total_cnt) * 100), 'count' : val})
         max_value = 0
         frequent_category = ""
+        total_count = 0
         for ele in data:
             if ele['value'] > max_value:
                 max_value = ele['value']
                 frequent_category = ele['name']
-        graph_data = {'graph_data' : data, 'meta' : {'percent' : max_value, 'frequent_category': frequent_category}}
+            total_count += ele['count']
+        graph_data = {'graph_data' : data, 'meta' : {'percent' : max_value, 'frequent_category': frequent_category, 'total_count' : total_count} }
         print(graph_data)
         return JsonResponse(graph_data, safe=False, status=200)
     return HttpResponse(status=405)
@@ -200,19 +199,19 @@ def analyze_by_people(user):
 
     friends_book = {}
     for friend in friends:  # 모든 친구에 대해서 점수와 태그 회수를 기록하는 책. 
-        friends_book[friend.id] = {'friend_name' : friend.name, 'score' : 0, 'tag_count' : 0}
+        friends_book[friend.id] = {'friend_name' : friend.name, 'score' : 0, 'count' : 0}
 
     for idx, diary in enumerate(diaries):  # 모든 다이어리에 대해서 각각 태그된 사람들에게 점수를 부여한다. 
         score = diary.emotion_score
         tagged_people = diary.people.all()
         for friend in tagged_people:
             friends_book[friend.id]['score'] += score
-            friends_book[friend.id]['tag_count'] += 1
+            friends_book[friend.id]['count'] += 1
 
     res = []
     for key, ref in friends_book.items():  # 평균 점수를 계산한다. 
-        if ref['tag_count'] != 0:
-            ref['score'] //= ref['tag_count']
+        if ref['count'] != 0:
+            ref['score'] //= ref['count']
             ref['friend_id'] = key
             res.append(ref)
 
