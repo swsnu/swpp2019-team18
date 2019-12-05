@@ -14,14 +14,13 @@ class StatDashBoard extends Component {
         mode : null,
         items : [],
         selectedItem : null,
-        friendData : [],
-        calendarData : [], 
-        categoryData : [],
-        categoryFreqData : [],
+        friendData : {'graph_data' : [], },
+        calendarData : {'graph_data' : [], }, 
+        categoryData : {'graph_data' : [], },
+        categoryFreqData : {'graph_data' : [], },
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
-        console.log(nextProps.items);
         if(nextProps.friendData !== undefined && (nextProps.friendData !== prevState.friendData)){
             return {...prevState, friendData : nextProps.friendData};
         }
@@ -32,6 +31,9 @@ class StatDashBoard extends Component {
             return {...prevState, categoryData : nextProps.categoryData};
         }
         if(nextProps.categoryFreqData !== undefined && (nextProps.categoryFreqData !== prevState.categoryFreqData)){
+            console.log("==================================");
+            console.log(nextProps.categoryFreqData)
+            console.log("==================================");
             return {...prevState, categoryFreqData : nextProps.categoryFreqData};
         }
         return {...prevState};
@@ -46,37 +48,60 @@ class StatDashBoard extends Component {
     }
 
     render(){
-        let friendChart = <div className="friendChart"><BaseBarChart data={this.state.friendData } 
+        let friendChart = <div className="friendChart"><BaseBarChart data={this.state.friendData.graph_data } 
             dataKey="friend_name" color="#5CC6B8" colorName="friend"/></div>;
-        let calendarChart = <div className="calendarChart"><BaseAreaChart data={this.state.calendarData } 
+        let calendarChart = <div className="calendarChart"><BaseAreaChart data={this.state.calendarData.graph_data } 
             history={this.props.history}/></div>;
-        let categoryChart = <div className="categoryChart"><BaseBarChart data={this.state.categoryData } 
+        let categoryChart = <div className="categoryChart"><BaseBarChart data={this.state.categoryData.graph_data } 
             dataKey="category_name" color="#2379B3" colorName="category"/></div>;
         let categoryFrequencyChart = <div className="categoryFrequencyChart">
-            <BasePieChart data={this.state.categoryFreqData}/> 
-        </div>
+            <BasePieChart data={this.state.categoryFreqData.graph_data}/> </div>
+
+        let calenderPercent = 0;
+        if(this.state.calendarData.meta !== undefined){
+            calenderPercent = this.state.calendarData.meta.percent;
+        }
+        else{
+            calenderPercent = 0;
+        }
+        let bestFriend = ""
+        if(this.state.friendData.meta !== undefined){
+            bestFriend = this.state.friendData.meta.best_friend
+        }
+        let bestCategory = ""
+        if(this.state.categoryData.meta !== undefined){
+            bestCategory = this.state.categoryData.meta.best_category
+        }
+
+        let categoryPercent = 0;
+        let maxFrequentCategory = "";
+        if(this.state.categoryFreqData.meta !== undefined){
+            categoryPercent = this.state.categoryFreqData.meta.percent;
+            maxFrequentCategory = this.state.categoryFreqData.meta.frequent_category;
+        }
         return (
             <div className='dashboard' >
                 {/* <StatSideBar mode={this.state.mode} changeMode={this.changeMode} items={items}/> */}
                 <div className="dailyStat">
                     <h1> Monthly Happiness</h1>
-                    <p> You're <span className="bold"> 32%</span> more happier on average than last month</p>
+                    <p> You're <span className="bold"> {calenderPercent}%</span> more happier on average than last month</p>
                 </div>
                 {calendarChart}
                 {friendChart}
                 <div className="friendStat">
                     <h1> Friend Happiness</h1>
-                    <p> You're <span className="bold"> 32%</span> more happier on average than last month</p>
+
+                    <p> You feel much happier when you meet <span className="bold"> {bestFriend} </span></p>
                 </div>
                 <div className="categoryStat">
                     <h1> Activity Happiness</h1>
-                    <p> If you're sad now, S.DA recommends you to do spend time on  <span className="bold"> SPORT </span> category </p>
+                    <p> If you're sad now, S.DA recommends you to do spend time on  <span className="bold"> {bestCategory} </span> category </p>
                 </div>
                 {categoryChart}
                 {categoryFrequencyChart}
                 <div className="categoryFrequencyStat">
                     <h1> Activity Insights</h1>
-                    <p> You're using <span className="bold"> 57%</span> of time on <span className="bold">PEOPLE</span> Category </p>
+                    <p> You're using <span className="bold"> {categoryPercent}%</span> of time on <span className="bold">{maxFrequentCategory}</span> Category </p>
                 </div>
                 
             </div>
