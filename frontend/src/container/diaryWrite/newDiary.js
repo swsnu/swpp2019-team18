@@ -9,6 +9,7 @@ import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
+import ContentFromRaw from '../../module/ContentFromRaw'
 
 class NewDiary extends Component {
     state = {
@@ -37,6 +38,7 @@ class NewDiary extends Component {
             rating : this.state.rating,
             emotionScore : this.state.emotionScore,
             date : this.state.date,
+            plainText : ContentFromRaw(this.state.content),
         };
         if(this.props.EditMode){
             this.props.editDiary(this.props.match.params.id, diaryObj);

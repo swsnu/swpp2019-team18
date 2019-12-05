@@ -44,10 +44,6 @@ class Stat extends Component {
                 <HorizontalGridLines />
                 <LineSeries
                 data={data}
-                // onNearestXY={(datapoint, event)=>{
-                //     console.log(datapoint);
-                //     return <Popup content="This is your diary"/>;
-                // }}
                 onSeriesClick={event=>{
                     
                 }}

@@ -13,7 +13,6 @@ function BaseBarChart(props){
     if(buffer.length < 3) {
       top3Idx = buffer.length - 1;
     }
-    console.log(buffer);
     if(props.dataKey !== "friend_name"){
       data = props.data.map(function(entry, index, array){
         if(entry.score >= buffer[top3Idx].score){
