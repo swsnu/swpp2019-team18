@@ -223,7 +223,10 @@ class PeopleTest(TestCase):
         response = self.client.put('/api/diary/people/', edit_data)
         self.assertEqual(response.status_code, 405)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d40a78b04ae8d6d579302446362fff31fcfb66e5
 class ImageTest(TestCase):
     def setUp(self):
         User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
@@ -304,6 +307,7 @@ class GardenTest(TestCase) :
         self.assertEqual(response.status_code, 405)
 
         
+<<<<<<< HEAD
 class StatisticsTest(TestCase):
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
@@ -347,3 +351,5 @@ class StatisticsTest(TestCase):
     def test_invalid_category_frequency(self):
         res = self.client.post('/api/diary/frequency/category/')
         self.assertEqual(res.status_code, 405)
+=======
+>>>>>>> d40a78b04ae8d6d579302446362fff31fcfb66e5

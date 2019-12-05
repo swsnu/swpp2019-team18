@@ -12,7 +12,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),
@@ -42,6 +41,7 @@ class sidebar extends Component {
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
+        console.log(this.props.history.location.pathname)
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -162,6 +162,8 @@ class sidebar extends Component {
     }
 
     onSelectDayChange = (d) => {
+        console.log('------------------------------')
+        console.log(d)
         this.setDay(d);
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())

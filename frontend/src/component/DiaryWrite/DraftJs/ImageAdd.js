@@ -74,7 +74,6 @@ export default class ImageAdd extends Component {
       'addImagePopover' :
       'addImageClosedPopover';
 
-
     return (
       <span className='RichEditor-styleButton' >
         <label 
