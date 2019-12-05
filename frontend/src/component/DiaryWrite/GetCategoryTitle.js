@@ -14,7 +14,6 @@ class GetCategoryTitle extends Component{
     render () {
         let confirmTitleButton = <Button size = 'mini' id = 'title-confirm-button' onClick = {() => this.props.handleTitle(this.state.categoryTitle, this.state.rating)}>ok!</Button>
         let getTitleInput = <Form.Input 
-                        placeholder='Star Wars'
                         id='diary-category-title-input'
                         value={this.state.categoryTitle}
                         onChange={e => this.setState({categoryTitle : e.target.value})}
@@ -69,11 +68,14 @@ class GetCategoryTitle extends Component{
                     </Grid>  
                 </Container>
             }
-        else if (this.state.selectedCategoryType === 3){
-                
-        }
+        else if (this.props.selectedCategoryType === 3){
+                getTitleComponent =  <Container id ='category-type-three'>                    
+                        <Label as='a' color='blue' image>
+                            {this.props.categoryName}
+                        </Label>
+                    </Container>
 
-
+            }
         return getTitleComponent 
         }
 

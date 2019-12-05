@@ -55,12 +55,12 @@ class App extends Component {
               {this.props.currentUser ? <Sidebar/> : null}
             </div >
             <div style={{clear:"both"}}></div>
-            <div className = 'main' style={{ marginLeft: 265, marginTop : 80}}>
+            <div className = 'main' style={{ marginLeft: 270, marginTop : 80}}>
               <PrivateRoute path='/diary' exact component={MyDiaryList}/>
-              <PrivateRoute path='/diary/create' exact component={NewDiary}/>
+              <PrivateRoute path='/diary/create' exact component={NewDiary} />
               <PrivateRoute path='/diary/:id/edit' exact component={EditDiary}/>
             </div>
-            <div className = 'garden' style={{ marginLeft: 300, marginTop : 80}}>
+            <div className = 'garden' style={{ marginLeft: 270, marginTop : 80}}>
               <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
 
             </div>

@@ -16,7 +16,7 @@ export const shareDiary_ = (diary) => {
 
 export const shareDiary = (id, content) => {
     return (dispatch) => {
-        return axios.post('http://localhost:8000/api/diary/share/'+id+'/', content)
+        return axios.post('/api/diary/share/'+id+'/', content)
         .then(res => dispatch(shareDiary_(res)))
         .catch( error => {
             if(error.response.status === 400){
