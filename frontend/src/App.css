@@ -1,21 +1,29 @@
 .App {
   text-align: center;
-  
+
 }
+
 
 
 
 .main {
   float: center;
-  border : 4px solid transparent;
+  position : absolute;
+  z-index: 777;
   
  }
 
  .sidebar {
   float: center;
+  z-index: 888;
  }
 
-
+.header_ {
+  position : fixed;
+  float : top;
+  width : 100%;
+  z-index : 999;
+}
 
 
 .App-logo {

@@ -12,6 +12,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import axios from 'axios';
 import DiaryReducer from './store/reducers/diary';
+import GardenReducer from './store/reducers/gardendiary';
 
 axios.defaults.xsrfCookieName = "csrftoken"; 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -21,6 +22,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   diary : DiaryReducer,
+  garden : GardenReducer,
   user : authentication,
   router : connectRouter(history),
 });
