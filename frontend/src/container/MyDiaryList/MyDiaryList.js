@@ -33,7 +33,8 @@ const mapDispatchToProps = dispatch => {
 class MyDiaryList extends Component{
 
     state = {
-        search : ""
+        search : '',
+        keyword : ''
     }
 
     componentDidUpdate(prevProps){
@@ -63,10 +64,6 @@ class MyDiaryList extends Component{
                 break;
             
         }
-    }
-
-    state = {
-        keyword : ''
     }
 
     _searchContact = (e) => { 
