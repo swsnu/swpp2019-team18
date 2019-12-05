@@ -188,7 +188,6 @@ def by_category_frequency(request):
                 frequent_category = ele['name']
             total_count += ele['count']
         graph_data = {'graph_data' : data, 'meta' : {'percent' : max_value, 'frequent_category': frequent_category, 'total_count' : total_count} }
-        print(graph_data)
         return JsonResponse(graph_data, safe=False, status=200)
     return HttpResponse(status=405)
 
