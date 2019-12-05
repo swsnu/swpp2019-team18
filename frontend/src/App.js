@@ -64,7 +64,9 @@ class App extends Component {
             </div>
             <div className = 'garden' style={{ marginLeft: 270, marginTop : 80}}>
               <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
-              <PrivateRoute path='/stat' exact component={StatDashBoard}/>
+              </div>
+            <div className = 'statistic'>
+              <PrivateRoute path='/stat' exact component={StatDashBoard}></PrivateRoute> 
             </div>
             
           </div>

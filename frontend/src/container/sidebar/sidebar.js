@@ -42,7 +42,6 @@ class sidebar extends Component {
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
-        console.log(this.props.history.location.pathname)
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -114,7 +113,6 @@ class sidebar extends Component {
     setMonth = (month) => {
         let monthNo = this.months.indexOf(month);
         monthNo = this.months.filter(obj => {return obj.value === month})[0].key
-        console.log(monthNo)
         let dateContext = Object.assign({}, this.state.dateContext);
         dateContext = moment(dateContext).set("month", monthNo);
         this.setState({
@@ -164,8 +162,6 @@ class sidebar extends Component {
     }
 
     onSelectDayChange = (d) => {
-        console.log('------------------------------')
-        console.log(d)
         this.setDay(d);
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
@@ -514,8 +510,9 @@ class sidebar extends Component {
 
     render() {
         return (
-            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : <this.calendarModeItem/>         
-        );
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : 
+                this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem/>     
+                );
     }
 }
 
