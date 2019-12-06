@@ -47,7 +47,6 @@ class App extends Component {
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-
           <div style={{ float : 'left'}}>
             <div className = 'header_'>
               {this.props.currentUser ? <Header history={this.props.history}/> : null}

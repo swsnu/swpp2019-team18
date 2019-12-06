@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -10,6 +10,7 @@ import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
 import ContentFromRaw from '../../module/ContentFromRaw'
+
 
 class NewDiary extends Component {
     state = {
