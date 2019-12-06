@@ -114,6 +114,7 @@ class DiaryTestForcedLogin(TestCase):
     diary_data = {
             'content': 'Movie was good',
             'categoryName' : 'MOVIE',
+            'plainText' : 'Movie was good',
             'categoryTitle' : 'Terminator',
             'emotionScore' : 100, 
             'people' : [1, 2, 3],
@@ -170,7 +171,6 @@ class DiaryTestForcedLogin(TestCase):
 
 
 class PeopleTest(TestCase):
-
     def setUp(self):
         self.userA = User.objects.create_user(
             username='A', password='iluvswpp', 
@@ -303,18 +303,19 @@ class GardenTest(TestCase) :
         response = client.get('/api/garden/flower/1/')
         self.assertEqual(response.status_code, 405)
 
+        
 class StatisticsTest(TestCase):
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
         person1 = People.objects.create(user = user1, name = 'FRIEND1')
         person2 = People.objects.create(user = user1, name = 'FRIEND2')
         category1 = Category.objects.create(name='MOVIE', category_title = 'JOKER', rating = 5)
-        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-11-02')
-        diary2 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-11-03')
-        diary3 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-11-04')
-        diary4 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-12-02')
-        diary5 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-12-03')
-        diary6 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, created_date='2019-12-04')
+        diary1 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-11-02')
+        diary2 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-11-03')
+        diary3 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-11-04')
+        diary4 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-12-02')
+        diary5 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-12-03')
+        diary6 = MyDiary.objects.create(author = user1, content = 'GREAT!', category = category1, emotion_score=50, created_date='2019-12-04')
         diary1.people.add(person1)
         diary2.people.add(person1)
         diary3.people.add(person1)
@@ -323,14 +324,26 @@ class StatisticsTest(TestCase):
         diary6.people.add(person2)
         self.client.force_login(user1)
     
-    def test_get_statistics(self):
+    def test_valid_statistics(self):
         calendar_res = self.client.get('/api/diary/statistics/?mode=CALENDAR')
-        self.assertEqual(calendar_res.status_code, 200)
         people_res = self.client.get('/api/diary/statistics/?mode=PEOPLE')
         category_res = self.client.get('/api/diary/statistics/?mode=CATEGORY')
+        self.assertEqual(calendar_res.status_code, 200)
+        self.assertEqual(people_res.status_code, 200)
+        self.assertEqual(category_res.status_code, 200)
 
-        
+    def test_invalid_querystring(self):
+        res = self.client.get('/api/diary/statistics/?mode=WRONGMODE')
+        self.assertEqual(res.status_code, 400)
+    
     def test_unallowed_method(self):
-        edit_data = {'name': '대호', 'information' : "Nothing"}
-        response = self.client.put('/api/diary/people/', edit_data)
-        self.assertEqual(response.status_code, 405)
+        res = self.client.post('/api/diary/statistics/?mode=CALENDAR')
+        self.assertEqual(res.status_code, 405)
+
+    def test_valid_category_frequency(self):
+        res = self.client.get('/api/diary/frequency/category/')
+        self.assertEqual(res.status_code, 200)
+    
+    def test_invalid_category_frequency(self):
+        res = self.client.post('/api/diary/frequency/category/')
+        self.assertEqual(res.status_code, 405)

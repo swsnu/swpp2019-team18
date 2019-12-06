@@ -10,7 +10,6 @@ const PrivateRoute = ({component : Component, currentUser,loginCheck, ...rest  }
 
         if(currentUser !== 'SUCCESS') {
           loginCheck()
-          console.log(currentUser)
           //return  <Redirect to = "/login" />
         } 
         else{

@@ -6,13 +6,12 @@ import { Button } from 'semantic-ui-react'
 
 class Statistic extends Component {
     onClickButton = () => {
-        this.props.history.push('/garden')
+        this.props.history.push('/stat')
     }
 
     render () {
         return (
-            <div className = 'garden'>
-                {/*<Button color = 'yellow' fluid size = 'big' id = 'garden'>Statistic</Button>*/}
+            <div className = 'statistics'>
                 <button className = 'header_menu' onClick = {() => this.onClickButton()}>Statistic</button>
             </div>
         )

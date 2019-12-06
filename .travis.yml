@@ -30,8 +30,10 @@
         - cd ..
       before_script:
         - cd backend
-        - python3 manage.py makemigrations
-        - python3 manage.py migrate
+        - export TEXT_ANALYTICS_SUBSCRIPTION_KEY='null'
+        - export TEXT_ANALYTICS_ENDPOINT='null'
+        - python3 manage.py makemigrations --settings=backend.settings.development
+        - python3 manage.py migrate --settings=backend.settings.development
         - cd ..
       script:
         # Script to test your build
@@ -39,7 +41,7 @@
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
         - cd ../backend
-        - coverage run --branch --source='./diary' manage.py test
+        - coverage run --branch --source='./diary' manage.py test --settings=backend.settings.development
         - coverage report --fail-under=70 -m
         - coverage xml
         - cd ..

@@ -69,11 +69,10 @@ class Diary extends Component {
     }
 
     _onShareDiary = (diary, content) => {
-        return axios.post('http://localhost:8000/api/diary/share/'+ diary+'/', content)
+        return axios.post('/api/diary/share/'+ diary+'/', content)
         .then(res => this.setState({shareSuccess : 'SUCCESS'}))
         .catch( error => {
             if(error.response.status === 403){
-                console.log(error.response)
                 this.setState({shareSuccess : 'DUPLICATED'})
             }
             else{
@@ -107,7 +106,6 @@ class Diary extends Component {
         const shareEditPopup = <div>
             <Modal open={active} centered={false} >
             <Modal.Header>Share</Modal.Header>
-            {console.log(this.state.content)}
             <Modal.Content>
             
             <Modal.Description>

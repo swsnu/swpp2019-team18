@@ -6,7 +6,6 @@ from .views import get_specific_diary
 from .views import share
 from .views import category
 from .views import statistics
-
 from .views import image
 from .views import gardendiary
 

@@ -12,7 +12,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),
@@ -59,7 +58,8 @@ class sidebar extends Component {
         gardenMode : "ALL",
         monthPopup: false,
         yearPopup: false,
-        categories : ['MOVIE','PEOPLE','DATE','TRAVEL'],
+        categories : ['MOVIE', 'TRAVEL', 'BOOK', 'COMPANY', 'DRAMA', 'EXERCISE', 'FAMILY', 'FRIEND'
+                        , 'FOOD', 'GAME', 'HOBBY', 'LOVE', 'PERFORMANCE', 'RESTAURANT', 'SHOPPING', 'SPORT', 'STUDY', 'ETC'],
         selectedCategory : '',
         allPeople : [],
         selectedPersonId : '',    
@@ -113,7 +113,6 @@ class sidebar extends Component {
     setMonth = (month) => {
         let monthNo = this.months.indexOf(month);
         monthNo = this.months.filter(obj => {return obj.value === month})[0].key
-        console.log(monthNo)
         let dateContext = Object.assign({}, this.state.dateContext);
         dateContext = moment(dateContext).set("month", monthNo);
         this.setState({
@@ -419,24 +418,25 @@ class sidebar extends Component {
               width: 265,
               background: "#FFFFFF",
               overflowX: "hidden",
+              overflowY : "auto",
               flex: 1
             }}
             >
-              <Container  style = {{overflowY : "hidden"}}>
+              <Container  >
               <Menu vertical compact fluid size = 'huge'>
                 <Menu.Item >
                 <Grid columns = 'equal' divided >
                         <Grid.Row >
                             <Button.Group id = 'tag' basic widths = '3'  >
-                            <Button id = 'tag_calendar' active = {this.state.mode === 'CALENDAR'} align = 'center' onClick = {()=>this.modeChange("CALENDAR")}>CAL</Button>
-                            <Button id = 'tag_person' active = {this.state.mode === 'PERSON'} align = 'center' onClick = {()=>this.modeChange("PERSON")}>PEO</Button>
-                            <Button id = 'tag_category' active = {this.state.mode === 'CATEGORY'} align = 'center' onClick = {()=>this.modeChange("CATEGORY")}>CAT</Button>
+                            <Button id = 'tag_calendar' icon = 'calendar outline' size = 'huge'active = {this.state.mode === 'CALENDAR'} align = 'center' onClick = {()=>this.modeChange("CALENDAR")}/>
+                            <Button id = 'tag_person' icon = 'user' size = 'huge' active = {this.state.mode === 'PERSON'} align = 'center' onClick = {()=>this.modeChange("PERSON")}/>
+                            <Button id = 'tag_category' icon = 'list' size = 'huge' active = {this.state.mode === 'CATEGORY'} align = 'center' onClick = {()=>this.modeChange("CATEGORY")}/>
                             </Button.Group>
                         </Grid.Row>
               </Grid>
                 </Menu.Item>
                 <Menu.Item>
-                    <Container className="sidabar" style={{flex: 1, overflowY : "auto", height : '700px'}}>
+                    <Container className="sidabar">
                     {
                         this.state.mode === "PERSON" ? <this.personItem/>
                         : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
@@ -512,8 +512,9 @@ class sidebar extends Component {
 
     render() {
         return (
-            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : <this.calendarModeItem/>         
-        );
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : 
+                this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem/>     
+                );
     }
 }
 

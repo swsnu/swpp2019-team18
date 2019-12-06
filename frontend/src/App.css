@@ -1,14 +1,10 @@
 .App {
   text-align: center;
-
 }
-
-
 
 
 .main {
   float: center;
-  border : 4px solid transparent;
   position : absolute;
   z-index: 777;
   
@@ -25,7 +21,6 @@
   width : 100%;
   z-index : 999;
 }
-
 
 .App-logo {
   height: 40vmin;

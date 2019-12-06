@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Container, Image, Button} from 'semantic-ui-react'
+import {Menu, Container, Image} from 'semantic-ui-react'
 import Logout from './Logout'
 import Garden from './Garden'
 import Mydiary from './Mydiary'
@@ -27,12 +27,6 @@ class Header extends Component {
                 </Menu.Item>
                 <Menu.Item position = 'right'>
                     <Logout/>
-                </Menu.Item>
-                <Menu.Item>
-                    <Button color = 'blue' id = 'stat' onClick={() => this.props.history.push('/stat')}>Statistics</Button>
-                </Menu.Item>
-                <Menu.Item>
-                    <Button color = 'blue' id = 'stat' onClick={() => this.props.history.push('/diary')}>Home</Button>
                 </Menu.Item>
             </Menu>
             
