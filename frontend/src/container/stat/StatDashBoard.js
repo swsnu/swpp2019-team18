@@ -117,7 +117,7 @@ class StatDashBoard extends Component {
                 </div>
                 <div className="categoryStat">
                     <h1> Activity Happiness</h1>
-                    <p> If you're sad now, S.DA recommends you to do spend time on  <span className="bold"> {bestCategory} </span> category </p>
+                    <p> If you're sad now, S.DA recommends you to spend more time on  <span className="bold"> {bestCategory} </span> category </p>
                 </div>
                 {categoryChart}
                 {categoryFrequencyChart}
