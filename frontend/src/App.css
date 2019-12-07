@@ -1,9 +1,6 @@
 .App {
   text-align: center;
-
 }
-
-
 
 
 .main {
@@ -24,7 +21,6 @@
   width : 100%;
   z-index : 999;
 }
-
 
 .App-logo {
   height: 40vmin;

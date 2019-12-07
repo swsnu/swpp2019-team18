@@ -15,10 +15,10 @@ let stubPeople = []
 
 axios.get = jest.fn((url) => {
     return new Promise((resolve, reject) => {
-        if(url === "http://localhost:8000/api/diary/1/"){
+        if(url === "/api/diary/1/"){
             resolve({data : stubDiary });
         }
-        else if(url === "http://localhost:8000/api/diary/people/"){
+        else if(url === "/api/diary/people/"){
             resolve({data: stubPeople});
         }
         else{

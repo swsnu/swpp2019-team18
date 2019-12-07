@@ -8,6 +8,7 @@ import Logo from './Logo'
 import './Header.css'
 
 class Header extends Component {
+
     render () {
         return (
             <Menu  secondary id = 'header'   style = {{margin : 0 , height : 60, backgroundColor : 'white'}}>

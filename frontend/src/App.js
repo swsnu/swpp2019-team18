@@ -16,6 +16,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import PrivateRoute from './PrivateRoute'
 import {connect} from 'react-redux'
 import * as actionCreators from './store/actions/login'
+import StatDashBoard from './container/stat/StatDashBoard';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -46,10 +47,10 @@ class App extends Component {
           <Route path='/' exact component={Login}/>
           <Route path='/login' exact component={Login}/>
           <Route path='/signup' exact component={SignUp}/>
-          
           <div style={{ float : 'left'}}>
             <div className = 'header_'>
-              {this.props.currentUser ? <Header /> : null}
+              {this.props.currentUser ? <Header history={this.props.history}/> : null}
+
             </div>
             <div className = 'sidebar'  >
               {this.props.currentUser ? <Sidebar/> : null}
@@ -62,12 +63,15 @@ class App extends Component {
             </div>
             <div className = 'garden' style={{ marginLeft: 270, marginTop : 80}}>
               <PrivateRoute path='/garden' exact component={gardenDiary}></PrivateRoute>
-
+              </div>
+            <div className = 'statistic'>
+              <PrivateRoute path='/stat' exact component={StatDashBoard}></PrivateRoute> 
             </div>
+            
+
           </div>
         </Switch>    
       </div>
-
         
     </ConnectedRouter>
   )  }

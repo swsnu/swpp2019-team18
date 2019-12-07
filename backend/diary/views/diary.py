@@ -6,31 +6,31 @@ from ..models import MyDiary, Category, People
 from ..serializer import diary_serializer
 from ..decorator import is_logged_in
 from django.shortcuts import render
+from ..functions import sentiment, key_phrase
 User = get_user_model()
-
 
 @is_logged_in
 def write_diary(request):
     if request.method == 'POST':
-        print("POST")
         req_data = json.loads(request.body.decode())
-        content = req_data['content']
+        content = req_data['content'] #Draft.js contentState Form
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
-        emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
         raw_date = req_data['date']
+        plain_text = req_data['plainText'] #Plain text form
         date = '%s-%s-%s' % (raw_date['year'], raw_date['month'], raw_date['day'])
-        print(content)
         author = request.user
         tagged_people = People.objects.filter(id__in=people_id)
+        emotion_score = sentiment(plain_text)
+        key_phr = key_phrase(plain_text)
         category = Category.objects.create(name=category_name, category_title=category_title, rating=rating)
         diary = MyDiary.objects.create(
                 author=author, 
                 content=content,
                 category=category,
-                emotion_score=emtion_score,
+                emotion_score=emotion_score,
                 created_date=date,
             )
         for person in tagged_people:
@@ -62,14 +62,15 @@ def diary_detail(request, diary_id):
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
-        emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
+        plain_text = req_data['plainText'] #Plain text form
+        emotion_score = sentiment(plain_text)
+        key_phr = key_phrase(plain_text)
         people = People.objects.filter(id__in=people_id)
-
         diary.category.name = category_name
         diary.category.category_title = category_title
-        diary.emtion_score = emtion_score
+        diary.emtion_score = emotion_score
         diary.rating = rating
         diary.content = content
         diary.people.set(people)

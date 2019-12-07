@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
-
+import { Grid, Button, Form, Container, Segment, Dropdown, Label} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -10,6 +10,8 @@ import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
+import ContentFromRaw from '../../module/ContentFromRaw'
+
 
 import ContentFromRaw from '../../module/ContentFromRaw'
 
@@ -42,6 +44,7 @@ class NewDiary extends Component {
             rating : this.state.rating,
             emotionScore : this.state.emotionScore,
             date : this.state.date,
+            plainText : ContentFromRaw(this.state.content),
         };
         if(this.props.EditMode){
             this.props.editDiary(this.props.match.params.id, diaryObj);

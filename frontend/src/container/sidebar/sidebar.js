@@ -13,8 +13,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { roundToNearestMinutesWithOptions } from 'date-fns/esm/fp';
 
 
-
-
 const mapDispatchToProps = (dispatch) => {
     return {
         updateMode : (value) => dispatch(setMode(value)),
@@ -116,7 +114,6 @@ class sidebar extends Component {
     setMonth = (month) => {
         let monthNo = this.months.indexOf(month);
         monthNo = this.months.filter(obj => {return obj.value === month})[0].key
-        console.log(monthNo)
         let dateContext = Object.assign({}, this.state.dateContext);
         dateContext = moment(dateContext).set("month", monthNo);
         this.setState({
@@ -520,8 +517,9 @@ class sidebar extends Component {
 
     render() {
         return (
-            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : <this.calendarModeItem/>         
-        );
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : 
+                this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem/>     
+                );
     }
 }
 

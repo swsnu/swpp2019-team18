@@ -41,7 +41,6 @@ class gardenDiary extends Component{
         }
         else if(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode !== prevProps.gardenmode) || this.props.garden_category_name !== prevProps.garden_category_name)){
             this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem);
-            console.log(this.props.garden_category_name)
         } 
         else if (this.props.gardenmode === 'MYGARDEN' && (this.props.gardenmode !== prevProps.gardenmode)){
             this.props.onGetMyGardenDiary(this.state.activeItem);
@@ -55,14 +54,12 @@ class gardenDiary extends Component{
         switch(this.props.gardenmode){
             case 'ALL':
                 this.props.onGetAllGardenDiary(this.state.activeItem);
-                console.log("++++++++++++++++ALL++++++++++++++++++++")
                 break;
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem); 
                 break;
             case 'MYGARDEN':
                 this.props.onGetMyGardenDiary(this.state.activeItem);
-                console.log("++++++++++++++++MYGARDEN++++++++++++++++++++")
                 break;
             case 'MYFLOWER':
                 this.props.onGetMyFlower(this.state.activeItem);
