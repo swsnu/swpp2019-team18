@@ -13,7 +13,7 @@ class GetCategoryTitle extends Component{
 
     render () {
         let confirmTitleButton = <Button size = 'mini' id = 'title-confirm-button' onClick = {() => this.props.handleTitle(this.state.categoryTitle, this.state.rating)}>ok!</Button>
-        let getTitleInput = <Form.Input 
+        let getTitleInput = <Form.Input maxLength={100}
                         id='diary-category-title-input'
                         value={this.state.categoryTitle}
                         onChange={e => this.setState({categoryTitle : e.target.value})}
