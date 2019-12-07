@@ -8,7 +8,7 @@ import Content from './Content'
 import Share from './Share'
 import axios from 'axios'
 
-import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal, Popup} from 'semantic-ui-react';
 import './Diary.css'
 
 
@@ -128,10 +128,10 @@ class Diary extends Component {
 
         </Modal>
         <Modal open = {shareSuccess === 'SUCCESS'}>
-            <Modal.Header>공유 성공!</Modal.Header>
+            <Modal.Header>SHARE SUCCEED!</Modal.Header>
             <Modal.Content>
             <Modal.Description>
-            <p>공유된 일기는 'Garden -> My Garden'에서 확인 가능합니다</p>
+            <p>You can check your shared diary in 'Garden -> My Garden'</p>
             </Modal.Description>
             <p></p>
             <Button onClick = {() => this.setState({shareSuccess : 'INIT'})}>확인</Button> 
@@ -139,11 +139,11 @@ class Diary extends Component {
             
         </Modal>
         <Modal open = {shareSuccess === 'DUPLICATED'}>
-            <Modal.Header>공유 실패</Modal.Header>
+            <Modal.Header>SHARE FAIL</Modal.Header>
             <Modal.Content>
             <Modal.Description>
-            <p>이미 공유된 일기입니다.</p>
-            <p>기존에 공유된 일기를 취소하시려면 'Garden -> My Garden' 에서 해당 일기 공유를 취소하세요.  </p>
+            <p>ALREADY SHARED.</p>
+            <p>If you want to cancel your sharing, you can cancel it in 'Garden -> My Garden'</p>
             </Modal.Description>
             <p></p>
             <Button onClick = {() => this.setState({shareSuccess : 'INIT'})}>확인</Button>
@@ -170,7 +170,8 @@ class Diary extends Component {
                 </Label>
                 {
                 this.props.person_tag ? 
-                    this.props.person_tag.map(person => 
+                    this.props.person_tag.map(person => person.information ? <Popup inverted content = {person.information} key = {person.name} trigger = {
+                        <Label key = {person.name} id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>} /> :
                         <Label key = {person.name} id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
@@ -178,7 +179,6 @@ class Diary extends Component {
              </Container>
              <Divider />
              <Container>
-    
                 {/* showing content */}
                 {this.props.content ?  <Content content = {this.props.content}/> : null}
              

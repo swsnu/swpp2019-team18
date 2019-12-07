@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
+
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -9,6 +10,10 @@ import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import MessagePopup from '../message/MessagePopup';
 import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
+
+import ContentFromRaw from '../../module/ContentFromRaw'
+
+import './newDiary.css'
 
 class NewDiary extends Component {
     state = {
@@ -114,10 +119,10 @@ class NewDiary extends Component {
         this.setState({messageSuccess : true});
     }
     render() {
-
-        let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
+        // , content : (<Header content={obj.name} subheader={obj.information} />)
+        
+        let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id, description : obj.information  }});
         let optionComponent = <Dropdown 
-            
             onChange={this.handleChange}
             placeholder='People' fluid multiple search selection options={options} />;
 
