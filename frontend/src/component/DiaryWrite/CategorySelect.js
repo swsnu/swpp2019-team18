@@ -37,7 +37,7 @@ class CategorySelect extends Component {
             'TRAVEL',
             'HOBBY',
             'STUDY',
-            'SPORTS',
+            'SPORT',
             'SHOPPING',
         ]
         const Category_type_3 = [
