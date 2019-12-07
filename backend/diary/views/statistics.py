@@ -167,7 +167,7 @@ def by_category_frequency(request):
             if name in counter.keys():
                 counter[name] += 1
             else:
-                counter[name] = 0
+                counter[name] = 1
         if len(counter) != 0:
             data = []
             tmp = [val for key, val in counter.items()]
