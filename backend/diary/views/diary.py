@@ -62,14 +62,15 @@ def diary_detail(request, diary_id):
         content = req_data['content']
         category_name = req_data['categoryName']
         category_title = req_data['categoryTitle']
-        emtion_score = req_data['emotionScore']
         people_id = req_data['people']
         rating = req_data['rating']
+        plain_text = req_data['plainText'] #Plain text form
+        emotion_score = sentiment(plain_text)
+        key_phr = key_phrase(plain_text)
         people = People.objects.filter(id__in=people_id)
-
         diary.category.name = category_name
         diary.category.category_title = category_title
-        diary.emtion_score = emtion_score
+        diary.emtion_score = emotion_score
         diary.rating = rating
         diary.content = content
         diary.people.set(people)
