@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Label } from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label, Rating } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -70,6 +70,7 @@ class NewDiary extends Component {
                 people : this.props.diary.people,
                 rating : this.props.diary.rating,
                 emotionScore : this.props.diary.emotionScore,
+                /*selectedCategoryType :  need to define  */
             })
         }
     }
@@ -97,7 +98,7 @@ class NewDiary extends Component {
     }
 
     handleTitle = (title, rating) => {
-        this.setState({titleConfirm : true, categoryTitle : title, ratinf : rating})
+        this.setState({titleConfirm : true, categoryTitle : title, rating : rating})
     }
 
     handleMode = () => {
@@ -140,20 +141,31 @@ class NewDiary extends Component {
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components
                         <Container>
-                            <Container align = 'left'>
+                            { !this.props.EditMode ? 
+                                <Container align = 'left'>
                                     <Button id = 'change-category-button' onClick = {() => this.handleMode()}>Change Category</Button>
-                                </Container>
+                                </Container> : null
+                            }
                                 <Segment>
+                            {console.log(this.state.titleConfirm)}
                             { this.state.titleConfirm ? 
                             //If user confirmed title, show label 
                             <Container>
-                                <Container>
+                            <Container>
+                            <Grid>
+                                <Grid.Column width = {13}>
                                     <Label as='a' color='blue' id = 'category-label' onClick = {() => this.setState({titleConfirm : false})} image>
                                         {this.state.categoryName}
                                         <Label.Detail >{this.state.categoryTitle}</Label.Detail>
                                     </Label>
-                                   
-                                </Container>
+                                </Grid.Column>
+                                {this.state.rating ?
+                                <Grid.Column width = {3} floated = 'right'>
+                                    <span>Rating   </span>
+                                    <Rating icon='star' defaultRating={this.state.rating} maxRating={5} disabled /> 
+                                </Grid.Column> : null}
+                                </Grid>           
+                            </Container>
                             </Container>
                             //if user did not confirm the title, show category title input form 
                              :  <GetCategoryTitle 

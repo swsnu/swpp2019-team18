@@ -8,7 +8,7 @@ import Content from './Content'
 import Share from './Share'
 import axios from 'axios'
 
-import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal, Popup} from 'semantic-ui-react';
+import {Dropdown, Grid, Label, Divider, Segment, Container, Dimmer, Button, Header,  Modal, Popup, Rating} from 'semantic-ui-react';
 import './Diary.css'
 
 
@@ -109,8 +109,8 @@ class Diary extends Component {
             <Modal.Content>
             
             <Modal.Description>
-                <Header>공유 전에 내용 수정이 가능합니다</Header>
-                <p>민감한 개인정보는 수정하세요</p>
+                <Header>You can edit your diary before sharing</Header>
+                <p>Edit your personal information</p>
                 <Segment><Share content = {this.state.content} handleContent = {(content) => this.handleContent(content)} /></Segment>
             </Modal.Description>
             <p></p>
@@ -161,10 +161,11 @@ class Diary extends Component {
         <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
-            <Label as='a' color='olive' tag>
+            <Grid>
+                <Grid.Column width = {13}>           
+                <Label as='a' color='olive' tag>
                     {this.props.category_name}
                     {this.props.category_title ? <Label.Detail id='diary_category_title'>{this.props.category_title}</Label.Detail>  : null}
-                    {this.props.rating ? <Label.Detail id='diary_rating'>{this.props.rating}</Label.Detail> : null}
                 </Label>
                 {
                 this.props.person_tag ? 
@@ -173,7 +174,14 @@ class Diary extends Component {
                         <Label key = {person.name} id = 'diary_person_tag' as='a' color='teal' tag>{person.name}</Label>
                     )
                  : null
-            }
+                }
+                </Grid.Column>
+                    {this.props.rating ?
+                    <Grid.Column width = {3} floated = 'right'>
+                    <span>Rating   </span>
+                    <Rating icon='star' defaultRating={this.props.rating} maxRating={5} disabled /> 
+                    </Grid.Column> : null}
+            </Grid>
              </Container>
              <Divider />
              <Container>
