@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {Grid, Menu, Button} from 'semantic-ui-react';
+import {Grid, Menu, Button, Input, Segment, Divider } from 'semantic-ui-react';
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 
 import Garden from '../../component/Garden/Garden';
 import {getAllGardenDiary, getGardenDiaryByCategory, getMyGardenDiary, getMyFlower} from '../../store/actions/gardendiary';
@@ -31,22 +32,48 @@ const mapDispatchToProps = dispatch => {
 class gardenDiary extends Component{
 
     state = {
-        activeItem : 'Latest'
+        activeItem : 'Latest',
+        search : '',
+        keyword : ''
     }
+
+    componentWillReceiveProps(nextProps){
+        console.log('aaaaaaaaaaaaaaaaaaaaaa')
+        console.log(nextProps)
+        console.log(this.props.gardenmode)
+        console.log(nextProps.gardenmode)
+       
+        if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode == nextProps.gardenmode)){
+            this.setSearch();
+        }
+        else if(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode === nextProps.gardenmode) && this.props.garden_category_name !== nextProps.garden_category_name)){
+            this.setSearch();
+        } 
+        else if (this.props.gardenmode === 'MYGARDEN' && (this.props.gardenmode === nextProps.gardenmode)){
+            this.setSearch();
+        }
+        else if (this.props.gardenmode === 'MYFLOWER' && (this.props.gardenmode === nextProps.gardenmode)){
+            this.setSearch();
+        }
+    }  
 
     componentDidUpdate(prevProps){
 
         if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode !== prevProps.gardenmode)){
             this.props.onGetAllGardenDiary(this.state.activeItem);
+            this.setSearch();
         }
         else if(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode !== prevProps.gardenmode) || this.props.garden_category_name !== prevProps.garden_category_name)){
             this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem);
+            this.setSearch();
         } 
         else if (this.props.gardenmode === 'MYGARDEN' && (this.props.gardenmode !== prevProps.gardenmode)){
             this.props.onGetMyGardenDiary(this.state.activeItem);
+            this.setSearch();
         }
         else if (this.props.gardenmode === 'MYFLOWER' && (this.props.gardenmode !== prevProps.gardenmode)){
             this.props.onGetMyFlower(this.state.activeItem);
+            this.setSearch();
         }
     }
     componentDidMount(){
@@ -54,15 +81,19 @@ class gardenDiary extends Component{
         switch(this.props.gardenmode){
             case 'ALL':
                 this.props.onGetAllGardenDiary(this.state.activeItem);
+                this.setSearch();
                 break;
             case 'CATEGORY':
                 this.props.onGetGardenDiaryByCategory(this.props.garden_category_name, this.state.activeItem); 
+                this.setSearch();
                 break;
             case 'MYGARDEN':
                 this.props.onGetMyGardenDiary(this.state.activeItem);
+                this.setSearch();
                 break;
             case 'MYFLOWER':
                 this.props.onGetMyFlower(this.state.activeItem);
+                this.setSearch();
                 break;
         }
 
@@ -84,10 +115,38 @@ class gardenDiary extends Component{
             }
         }
     }
+
+    setSearch = () => {
+        this.setState({
+            search :'',
+            keyword : ''
+        })
+    }
+
+    changeKeyword = () => {
+        this.setState({keyword : this.state.search})
+    }
+
+
+    enterPress = (e) => {
+        if (e.key === 'Enter') {
+           this.changeKeyword();
+        }
+    }
  
     render(){
-               const garden = this.props.gardenDiary.map(garden => {
+            const filtered_diary = this.props.gardenDiary.filter((diary) => {
+            const contentState = convertFromRaw(JSON.parse(diary.content));
+            const editorState = EditorState.createWithContent(contentState);
+            const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
+            const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
+            return value.indexOf(this.state.keyword) > -1
+            })
+
+            const garden = filtered_diary.map(garden => {
+
             return (
+                
 
                         <Garden key = {garden.id}
                             id = {garden.id}
@@ -103,10 +162,12 @@ class gardenDiary extends Component{
                     />
             );
         });
-        
-        return(
+
+        const gardens = this.props.gardenDiary.length !==0 ? filtered_diary.length !==0 ?
             <div className = 'GardenDiaryList' align = 'center' >
-                <div  align = 'left' style = {{position : 'relative'}}>
+                <Grid>
+
+                <Grid.Column floated='left' width={5} >
                 <Button.Group size='large'>
                 <Button
                     id = 'Latest_tab'
@@ -123,17 +184,63 @@ class gardenDiary extends Component{
                     active={this.state.activeItem === 'Popular'}
                     onClick={this.handleItemClick}
                     >Popular</Button>
-                </Button.Group>
-                    
-                </div>
-                <div style = {{position : 'relative'}}>
+                </Button.Group></Grid.Column>
+
+                <Grid.Column floated='right' width={5}>
+                <Input  placeholder='Search...'  
+                    id='diary-search-input'
+                    value={this.state.search}
+                    onChange={e => this.setState({search : e.target.value})}
+                    onKeyPress={this.enterPress}
+                    >
+                <input />
+                <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input></Grid.Column>
+                </Grid>
+                
+                <div  style={{ position : 'relative', minHeight: 650, minWidth : 1150, padding: '0em 0em' }}>
 
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}
                 </Grid.Row>
                 </Grid></div>
+            </div> 
+            : 
+            
+            <Segment align='right'>
+                <Input  placeholder='Search...'  
+                    id='diary-search-input'
+                    value={this.state.search}
+                    onChange={e => this.setState({search : e.target.value})}
+                    onKeyPress={this.enterPress}
+                    >
+                <input />
+                <Button type='submit' onClick = {this.changeKeyword} icon='search' /></Input>
+                <Divider clearing />
+                <div className = 'noResultOfSearch' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
+                <img src = '/Crying-icon.png' align = 'center'></img>
+                <h1>Sorry!</h1>
+                <h2>There is no diary that you are finding!</h2>
+                </div>
+            </Segment>
+            
+            : <Segment textAlign='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }}>
+                <div className = 'null_page' > 
+                <img src = '/null.png' align = 'center'></img>
+                <h2>There is no diary!</h2>
+
+
             </div>
+            </Segment>
+
+
+        
+        return(
+            <div className = 'gardenList' >
+                {gardens}
+            </div>
+
+            
         );
     }
 }

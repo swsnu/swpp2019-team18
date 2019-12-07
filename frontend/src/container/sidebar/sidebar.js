@@ -96,6 +96,10 @@ class sidebar extends Component {
         this.props.history.push('/diary')
     }
 
+    moveToGardenPage = () => {
+        this.props.history.push('/garden')
+    }
+
     //mapping months to the list for dropdown optionso
     i = 0;
     months = moment.months().map(mon => {return {key : this.i++, value : mon, text : mon, onClick : ()=>this.onSelectMonthChange(mon)}});
@@ -162,8 +166,6 @@ class sidebar extends Component {
     }
 
     onSelectDayChange = (d) => {
-        console.log('------------------------------')
-        console.log(d)
         this.setDay(d);
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
@@ -219,58 +221,14 @@ class sidebar extends Component {
     }
 
     calendarItem = () => {
-        /*const calendarList = [];
-        calendarList.push(
-            <Menu.Item  align = 'center' key= 'navigation'>
-                <Grid columns = 'equal' >
-                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
-                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.yearNav/></Grid.Column>
-                </Grid>
-            </Menu.Item>
-      
-        )
-        for(let d = 1; d <= this.daysInMonth(); d++){
-            let className = (d==this.currentDay() ? "current_day" : "day");
-            calendarList.push(
-                <Menu.Item style = {{padding :'10'}} key = {this.month() + '_' + String(d) }
-                name = {this.month() + '' + String(d) }
-                active = {className === 'current_day'}
-                >
-                    <Grid columns = 'equal'  >
-                        <Grid.Column width = {14} style = {{marginLeft : '0', padding : '0'}}>
-                        <Menu.Item fitted='horizontally'
-                        id = {'day_' + String(d)}
-                        onClick={() => {
-                            this.onSelectDayChange(d)
-                            this.moveToDiaryPage()
-                            }}>
-                          {this.month()}  {d}
-                        </Menu.Item>
-                        </Grid.Column>
-                        <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        <Button align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} >+</Button>
-                        </Grid.Column>
-
-                    </Grid>
-                </Menu.Item>
-                
-            )
-        }*/
+     
         const calendarList = [];
         const ExampleCustomInput = ({ value, onClick }) => (
             <Button align = 'center' color = 'blue' className="example-custom-input" onClick={onClick}>
               {value}
             </Button>
           );
-        /*calendarList.push(
-            <Menu.Item  align = 'center' key= 'navigation'>
-                <Grid columns = 'equal' >
-                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.monthNav/></Grid.Column>
-                        <Grid.Column verticalAlign = 'middle' style = {{paddingLeft : '0', paddingRight : '0'}}> <this.yearNav/></Grid.Column>
-                </Grid>
-            </Menu.Item>
-      
-        )*/
+       
         calendarList.push(
 
             <div align = 'left' style = {{padding : '10', zIndex : '9999' }}>
@@ -309,7 +267,7 @@ class sidebar extends Component {
                         </Menu.Item>
                         </Grid.Column>
                         <Grid.Column verticalAlign = 'middle' style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        <Button basic align = 'center' id = 'tag_create' size = 'mini' onClick = {() => this.props.history.push("/diary/create")} icon='plus' />
+                        <Button basic align = 'center' id = 'tag_create' size = 'small' onClick = {() => {this.onSelectDayChange(D); this.props.history.push("/diary/create"); }} icon='plus' />
                         </Grid.Column>
 
                     </Grid>
@@ -398,6 +356,7 @@ class sidebar extends Component {
                 style ={{width : '270px'}} 
                 onClick = { () => {
                     this.onSelectGardenCategory(tmpCategory);
+                    this.moveToGardenPage();
                 }}
                 >{tmpCategory}</Dropdown.Item>
             )
@@ -445,7 +404,7 @@ class sidebar extends Component {
                 </Container>
                 </Menu.Item>
 
-            </Menu></Container>;
+            </Menu></Container>
               
           </Container>
         )
@@ -476,7 +435,8 @@ class sidebar extends Component {
                     name='ALL'
                     active = {this.state.gardenMode === 'ALL'}
                     onClick={ () => {
-                        this.onSelectGardenModeChange('ALL')}}
+                        this.onSelectGardenModeChange('ALL');
+                        this.moveToGardenPage();}}
                 />
                 
                 
@@ -484,13 +444,15 @@ class sidebar extends Component {
                     name='MY FLOWER'
                     active = {this.state.gardenMode === 'MYFLOWER'}
                     onClick={ () => {
-                        this.onSelectGardenModeChange('MYFLOWER')}}
+                        this.onSelectGardenModeChange('MYFLOWER');
+                        this.moveToGardenPage();}}
                 />
                 <Menu.Item
                     name='MY GARDEN'
                     active = {this.state.gardenMode === 'MYGARDEN'}
                     onClick={ () => {
-                        this.onSelectGardenModeChange('MYGARDEN')}}
+                        this.onSelectGardenModeChange('MYGARDEN');
+                        this.moveToGardenPage();}}
                 />
                 <Menu.Item>
                 <Dropdown text='CATEGORY' align = 'left' fluid floating

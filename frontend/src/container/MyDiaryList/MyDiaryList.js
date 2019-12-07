@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 
-import { Input, Segment, Divider } from 'semantic-ui-react'
+import { Input, Segment, Divider, Button } from 'semantic-ui-react'
 import Diary from '../../component/Diary/Diary';
 import {getDiaryByDate, getDiaryByPerson, getDiaryByCategory} from '../../store/actions/previousdiary';
 // import './MyDiaryList.css'
@@ -37,16 +38,33 @@ class MyDiaryList extends Component{
         keyword : ''
     }
 
-    componentDidUpdate(prevProps){
+    componentWillReceiveProps(nextProps){
+        if(this.props.mode === 'CALENDAR'  && (this.props.year === nextProps.year && this.props.month === nextProps.month && this.props.day === nextProps.day)){
+            this.setSearch();
+        }
+        else if(this.props.mode === 'PERSON' && (this.props.person_id === nextProps.person_id)){
+            this.setSearch();
+        } 
+        else if (this.props.mode === 'CATEGORY' && (this.props.category_name === nextProps.category_name)){
+            this.setSearch();
+        }
+    }  
+    
 
+    componentDidUpdate(prevProps){
+        
         if(this.props.mode === 'CALENDAR'  && (this.props.year !== prevProps.year || this.props.month != prevProps.month || this.props.day != prevProps.day)){
             this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
+            this.setSearch();
         }
+        
         else if(this.props.mode === 'PERSON' && (this.props.person_id !== prevProps.person_id)){
             this.props.onGetDiaryByPerson(this.props.person_id);
+            this.setSearch();
         } 
         else if (this.props.mode === 'CATEGORY' && (this.props.category_name !== prevProps.category_name)){
             this.props.onGetDiaryByCategory(this.props.category_name);
+            this.setSearch();
         }
     }
 
@@ -54,36 +72,71 @@ class MyDiaryList extends Component{
         switch(this.props.mode){
             case 'CALENDAR':
                 this.props.onGetDiaryByDate(this.props.year, this.props.month, this.props.day);
+                this.setSearch();
                 break;
             case 'PERSON' : 
                 
                 this.props.onGetDiaryByPerson(this.props.person_id);
+                this.setSearch();
                 break;
             case 'CATEGORY':
                 this.props.onGetDiaryByCategory(this.props.category_name);
+                this.setSearch();
                 break;
             
         }
     }
+    
 
-    _searchContact = (e) => { 
+    setSearch = () => {
         this.setState({
-          keyword : e.target.value
-        });
-      }
+            search :'',
+            keyword : ''
+        })
+    }
+
+    changeKeyword = () => {
+        this.setState({keyword : this.state.search})
+    }
+
+
+    enterPress = (e) => {
+        if (e.key === 'Enter') {
+           this.changeKeyword();
+        }
+    }
 
  
     render(){
-               const diaries = this.props.selectedDiary.length !==0 ? 
+        const filtered_diary = this.props.selectedDiary.filter((diary) => {
+        const contentState = convertFromRaw(JSON.parse(diary.content));
+        const editorState = EditorState.createWithContent(contentState);
+        const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
+        const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
+        return value.indexOf(this.state.keyword) > -1
+        })
+        /*const filtered_diary = this.props.selectedDiary.filter(diary => {
+            diary.content.find(cont => cont.blocks === 'a')
+            return diary.content.indexOf('') > -1
+        })*/
+
+        /*const contents = this.props.selectedDiary.map(diary => diary.content)
+        const blocks = convertFromRaw(JSON.parse(contents[1]));*/
+        
+               const diaries = this.props.selectedDiary.length !==0 ? filtered_diary.length !==0 ?
                <Segment>
 
-                <Input icon='search' placeholder='Search...'  
+                <Input  placeholder='Search...'  
                         id='diary-search-input'
                         value={this.state.search}
                         onChange={e => this.setState({search : e.target.value})}
-                        />
+                        onKeyPress={this.enterPress}
+                        >
+                        <input />
+                <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input>
                 <Divider clearing />
-               {this.props.selectedDiary.map(diary => {
+                
+               {filtered_diary.map(diary => {
                     return (
                         <Diary key = {diary.id}
                             id = {diary.id}
@@ -95,7 +148,27 @@ class MyDiaryList extends Component{
                             emotion_score = {diary.emotion_score}
                     />
                 );
-            })} </Segment> 
+            })          
+            } </Segment> 
+            : 
+            
+            <Segment>
+                <Input  placeholder='Search...'  
+                    id='diary-search-input'
+                    value={this.state.search}
+                    onChange={e => this.setState({search : e.target.value})}
+                    onKeyPress={this.enterPress}
+                    >
+                <input />
+                <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input>
+                <Divider clearing />
+                <div className = 'noResultOfSearch' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
+                <img src = '/Crying-icon.png' align = 'center'></img>
+                <h1>Sorry!</h1>
+                <h2>There is no diary that you are finding!</h2>
+                </div>
+            </Segment>
+            
             : <Segment textAlign='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }}>
                 <div className = 'null_page' > 
                 <img src = '/null.png' align = 'center'></img>
@@ -103,7 +176,7 @@ class MyDiaryList extends Component{
                 <h2>Let's write!</h2>
 
             </div>
-            </Segment>;
+            </Segment>
         
         return(
             <div className = 'MyDiaryList' >
