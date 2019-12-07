@@ -80,16 +80,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'swpp_mysql',
-        'USER' : 'yunsoo',
-        'PASSWORD' : 'dbstn',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
-    }
-}
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
