@@ -67,9 +67,22 @@ const reducer = (state=initialState, action) => {
                 }
             return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
         case actionTypes.SEARCH_PEOPLE:
-                return {...state, allPeople: action.allPeople};
+            const items = action.allPeople.map((data) => data.name);
+            return {...state, allPeople: action.allPeople, items : items};
         case actionTypes.ADD_PEOPLE:
             return {...state};
+        case actionTypes.GET_CATEGORY:
+            return {...state, items : action.data};
+        case actionTypes.GET_STATCAL:
+            return {...state, items : action.data};
+        case actionTypes.GET_CATEGORY_STATISTICS:
+            return {...state, categoryData : action.graph_data};
+        case actionTypes.GET_CALENDAR_STATISTICS:
+            return {...state, calendarData : action.graph_data};
+        case actionTypes.GET_PEOPLE_STATISTICS:
+            return {...state, friendData : action.graph_data};
+        case actionTypes.GET_CATEGORY_FREQ_STATISTICS:
+            return {...state, categoryFreqData : action.graph_data}
         default:
             return {...state};
     }

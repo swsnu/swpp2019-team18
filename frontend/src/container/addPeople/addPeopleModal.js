@@ -24,14 +24,14 @@ class AddPeoplePopUp extends Component {
     }
 
     close = () => {
-        this.setState({show : false});
+        this.setState({name : "", information : "", show : false});
     }
 
     createPeopleHandler = (evt) => {
         const peopleObj = {name : this.state.name, information : this.state.information};
         this.props.addPeople(peopleObj);
         this.props.successHandler();
-        this.setState({show : false});
+        this.setState({name : "", information : "", show : false});
     }
 
     render (){

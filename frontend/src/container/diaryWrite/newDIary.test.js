@@ -172,7 +172,6 @@ describe('<New Diary/>', ()=> {
         );
         const component = mount(myNewDiary)
         let categoryWrapper = component.find('#diary-category-button-3')
-        console.log(categoryWrapper.length)
         categoryWrapper.at(0).simulate('click');        
     })
 
@@ -189,7 +188,6 @@ describe('<New Diary/>', ()=> {
         );
         const component = mount(myNewDiary)
         let categoryWrapper = component.find('#diary-category-button-2')
-        console.log(categoryWrapper.length)
         categoryWrapper.at(0).simulate('click');        
     })
 
