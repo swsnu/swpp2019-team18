@@ -10,7 +10,6 @@ import {Menu, Grid, Dropdown, Button, Container, Popup} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { roundToNearestMinutesWithOptions } from 'date-fns/esm/fp';
 
 
 const mapDispatchToProps = (dispatch) => {
