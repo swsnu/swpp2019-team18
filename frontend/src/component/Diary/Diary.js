@@ -162,7 +162,7 @@ class Diary extends Component {
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
             <Container textAlign = 'left'>
             <Grid>
-                <Grid.Column width = {13}>           
+                <Grid.Column width = {12}>           
                 <Label as='a' color='olive' tag>
                     {this.props.category_name}
                     {this.props.category_title ? <Label.Detail id='diary_category_title'>{this.props.category_title}</Label.Detail>  : null}
@@ -177,9 +177,9 @@ class Diary extends Component {
                 }
                 </Grid.Column>
                     {this.props.rating ?
-                    <Grid.Column width = {3} floated = 'right' id = 'diary_rating'>
-                    <span>Rating   </span>
-                    <Rating icon='star' defaultRating={this.props.rating} maxRating={5} disabled /> 
+                    <Grid.Column width = {4} floated = 'left' id = 'diary_rating'>
+                    <span style = {{fontWeight : 'bold'}}> Rating   </span>
+                    <Rating icon='star' defaultRating={this.props.rating} maxRating={5} disabled size = 'huge'/> 
                     </Grid.Column> : null}
             </Grid>
              </Container>
