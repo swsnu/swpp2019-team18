@@ -1,9 +1,11 @@
+'use strict'
 import React from 'react'
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createImagePlugin from 'draft-js-image-plugin';
 import ImageAdd from './ImageAdd'
 import './RichEditor.css'
+
 
 const imagePlugin = createImagePlugin();
 const plugins = [imagePlugin];
@@ -14,7 +16,7 @@ class RichEditorExample extends React.Component {
       
     this.state = {editorState: EditorState.createEmpty(), count : 0};
 
-    //this.focus = () => this.refs.editor.focus();
+    this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => {
         this.setState({editorState})
         this.props.handleContent(JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())))
@@ -79,10 +81,6 @@ class RichEditorExample extends React.Component {
     );
   }
 
-  focus = () => {
-    this.editor.focus();
-  };
-
   render() {
     const {editorState} = this.state;
     // If the user changes block type before entering any text, we can
@@ -118,7 +116,7 @@ class RichEditorExample extends React.Component {
             keyBindingFn={this.mapKeyToEditorCommand}
             onChange={this.onChange}
             plugins={plugins}
-            ref={(element) => { this.editor = element; }}
+            ref="editor"
             spellCheck={true}
           />
         </div>
@@ -156,7 +154,7 @@ class StyleButton extends React.Component {
       className += ' RichEditor-activeButton';
     }
     return (
-      <span className={className} onClick={this.onToggle}>
+      <span className={className} onMouseDown={this.onToggle}>
         {this.props.label}
       </span>
     );
@@ -184,7 +182,7 @@ const BlockStyleControls = (props) => {
   return (
     <div className="RichEditor-controls">
       {BLOCK_TYPES.map((type) =>
-        <StyleButton  
+        <StyleButton
           key={type.label}
           active={type.style === blockType}
           label={type.label}
@@ -201,10 +199,6 @@ var INLINE_STYLES = [
   {label: 'Underline', style: 'UNDERLINE'},
   {label: 'Monospace', style: 'CODE'},
 ];
-
-const AddImage = () => {
-
-}
 const InlineStyleControls = (props) => {
   const currentStyle = props.editorState.getCurrentInlineStyle();
   
