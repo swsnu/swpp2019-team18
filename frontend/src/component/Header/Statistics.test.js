@@ -13,7 +13,7 @@ const mockStore = getMockStore(stubInitialState);
 
 
 
-describe('<Garden />', () => {
+describe('<Statistics />', () => {
     let statistics;
     beforeEach(() => {
         statistics = (
