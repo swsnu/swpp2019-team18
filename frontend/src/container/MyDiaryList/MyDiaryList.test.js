@@ -25,7 +25,7 @@ const stubInitialState = {
     selectedDiary : [{
                     'id' : 1,
                     'author': 1,
-                    'content': 'Do. Or do not. There is no try.',
+                    'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
                     'categoryName': 'MOVIE',
                     'categoryTitle': 'Star Wars',
                     'emotionScore' : 0,

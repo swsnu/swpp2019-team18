@@ -25,7 +25,7 @@ const stubInitialState = {
         id: 1,
         category_name: "MOVIE",
         category_title: "title",
-        content: "content",
+        content: '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
         flower_count: 1,
         flower_users: [{user : "user1"}],
         shared_date: "2019-12-25"
