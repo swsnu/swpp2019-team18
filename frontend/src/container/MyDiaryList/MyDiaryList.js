@@ -109,8 +109,7 @@ class MyDiaryList extends Component{
  
     render(){
         const filtered_diary = this.props.selectedDiary.filter((diary) => {
-        const contentState = convertFromRaw(JSON.parse(diary.content));
-        const editorState = EditorState.createWithContent(contentState);
+        const editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(diary.content)));
         const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
         return value.indexOf(this.state.keyword) > -1
