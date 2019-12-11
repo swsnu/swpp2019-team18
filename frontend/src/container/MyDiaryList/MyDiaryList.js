@@ -49,7 +49,7 @@ class MyDiaryList extends Component{
             this.setSearch();
         }
     }  
-    
+
 
     componentDidUpdate(prevProps){
         
@@ -115,14 +115,7 @@ class MyDiaryList extends Component{
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
         return value.indexOf(this.state.keyword) > -1
         })
-        /*const filtered_diary = this.props.selectedDiary.filter(diary => {
-            diary.content.find(cont => cont.blocks === 'a')
-            return diary.content.indexOf('') > -1
-        })*/
-
-        /*const contents = this.props.selectedDiary.map(diary => diary.content)
-        const blocks = convertFromRaw(JSON.parse(contents[1]));*/
-        
+    
                const diaries = this.props.selectedDiary.length !==0 ? filtered_diary.length !==0 ?
                <Segment>
 

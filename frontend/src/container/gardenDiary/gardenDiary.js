@@ -38,11 +38,7 @@ class gardenDiary extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('aaaaaaaaaaaaaaaaaaaaaa')
-        console.log(nextProps)
-        console.log(this.props.gardenmode)
-        console.log(nextProps.gardenmode)
-       
+      
         if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode == nextProps.gardenmode)){
             this.setSearch();
         }
@@ -98,6 +94,7 @@ class gardenDiary extends Component{
         }
 
     }
+    
     handleItemClick = (e, { name }) => {
         if(this.state.activeItem !== name){
             this.setState({ activeItem: name })
@@ -164,7 +161,8 @@ class gardenDiary extends Component{
         });
 
         const gardens = this.props.gardenDiary.length !==0 ? filtered_diary.length !==0 ?
-            <div className = 'GardenDiaryList' align = 'center' >
+        <Segment>
+            <div className = 'GardenDiaryList' align = 'center' style={{ position : 'relative', minHeight: 650, minWidth : 1150, padding: '0em 2em' }} >
                 <Grid>
 
                 <Grid.Column floated='left' width={5} >
@@ -196,15 +194,17 @@ class gardenDiary extends Component{
                 <input />
                 <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input></Grid.Column>
                 </Grid>
+
+                <Divider clearing />
                 
-                <div  style={{ position : 'relative', minHeight: 650, minWidth : 1150, padding: '0em 0em' }}>
+                <div  >
 
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}
                 </Grid.Row>
                 </Grid></div>
-            </div> 
+            </div> </Segment>
             : 
             
             <Segment align='right'>

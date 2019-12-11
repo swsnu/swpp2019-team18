@@ -41,7 +41,7 @@ class sidebar extends Component {
         this.props.updateYear(this.year())
         this.props.updateMonth(this.monthNum())
         this.props.updateDay(this.currentDay())
-        console.log(this.props.history.location.pathname)
+       
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -52,6 +52,7 @@ class sidebar extends Component {
     }
 
     state = {
+        page : '',
         dateContext : moment(),
         startDayOfWeek : moment().startOf('isoWeek'),
         mode : "CALENDAR",
@@ -241,8 +242,9 @@ class sidebar extends Component {
             showYearDropdown
             dropdownMode = 'select'
             todayButton = "TODAY"
-            customInput={<ExampleCustomInput />}
-        /></div>
+            customInput={<ExampleCustomInput />}/>
+            <Button onClick = {() => { const today = moment(); this.onSelectDayChange(today.format("D")); this.moveToDiaryPage()}}>Today</Button>
+            </div>
         
         )
         var day = this.state.startDayOfWeek
@@ -473,8 +475,9 @@ class sidebar extends Component {
     }
 
     render() {
+        
         return (
-            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/> : 
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/>: 
                 this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem/>     
                 );
     }
