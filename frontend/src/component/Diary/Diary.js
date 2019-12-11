@@ -177,7 +177,7 @@ class Diary extends Component {
                 }
                 </Grid.Column>
                     {this.props.rating ?
-                    <Grid.Column width = {3} floated = 'right'>
+                    <Grid.Column width = {3} floated = 'right' id = 'diary_rating'>
                     <span>Rating   </span>
                     <Rating icon='star' defaultRating={this.props.rating} maxRating={5} disabled /> 
                     </Grid.Column> : null}

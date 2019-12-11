@@ -35,6 +35,7 @@ const stubInitialState = {
                     'modified_date': null
                 }],
     mode : 'PERSON',           //'PERSON' or 'CATEGORY'
+    person_id : 1,
     day :1
 }
 
@@ -99,6 +100,11 @@ describe('<MyDiaryList />', () => {
         );
         expect(spyGetByCategory).toHaveBeenCalledTimes(1);
     });
+
+
+
+
+    
     // it("componentDidUpdate should update ", () => {
     //   let mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR' });
     //   let component = mount(
