@@ -46,7 +46,7 @@ def give_flower(request, id = None) :
                         'category_title': garden_diary.category.category_title,
                         'flower_users' : [user for user in garden_diary.flower_users.all().values_list('username', flat = True)],
                         'flower_count': garden_diary.flower_count, 
-                        'rating' : garden.category.rating,
+                        'rating' : garden_diary.category.rating,
                         'shared_date' : garden_diary.shared_date }
         return JsonResponse(response_dict, status=201)
     else :
