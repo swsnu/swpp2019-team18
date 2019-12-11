@@ -192,8 +192,4 @@ describe('<New Diary/>', ()=> {
     })
 
 
-
-    
-
-
 })

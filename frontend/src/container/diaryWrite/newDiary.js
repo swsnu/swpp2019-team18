@@ -30,7 +30,6 @@ class NewDiary extends Component {
         titleConfirm : false,
         selectedFile : null,
         selectedCategoryTpye : null,
-        rating : null,
     }
 
     submitHandler = () => {
@@ -45,7 +44,6 @@ class NewDiary extends Component {
             plainText : ContentFromRaw(this.state.content),
         };
         if(this.props.EditMode){
-            console.log('rating : '+diaryObj.rating+'!!!!!!!!!!')
             this.props.editDiary(this.props.match.params.id, diaryObj);
         }
         else {
