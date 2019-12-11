@@ -2,7 +2,7 @@ import React from 'react';
 import Statistics from './Statistic'
 import { mount } from 'enzyme'
 import { Provider } from 'react-redux';
-import {  ConnectedRouter } from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router';
 import { getMockStore } from '../../test_utils/mocks'
 import { history } from '../../store/store';
 
