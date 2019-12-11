@@ -28,7 +28,9 @@ class NewDiary extends Component {
         date : {},
         writeMode : false,
         titleConfirm : false,
-        selectedFile : null
+        selectedFile : null,
+        selectedCategoryTpye : null,
+        rating : null,
     }
 
     submitHandler = () => {
@@ -43,6 +45,7 @@ class NewDiary extends Component {
             plainText : ContentFromRaw(this.state.content),
         };
         if(this.props.EditMode){
+            console.log('rating : '+diaryObj.rating+'!!!!!!!!!!')
             this.props.editDiary(this.props.match.params.id, diaryObj);
         }
         else {
@@ -50,11 +53,23 @@ class NewDiary extends Component {
         }
     }
 
+    selectCategoryType = (name) => {
+        if (name === 'MOVIE' || name ==='GAME'|| name ==='RESTAURANT'|| name ==='BOOK'|| name ==='DRAMA'|| name ==='PERFORMANCE'){
+            return 1
+         }
+         else if(name === 'EXERCISE'|| name ==='FOOD'|| name ==='TRAVEL'|| name ==='HOBBY'|| name ==='STUDY'|| name ==='SPORT'|| name ==='SHOPPING'){
+            return 2;
+        } 
+        else{
+            return 3;
+        }
+    }
+
     componentDidMount(){
         this.props.getPeople();
         if(this.props.EditMode){
             this.props.getDiary(this.props.match.params.id);
-            this.setState({writeMode : true, titleConfirm : true})
+            this.setState({writeMode : true, titleConfirm : true});
         }
     }
 
@@ -70,7 +85,7 @@ class NewDiary extends Component {
                 people : this.props.diary.people,
                 rating : this.props.diary.rating,
                 emotionScore : this.props.diary.emotionScore,
-                /*selectedCategoryType :  need to define  */
+                selectedCategoryType : this.selectCategoryType(this.props.diary.categoryName)
             })
         }
     }
@@ -120,7 +135,7 @@ class NewDiary extends Component {
     }
     render() {
         // , content : (<Header content={obj.name} subheader={obj.information} />)
-        
+        console.log(this.state.selectedCategoryTpye)
         let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id, description : obj.information  }});
         let optionComponent = <Dropdown 
             onChange={this.handleChange}
@@ -171,6 +186,8 @@ class NewDiary extends Component {
                              :  <GetCategoryTitle 
                              selectedCategoryType = {this.state.selectedCategoryType}
                              categoryName = {this.state.categoryName}
+                             categoryTitle = {this.state.categoryTitle}
+                             rating = {this.state.rating}
                              handleTitle = {(name, rating) => this.handleTitle(name,rating)}/>
                              }
                              </Segment>

@@ -7,9 +7,19 @@ class GetCategoryTitle extends Component{
         categoryTitle : '',
         rating : null,
     }
+    
+    componentDidMount(){
+            this.setState({categoryTitle : this.props.categoryTitle, rating : this.props.rating});
+        
+    }
 
-    handleRate = (e, { rating, maxRating }) =>
-    this.setState({ rating, maxRating })
+    handleRate = (e, { rating, maxRating }) =>{
+        this.setState({ rating, maxRating })
+        console.log(this.state.rating)
+    }
+
+
+
 
     render () {
         let confirmTitleButton = <Button size = 'mini' id = 'title-confirm-button' onClick = {() => this.props.handleTitle(this.state.categoryTitle, this.state.rating)}>ok!</Button>
@@ -33,12 +43,12 @@ class GetCategoryTitle extends Component{
                         </Grid.Row>
                         <Grid.Row>
                         <Grid.Column>
-                        <Header as ='h4'>Title/Name of the {this.props.categoryName} ?</Header>
+                        <Header as ='h4'>Title/Name of the {this.state.categoryName} ?</Header>
                     {getTitleInput}
                         </Grid.Column>
                         <GridColumn>
                         <Header as ='h4'>How was that {this.props.categoryName} ?</Header>
-                    <Rating icon='star' id='category-rating' defaultRating={3} maxRating={5} onRate={this.handleRate} />
+                    <Rating icon='star' id='category-rating' defaultRating={this.props.rating} maxRating={5} onRate={this.handleRate} />
                         </GridColumn>
                         <Grid.Column>
                         {confirmTitleButton}
