@@ -1,5 +1,5 @@
 import React from 'react';
-import {  mount } from 'enzyme';
+import {  mount, shallow } from 'enzyme';
 import { getMockStore } from '../../test_utils/mocks';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
@@ -9,6 +9,7 @@ import { history } from '../../store/store';
 
 import * as actionCreators from '../../store/actions/previousdiary';
 import * as actionTypes from '../../store/actions/actionTypes'
+import { Button } from 'semantic-ui-react';
 
 
  jest.mock('../../component/Diary/Diary', () => {
@@ -27,7 +28,7 @@ const stubInitialState = {
     selectedDiary : [{
                     'id' : 1,
                     'author': 1,
-                    'content': 'Do. Or do not. There is no try.',
+                    'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
                     'categoryName': 'MOVIE',
                     'categoryTitle': 'Star Wars',
                     'emotionScore' : 0,
@@ -106,6 +107,121 @@ describe('<MyDiaryList />', () => {
         );
         expect(spyGetByCategory).toHaveBeenCalledTimes(1);
     });
+
+    it('should set state properly on input', () => {
+      const mockInitialStore = getMockStore({...stubInitialState, selectedDiary : [{
+        'id' : 1,
+        'author': 1,
+        'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+        'categoryName': 'MOVIE',
+        'categoryTitle': 'Star Wars',
+        'emotionScore' : 0,
+        'people' : [],
+        'rating': 5,
+        'created_date': null,
+        'modified_date': null
+    }] });
+      const component = mount(
+        <Provider store={mockInitialStore}>
+          <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={MyDiaryList} />
+          </Switch>
+          </ConnectedRouter>
+        </Provider>
+      );
+
+
+      expect(component.find('#diary-search-input').length).toBe(2);
+      const newState = component.find(MyDiaryList.WrappedComponent).instance();
+      const input = component.find('#diary-search-input');
+      input.at(1).simulate('change', {
+        target : {
+          value : 'Do'
+        }
+      })
+      input.at(1).simulate('keypress', {key: 'Enter'})
+      expect(newState.state.search).toEqual('Do');
+      expect(newState.state.keyword).toEqual('Do');
+    })
+
+    it('should set state by button', () => {
+      const mockInitialStore = getMockStore({...stubInitialState, selectedDiary : [{
+        'id' : 1,
+        'author': 1,
+        'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+        'categoryName': 'MOVIE',
+        'categoryTitle': 'Star Wars',
+        'emotionScore' : 0,
+        'people' : [],
+        'rating': 5,
+        'created_date': null,
+        'modified_date': null
+    }] });
+      const component = mount(
+        <Provider store={mockInitialStore}>
+          <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={MyDiaryList} />
+          </Switch>
+          </ConnectedRouter>
+        </Provider>
+      );
+
+
+      expect(component.find(Button).length).toBe(1);
+      const newButton = component.find(Button);
+      const newState = component.find(MyDiaryList.WrappedComponent).instance();
+      const input = component.find('#diary-search-input');
+      input.at(1).simulate('change', {
+        target : {
+          value : 'Do'
+        }
+      })
+      newButton.simulate('click')
+      expect(newState.state.search).toEqual('Do');
+      expect(newState.state.keyword).toEqual('Do');
+    })
+
+
+    /*it('call setSearch', () => {
+      const setSearch = sinon.stub(MyDiaryList.prototype, 'setSearch');
+      let mode = 'CALENDAR';
+      const component = shallow(<MyDiaryList mode={mode}/>)
+
+      setSearch.reset();
+      mode = 'CATEGORY';
+      component.setProps({ mode });
+      expect(setSearch).to.be.calledOnce.and.calledWith(mode)
+    })*/
+
+
+    // it("componentDidUpdate should update ", () => {
+    //   let mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR' });
+    //   let component = mount(
+    //     <Provider store={mockInitialStore}>
+    //         <ConnectedRouter history={history}>
+    //         <Switch>
+    //           <Route path='/' exact component={MyDiaryList} />
+    //         </Switch>
+    //         </ConnectedRouter>
+    //       </Provider>
+    //   );
+    //   component.setProps({day : 2});
+    //   component.setProps({day : 3});
+
+    //   // mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR', day : 2 });
+    //   // component = mount(
+    //   //   <Provider store={mockInitialStore}>
+    //   //       <ConnectedRouter history={history}>
+    //   //       <Switch>
+    //   //         <Route path='/' exact component={MyDiaryList} />
+    //   //       </Switch>
+    //   //       </ConnectedRouter>
+    //   //     </Provider>
+    //   // );
+    //   expect(spyGetByDate).toHaveBeenCalledTimes(2);
+
 
     it('componentdidupdate' , () => {
       mount(mydiary);
