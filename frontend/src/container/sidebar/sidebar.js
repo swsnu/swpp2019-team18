@@ -6,7 +6,7 @@ import { setMode , setMonth, setYear, setDay, setCategory, setPersonId, setGarde
 import { withRouter } from 'react-router';
 import AddPeoplePopUp from '../addPeople/addPeopleModal'
 import { getPeople } from '../../store/actions/people'
-import {Menu, Grid, Dropdown, Button, Container} from 'semantic-ui-react'
+import {Menu, Grid, Dropdown, Button, Container, Popup} from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -294,6 +294,7 @@ class sidebar extends Component {
         for(let i=0; i < this.state.allPeople.length; i++){
             let tmpPersonId = this.state.allPeople[i].id;
             let tmpPerson = this.state.allPeople[i].name;
+            let tmpInfo = this.state.allPeople[i].information;
             let className = (this.state.allPeople[i].id == this.state.selectedPersonId ? 'selected_person' : 'person');
             peopleList.push(
                 <Menu.Item 
@@ -306,11 +307,14 @@ class sidebar extends Component {
                     this.moveToDiaryPage()
                 }}
                 >
-                    <Grid  columns = 'equal'>
-                        <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
-                        {tmpPerson}
-                        </Grid.Column>
-                    </Grid>
+
+                        <Grid  columns = 'equal'>
+                            <Grid.Column style = {{marginLeft : '0', paddingLeft : '0', passingRight : '0'}}>
+                                <div className = 'personName'>{tmpPerson}
+                                    {tmpInfo ? <span className="personInfo">{tmpInfo}</span> : null}
+                                </div>
+                            </Grid.Column>
+                        </Grid>
                     {/*<Link to="/diary"><div key={tmpPersonId} className={className} onClick={() => {this.onSelectPersonChange(tmpPersonId)}}>
                     {tmpPerson}
             </div></Link>*/}
