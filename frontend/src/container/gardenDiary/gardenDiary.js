@@ -185,7 +185,7 @@ class gardenDiary extends Component{
 
                 <Grid.Column floated='right' width={5}>
                 <Input  placeholder='Search...'  
-                    id='diary-search-input'
+                    id='garden-search-input'
                     value={this.state.search}
                     onChange={e => this.setState({search : e.target.value})}
                     onKeyPress={this.enterPress}
@@ -193,11 +193,8 @@ class gardenDiary extends Component{
                 <input />
                 <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input></Grid.Column>
                 </Grid>
-
                 <Divider clearing />
-                
-                <div  >
-
+                <div>
                 <Grid>    
                 <Grid.Row columns={3}>
                     {garden}
@@ -208,7 +205,7 @@ class gardenDiary extends Component{
             
             <Segment align='right'>
                 <Input  placeholder='Search...'  
-                    id='diary-search-input'
+                    id='garden-search-input'
                     value={this.state.search}
                     onChange={e => this.setState({search : e.target.value})}
                     onKeyPress={this.enterPress}
@@ -216,17 +213,17 @@ class gardenDiary extends Component{
                 <input />
                 <Button type='submit' onClick = {this.changeKeyword} icon='search' /></Input>
                 <Divider clearing />
-                <div className = 'noResultOfSearch' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
+                <div className = 'noResultOfSearch_garden' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
                 <img src = '/Crying-icon.png' align = 'center'></img>
                 <h1>Sorry!</h1>
-                <h2>There is no diary that you are finding!</h2>
+                <h2>There is no garden diary that you are finding!</h2>
                 </div>
             </Segment>
             
             : <Segment textAlign='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }}>
-                <div className = 'null_page' > 
+                <div className = 'null_page_garden' > 
                 <img src = '/null.png' align = 'center'></img>
-                <h2>There is no diary!</h2>
+                <h2>There is no garden diary!</h2>
 
 
             </div>

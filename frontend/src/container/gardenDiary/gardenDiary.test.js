@@ -151,9 +151,9 @@ describe('<gardenDiary />', () => {
         </Provider>);
 
 
-      expect(component.find('#diary-search-input').length).toBe(2);
+      expect(component.find('#garden-search-input').length).toBe(2);
       const newState = component.find(gardenDiary.WrappedComponent).instance();
-      const input = component.find('#diary-search-input');
+      const input = component.find('#garden-search-input');
       input.at(1).simulate('change', {
         target : {
           value : 'Do'

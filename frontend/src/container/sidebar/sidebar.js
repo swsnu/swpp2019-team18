@@ -355,7 +355,7 @@ class sidebar extends Component {
             let tmpCategory = this.state.categories[i];
             gardenCategoryItems.push(
                 <Dropdown.Item
-                key = {gardenCategory + '_' + i}
+                key = {'gardenCategory' + '_' + i}
                 style ={{width : '270px'}} 
                 onClick = { () => {
                     this.onSelectGardenCategory(tmpCategory);
@@ -385,9 +385,9 @@ class sidebar extends Component {
               flex: 1
             }}
             >
-              <Container  >
+              <Container>
               <Menu vertical compact fluid size = 'huge'>
-                <Menu.Item >
+                <Menu.Item  key = "tag_menu">
                 <Grid columns = 'equal' divided >
                         <Grid.Row >
                             <Button.Group id = 'tag' basic widths = '3'  >
@@ -398,12 +398,12 @@ class sidebar extends Component {
                         </Grid.Row>
               </Grid>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item key = "siedbar_menu">
                     <Container className="sidabar">
                     {
-                        this.state.mode === "PERSON" ? <this.personItem/>
-                        : this.state.mode === "CATEGORY" ? <this.categoryItem/> 
-                        : <this.calendarItem/>
+                        this.state.mode === "PERSON" ? <this.personItem key='personitem'/>
+                        : this.state.mode === "CATEGORY" ? <this.categoryItem key='categoryItem'/> 
+                        : <this.calendarItem key='calendarItem'/>
                     }
                 </Container>
                 </Menu.Item>
@@ -480,8 +480,8 @@ class sidebar extends Component {
     render() {
         
         return (
-            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem/>: 
-                this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem/>     
+            this.props.history.location.pathname === ('/garden') ? <this.gardenModeItem key='gardenModeItem'/>: 
+                this.props.history.location.pathname ===('/stat') ? null : <this.calendarModeItem key='calendarModeItem'/>     
                 );
     }
 }
