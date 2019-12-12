@@ -39,18 +39,13 @@ class gardenDiary extends Component{
 
     componentWillReceiveProps(nextProps){
       
-        if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode === nextProps.gardenmode)){
+        if((this.props.gardenmode === 'ALL'  && (this.props.gardenmode === nextProps.gardenmode))
+        ||(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode === nextProps.gardenmode) && this.props.garden_category_name !== nextProps.garden_category_name))
+        ||(this.props.gardenmode === 'MYGARDEN' && (this.props.gardenmode === nextProps.gardenmode))
+        ||(this.props.gardenmode === 'MYFLOWER' && (this.props.gardenmode === nextProps.gardenmode))){
             this.setSearch();
         }
-        else if(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode === nextProps.gardenmode) && this.props.garden_category_name !== nextProps.garden_category_name)){
-            this.setSearch();
-        } 
-        else if (this.props.gardenmode === 'MYGARDEN' && (this.props.gardenmode === nextProps.gardenmode)){
-            this.setSearch();
-        }
-        else if (this.props.gardenmode === 'MYFLOWER' && (this.props.gardenmode === nextProps.gardenmode)){
-            this.setSearch();
-        }
+        
     }  
 
     componentDidUpdate(prevProps){
@@ -127,7 +122,7 @@ class gardenDiary extends Component{
 
     pressEnter = (e) => {
         if (e.key === 'Enter') {
-           this.changeKeyword();
+           this.keywordChange();
         }
     }
  
@@ -139,22 +134,22 @@ class gardenDiary extends Component{
             return value.indexOf(this.state.keyword) > -1
             })
 
-            const garden = filtered_diary.map(garden => {
+            const garden = filtered_diary.map(garden_ => {
 
             return (
                 
 
-                        <Garden key = {garden.id}
-                            id = {garden.id}
-                            author = {garden.author}
-                            category_name = {garden.category_name}
-                            category_title = {garden.category_title}
-                            flower_count = {garden.flower_count}
-                            flower_users = {garden.flower_users}
-                            shared_date = {garden.shared_date}
-                            rating = {garden.rating}
-                            content = {garden.content}
-                            emotion_score = {garden.emotion_score}
+                        <Garden key = {garden_.id}
+                            id = {garden_.id}
+                            author = {garden_.author}
+                            category_name = {garden_.category_name}
+                            category_title = {garden_.category_title}
+                            flower_count = {garden_.flower_count}
+                            flower_users = {garden_.flower_users}
+                            shared_date = {garden_.shared_date}
+                            rating = {garden_.rating}
+                            content = {garden_.content}
+                            emotion_score = {garden_.emotion_score}
                     />
             );
         });
