@@ -67,8 +67,8 @@ const reducer = (state=initialState, action) => {
                 }
             return {...state, garden_list : state.garden_list.concat(newGardenDiary)};
         case actionTypes.SEARCH_PEOPLE:
-            const items = action.allPeople.map((data) => data.name);
-            return {...state, allPeople: action.allPeople, items : items};
+            return {...state, allPeople: action.allPeople};
+
         case actionTypes.ADD_PEOPLE:
             return {...state};
         case actionTypes.GET_CATEGORY:

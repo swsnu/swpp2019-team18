@@ -118,3 +118,29 @@ background: none;
   position : relative;
   
 }
+
+
+.personName{
+  text-align : center;
+}
+.personName .personInfo {
+  visibility: hidden;
+  width: 200px;
+  background-color: black;
+  opacity: 0.7;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+ 
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.personName:hover .personInfo {
+  visibility: visible;
+  top: 100%;
+  left : 50%;
+  margin-left: -100px;
+}

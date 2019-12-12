@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {giveFlower, deleteGardenDiary} from '../../store/actions/gardendiary';
 import contentFromRaw from '../../module/ContentFromRaw';
 import Content from '../Diary/Content'
-import {Grid, Icon, Label, Segment, Dimmer, Button} from 'semantic-ui-react';
+import {Grid, Icon, Label, Segment, Dimmer, Button, Rating} from 'semantic-ui-react';
 import './Garden.css';
 
 const mapDispatchToProps = dispatch => {
@@ -79,17 +79,28 @@ class Garden extends Component {
         <Dimmer active={active} onClickOutside={this.handleHide} page>
             <Segment.Group style = {{width : 700}} >
             <Segment textAlign = 'left'>
+  
                 <Label as='a' color='olive' tag>
                     {this.props.category_name}
                     {this.props.category_title ? <Label.Detail id='category_title'>{this.props.category_title}</Label.Detail>  : null}
-                    {this.props.rating ? <Label.Detail>{this.props.rating}</Label.Detail> : null}
+        
                 </Label>
+
+
                 {this.props.currentUser === this.props.author ? 
                     <Button id = 'garden_delete_button' floated = 'right' onClick = {() => this.deleteHandler(this.props.id)}>Delete</Button> : null}
 
             </Segment>
             <Segment>
                 <div style = {{color : 'black', textAlign : 'justify'}}>
+                {this.props.rating ?
+                        // <Grid.Column width = {5} floated = 'center' id = 'garden_rating'>
+                        <div>
+                            <span style = {{color : 'black', textAlign : 'justify', fontWeight : 'bold'}}>
+                            Rating
+                        </span>
+                        <Rating icon='star' size = 'huge' defaultRating={this.props.rating} maxRating={5} disabled /> <br /> <br />
+                    </div>: null}
                 <Content content = {this.props.content}/>
                 </div>
             </Segment>

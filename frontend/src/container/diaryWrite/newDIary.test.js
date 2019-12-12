@@ -8,6 +8,14 @@ import { Switch, Route } from 'react-router-dom';
 import { mount, shallow } from 'enzyme';
 import axios from 'axios';
 let stubInitialState = {
+    diary : [{
+        content : "Good",
+        category_name : "MOVIE",
+        categoryTitle : "star wars",
+        people : [{key : 1, name : "user"}],
+        rating : 5,
+        emotionScore : 0,
+    }]
 };
 let mockStore = getMockStore(stubInitialState);
 
@@ -191,9 +199,18 @@ describe('<New Diary/>', ()=> {
         categoryWrapper.at(0).simulate('click');        
     })
 
-
-
-    
+    it('editmode' , () => {
+        const mockInitialStore = getMockStore({...stubInitialState, diary: [{category_name : "MOVIE" }] });
+        const component = mount(
+            <Provider store={mockInitialStore}>
+              <ConnectedRouter history={history}>
+              <Switch>
+                <Route path='/' render={(props) => <NewDiary {...props} EditMode = {true} /> } />
+              </Switch>
+              </ConnectedRouter>
+            </Provider>
+          );
+    })
 
 
 })
