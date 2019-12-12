@@ -168,9 +168,10 @@ class NewDiary extends Component {
 
                         {/* writing components using Draft.js */}
                         <Segment>
+                
                             <MyEditor handleContent = {(content) => this.handleContent(content)} EditMode = {this.props.EditMode} content = {this.state.content}/> 
+               
                         </Segment>
-                        
 
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
 
