@@ -60,9 +60,9 @@ class Login extends Component {
                     </Button>
                     </Segment>
                 </Form>
-                <Message>
-                    New to us? <a href='#' id = 'sign-up' onClick = {() => this.onClickSignUpButton() }>Sign Up</a>
-                </Message>
+                <Button fluid id = 'sign-up' onClick = {() => this.onClickSignUpButton()}>
+                    New to us? Sign Up 
+                </Button>
                 </Grid.Column>
             </Grid>
             

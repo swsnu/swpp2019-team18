@@ -80,6 +80,18 @@ const getMockUserReducer = jest.fn(
 const getMockDiaryReducer = jest.fn(
   initialState => (state = initialState, action) => {
     switch (action.type) {
+      case actionTypes.SET_YEAR :
+            return {...state, year : 2019};
+        case actionTypes.SET_MONTH :
+            return {...state, month : 12};
+        case actionTypes.SET_DAY :
+            return {...state, day : 25};
+        case actionTypes.SET_PERSONID :
+            return {...state, person_id : 2};
+        case actionTypes.SET_CATEGORY :
+              return {...state, category_name : 'STUDY'}
+        case actionTypes.GET_DIARY :
+              return {...state, diary: [{category_name : 'MOVIE'}]};
       default:
         break;
     }
