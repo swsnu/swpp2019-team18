@@ -9,6 +9,7 @@ import { history } from '../../store/store';
 
 import * as actionCreators from '../../store/actions/previousdiary';
 import * as actionTypes from '../../store/actions/actionTypes'
+import { Button } from 'semantic-ui-react';
 
 
  jest.mock('../../component/Diary/Diary', () => {
@@ -140,6 +141,44 @@ describe('<MyDiaryList />', () => {
         }
       })
       input.at(1).simulate('keypress', {key: 'Enter'})
+      expect(newState.state.search).toEqual('Do');
+      expect(newState.state.keyword).toEqual('Do');
+    })
+
+    it('should set state by button', () => {
+      const mockInitialStore = getMockStore({...stubInitialState, selectedDiary : [{
+        'id' : 1,
+        'author': 1,
+        'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+        'categoryName': 'MOVIE',
+        'categoryTitle': 'Star Wars',
+        'emotionScore' : 0,
+        'people' : [],
+        'rating': 5,
+        'created_date': null,
+        'modified_date': null
+    }] });
+      const component = mount(
+        <Provider store={mockInitialStore}>
+          <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={MyDiaryList} />
+          </Switch>
+          </ConnectedRouter>
+        </Provider>
+      );
+
+
+      expect(component.find(Button).length).toBe(1);
+      const newButton = component.find(Button);
+      const newState = component.find(MyDiaryList.WrappedComponent).instance();
+      const input = component.find('#diary-search-input');
+      input.at(1).simulate('change', {
+        target : {
+          value : 'Do'
+        }
+      })
+      newButton.simulate('click')
       expect(newState.state.search).toEqual('Do');
       expect(newState.state.keyword).toEqual('Do');
     })

@@ -186,7 +186,7 @@ class gardenDiary extends Component{
                     onKeyPress={this.pressEnter}
                     >
                 <input />
-                <Button type='submit' onClick = {this.keywordChange} icon='search'/></Input></Grid.Column>
+                <Button type='submit' onClick = {this.keywordChange} icon='search' id = 'keywordChangeButton'/></Input></Grid.Column>
                 </Grid>
                 <Divider clearing />
                 <div>
@@ -206,7 +206,7 @@ class gardenDiary extends Component{
                     onKeyPress={this.pressEnter}
                     >
                 <input />
-                <Button type='submit' onClick = {this.keywordChange} icon='search' /></Input>
+                <Button type='submit' onClick = {this.keywordChange} icon='search' id = 'keywordChangeButton' /></Input>
                 <Divider clearing />
                 <div className = 'noResultOfSearch_garden' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
                 <img src = '/Crying-icon.png' align = 'center'></img>

@@ -165,5 +165,44 @@ describe('<gardenDiary />', () => {
       expect(newState.state.keyword).toEqual('Do');
     })
 
+    it('should set state by button', () => {
+      const mockInitialStore = getMockStore({...stubInitialState, selectedDiary : [{
+        'id' : 1,
+        'author': 1,
+        'content': '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+        'categoryName': 'MOVIE',
+        'categoryTitle': 'Star Wars',
+        'emotionScore' : 0,
+        'people' : [],
+        'rating': 5,
+        'created_date': null,
+        'modified_date': null
+    }] });
+      const component = mount(
+        <Provider store={mockInitialStore}>
+          <ConnectedRouter history={history}>
+          <Switch>
+            <Route path='/' exact component={gardenDiary} />
+          </Switch>
+          </ConnectedRouter>
+        </Provider>
+      );
+
+
+      expect(component.find('#keywordChangeButton').length).toBe(2);
+      const newButton = component.find('#keywordChangeButton');
+      const newState = component.find(gardenDiary.WrappedComponent).instance();
+      const input = component.find('#garden-search-input');
+      input.at(1).simulate('change', {
+        target : {
+          value : 'Do'
+        }
+      })
+      newButton.at(1).simulate('click')
+      expect(newState.state.search).toEqual('Do');
+      expect(newState.state.keyword).toEqual('Do');
+    })
+
+
     
 })
