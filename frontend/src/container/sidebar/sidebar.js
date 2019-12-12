@@ -355,6 +355,7 @@ class sidebar extends Component {
             let tmpCategory = this.state.categories[i];
             gardenCategoryItems.push(
                 <Dropdown.Item
+                key = {gardenCategory + '_' + i}
                 style ={{width : '270px'}} 
                 onClick = { () => {
                     this.onSelectGardenCategory(tmpCategory);
@@ -370,6 +371,7 @@ class sidebar extends Component {
         const calendarMode = [];
         calendarMode.push(
             <Container
+            key = "calendarModeItem"
             style={{
               position: "fixed",
               display: "flex",
@@ -418,6 +420,7 @@ class sidebar extends Component {
         const gardenMode = [];
         gardenMode.push(
             <Container
+            key = "gardenModeItem"
             style={{
               position: "fixed",
               display: "flex",

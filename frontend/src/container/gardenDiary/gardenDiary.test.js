@@ -130,4 +130,37 @@ describe('<gardenDiary />', () => {
         expect(spyGetMyFlower).toHaveBeenCalledTimes(2);
 
     });
+
+    it('should set state properly on input', () => {
+      const mockInitialStore = getMockStore({...stubInitialState, garden_diary : [{
+        id: 1,
+        category_name: "MOVIE",
+        category_title: "title",
+        content: '{"blocks":[{"key":"dl73i","text":"Do. Or do not. There is no try","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+        flower_count: 1,
+        flower_users: [{user : "user1"}],
+        shared_date: "2019-12-25"
+    }] });
+      const component = mount( 
+        <Provider store={mockInitialStore}>
+            <ConnectedRouter history={history}>
+            <Switch>
+              <Route path='/' exact component={gardenDiary} />
+            </Switch>
+            </ConnectedRouter>
+        </Provider>);
+
+
+      expect(component.find('#diary-search-input').length).toBe(2);
+      const newState = component.find(gardenDiary.WrappedComponent).instance();
+      const input = component.find('#diary-search-input');
+      input.at(1).simulate('change', {
+        target : {
+          value : 'Do'
+        }
+      })
+      input.at(1).simulate('keypress', {key: 'Enter'})
+      expect(newState.state.search).toEqual('Do');
+      expect(newState.state.keyword).toEqual('Do');
+    })
 })
