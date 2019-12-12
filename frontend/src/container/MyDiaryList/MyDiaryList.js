@@ -39,13 +39,9 @@ class MyDiaryList extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        if(this.props.mode === 'CALENDAR'  && (this.props.year === nextProps.year && this.props.month === nextProps.month && this.props.day === nextProps.day)){
-            this.setSearch();
-        }
-        else if(this.props.mode === 'PERSON' && (this.props.person_id === nextProps.person_id)){
-            this.setSearch();
-        } 
-        else if (this.props.mode === 'CATEGORY' && (this.props.category_name === nextProps.category_name)){
+        if((this.props.mode === 'CALENDAR'  && (this.props.year === nextProps.year && this.props.month === nextProps.month && this.props.day === nextProps.day))
+        ||(this.props.mode === 'PERSON' && (this.props.person_id === nextProps.person_id))
+        ||(this.props.mode === 'CATEGORY' && (this.props.category_name === nextProps.category_name))){
             this.setSearch();
         }
     }  

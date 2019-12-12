@@ -8,6 +8,7 @@ import gardenDiary from './gardenDiary';
 import { history } from '../../store/store';
 
 import * as actionCreators from '../../store/actions/gardendiary';
+import MyDiaryList from '../MyDiaryList/MyDiaryList';
 
  jest.mock('../../component/Garden/Garden', () => {
     return jest.fn(props => {
@@ -163,4 +164,6 @@ describe('<gardenDiary />', () => {
       expect(newState.state.search).toEqual('Do');
       expect(newState.state.keyword).toEqual('Do');
     })
+
+    
 })

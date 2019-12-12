@@ -39,7 +39,7 @@ class gardenDiary extends Component{
 
     componentWillReceiveProps(nextProps){
       
-        if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode == nextProps.gardenmode)){
+        if(this.props.gardenmode === 'ALL'  && (this.props.gardenmode === nextProps.gardenmode)){
             this.setSearch();
         }
         else if(this.props.gardenmode === 'CATEGORY'  && ((this.props.gardenmode === nextProps.gardenmode) && this.props.garden_category_name !== nextProps.garden_category_name)){
@@ -120,12 +120,12 @@ class gardenDiary extends Component{
         })
     }
 
-    changeKeyword = () => {
+    keywordChange = () => {
         this.setState({keyword : this.state.search})
     }
 
 
-    enterPress = (e) => {
+    pressEnter = (e) => {
         if (e.key === 'Enter') {
            this.changeKeyword();
         }
@@ -204,14 +204,14 @@ class gardenDiary extends Component{
             : 
             
             <Segment align='right'>
-                <Input  placeholder='Search...'  
+                <Input  placeholder='Search..'  
                     id='garden-search-input'
                     value={this.state.search}
                     onChange={e => this.setState({search : e.target.value})}
-                    onKeyPress={this.enterPress}
+                    onKeyPress={this.pressEnter}
                     >
                 <input />
-                <Button type='submit' onClick = {this.changeKeyword} icon='search' /></Input>
+                <Button type='submit' onClick = {this.keywordChange} icon='search' /></Input>
                 <Divider clearing />
                 <div className = 'noResultOfSearch_garden' Align='center' style={{ minHeight: 650, minWidth : 1150, padding: '10em 0em' }} > 
                 <img src = '/Crying-icon.png' align = 'center'></img>

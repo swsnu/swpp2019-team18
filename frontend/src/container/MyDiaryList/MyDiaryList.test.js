@@ -136,6 +136,20 @@ describe('<MyDiaryList />', () => {
       expect(newState.state.search).toEqual('Do');
       expect(newState.state.keyword).toEqual('Do');
     })
+
+
+    /*it('call setSearch', () => {
+      const setSearch = sinon.stub(MyDiaryList.prototype, 'setSearch');
+      let mode = 'CALENDAR';
+      const component = shallow(<MyDiaryList mode={mode}/>)
+
+      setSearch.reset();
+      mode = 'CATEGORY';
+      component.setProps({ mode });
+      expect(setSearch).to.be.calledOnce.and.calledWith(mode)
+    })*/
+
+
     // it("componentDidUpdate should update ", () => {
     //   let mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR' });
     //   let component = mount(
