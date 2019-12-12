@@ -106,24 +106,27 @@ class StatDashBoard extends Component {
                 {/* <StatSideBar mode={this.state.mode} changeMode={this.changeMode} items={items}/> */}
                 <div className="dailyStat">
                     <h1> Monthly Happiness</h1>
+                    <hr className="horizontal"/>
                     <p> You're <span className="bold"> {calenderPercent}%</span> more happier on average than last month</p>
                 </div>
                 {calendarChart}
                 {friendChart}
                 <div className="friendStat">
                     <h1> Friend Happiness</h1>
-
+                    <hr className="horizontal"/>
                     <p> You feel much happier when you meet <span className="bold"> {bestFriend} </span></p>
                 </div>
                 <div className="categoryStat">
                     <h1> Activity Happiness</h1>
+                    <hr className="horizontal"/>
                     <p> If you're sad now, S.DA recommends you to spend more time on  <span className="bold"> {bestCategory} </span> category </p>
                 </div>
                 {categoryChart}
                 {categoryFrequencyChart}
                 <div className="categoryFrequencyStat">
                     <h1> Activity Insights</h1>
-                    <p> You have writtend total <span className="bold"> {totalCount}</span> diaries</p>
+                    <hr className="horizontal"/>
+                    <p> You have written total <span className="bold"> {totalCount}</span> diaries</p>
                     <p> You have spent <span className="bold"> {categoryPercent}%</span> of time on <span className="bold">{maxFrequentCategory}</span> Category </p>
                 </div>
             </div>

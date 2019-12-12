@@ -25,7 +25,7 @@ def people(request):
     if request.method == "GET":
         user = request.user
         my_people = People.objects.filter(user=user)
-        people_objs = [{"id" : person.id, "name" : person.name} for person in my_people]
+        people_objs = [{"id" : person.id, "name" : person.name, "information" : person.information} for person in my_people]
         return JsonResponse(people_objs, status=200, safe=False)
 
     if request.method == "POST":

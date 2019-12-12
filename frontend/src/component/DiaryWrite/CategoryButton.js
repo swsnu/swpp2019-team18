@@ -39,7 +39,7 @@ const CategoryButton = (props) => {
               props.category === 'FOOD' ? <img src = '/icon/food.jpg'></img> : 
               props.category ==='TRAVEL' ? <img src = '/icon/travel.jpg'></img> : 
               props.category === 'HOBBY' ? <img src = '/icon/hobby.jpg'></img> :
-              props.category === 'SPORTS' ? <img src = '/icon/sport.png'></img> :
+              props.category === 'SPORT' ? <img src = '/icon/sport.png'></img> :
               props.category === 'SHOPPING' ?  <img src = '/icon/shopping.jpg'></img> :
               props.category === 'FRIEND' ?  <img src = '/icon/friend.jpg'></img> :
               props.category === 'COMPANY' ?  <img src = '/icon/company.jpg'></img> :
