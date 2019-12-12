@@ -46,9 +46,9 @@ class Content extends Component {
 
     
     return (
-      <div className = 'RichEditor-root' id = 'diary-content'>
+      <div className = 'RichEditor-content-root' id = 'diary-content'>
         
-        <div className = 'RichEditor-editor' id = 'diary-content'>
+        <div className = 'RichEditor-content-editor' id = 'diary-content'>
         { isEditorState ?
          <Editor id = 'editor' editorState={editorState} 
                   blockStyleFn={getBlockStyle}
