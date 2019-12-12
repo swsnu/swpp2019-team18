@@ -3,7 +3,10 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from PIL import Image as img
 import tempfile
+import os
 from .models import MyDiary, People, Category, GardenDiary, User, Image
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from unittest.mock import MagicMock, patch
 
 class UserTestCase(TestCase):   
     def setUp(self):
@@ -231,15 +234,33 @@ class ImageTest(TestCase):
         response = client.post('/api/signin/', 
             json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
 
-    def test_upload_file(self):
-        client = Client()
-        image = img.new('RGB', (100, 100))
 
-        tmp_file = tempfile.NamedTemporaryFile(suffix='.jpg')
+    @patch('azure.storage.blob.BlobServiceClient')
+    @patch('azure.storage.blob.BlobClient')
+    def test_upload_file(self, MockBlobClient,MockBlobkServiceClient):
+
+        
+        client = Client()
+        response = client.post('/api/signin/', 
+            json.dumps({"username": "swpp", "password": "iluvswpp"}), content_type='application/json')
+        image = img.new('RGB', (100, 100))
+        
+
+
+        tmp_file = tempfile.NamedTemporaryFile(prefix='tmp', suffix='.jpg')
         image.save(tmp_file)
         tmp_file.seek(0)
 
-        response = client.post('/api/diary/image/', {'image': tmp_file}, format='multipart')
+        os.getenv = MagicMock(return_value=0)
+        BlobServiceClient.from_connection_string = MagicMock(return_value = BlobServiceClient('mock_url'))
+        BlobServiceClient.get_blob_client = MagicMock(return_value = BlobClient('mock_url','mock_container', 'mock_blob'))
+        BlobClient.upload_blob = MagicMock(return_value = 0)
+        
+        
+
+        response = client.post('/api/diary/image/', {'file': tmp_file}, format='multipart/form-data')
+        self.assertEqual(response.status_code, 200)
+
 class GardenTest(TestCase) :
     def setUp(self):
         user1 = User.objects.create_user(username='swpp', password='iluvswpp', email = 'email@email.com', nickname = 'testnickname')  # Django default user model
