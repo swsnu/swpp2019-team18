@@ -3,7 +3,7 @@ import NewDiary from '../diaryWrite/newDiary'
 
 class EditDiary extends Component {
     render() {
-        return <NewDiary EditMode = {true}/>
+        return <NewDiary EditMode = {true} />
     }
 }
 

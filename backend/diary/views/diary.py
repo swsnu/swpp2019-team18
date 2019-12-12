@@ -70,12 +70,11 @@ def diary_detail(request, diary_id):
         people = People.objects.filter(id__in=people_id)
         diary.category.name = category_name
         diary.category.category_title = category_title
-        diary.emtion_score = emotion_score
-        diary.rating = rating
+        diary.emotion_score = emotion_score
         diary.content = content
+        diary.category.rating = rating
         diary.people.set(people)
         diary.save()
-
         diary_dict = diary_serializer(diary)
         diary.category.save()
         return JsonResponse(diary_dict, status=200)

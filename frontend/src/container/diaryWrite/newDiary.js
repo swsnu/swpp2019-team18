@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Button, Form, Container, Segment, Dropdown, Label} from 'semantic-ui-react';
+import { Grid, Button, Form, Container, Segment, Dropdown, Label, Rating } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { addDiary,getDiary, editDiary } from '../../store/actions/diary';
 import { getPeople } from '../../store/actions/people';
@@ -11,6 +11,7 @@ import { withRouter } from 'react-router';
 import MyEditor from '../../component/DiaryWrite/DraftJs/DraftWithIMG'
 import ContentFromRaw from '../../module/ContentFromRaw'
 
+import './newDiary.css'
 
 class NewDiary extends Component {
     state = {
@@ -27,7 +28,8 @@ class NewDiary extends Component {
         date : {},
         writeMode : false,
         titleConfirm : false,
-        selectedFile : null
+        selectedFile : null,
+        selectedCategoryTpye : null,
     }
 
     submitHandler = () => {
@@ -49,11 +51,23 @@ class NewDiary extends Component {
         }
     }
 
+    selectCategoryType = (name) => {
+        if (name === 'MOVIE' || name ==='GAME'|| name ==='RESTAURANT'|| name ==='BOOK'|| name ==='DRAMA'|| name ==='PERFORMANCE'){
+            return 1
+         }
+         else if(name === 'EXERCISE'|| name ==='FOOD'|| name ==='TRAVEL'|| name ==='HOBBY'|| name ==='STUDY'|| name ==='SPORT'|| name ==='SHOPPING'){
+            return 2;
+        } 
+        else{
+            return 3;
+        }
+    }
+
     componentDidMount(){
         this.props.getPeople();
         if(this.props.EditMode){
             this.props.getDiary(this.props.match.params.id);
-            this.setState({writeMode : true, titleConfirm : true})
+            this.setState({writeMode : true, titleConfirm : true});
         }
     }
 
@@ -69,6 +83,7 @@ class NewDiary extends Component {
                 people : this.props.diary.people,
                 rating : this.props.diary.rating,
                 emotionScore : this.props.diary.emotionScore,
+                selectedCategoryType : this.selectCategoryType(this.props.diary.categoryName)
             })
         }
     }
@@ -96,7 +111,7 @@ class NewDiary extends Component {
     }
 
     handleTitle = (title, rating) => {
-        this.setState({titleConfirm : true, categoryTitle : title, ratinf : rating})
+        this.setState({titleConfirm : true, categoryTitle : title, rating : rating})
     }
 
     handleMode = () => {
@@ -117,10 +132,10 @@ class NewDiary extends Component {
         this.setState({messageSuccess : true});
     }
     render() {
-
-        let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id}});
+        // , content : (<Header content={obj.name} subheader={obj.information} />)
+        console.log(this.state.selectedCategoryTpye)
+        let options = this.state.allPeople.map((obj) => {return {key:obj.id, text:obj.name, value:obj.id, description : obj.information  }});
         let optionComponent = <Dropdown 
-            
             onChange={this.handleChange}
             placeholder='People' fluid multiple search selection options={options} />;
 
@@ -139,25 +154,39 @@ class NewDiary extends Component {
                         {this.state.writeMode ? 
                         //if writeMode is True, show input components
                         <Container>
-                            <Container align = 'left'>
+                            { !this.props.EditMode ? 
+                                <Container align = 'left'>
                                     <Button id = 'change-category-button' onClick = {() => this.handleMode()}>Change Category</Button>
-                                </Container>
+                                </Container> : null
+                            }
                                 <Segment>
+                            {console.log(this.state.titleConfirm)}
                             { this.state.titleConfirm ? 
                             //If user confirmed title, show label 
                             <Container>
-                                <Container>
+                            <Container>
+                            <Grid>
+                                <Grid.Column width = {13}>
                                     <Label as='a' color='blue' id = 'category-label' onClick = {() => this.setState({titleConfirm : false})} image>
                                         {this.state.categoryName}
                                         <Label.Detail >{this.state.categoryTitle}</Label.Detail>
                                     </Label>
-                                   
-                                </Container>
+                                </Grid.Column>
+                                {this.state.rating ? 
+                                <Grid.Column width = {3} floated = 'right'>
+                                    <span>Rating   </span>
+                                    {console.log('here!')}
+                                    <Rating id = 'Rating' icon='star' defaultRating={this.state.rating} maxRating={5} disabled /> 
+                                </Grid.Column> : null}
+                                </Grid>           
+                            </Container>
                             </Container>
                             //if user did not confirm the title, show category title input form 
                              :  <GetCategoryTitle 
                              selectedCategoryType = {this.state.selectedCategoryType}
                              categoryName = {this.state.categoryName}
+                             categoryTitle = {this.state.categoryTitle}
+                             rating = {this.state.rating}
                              handleTitle = {(name, rating) => this.handleTitle(name,rating)}/>
                              }
                              </Segment>
@@ -168,9 +197,10 @@ class NewDiary extends Component {
 
                         {/* writing components using Draft.js */}
                         <Segment>
+                
                             <MyEditor handleContent = {(content) => this.handleContent(content)} EditMode = {this.props.EditMode} content = {this.state.content}/> 
+               
                         </Segment>
-                        
 
                         <Button color='teal' id='diary-submit-button' onClick={() => this.submitHandler()}>Confirm</Button>
 
