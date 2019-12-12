@@ -3,7 +3,7 @@ import { EditorState, convertFromRaw } from "draft-js";
 import createImagePlugin from 'draft-js-image-plugin';
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import Editor , {composeDecorators}from 'draft-js-plugins-editor';
-import './RichEditor.css'
+import './Content.css'
 
 const resizeablePlugin = createResizeablePlugin();
 const decorator = composeDecorators(
@@ -23,6 +23,12 @@ const styleMap = {
     },
   };
 
+function getBlockStyle(block) {
+    switch (block.getType()) {
+      case 'blockquote': return 'RichEditor-blockquote';
+      default: return null;
+    }
+  }
 
 class Content extends Component {
   render() {
@@ -41,13 +47,17 @@ class Content extends Component {
     
     return (
       <div className = 'RichEditor-root' id = 'diary-content'>
+        
+        <div className = 'RichEditor-editor' id = 'diary-content'>
         { isEditorState ?
          <Editor id = 'editor' editorState={editorState} 
+                  blockStyleFn={getBlockStyle}
                   plugins={plugins}
                   readOnly={true} 
                   onChange = {() => {}}
                   customStyleMap={styleMap}
                   /> : this.props.content}
+          </div>
       </div>
     );
   }

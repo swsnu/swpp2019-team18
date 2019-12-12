@@ -94,11 +94,11 @@ class RichEditorExample extends React.Component {
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
     var contentState = editorState.getCurrentContent();
-    if (!contentState.hasText()) {
+    /*if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' RichEditor-hidePlaceholder';
       }
-    }
+    }*/
     return (
       <div className="RichEditor-root">
         <BlockStyleControls
@@ -174,6 +174,8 @@ const BLOCK_TYPES = [
   {label: 'H4', style: 'header-four'},
   {label: 'H5', style: 'header-five'},
   {label: 'H6', style: 'header-six'},
+  {label: 'UL', style: 'unordered-list-item'},
+  {label: 'OL', style: 'ordered-list-item'},
   {label: 'Blockquote', style: 'blockquote'},
   {label: 'Code Block', style: 'code-block'},
 ];
