@@ -70,7 +70,7 @@ def diary_detail(request, diary_id):
         people = People.objects.filter(id__in=people_id)
         diary.category.name = category_name
         diary.category.category_title = category_title
-        diary.emtion_score = emotion_score
+        diary.emotion_score = emotion_score
         diary.content = content
         diary.category.rating = rating
         diary.people.set(people)

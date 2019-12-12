@@ -22,6 +22,7 @@ def signup(request):
 
 def signin(request):
     if request.method == 'POST':
+        print(request.body)
         req_data = json.loads(request.body.decode())
         username = req_data['username']
         password = req_data['password']
