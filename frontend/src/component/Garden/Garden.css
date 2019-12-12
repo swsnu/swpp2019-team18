@@ -34,7 +34,7 @@ body {
 
 a {
   color: inherit;
-        
+  margin-left : 10px;
   /* position: relative;
     background-image: url(./img/img1.jpg);                                                               
     height: 100vh;
