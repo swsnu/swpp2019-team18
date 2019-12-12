@@ -172,10 +172,11 @@ class NewDiary extends Component {
                                         <Label.Detail >{this.state.categoryTitle}</Label.Detail>
                                     </Label>
                                 </Grid.Column>
-                                {this.state.rating ?
+                                {this.state.rating ? 
                                 <Grid.Column width = {3} floated = 'right'>
                                     <span>Rating   </span>
-                                    <Rating icon='star' defaultRating={this.state.rating} maxRating={5} disabled /> 
+                                    {console.log('here!')}
+                                    <Rating id = 'Rating' icon='star' defaultRating={this.state.rating} maxRating={5} disabled /> 
                                 </Grid.Column> : null}
                                 </Grid>           
                             </Container>
