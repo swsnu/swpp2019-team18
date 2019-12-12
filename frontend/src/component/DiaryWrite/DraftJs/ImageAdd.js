@@ -63,6 +63,7 @@ export default class ImageAdd extends Component {
   addImage = () => {
     const { editorState, onChange } = this.props;
     onChange(this.props.modifier(editorState, this.state.url));
+    this.setState({url  : ''})
   };
 
   changeUrl = (evt) => {

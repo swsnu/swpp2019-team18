@@ -1,13 +1,21 @@
 import React from 'react'
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import Editor, {composeDecorators} from 'draft-js-plugins-editor';
 import createImagePlugin from 'draft-js-image-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import ImageAdd from './ImageAdd'
 import './RichEditor.css'
 
-const imagePlugin = createImagePlugin();
-const plugins = [imagePlugin];
+const resizeablePlugin = createResizeablePlugin();
 
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+);
+const imagePlugin = createImagePlugin({ decorator });
+const plugins = [
+  imagePlugin,
+  resizeablePlugin,
+];
 class RichEditorExample extends React.Component {
   constructor(props) {
     super(props);
@@ -131,7 +139,7 @@ class RichEditorExample extends React.Component {
 const styleMap = {
   CODE: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontFamily: '"malgun","Inconsolata", "Menlo", "Consolas",monospace',
     fontSize: 16,
     padding: 2,
   },
