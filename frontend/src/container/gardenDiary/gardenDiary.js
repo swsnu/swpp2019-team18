@@ -183,10 +183,10 @@ class gardenDiary extends Component{
                     id='garden-search-input'
                     value={this.state.search}
                     onChange={e => this.setState({search : e.target.value})}
-                    onKeyPress={this.enterPress}
+                    onKeyPress={this.pressEnter}
                     >
                 <input />
-                <Button type='submit' onClick = {this.changeKeyword} icon='search'/></Input></Grid.Column>
+                <Button type='submit' onClick = {this.keywordChange} icon='search'/></Input></Grid.Column>
                 </Grid>
                 <Divider clearing />
                 <div>
