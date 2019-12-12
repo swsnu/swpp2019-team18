@@ -12,36 +12,38 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
- .RichEditor-root {
+
+ .RichEditor-content-root {
     background: #fff;
-    border: 1px solid #ddd;
-    font-family: 'Nanum Myeongjo','Georgia', serif;
+    border: 0px solid #ddd;
+    font-family: 'Nanum Myeongjo', serif;
     font-size: 14px;
-    padding: 15px;
+    padding: 0px;
+    margin : 0px;
   }
   
-  .RichEditor-editor {
-    border-top: 1px solid #ddd;
+  .RichEditor-content-editor {
+    border-top: 0px solid #ddd; 
     cursor: text;
     font-size: 16px;
     margin-top: 10px;
   }
   
-  .RichEditor-editor .public-DraftEditorPlaceholder-root,
-  .RichEditor-editor .public-DraftEditor-content {
-    margin: 0 -15px -15px;
+  .RichEditor-content-editor .public-DraftEditorPlaceholder-root,
+  .RichEditor-content-editor .public-DraftEditor-content {
+    margin: -15px -15px -15px;
     padding: 15px;
   }
   
-  .RichEditor-editor .public-DraftEditor-content {
-    min-height: 275px;
+  .RichEditor-content-editor .public-DraftEditor-content {
+    min-height: 100px;
   }
   
   .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
     display: none;
   }
   
-  .RichEditor-editor .RichEditor-blockquote {
+  .RichEditor-content-editor .RichEditor-blockquote {
     border-left: 5px solid #eee;
     color: #666;
     font-family: 'Hoefler Text', 'Georgia', serif;
@@ -50,34 +52,15 @@
     padding: 10px 20px;
   }
   
-  .RichEditor-editor .public-DraftStyleDefault-pre {
+  .RichEditor-content-editor .public-DraftStyleDefault-pre {
     background-color: rgba(0, 0, 0, 0.05);
     font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
     font-size: 16px;
     padding: 20px;
   }
 
-  .RichEditor-controls {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 14px;
-    margin-bottom: 5px;
-    user-select: none;
+  .public-DraftStyleDefault-ul,
+  .public-DraftStyleDefault-ol {
+    margin: 0 40px;
+    padding: 0;
   }
-  
-  .RichEditor-styleButton {
-    color: #999;
-    cursor: pointer;
-    margin-right: 16px;
-    padding: 2px 0;
-    display: inline-block;
-  }
-  
-  .RichEditor-activeButton {
-    color: #5890ff;
-  }
-
-.public-DraftStyleDefault-ul,
-.public-DraftStyleDefault-ol {
-  margin: 0 40px;
-  padding: 0;
-}

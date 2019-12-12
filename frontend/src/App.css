@@ -1,7 +1,9 @@
+
+ @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css); .nanummyeongjo * { font-family: 'Nanum Myeongjo', serif; }
+
 .App {
   text-align: center;
 }
-
 
 .main {
   float: center;

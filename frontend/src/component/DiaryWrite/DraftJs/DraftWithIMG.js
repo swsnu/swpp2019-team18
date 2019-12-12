@@ -1,15 +1,22 @@
 'use strict'
 import React from 'react'
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw} from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import Editor, {composeDecorators} from 'draft-js-plugins-editor';
 import createImagePlugin from 'draft-js-image-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import ImageAdd from './ImageAdd'
 import './RichEditor.css'
 
+const resizeablePlugin = createResizeablePlugin();
 
-const imagePlugin = createImagePlugin();
-const plugins = [imagePlugin];
-
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+);
+const imagePlugin = createImagePlugin({ decorator });
+const plugins = [
+  imagePlugin,
+  resizeablePlugin,
+];
 class RichEditorExample extends React.Component {
   constructor(props) {
     super(props);
@@ -87,11 +94,11 @@ class RichEditorExample extends React.Component {
     // either style the placeholder or hide it. Let's just hide it now.
     let className = 'RichEditor-editor';
     var contentState = editorState.getCurrentContent();
-    if (!contentState.hasText()) {
+    /*if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' RichEditor-hidePlaceholder';
       }
-    }
+    }*/
     return (
       <div className="RichEditor-root">
         <BlockStyleControls
@@ -129,7 +136,7 @@ class RichEditorExample extends React.Component {
 const styleMap = {
   CODE: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontFamily: '"malgun","Inconsolata", "Menlo", "Consolas",monospace',
     fontSize: 16,
     padding: 2,
   },
@@ -167,6 +174,8 @@ const BLOCK_TYPES = [
   {label: 'H4', style: 'header-four'},
   {label: 'H5', style: 'header-five'},
   {label: 'H6', style: 'header-six'},
+  {label: 'UL', style: 'unordered-list-item'},
+  {label: 'OL', style: 'ordered-list-item'},
   {label: 'Blockquote', style: 'blockquote'},
   {label: 'Code Block', style: 'code-block'},
 ];
