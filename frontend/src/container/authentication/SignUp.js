@@ -59,27 +59,27 @@ class SignUp extends Component {
                     <Form size='large'>
                         <Segment stacked>
                             {this.state.signUpFail ? signupFailMessage : null}
-                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' 
+                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Username' maxLength={100}
                                 value={this.state.username} id = "signup-username-input"
                                 onChange={(event) => this.setState({ username : event.target.value })}/>
-                            <Form.Input 
+                            <Form.Input maxLength={100}
                                 fluid icon='lock'
                                 iconPosition='left'
                                 placeholder='Password'
                                 type='password'
                                 value={this.state.password} id = "signup-password-input" 
                                 onChange={(event) => this.setState({ password : event.target.value })}/>
-                            <Form.Input 
+                            <Form.Input maxLength={100}
                                 fluid icon='lock'
                                 iconPosition='left'
                                 placeholder='Password Check'
                                 type='password'
                                 value={this.state.password_check} id = "signup-password-check-input" 
                                 onChange={(event) => this.setState({ password_check : event.target.value })}/>
-                            <Form.Input  placeholder='email' 
+                            <Form.Input  placeholder='email' maxLength={100}
                                 value={this.state.email} id = "signup-email-input" type = 'text'
                                 onChange={(event) => this.setState({ email : event.target.value })}/>
-                            <Form.Input  placeholder='Nickname' 
+                            <Form.Input  placeholder='Nickname' maxLength={100}
                                 value={this.state.nickname} id = "signup-nickname-input" type = 'text'
                                 onChange={(event) => this.setState({ nickname : event.target.value })}/>
                             <Button color='blue' fluid size='large' id = "signup" onClick = {() => this.onClickSignUpButton()}>

@@ -20,6 +20,7 @@ def get_all_garden_diary(request, mode = None) :
                                                 'category_title': garden.category.category_title,
                                                 'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
                                                 'flower_count': garden.flower_count, 
+                                                'rating' : garden.category.rating,
                                                 'shared_date' : garden.shared_date } , garden_all_list ))  
         if mode == 'Latest' : 
             response_dict.sort(key = lambda x:x['shared_date'], reverse = True) 
@@ -45,6 +46,7 @@ def give_flower(request, id = None) :
                         'category_title': garden_diary.category.category_title,
                         'flower_users' : [user for user in garden_diary.flower_users.all().values_list('username', flat = True)],
                         'flower_count': garden_diary.flower_count, 
+                        'rating' : garden_diary.category.rating,
                         'shared_date' : garden_diary.shared_date }
         return JsonResponse(response_dict, status=201)
     else :
@@ -58,6 +60,7 @@ def get_garden_diary_by_category(request, name = None, mode = None) :
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
                                                 'category_title': garden.category.category_title,
+                                                'rating' : garden.category.rating,
                                                 'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , selected_diary ))  
@@ -78,6 +81,7 @@ def get_my_garden_diary(request, mode = None) :
                                                 'author' : garden.author.username,
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
+                                                'rating' : garden.category.rating,
                                                 'category_title': garden.category.category_title,
                                                 'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
                                                 'flower_count': garden.flower_count, 
@@ -108,6 +112,7 @@ def get_my_flower(request, mode = None) :
                                                 'content' : garden.content, 
                                                 'category_name' : garden.category.name, 
                                                 'category_title': garden.category.category_title,
+                                                'rating' : garden.category.rating,
                                                 'flower_users' : [user for user in garden.flower_users.all().values_list('username', flat = True)],
                                                 'flower_count': garden.flower_count, 
                                                 'shared_date' : garden.shared_date } , selected_diary ))  

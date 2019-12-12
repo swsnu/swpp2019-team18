@@ -69,7 +69,7 @@ describe('Login', ()=> {
       .mockImplementation(path => {});
         const component = mount(login)
         const button = component.find('#sign-up')
-        button.simulate('click')
+        button.at(0).simulate('click')
         expect(spyHistoryPush).toBeCalledTimes(1)
     })
 })

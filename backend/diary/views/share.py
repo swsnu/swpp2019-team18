@@ -24,7 +24,8 @@ def share_diary (request, id) :
                         'origin_diary' : garden_diary.origin_diary.id,
                         'author' : garden_diary.author.id, 
                         'content' : garden_diary.content,
-                        'category' : garden_diary.category.id
+                        'category' : garden_diary.category.id,
+                        'rating' : garden_diary.category.rating,
                         }
         return JsonResponse(response_dict, status=201)
     else:
