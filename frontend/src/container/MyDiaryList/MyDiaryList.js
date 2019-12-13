@@ -106,6 +106,7 @@ class MyDiaryList extends Component{
     render(){
         
         const filtered_diary = this.props.selectedDiary.filter((diary) => {
+
         const editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(diary.content)));
         const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
         const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
@@ -135,6 +136,7 @@ class MyDiaryList extends Component{
                             rating = {diary.rating}
                             content = {diary.content}
                             emotion_score = {diary.emotion_score}
+                            created_date = {diary.created_date}
                     />
                 );
             })          
