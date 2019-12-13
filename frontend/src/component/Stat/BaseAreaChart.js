@@ -6,12 +6,12 @@ function renderLegendText(value, entry) {
   let color = "";
   let changeValue = value;
   if(value === "cur_score"){
-    changeValue = "this month";
+    changeValue = "current month";
     color = "#E968B1";
   }
   else{
     color = "#6879E9";
-    changeValue = "prev month"
+    changeValue = "last month"
   }
   return <span style={{ color }}>{changeValue}</span>;
 }

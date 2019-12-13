@@ -71,7 +71,7 @@ class StatDashBoard extends Component {
             <BasePieChart 
                 data={this.state.categoryFreqData.graph_data} 
                 width={"99%"}
-                minHeight={250}
+                minHeight={300}
                 cx="50%"
                 cy="50%"
                 /></div>
