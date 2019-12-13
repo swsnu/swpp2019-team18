@@ -3,7 +3,12 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip
 } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = [
+  "#fabebe", '#ffd8b1', "#fffac8", "#aaffc3", "#e6beff", "#800000", 
+  "#ffe119", "#bfef45", "#3cb44b", "#42d4f4", "#4363d8", "#911eb4",
+  "#f032e6", "#a9a9a9","#9A6324", "#808000", "#469990", "#000075",
+  "#000000", "#e6194B", "#f58231",
+];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
