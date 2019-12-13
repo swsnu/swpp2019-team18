@@ -38,7 +38,7 @@ describe('<Diary/>', ()=>{
             <Provider store={mockStore}>
               <ConnectedRouter history={history}>
               <Switch>
-              <Route path='/' render={(props) => <Diary {...props}  reated_date={'2019-12-25'} /> } />
+              <Route path='/' render={(props) => <Diary {...props}  created_date={'2019-12-25'} /> } />
               </Switch>
               </ConnectedRouter>
             </Provider>
