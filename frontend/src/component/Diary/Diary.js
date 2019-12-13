@@ -157,6 +157,12 @@ class Diary extends Component {
         else if(this.state.popupMode === 'SHARE'){
             popup = shareEditPopup
         }
+
+        const date = this.props.created_date.split('-');
+        const year = date[0];
+        const month = date[1];
+        const day = date[2].split('T')[0];
+
     return (
         <div className = 'diaryDetail' >
             <Dimmer.Dimmable as ={Segment} dimmed = {active}>
@@ -185,7 +191,7 @@ class Diary extends Component {
              </Container>
              <Divider />
              <Container>
-                {/* showing content */}
+                {year} / {month} / {day}
                 {this.props.content ?  <Content content = {this.props.content}/> : null}
              
              </Container>

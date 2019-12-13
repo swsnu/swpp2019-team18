@@ -24,8 +24,7 @@ const stubInitialState = {
                     'emotionScore' : 0,
                     'people' : [],
                     'rating': 5,
-                    'created_date': null,
-                    'modified_date': null
+                    'created_date' : '2019-12-1',                                              
                 }],
     mode : 'PERSON'           //'PERSON' or 'CATEGORY'
 }
@@ -39,7 +38,7 @@ describe('<Diary/>', ()=>{
             <Provider store={mockStore}>
               <ConnectedRouter history={history}>
               <Switch>
-                <Route path='/' exact component={Diary} />
+              <Route path='/' render={(props) => <Diary {...props}  created_date={'2019-12-25'} /> } />
               </Switch>
               </ConnectedRouter>
             </Provider>
@@ -113,6 +112,8 @@ describe('<Diary/>', ()=>{
                                                                         emotionScore = {0}
                                                                         person_tag = {[{name : 'friend1'}, {name : 'friend2'}]}
                                                                         rating =  {'5'}
+                                                                        created_date={'2019-12-25'}
+
                                                                     /> } />
                 </Switch>
                 </ConnectedRouter>
@@ -140,6 +141,7 @@ describe('<Diary/>', ()=>{
                                                                         emotionScore = {0}
                                                                         person_tag = {[{name : 'friend1'}, {name : 'friend2'}]}
                                                                         rating =  {'5'}
+                                                                        created_date={'2019-12-25'}
                                                                     /> } />
                 </Switch>
                 </ConnectedRouter>
