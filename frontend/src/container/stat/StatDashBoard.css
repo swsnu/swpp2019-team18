@@ -83,11 +83,11 @@
 
 .categoryFrequencyChart{
     display:  inline-block;
-    margin-top : 40px;
+    margin-top :40px;
     margin-left : 30px;
     margin-bottom : 30px;
     width : 30%;
-    padding : 10px 10px 5px 0px;
+    padding : 20px 10px 5px 0px;
     border : 2px solid #CACACA;
 }
 
