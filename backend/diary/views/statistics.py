@@ -26,7 +26,8 @@ def get_statistics(request):
 
 
 def analyze_by_calendar(user, days=15):
-    current_date = datetime.datetime.today()
+    cur = datetime.datetime.today()
+    current_date = datetime.datetime(cur.year, cur.month, cur.day)
     month_delta = datetime.timedelta(days - 1)
     start_date = current_date - month_delta
     diaries = MyDiary.objects.filter(
