@@ -162,6 +162,7 @@ def by_category_frequency(request):
         user = request.user
         categories = Category.objects.filter(mydiary__author=user)
         counter = {}
+        data = []
         for category in categories:
             name = category.name 
             if name in counter.keys():
