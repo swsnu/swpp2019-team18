@@ -48,7 +48,7 @@ const stubInitialState = {
 const mockStore = getMockStore(stubInitialState);
 
 describe('<MyDiaryList />', () => {
-    let mydiary, spyGetByDate, spyGetByPerson, spyGetByCategory;
+    let mydiary, spyGetByDate, spyGetByPerson, spyGetByCategory, spySetSearch;
     beforeEach(()=> {
      
         mydiary = (
@@ -183,46 +183,7 @@ describe('<MyDiaryList />', () => {
       expect(newState.state.keyword).toEqual('Do');
     })
 
-
-    /*it('call setSearch', () => {
-      const setSearch = sinon.stub(MyDiaryList.prototype, 'setSearch');
-      let mode = 'CALENDAR';
-      const component = shallow(<MyDiaryList mode={mode}/>)
-
-      setSearch.reset();
-      mode = 'CATEGORY';
-      component.setProps({ mode });
-      expect(setSearch).to.be.calledOnce.and.calledWith(mode)
-    })*/
-
-
-    // it("componentDidUpdate should update ", () => {
-    //   let mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR' });
-    //   let component = mount(
-    //     <Provider store={mockInitialStore}>
-    //         <ConnectedRouter history={history}>
-    //         <Switch>
-    //           <Route path='/' exact component={MyDiaryList} />
-    //         </Switch>
-    //         </ConnectedRouter>
-    //       </Provider>
-    //   );
-    //   component.setProps({day : 2});
-    //   component.setProps({day : 3});
-
-    //   // mockInitialStore = getMockStore({...stubInitialState, mode : 'CALENDAR', day : 2 });
-    //   // component = mount(
-    //   //   <Provider store={mockInitialStore}>
-    //   //       <ConnectedRouter history={history}>
-    //   //       <Switch>
-    //   //         <Route path='/' exact component={MyDiaryList} />
-    //   //       </Switch>
-    //   //       </ConnectedRouter>
-    //   //     </Provider>
-    //   // );
-    //   expect(spyGetByDate).toHaveBeenCalledTimes(2);
-
-
+    
     it('componentdidupdate' , () => {
       mount(mydiary);
       mockStore.dispatch({type : actionTypes.SET_PERSONID});
