@@ -203,6 +203,5 @@ describe('<gardenDiary />', () => {
       expect(newState.state.keyword).toEqual('Do');
     })
 
-
     
 })

@@ -207,6 +207,7 @@ class sidebar extends Component {
         let startDay = Object.assign({}, selectedDay);
         startDay = moment(selectedDay).startOf('isoWeek')
         this.onSelectDayChange(d)
+       
         this.setState({
             dateContext : selectedDay,
             startDayOfWeek : startDay
@@ -243,11 +244,13 @@ class sidebar extends Component {
             dropdownMode = 'select'
             todayButton = "TODAY"
             customInput={<ExampleCustomInput />}/>
-            <Button onClick = {() => { const today = moment(); this.onSelectDayChange(today.format("D")); this.moveToDiaryPage()}}>Today</Button>
+            <Button onClick = {() => { const today = moment(); this.handleChange(today); this.moveToDiaryPage()}}>Today</Button>
             </div>
         
         )
         var day = this.state.startDayOfWeek
+
+        
         for(let d = 1; d <= 7; d++){
             let className = (this.currentDay() == day.format('D') ? "current_day" : "day");
             let D = day.format('D')
