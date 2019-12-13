@@ -36,7 +36,7 @@ function BaseBarChart(props){
         <ComposedChart className={props.className}
           layout="vertical"   
           id="barChart" data={data} 
-          margin={{top: 0, right: 0, left: 0, bottom: 0}}>
+          margin={{top: 0, right: 0, left: 50, bottom: 0}}>
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis hide={true} domain={[0, 100]} type="number"/>
         <YAxis dataKey={props.dataKey} type="category" />
