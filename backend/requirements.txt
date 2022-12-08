@@ -1,7 +1,7 @@
 astroid==2.2.5
 azure-cognitiveservices-language-textanalytics==0.2.0
 azure-common==1.1.23
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 coverage==4.5.4
 Django==2.2.8
